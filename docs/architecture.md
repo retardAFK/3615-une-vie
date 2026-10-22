@@ -45,8 +45,9 @@ contenu/evenements/*.json  ─────────────────�
 │   │   ├── constantes.ts        paramètres de jeu (âge maximal, valeurs initiales...)
 │   │   ├── types.ts             Personnage, Evenement, Choix...
 │   │   ├── naissance.ts         tirage de l'origine
-│   │   ├── boucle.ts            jouerAnnee()
+│   │   ├── boucle.ts            ouvrirAnnee(), fermerAnnee(), jouerAnneeAuto()
 │   │   ├── evenements.ts        sélection et application des événements
+│   │   ├── validation.ts        validation des fichiers de contenu/evenements/
 │   │   ├── modules/             education, emploi, argent, jeux, addictions,
 │   │   │                        sante, famille, contexte
 │   │   └── recit.ts             remplissage des modèles de texte
@@ -75,13 +76,17 @@ contenu/evenements/*.json  ─────────────────�
 Le moteur expose peu de fonctions, toutes pures :
 
 ```ts
-creerPartie(graine: string, tables: Tables): EtatPartie
-jouerAnnee(etat: EtatPartie, choix: ChoixJoueur | null, tables: Tables): ResultatAnnee
-choisirAuto(etat: EtatPartie, evenement: EvenementTire): ChoixJoueur
+creerPartie(graine: string, donnees: Donnees): EtatPartie
+ouvrirAnnee(etat: EtatPartie, donnees: Donnees): ResultatOuverture
+fermerAnnee(etat: EtatPartie, choix: ChoixJoueur[], donnees: Donnees): ResultatFermeture
+jouerAnneeAuto(etat: EtatPartie, donnees: Donnees): ResultatFermeture
+choisirAuto(etat: EtatPartie, evenement: EvenementTire, donnees: Donnees): ChoixJoueur
 bilan(etat: EtatPartie): Bilan
 ```
 
-`ResultatAnnee` contient le nouvel état, les événements tirés (avec la probabilité finale qui a servi au tirage), les choix proposés et les lignes de journal.
+- `donnees` regroupe tout ce que le moteur reçoit en plus de l'état : `{ tables, evenements, libelles }`.
+- Une année se joue en deux temps. `ouvrirAnnee` passe le test de mortalité puis tire les événements de l'année ; elle renvoie l'état avec `anneeEnCours`, les événements tirés (avec la probabilité finale qui a servi au tirage) et les choix proposés. `fermerAnnee` applique les choix, les effets, écrit le journal et fait vieillir le personnage.
+- `jouerAnneeAuto` enchaîne les deux avec `choisirAuto` : mode AUTO, worker et tests de performance.
 
 Esquisse des types principaux (le détail suit `docs/regles-du-jeu.md`, section 2) :
 
@@ -104,18 +109,23 @@ interface EtatPartie {
   historique: EntreeJournal[]
   cooldowns: Record<string, number>
   modificateursActifs: ModificateurTemporaire[]
+  anneeEnCours: AnneeEnCours | null   // événements tirés, en attente des choix
+  reportes: string[]                  // événements écartés, à passer l'an prochain
 }
 
 interface Evenement {
   id: string
   module: string
   age: [number, number]
-  requiert?: Conditions
+  requiert?: Conditions      // sur l'origine
   pBase: number | { source: string; par: string[] }
-  modificateurs: Modificateur[]
-  effets: Effets
+  modificateurs: Modificateur[]   // { trait, k }, { jauge, k } ou { si, m }
+  effets: Effets            // jauges, états, deces (probabilité)
   choix?: ChoixPossible[]
   cooldown?: number
+  unique?: boolean          // au plus une fois dans une vie (incompatible avec cooldown)
+  gravite: 1 | 2 | 3        // au-delà de 3 événements dans l'année, les plus graves passent
+  tags: string[]            // cibles des modificateurs posés par les choix
   textes: string[]          // variantes, avec {variables}
 }
 ```

@@ -142,7 +142,7 @@ Avec k = 0,7, un trait à 95 multiplie les cotes par environ 1,9 et un trait à 
   "pBase": { "source": "tauxLicenciement", "par": ["secteur", "annee"] },
   "modificateurs": [
     { "si": { "contexte": "crise" }, "m": 2.0 },
-    { "trait": "competences", "k": -0.5 }
+    { "jauge": "competences", "k": -0.5 }
   ],
   "effets": { "emploi": "chomage", "santeMentale": -10, "revenus": "indemnites" },
   "choix": ["chercher_meme_metier", "reconversion", "creer_entreprise"],
