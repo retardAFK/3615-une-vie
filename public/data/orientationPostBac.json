@@ -1,0 +1,224 @@
+{
+  "table": "orientationPostBac",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "cadre"
+      },
+      "distribution": {
+        "universite": 0.431,
+        "prepa": 0.2155,
+        "ecole": 0.1724,
+        "bts_but": 0.1293,
+        "emploi_direct": 0.0517
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "intermediaire"
+      },
+      "distribution": {
+        "universite": 0.4878,
+        "prepa": 0.1366,
+        "ecole": 0.1268,
+        "bts_but": 0.1463,
+        "emploi_direct": 0.1024
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "employe"
+      },
+      "distribution": {
+        "universite": 0.5,
+        "prepa": 0.1,
+        "ecole": 0.1,
+        "bts_but": 0.15,
+        "emploi_direct": 0.15
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "ouvrier"
+      },
+      "distribution": {
+        "universite": 0.5025,
+        "prepa": 0.0402,
+        "ecole": 0.0503,
+        "bts_but": 0.1809,
+        "emploi_direct": 0.2261
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "artisan_commercant"
+      },
+      "distribution": {
+        "universite": 0.4902,
+        "prepa": 0.098,
+        "ecole": 0.1176,
+        "bts_but": 0.1471,
+        "emploi_direct": 0.1471
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "agriculteur"
+      },
+      "distribution": {
+        "universite": 0.4975,
+        "prepa": 0.0597,
+        "ecole": 0.0995,
+        "bts_but": 0.1493,
+        "emploi_direct": 0.194
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "sans_emploi"
+      },
+      "distribution": {
+        "universite": 0.5051,
+        "prepa": 0.0303,
+        "ecole": 0.0404,
+        "bts_but": 0.1515,
+        "emploi_direct": 0.2727
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general"
+      },
+      "distribution": {
+        "universite": 0.5,
+        "prepa": 0.1,
+        "ecole": 0.1,
+        "bts_but": 0.15,
+        "emploi_direct": 0.15
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "cadre"
+      },
+      "distribution": {
+        "universite": 0.2222,
+        "prepa": 0.0556,
+        "ecole": 0.1111,
+        "bts_but": 0.4778,
+        "emploi_direct": 0.1333
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "intermediaire"
+      },
+      "distribution": {
+        "universite": 0.2144,
+        "prepa": 0.03,
+        "ecole": 0.0697,
+        "bts_but": 0.4609,
+        "emploi_direct": 0.2251
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "employe"
+      },
+      "distribution": {
+        "universite": 0.2,
+        "prepa": 0.02,
+        "ecole": 0.05,
+        "bts_but": 0.43,
+        "emploi_direct": 0.3
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "ouvrier"
+      },
+      "distribution": {
+        "universite": 0.1668,
+        "prepa": 0.0067,
+        "ecole": 0.0209,
+        "bts_but": 0.4304,
+        "emploi_direct": 0.3753
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "artisan_commercant"
+      },
+      "distribution": {
+        "universite": 0.198,
+        "prepa": 0.0198,
+        "ecole": 0.0594,
+        "bts_but": 0.4257,
+        "emploi_direct": 0.297
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "agriculteur"
+      },
+      "distribution": {
+        "universite": 0.1848,
+        "prepa": 0.0111,
+        "ecole": 0.0462,
+        "bts_but": 0.3974,
+        "emploi_direct": 0.3604
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "sans_emploi"
+      },
+      "distribution": {
+        "universite": 0.1672,
+        "prepa": 0.005,
+        "ecole": 0.0167,
+        "bts_but": 0.3595,
+        "emploi_direct": 0.4515
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno"
+      },
+      "distribution": {
+        "universite": 0.2,
+        "prepa": 0.02,
+        "ecole": 0.05,
+        "bts_but": 0.43,
+        "emploi_direct": 0.3
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "universite": 0.5,
+        "prepa": 0.1,
+        "ecole": 0.1,
+        "bts_but": 0.15,
+        "emploi_direct": 0.15
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "table": "redoublement",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "diplomeParents": "aucun"
+      },
+      "valeur": 0.05
+    },
+    {
+      "conditions": {
+        "diplomeParents": "cap_bep"
+      },
+      "valeur": 0.04
+    },
+    {
+      "conditions": {
+        "diplomeParents": "bac"
+      },
+      "valeur": 0.025
+    },
+    {
+      "conditions": {
+        "diplomeParents": "bac_2_3"
+      },
+      "valeur": 0.015
+    },
+    {
+      "conditions": {
+        "diplomeParents": "bac_5"
+      },
+      "valeur": 0.01
+    },
+    {
+      "conditions": {},
+      "valeur": 0.03
+    }
+  ]
+}

@@ -1,0 +1,842 @@
+{
+  "table": "voieFin3e",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "generale": 0.6289,
+        "technologique": 0.0629,
+        "professionnelle": 0.0755,
+        "apprentissage": 0.1006,
+        "sortie": 0.1321
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "generale": 0.3763,
+        "technologique": 0.0538,
+        "professionnelle": 0.129,
+        "apprentissage": 0.2151,
+        "sortie": 0.2258
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "generale": 0.25,
+        "technologique": 0.05,
+        "professionnelle": 0.15,
+        "apprentissage": 0.2,
+        "sortie": 0.35
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "generale": 0.1333,
+        "technologique": 0.0444,
+        "professionnelle": 0.1867,
+        "apprentissage": 0.2311,
+        "sortie": 0.4044
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "generale": 0.2078,
+        "technologique": 0.0489,
+        "professionnelle": 0.1467,
+        "apprentissage": 0.2543,
+        "sortie": 0.3423
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "generale": 0.1628,
+        "technologique": 0.0465,
+        "professionnelle": 0.1395,
+        "apprentissage": 0.2605,
+        "sortie": 0.3907
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "generale": 0.1029,
+        "technologique": 0.0412,
+        "professionnelle": 0.1728,
+        "apprentissage": 0.1646,
+        "sortie": 0.5185
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "generale": 0.25,
+        "technologique": 0.05,
+        "professionnelle": 0.15,
+        "apprentissage": 0.2,
+        "sortie": 0.35
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "generale": 0.6289,
+        "technologique": 0.0629,
+        "professionnelle": 0.0755,
+        "apprentissage": 0.1006,
+        "sortie": 0.1321
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "generale": 0.3763,
+        "technologique": 0.0538,
+        "professionnelle": 0.129,
+        "apprentissage": 0.2151,
+        "sortie": 0.2258
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "generale": 0.25,
+        "technologique": 0.05,
+        "professionnelle": 0.15,
+        "apprentissage": 0.2,
+        "sortie": 0.35
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "generale": 0.1333,
+        "technologique": 0.0444,
+        "professionnelle": 0.1867,
+        "apprentissage": 0.2311,
+        "sortie": 0.4044
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "generale": 0.2078,
+        "technologique": 0.0489,
+        "professionnelle": 0.1467,
+        "apprentissage": 0.2543,
+        "sortie": 0.3423
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "generale": 0.1628,
+        "technologique": 0.0465,
+        "professionnelle": 0.1395,
+        "apprentissage": 0.2605,
+        "sortie": 0.3907
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "generale": 0.1029,
+        "technologique": 0.0412,
+        "professionnelle": 0.1728,
+        "apprentissage": 0.1646,
+        "sortie": 0.5185
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "generale": 0.25,
+        "technologique": 0.05,
+        "professionnelle": 0.15,
+        "apprentissage": 0.2,
+        "sortie": 0.35
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "generale": 0.6645,
+        "technologique": 0.0886,
+        "professionnelle": 0.0975,
+        "apprentissage": 0.0664,
+        "sortie": 0.0831
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "generale": 0.4303,
+        "technologique": 0.082,
+        "professionnelle": 0.1803,
+        "apprentissage": 0.1537,
+        "sortie": 0.1537
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "generale": 0.3,
+        "technologique": 0.08,
+        "professionnelle": 0.22,
+        "apprentissage": 0.15,
+        "sortie": 0.25
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "generale": 0.1654,
+        "technologique": 0.0735,
+        "professionnelle": 0.2831,
+        "apprentissage": 0.1792,
+        "sortie": 0.2987
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "generale": 0.255,
+        "technologique": 0.08,
+        "professionnelle": 0.22,
+        "apprentissage": 0.195,
+        "sortie": 0.25
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "generale": 0.2059,
+        "technologique": 0.0784,
+        "professionnelle": 0.2157,
+        "apprentissage": 0.2059,
+        "sortie": 0.2941
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "generale": 0.1318,
+        "technologique": 0.0703,
+        "professionnelle": 0.2707,
+        "apprentissage": 0.1318,
+        "sortie": 0.3954
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "generale": 0.3,
+        "technologique": 0.08,
+        "professionnelle": 0.22,
+        "apprentissage": 0.15,
+        "sortie": 0.25
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "generale": 0.6869,
+        "technologique": 0.1178,
+        "professionnelle": 0.1099,
+        "apprentissage": 0.0471,
+        "sortie": 0.0383
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "generale": 0.4748,
+        "technologique": 0.1163,
+        "professionnelle": 0.2171,
+        "apprentissage": 0.1163,
+        "sortie": 0.0756
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "generale": 0.35,
+        "technologique": 0.12,
+        "professionnelle": 0.28,
+        "apprentissage": 0.12,
+        "sortie": 0.13
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "generale": 0.2006,
+        "technologique": 0.1146,
+        "professionnelle": 0.3744,
+        "apprentissage": 0.149,
+        "sortie": 0.1614
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "generale": 0.3025,
+        "technologique": 0.122,
+        "professionnelle": 0.2847,
+        "apprentissage": 0.1586,
+        "sortie": 0.1322
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "generale": 0.2528,
+        "technologique": 0.1238,
+        "professionnelle": 0.289,
+        "apprentissage": 0.1734,
+        "sortie": 0.161
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "generale": 0.1681,
+        "technologique": 0.1153,
+        "professionnelle": 0.3766,
+        "apprentissage": 0.1153,
+        "sortie": 0.2248
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "generale": 0.35,
+        "technologique": 0.12,
+        "professionnelle": 0.28,
+        "apprentissage": 0.12,
+        "sortie": 0.13
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "generale": 0.726,
+        "technologique": 0.1296,
+        "professionnelle": 0.1037,
+        "apprentissage": 0.0277,
+        "sortie": 0.013
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "generale": 0.5404,
+        "technologique": 0.1379,
+        "professionnelle": 0.2206,
+        "apprentissage": 0.0735,
+        "sortie": 0.0276
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "generale": 0.42,
+        "technologique": 0.15,
+        "professionnelle": 0.3,
+        "apprentissage": 0.08,
+        "sortie": 0.05
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "generale": 0.2543,
+        "technologique": 0.1514,
+        "professionnelle": 0.4238,
+        "apprentissage": 0.1049,
+        "sortie": 0.0656
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "generale": 0.3715,
+        "technologique": 0.1561,
+        "professionnelle": 0.3122,
+        "apprentissage": 0.1082,
+        "sortie": 0.052
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "generale": 0.321,
+        "technologique": 0.1638,
+        "professionnelle": 0.3275,
+        "apprentissage": 0.1223,
+        "sortie": 0.0655
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "generale": 0.2211,
+        "technologique": 0.1579,
+        "professionnelle": 0.4421,
+        "apprentissage": 0.0842,
+        "sortie": 0.0947
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "generale": 0.42,
+        "technologique": 0.15,
+        "professionnelle": 0.3,
+        "apprentissage": 0.08,
+        "sortie": 0.05
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "generale": 0.7457,
+        "technologique": 0.1243,
+        "professionnelle": 0.0994,
+        "apprentissage": 0.0232,
+        "sortie": 0.0075
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "generale": 0.5686,
+        "technologique": 0.1354,
+        "professionnelle": 0.2166,
+        "apprentissage": 0.0632,
+        "sortie": 0.0162
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "generale": 0.45,
+        "technologique": 0.15,
+        "professionnelle": 0.3,
+        "apprentissage": 0.07,
+        "sortie": 0.03
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "generale": 0.2784,
+        "technologique": 0.1546,
+        "professionnelle": 0.433,
+        "apprentissage": 0.0938,
+        "sortie": 0.0402
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "generale": 0.4012,
+        "technologique": 0.1573,
+        "professionnelle": 0.3146,
+        "apprentissage": 0.0954,
+        "sortie": 0.0315
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "generale": 0.3504,
+        "technologique": 0.1669,
+        "professionnelle": 0.3337,
+        "apprentissage": 0.109,
+        "sortie": 0.04
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "generale": 0.2448,
+        "technologique": 0.1632,
+        "professionnelle": 0.457,
+        "apprentissage": 0.0762,
+        "sortie": 0.0588
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "generale": 0.45,
+        "technologique": 0.15,
+        "professionnelle": 0.3,
+        "apprentissage": 0.07,
+        "sortie": 0.03
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "generale": 0.78,
+        "technologique": 0.1092,
+        "professionnelle": 0.0874,
+        "apprentissage": 0.0187,
+        "sortie": 0.0047
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "generale": 0.6162,
+        "technologique": 0.1232,
+        "professionnelle": 0.1972,
+        "apprentissage": 0.0528,
+        "sortie": 0.0106
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "generale": 0.5,
+        "technologique": 0.14,
+        "professionnelle": 0.28,
+        "apprentissage": 0.06,
+        "sortie": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "generale": 0.3205,
+        "technologique": 0.1496,
+        "professionnelle": 0.4188,
+        "apprentissage": 0.0833,
+        "sortie": 0.0278
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "generale": 0.4507,
+        "technologique": 0.1485,
+        "professionnelle": 0.2969,
+        "apprentissage": 0.0827,
+        "sortie": 0.0212
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "generale": 0.3986,
+        "technologique": 0.1595,
+        "professionnelle": 0.3189,
+        "apprentissage": 0.0957,
+        "sortie": 0.0273
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "generale": 0.2847,
+        "technologique": 0.1595,
+        "professionnelle": 0.4465,
+        "apprentissage": 0.0683,
+        "sortie": 0.041
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "generale": 0.5,
+        "technologique": 0.14,
+        "professionnelle": 0.28,
+        "apprentissage": 0.06,
+        "sortie": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "generale": 0.7945,
+        "technologique": 0.0993,
+        "professionnelle": 0.0825,
+        "apprentissage": 0.0214,
+        "sortie": 0.0023
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "generale": 0.633,
+        "technologique": 0.113,
+        "professionnelle": 0.1878,
+        "apprentissage": 0.0609,
+        "sortie": 0.0052
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "generale": 0.52,
+        "technologique": 0.13,
+        "professionnelle": 0.27,
+        "apprentissage": 0.07,
+        "sortie": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "generale": 0.3377,
+        "technologique": 0.1407,
+        "professionnelle": 0.4091,
+        "apprentissage": 0.0985,
+        "sortie": 0.0141
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "generale": 0.4687,
+        "technologique": 0.1379,
+        "professionnelle": 0.2863,
+        "apprentissage": 0.0965,
+        "sortie": 0.0106
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "generale": 0.4165,
+        "technologique": 0.1487,
+        "professionnelle": 0.3089,
+        "apprentissage": 0.1121,
+        "sortie": 0.0137
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "generale": 0.3037,
+        "technologique": 0.1519,
+        "professionnelle": 0.4416,
+        "apprentissage": 0.0818,
+        "sortie": 0.021
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "generale": 0.52,
+        "technologique": 0.13,
+        "professionnelle": 0.27,
+        "apprentissage": 0.07,
+        "sortie": 0.01
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "generale": 0.52,
+        "technologique": 0.13,
+        "professionnelle": 0.27,
+        "apprentissage": 0.07,
+        "sortie": 0.01
+      }
+    }
+  ]
+}

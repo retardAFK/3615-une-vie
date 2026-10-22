@@ -1,0 +1,42 @@
+{
+  "table": "abandonSup",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "filiere": "universite"
+      },
+      "valeur": 0.08
+    },
+    {
+      "conditions": {
+        "filiere": "bts_but"
+      },
+      "valeur": 0.06
+    },
+    {
+      "conditions": {
+        "filiere": "prepa"
+      },
+      "valeur": 0.03
+    },
+    {
+      "conditions": {
+        "filiere": "ecole"
+      },
+      "valeur": 0.02
+    },
+    {
+      "conditions": {
+        "filiere": "master"
+      },
+      "valeur": 0.04
+    },
+    {
+      "conditions": {},
+      "valeur": 0.05
+    }
+  ]
+}

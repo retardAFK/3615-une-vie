@@ -1,0 +1,60 @@
+{
+  "table": "salaireReference",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "periode": "1950-1959"
+      },
+      "valeur": 9000
+    },
+    {
+      "conditions": {
+        "periode": "1960-1969"
+      },
+      "valeur": 11500
+    },
+    {
+      "conditions": {
+        "periode": "1970-1979"
+      },
+      "valeur": 15000
+    },
+    {
+      "conditions": {
+        "periode": "1980-1989"
+      },
+      "valeur": 17500
+    },
+    {
+      "conditions": {
+        "periode": "1990-1999"
+      },
+      "valeur": 19000
+    },
+    {
+      "conditions": {
+        "periode": "2000-2009"
+      },
+      "valeur": 20500
+    },
+    {
+      "conditions": {
+        "periode": "2010-2019"
+      },
+      "valeur": 21500
+    },
+    {
+      "conditions": {
+        "periode": "2020-2029"
+      },
+      "valeur": 22000
+    },
+    {
+      "conditions": {},
+      "valeur": 22500
+    }
+  ]
+}

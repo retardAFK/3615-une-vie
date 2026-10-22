@@ -1,0 +1,378 @@
+{
+  "table": "obligationScolaire",
+  "source": "Ordonnance n° 59-45 du 6 janvier 1959 (reforme Berthoin) : instruction obligatoire jusqu a 16 ans pour les enfants nes a partir de 1953 ; avant, 14 ans. Voir docs/regles-du-jeu.md, section 12.",
+  "url": null,
+  "aCalibrer": false,
+  "lignes": [
+    {
+      "conditions": {
+        "generation": "1950"
+      },
+      "valeur": 14
+    },
+    {
+      "conditions": {
+        "generation": "1951"
+      },
+      "valeur": 14
+    },
+    {
+      "conditions": {
+        "generation": "1952"
+      },
+      "valeur": 14
+    },
+    {
+      "conditions": {
+        "generation": "1953"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1954"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1955"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1956"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1957"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1958"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1959"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1960"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1961"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1962"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1963"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1964"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1965"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1966"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1967"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1968"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1969"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1970"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1971"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1972"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1973"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1974"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1975"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1976"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1977"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1978"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1979"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1980"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1981"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1982"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1983"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1984"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1985"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1986"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1987"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1988"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1989"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1990"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1991"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1992"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1993"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1994"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1995"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1996"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1997"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1998"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "1999"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2000"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2001"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2002"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2003"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2004"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2005"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2006"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2007"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2008"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2009"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {
+        "generation": "2010"
+      },
+      "valeur": 16
+    },
+    {
+      "conditions": {},
+      "valeur": 16
+    }
+  ]
+}

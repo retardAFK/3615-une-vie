@@ -1,0 +1,23 @@
+{
+  "table": "parametresEmploi",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {},
+      "valeurs": {
+        "ecartSexe": 0.09,
+        "sigmaBruit": 0.15,
+        "partAnneeCdd": 0.85,
+        "partAnneeInterim": 0.7,
+        "tauxIndemnisation": 0.6,
+        "dureeIndemnisation": 2,
+        "tauxArret": 0.5,
+        "tauxPension": 0.55,
+        "trimestresRequis": 166,
+        "hausseChangementEmploi": 1.08
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "table": "coefficientDiplome",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "diplome": "aucun"
+      },
+      "valeur": 0.9
+    },
+    {
+      "conditions": {
+        "diplome": "cap_bep"
+      },
+      "valeur": 0.95
+    },
+    {
+      "conditions": {
+        "diplome": "bac_pro"
+      },
+      "valeur": 0.98
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno"
+      },
+      "valeur": 1
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general"
+      },
+      "valeur": 1
+    },
+    {
+      "conditions": {
+        "diplome": "bac_2_3"
+      },
+      "valeur": 1.08
+    },
+    {
+      "conditions": {
+        "diplome": "bac_5"
+      },
+      "valeur": 1.2
+    },
+    {
+      "conditions": {},
+      "valeur": 1
+    }
+  ]
+}

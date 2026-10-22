@@ -1,0 +1,54 @@
+{
+  "table": "poursuiteMaster",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "pcsParents": "cadre"
+      },
+      "valeur": 0.6
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire"
+      },
+      "valeur": 0.45
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe"
+      },
+      "valeur": 0.35
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier"
+      },
+      "valeur": 0.3
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant"
+      },
+      "valeur": 0.4
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur"
+      },
+      "valeur": 0.35
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi"
+      },
+      "valeur": 0.25
+    },
+    {
+      "conditions": {},
+      "valeur": 0.4
+    }
+  ]
+}

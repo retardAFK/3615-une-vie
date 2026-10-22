@@ -1,0 +1,394 @@
+{
+  "table": "insertion",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "niveau": "bas",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "cdi": 0.7,
+        "cdd": 0.05,
+        "interim": 0.02,
+        "chomage": 0.05,
+        "fonctionnaire": 0.08,
+        "inactif": 0.1
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "moyen",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "cdi": 0.65,
+        "cdd": 0.05,
+        "interim": 0.02,
+        "chomage": 0.03,
+        "fonctionnaire": 0.2,
+        "inactif": 0.05
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "haut",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "cdi": 0.6,
+        "cdd": 0.05,
+        "interim": 0.01,
+        "chomage": 0.02,
+        "fonctionnaire": 0.3,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "bas",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "cdi": 0.7,
+        "cdd": 0.05,
+        "interim": 0.02,
+        "chomage": 0.05,
+        "fonctionnaire": 0.08,
+        "inactif": 0.1
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "moyen",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "cdi": 0.65,
+        "cdd": 0.05,
+        "interim": 0.02,
+        "chomage": 0.03,
+        "fonctionnaire": 0.2,
+        "inactif": 0.05
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "haut",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "cdi": 0.6,
+        "cdd": 0.05,
+        "interim": 0.01,
+        "chomage": 0.02,
+        "fonctionnaire": 0.3,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "bas",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "cdi": 0.475,
+        "cdd": 0.15,
+        "interim": 0.085,
+        "chomage": 0.15,
+        "fonctionnaire": 0.055,
+        "inactif": 0.085
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "moyen",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "cdi": 0.475,
+        "cdd": 0.175,
+        "interim": 0.06,
+        "chomage": 0.105,
+        "fonctionnaire": 0.14,
+        "inactif": 0.045
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "haut",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "cdi": 0.525,
+        "cdd": 0.15,
+        "interim": 0.02,
+        "chomage": 0.06,
+        "fonctionnaire": 0.225,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "bas",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "cdi": 0.25,
+        "cdd": 0.25,
+        "interim": 0.15,
+        "chomage": 0.25,
+        "fonctionnaire": 0.03,
+        "inactif": 0.07
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "moyen",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "cdi": 0.3,
+        "cdd": 0.3,
+        "interim": 0.1,
+        "chomage": 0.18,
+        "fonctionnaire": 0.08,
+        "inactif": 0.04
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "haut",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "cdi": 0.45,
+        "cdd": 0.25,
+        "interim": 0.03,
+        "chomage": 0.1,
+        "fonctionnaire": 0.15,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "bas",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "cdi": 0.25,
+        "cdd": 0.25,
+        "interim": 0.15,
+        "chomage": 0.25,
+        "fonctionnaire": 0.03,
+        "inactif": 0.07
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "moyen",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "cdi": 0.3,
+        "cdd": 0.3,
+        "interim": 0.1,
+        "chomage": 0.18,
+        "fonctionnaire": 0.08,
+        "inactif": 0.04
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "haut",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "cdi": 0.45,
+        "cdd": 0.25,
+        "interim": 0.03,
+        "chomage": 0.1,
+        "fonctionnaire": 0.15,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "bas",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "cdi": 0.25,
+        "cdd": 0.25,
+        "interim": 0.15,
+        "chomage": 0.25,
+        "fonctionnaire": 0.03,
+        "inactif": 0.07
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "moyen",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "cdi": 0.3,
+        "cdd": 0.3,
+        "interim": 0.1,
+        "chomage": 0.18,
+        "fonctionnaire": 0.08,
+        "inactif": 0.04
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "haut",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "cdi": 0.45,
+        "cdd": 0.25,
+        "interim": 0.03,
+        "chomage": 0.1,
+        "fonctionnaire": 0.15,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "bas",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "cdi": 0.25,
+        "cdd": 0.25,
+        "interim": 0.15,
+        "chomage": 0.25,
+        "fonctionnaire": 0.03,
+        "inactif": 0.07
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "moyen",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "cdi": 0.3,
+        "cdd": 0.3,
+        "interim": 0.1,
+        "chomage": 0.18,
+        "fonctionnaire": 0.08,
+        "inactif": 0.04
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "haut",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "cdi": 0.45,
+        "cdd": 0.25,
+        "interim": 0.03,
+        "chomage": 0.1,
+        "fonctionnaire": 0.15,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "bas",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "cdi": 0.25,
+        "cdd": 0.25,
+        "interim": 0.15,
+        "chomage": 0.25,
+        "fonctionnaire": 0.03,
+        "inactif": 0.07
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "moyen",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "cdi": 0.3,
+        "cdd": 0.3,
+        "interim": 0.1,
+        "chomage": 0.18,
+        "fonctionnaire": 0.08,
+        "inactif": 0.04
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "haut",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "cdi": 0.45,
+        "cdd": 0.25,
+        "interim": 0.03,
+        "chomage": 0.1,
+        "fonctionnaire": 0.15,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "bas"
+      },
+      "distribution": {
+        "cdi": 0.25,
+        "cdd": 0.25,
+        "interim": 0.15,
+        "chomage": 0.25,
+        "fonctionnaire": 0.03,
+        "inactif": 0.07
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "moyen"
+      },
+      "distribution": {
+        "cdi": 0.3,
+        "cdd": 0.3,
+        "interim": 0.1,
+        "chomage": 0.18,
+        "fonctionnaire": 0.08,
+        "inactif": 0.04
+      }
+    },
+    {
+      "conditions": {
+        "niveau": "haut"
+      },
+      "distribution": {
+        "cdi": 0.45,
+        "cdd": 0.25,
+        "interim": 0.03,
+        "chomage": 0.1,
+        "fonctionnaire": 0.15,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "cdi": 0.3,
+        "cdd": 0.3,
+        "interim": 0.1,
+        "chomage": 0.18,
+        "fonctionnaire": 0.08,
+        "inactif": 0.04
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "table": "quotite",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "sexe": "femme"
+      },
+      "distribution": {
+        "1": 0.7,
+        "0.8": 0.15,
+        "0.5": 0.15
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "homme"
+      },
+      "distribution": {
+        "1": 0.93,
+        "0.8": 0.04,
+        "0.5": 0.03
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "1": 0.82,
+        "0.8": 0.1,
+        "0.5": 0.08
+      }
+    }
+  ]
+}

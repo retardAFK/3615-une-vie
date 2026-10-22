@@ -1,0 +1,761 @@
+{
+  "table": "pcsJoueur",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "diplome": "aucun",
+        "pcsParents": "cadre"
+      },
+      "distribution": {
+        "ouvrier": 0.55,
+        "employe": 0.3,
+        "agriculteur": 0.03,
+        "artisan_commercant": 0.07,
+        "intermediaire": 0.05,
+        "cadre": 0
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "aucun",
+        "pcsParents": "intermediaire"
+      },
+      "distribution": {
+        "ouvrier": 0.534,
+        "employe": 0.2913,
+        "agriculteur": 0.0291,
+        "artisan_commercant": 0.068,
+        "intermediaire": 0.0777
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "aucun",
+        "pcsParents": "employe"
+      },
+      "distribution": {
+        "ouvrier": 0.4661,
+        "employe": 0.4068,
+        "agriculteur": 0.0254,
+        "artisan_commercant": 0.0593,
+        "intermediaire": 0.0424
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "aucun",
+        "pcsParents": "ouvrier"
+      },
+      "distribution": {
+        "ouvrier": 0.6617,
+        "employe": 0.2256,
+        "agriculteur": 0.0226,
+        "artisan_commercant": 0.0526,
+        "intermediaire": 0.0376
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "aucun",
+        "pcsParents": "artisan_commercant"
+      },
+      "distribution": {
+        "ouvrier": 0.4825,
+        "employe": 0.2632,
+        "agriculteur": 0.0263,
+        "artisan_commercant": 0.1842,
+        "intermediaire": 0.0439
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "aucun",
+        "pcsParents": "agriculteur"
+      },
+      "distribution": {
+        "ouvrier": 0.5046,
+        "employe": 0.2752,
+        "agriculteur": 0.1101,
+        "artisan_commercant": 0.0642,
+        "intermediaire": 0.0459
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "aucun",
+        "pcsParents": "sans_emploi"
+      },
+      "distribution": {
+        "ouvrier": 0.55,
+        "employe": 0.3,
+        "agriculteur": 0.03,
+        "artisan_commercant": 0.07,
+        "intermediaire": 0.05
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "aucun"
+      },
+      "distribution": {
+        "ouvrier": 0.55,
+        "employe": 0.3,
+        "agriculteur": 0.03,
+        "artisan_commercant": 0.07,
+        "intermediaire": 0.05
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "cap_bep",
+        "pcsParents": "cadre"
+      },
+      "distribution": {
+        "ouvrier": 0.45,
+        "employe": 0.3,
+        "artisan_commercant": 0.12,
+        "intermediaire": 0.1,
+        "agriculteur": 0.03,
+        "cadre": 0
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "cap_bep",
+        "pcsParents": "intermediaire"
+      },
+      "distribution": {
+        "ouvrier": 0.4245,
+        "employe": 0.283,
+        "artisan_commercant": 0.1132,
+        "intermediaire": 0.1509,
+        "agriculteur": 0.0283
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "cap_bep",
+        "pcsParents": "employe"
+      },
+      "distribution": {
+        "ouvrier": 0.3814,
+        "employe": 0.4068,
+        "artisan_commercant": 0.1017,
+        "intermediaire": 0.0847,
+        "agriculteur": 0.0254
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "cap_bep",
+        "pcsParents": "ouvrier"
+      },
+      "distribution": {
+        "ouvrier": 0.5669,
+        "employe": 0.2362,
+        "artisan_commercant": 0.0945,
+        "intermediaire": 0.0787,
+        "agriculteur": 0.0236
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "cap_bep",
+        "pcsParents": "artisan_commercant"
+      },
+      "distribution": {
+        "ouvrier": 0.3629,
+        "employe": 0.2419,
+        "artisan_commercant": 0.2903,
+        "intermediaire": 0.0806,
+        "agriculteur": 0.0242
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "cap_bep",
+        "pcsParents": "agriculteur"
+      },
+      "distribution": {
+        "ouvrier": 0.4128,
+        "employe": 0.2752,
+        "artisan_commercant": 0.1101,
+        "intermediaire": 0.0917,
+        "agriculteur": 0.1101
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "cap_bep",
+        "pcsParents": "sans_emploi"
+      },
+      "distribution": {
+        "ouvrier": 0.45,
+        "employe": 0.3,
+        "artisan_commercant": 0.12,
+        "intermediaire": 0.1,
+        "agriculteur": 0.03
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "cap_bep"
+      },
+      "distribution": {
+        "ouvrier": 0.45,
+        "employe": 0.3,
+        "artisan_commercant": 0.12,
+        "intermediaire": 0.1,
+        "agriculteur": 0.03
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_pro",
+        "pcsParents": "cadre"
+      },
+      "distribution": {
+        "ouvrier": 0.35,
+        "employe": 0.3,
+        "intermediaire": 0.2,
+        "artisan_commercant": 0.12,
+        "agriculteur": 0.03,
+        "cadre": 0
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_pro",
+        "pcsParents": "intermediaire"
+      },
+      "distribution": {
+        "ouvrier": 0.3125,
+        "employe": 0.2679,
+        "intermediaire": 0.2857,
+        "artisan_commercant": 0.1071,
+        "agriculteur": 0.0268
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_pro",
+        "pcsParents": "employe"
+      },
+      "distribution": {
+        "ouvrier": 0.2966,
+        "employe": 0.4068,
+        "intermediaire": 0.1695,
+        "artisan_commercant": 0.1017,
+        "agriculteur": 0.0254
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_pro",
+        "pcsParents": "ouvrier"
+      },
+      "distribution": {
+        "ouvrier": 0.4628,
+        "employe": 0.2479,
+        "intermediaire": 0.1653,
+        "artisan_commercant": 0.0992,
+        "agriculteur": 0.0248
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_pro",
+        "pcsParents": "artisan_commercant"
+      },
+      "distribution": {
+        "ouvrier": 0.2823,
+        "employe": 0.2419,
+        "intermediaire": 0.1613,
+        "artisan_commercant": 0.2903,
+        "agriculteur": 0.0242
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_pro",
+        "pcsParents": "agriculteur"
+      },
+      "distribution": {
+        "ouvrier": 0.3211,
+        "employe": 0.2752,
+        "intermediaire": 0.1835,
+        "artisan_commercant": 0.1101,
+        "agriculteur": 0.1101
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_pro",
+        "pcsParents": "sans_emploi"
+      },
+      "distribution": {
+        "ouvrier": 0.35,
+        "employe": 0.3,
+        "intermediaire": 0.2,
+        "artisan_commercant": 0.12,
+        "agriculteur": 0.03
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_pro"
+      },
+      "distribution": {
+        "ouvrier": 0.35,
+        "employe": 0.3,
+        "intermediaire": 0.2,
+        "artisan_commercant": 0.12,
+        "agriculteur": 0.03
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "cadre"
+      },
+      "distribution": {
+        "employe": 0.3398,
+        "intermediaire": 0.3398,
+        "ouvrier": 0.1456,
+        "artisan_commercant": 0.0777,
+        "cadre": 0.0777,
+        "agriculteur": 0.0194
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "intermediaire"
+      },
+      "distribution": {
+        "employe": 0.2893,
+        "intermediaire": 0.4628,
+        "ouvrier": 0.124,
+        "artisan_commercant": 0.0661,
+        "cadre": 0.0413,
+        "agriculteur": 0.0165
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "employe"
+      },
+      "distribution": {
+        "employe": 0.4628,
+        "intermediaire": 0.2893,
+        "ouvrier": 0.124,
+        "artisan_commercant": 0.0661,
+        "cadre": 0.0413,
+        "agriculteur": 0.0165
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "ouvrier"
+      },
+      "distribution": {
+        "employe": 0.3211,
+        "intermediaire": 0.3211,
+        "ouvrier": 0.2202,
+        "artisan_commercant": 0.0734,
+        "cadre": 0.0459,
+        "agriculteur": 0.0183
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "artisan_commercant"
+      },
+      "distribution": {
+        "employe": 0.3017,
+        "intermediaire": 0.3017,
+        "ouvrier": 0.1293,
+        "artisan_commercant": 0.2069,
+        "cadre": 0.0431,
+        "agriculteur": 0.0172
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "agriculteur"
+      },
+      "distribution": {
+        "employe": 0.3302,
+        "intermediaire": 0.3302,
+        "ouvrier": 0.1415,
+        "artisan_commercant": 0.0755,
+        "cadre": 0.0472,
+        "agriculteur": 0.0755
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno",
+        "pcsParents": "sans_emploi"
+      },
+      "distribution": {
+        "employe": 0.35,
+        "intermediaire": 0.35,
+        "ouvrier": 0.15,
+        "artisan_commercant": 0.08,
+        "cadre": 0.05,
+        "agriculteur": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_techno"
+      },
+      "distribution": {
+        "employe": 0.35,
+        "intermediaire": 0.35,
+        "ouvrier": 0.15,
+        "artisan_commercant": 0.08,
+        "cadre": 0.05,
+        "agriculteur": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "cadre"
+      },
+      "distribution": {
+        "employe": 0.3265,
+        "intermediaire": 0.3265,
+        "cadre": 0.1791,
+        "ouvrier": 0.0746,
+        "artisan_commercant": 0.0746,
+        "agriculteur": 0.0187
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "intermediaire"
+      },
+      "distribution": {
+        "employe": 0.2893,
+        "intermediaire": 0.4628,
+        "cadre": 0.0992,
+        "ouvrier": 0.0661,
+        "artisan_commercant": 0.0661,
+        "agriculteur": 0.0165
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "employe"
+      },
+      "distribution": {
+        "employe": 0.4628,
+        "intermediaire": 0.2893,
+        "cadre": 0.0992,
+        "ouvrier": 0.0661,
+        "artisan_commercant": 0.0661,
+        "agriculteur": 0.0165
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "ouvrier"
+      },
+      "distribution": {
+        "employe": 0.334,
+        "intermediaire": 0.334,
+        "cadre": 0.1145,
+        "ouvrier": 0.1221,
+        "artisan_commercant": 0.0763,
+        "agriculteur": 0.0191
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "artisan_commercant"
+      },
+      "distribution": {
+        "employe": 0.3017,
+        "intermediaire": 0.3017,
+        "cadre": 0.1034,
+        "ouvrier": 0.069,
+        "artisan_commercant": 0.2069,
+        "agriculteur": 0.0172
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "agriculteur"
+      },
+      "distribution": {
+        "employe": 0.3302,
+        "intermediaire": 0.3302,
+        "cadre": 0.1132,
+        "ouvrier": 0.0755,
+        "artisan_commercant": 0.0755,
+        "agriculteur": 0.0755
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general",
+        "pcsParents": "sans_emploi"
+      },
+      "distribution": {
+        "employe": 0.35,
+        "intermediaire": 0.35,
+        "cadre": 0.12,
+        "ouvrier": 0.08,
+        "artisan_commercant": 0.08,
+        "agriculteur": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_general"
+      },
+      "distribution": {
+        "employe": 0.35,
+        "intermediaire": 0.35,
+        "cadre": 0.12,
+        "ouvrier": 0.08,
+        "artisan_commercant": 0.08,
+        "agriculteur": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_2_3",
+        "pcsParents": "cadre"
+      },
+      "distribution": {
+        "intermediaire": 0.4464,
+        "cadre": 0.2857,
+        "employe": 0.1786,
+        "artisan_commercant": 0.0536,
+        "ouvrier": 0.0268,
+        "agriculteur": 0.0089
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_2_3",
+        "pcsParents": "intermediaire"
+      },
+      "distribution": {
+        "intermediaire": 0.6154,
+        "cadre": 0.1538,
+        "employe": 0.1538,
+        "artisan_commercant": 0.0462,
+        "ouvrier": 0.0231,
+        "agriculteur": 0.0077
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_2_3",
+        "pcsParents": "employe"
+      },
+      "distribution": {
+        "intermediaire": 0.4464,
+        "cadre": 0.1786,
+        "employe": 0.2857,
+        "artisan_commercant": 0.0536,
+        "ouvrier": 0.0268,
+        "agriculteur": 0.0089
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_2_3",
+        "pcsParents": "ouvrier"
+      },
+      "distribution": {
+        "intermediaire": 0.4912,
+        "cadre": 0.1965,
+        "employe": 0.1965,
+        "artisan_commercant": 0.0589,
+        "ouvrier": 0.0472,
+        "agriculteur": 0.0098
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_2_3",
+        "pcsParents": "artisan_commercant"
+      },
+      "distribution": {
+        "intermediaire": 0.4464,
+        "cadre": 0.1786,
+        "employe": 0.1786,
+        "artisan_commercant": 0.1607,
+        "ouvrier": 0.0268,
+        "agriculteur": 0.0089
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_2_3",
+        "pcsParents": "agriculteur"
+      },
+      "distribution": {
+        "intermediaire": 0.4854,
+        "cadre": 0.1942,
+        "employe": 0.1942,
+        "artisan_commercant": 0.0583,
+        "ouvrier": 0.0291,
+        "agriculteur": 0.0388
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_2_3",
+        "pcsParents": "sans_emploi"
+      },
+      "distribution": {
+        "intermediaire": 0.5,
+        "cadre": 0.2,
+        "employe": 0.2,
+        "artisan_commercant": 0.06,
+        "ouvrier": 0.03,
+        "agriculteur": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_2_3"
+      },
+      "distribution": {
+        "intermediaire": 0.5,
+        "cadre": 0.2,
+        "employe": 0.2,
+        "artisan_commercant": 0.06,
+        "ouvrier": 0.03,
+        "agriculteur": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_5",
+        "pcsParents": "cadre"
+      },
+      "distribution": {
+        "cadre": 0.7887,
+        "intermediaire": 0.1549,
+        "employe": 0.0211,
+        "artisan_commercant": 0.0352
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_5",
+        "pcsParents": "intermediaire"
+      },
+      "distribution": {
+        "cadre": 0.6184,
+        "intermediaire": 0.311,
+        "employe": 0.0265,
+        "artisan_commercant": 0.0442
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_5",
+        "pcsParents": "employe"
+      },
+      "distribution": {
+        "cadre": 0.6876,
+        "intermediaire": 0.2161,
+        "employe": 0.0472,
+        "artisan_commercant": 0.0491
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_5",
+        "pcsParents": "ouvrier"
+      },
+      "distribution": {
+        "cadre": 0.7,
+        "intermediaire": 0.22,
+        "employe": 0.03,
+        "artisan_commercant": 0.05,
+        "ouvrier": 0
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_5",
+        "pcsParents": "artisan_commercant"
+      },
+      "distribution": {
+        "cadre": 0.6364,
+        "intermediaire": 0.2,
+        "employe": 0.0273,
+        "artisan_commercant": 0.1364
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_5",
+        "pcsParents": "agriculteur"
+      },
+      "distribution": {
+        "cadre": 0.7,
+        "intermediaire": 0.22,
+        "employe": 0.03,
+        "artisan_commercant": 0.05,
+        "agriculteur": 0
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_5",
+        "pcsParents": "sans_emploi"
+      },
+      "distribution": {
+        "cadre": 0.7,
+        "intermediaire": 0.22,
+        "employe": 0.03,
+        "artisan_commercant": 0.05
+      }
+    },
+    {
+      "conditions": {
+        "diplome": "bac_5"
+      },
+      "distribution": {
+        "cadre": 0.7,
+        "intermediaire": 0.22,
+        "employe": 0.03,
+        "artisan_commercant": 0.05
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "employe": 0.35,
+        "intermediaire": 0.35,
+        "cadre": 0.12,
+        "ouvrier": 0.08,
+        "artisan_commercant": 0.08,
+        "agriculteur": 0.02
+      }
+    }
+  ]
+}

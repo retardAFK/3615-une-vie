@@ -1,0 +1,54 @@
+{
+  "table": "coefficientPcs",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "pcs": "cadre"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "pcs": "intermediaire"
+      },
+      "valeur": 1.35
+    },
+    {
+      "conditions": {
+        "pcs": "employe"
+      },
+      "valeur": 1
+    },
+    {
+      "conditions": {
+        "pcs": "ouvrier"
+      },
+      "valeur": 1.05
+    },
+    {
+      "conditions": {
+        "pcs": "artisan_commercant"
+      },
+      "valeur": 1.25
+    },
+    {
+      "conditions": {
+        "pcs": "agriculteur"
+      },
+      "valeur": 0.85
+    },
+    {
+      "conditions": {
+        "pcs": "sans_emploi"
+      },
+      "valeur": 0.8
+    },
+    {
+      "conditions": {},
+      "valeur": 1
+    }
+  ]
+}

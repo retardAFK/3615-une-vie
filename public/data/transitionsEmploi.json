@@ -1,0 +1,218 @@
+{
+  "table": "transitionsEmploi",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "emploi": "cdi"
+      },
+      "distribution": {
+        "cdi": 0.955,
+        "chomage": 0.025,
+        "inactif": 0.01,
+        "independant": 0.007,
+        "fonctionnaire": 0.003
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "cdi",
+        "niveau": "bas"
+      },
+      "distribution": {
+        "cdi": 0.9409,
+        "chomage": 0.0394,
+        "inactif": 0.0099,
+        "independant": 0.0069,
+        "fonctionnaire": 0.003
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "cdi",
+        "niveau": "haut"
+      },
+      "distribution": {
+        "cdi": 0.9646,
+        "chomage": 0.0152,
+        "inactif": 0.0101,
+        "independant": 0.0071,
+        "fonctionnaire": 0.003
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "cdd"
+      },
+      "distribution": {
+        "cdi": 0.3,
+        "cdd": 0.45,
+        "interim": 0.05,
+        "chomage": 0.18,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "cdd",
+        "niveau": "bas"
+      },
+      "distribution": {
+        "cdi": 0.2341,
+        "cdd": 0.4683,
+        "interim": 0.052,
+        "chomage": 0.2248,
+        "inactif": 0.0208
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "cdd",
+        "niveau": "haut"
+      },
+      "distribution": {
+        "cdi": 0.3853,
+        "cdd": 0.4282,
+        "interim": 0.0476,
+        "chomage": 0.1199,
+        "inactif": 0.019
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "interim"
+      },
+      "distribution": {
+        "cdi": 0.15,
+        "cdd": 0.25,
+        "interim": 0.4,
+        "chomage": 0.18,
+        "inactif": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "independant"
+      },
+      "distribution": {
+        "independant": 0.95,
+        "cdi": 0.02,
+        "chomage": 0.02,
+        "inactif": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "fonctionnaire"
+      },
+      "distribution": {
+        "fonctionnaire": 0.995,
+        "inactif": 0.005
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "chomage"
+      },
+      "distribution": {
+        "cdi": 0.18,
+        "cdd": 0.3,
+        "interim": 0.15,
+        "chomage": 0.32,
+        "inactif": 0.05
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "chomage",
+        "niveau": "bas"
+      },
+      "distribution": {
+        "cdi": 0.1209,
+        "cdd": 0.2879,
+        "interim": 0.144,
+        "chomage": 0.3992,
+        "inactif": 0.048
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "chomage",
+        "niveau": "haut"
+      },
+      "distribution": {
+        "cdi": 0.2759,
+        "cdd": 0.2874,
+        "interim": 0.1437,
+        "chomage": 0.2452,
+        "inactif": 0.0479
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "inactif"
+      },
+      "distribution": {
+        "inactif": 0.6,
+        "cdd": 0.2,
+        "cdi": 0.1,
+        "chomage": 0.1
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "arret_longue_maladie"
+      },
+      "distribution": {
+        "arret_longue_maladie": 0.4,
+        "cdi": 0.4,
+        "chomage": 0.1,
+        "inactif": 0.1
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "chomage",
+        "trancheAge": "senior",
+        "niveau": "bas"
+      },
+      "distribution": {
+        "cdi": 0.0801,
+        "cdd": 0.1186,
+        "interim": 0.0519,
+        "chomage": 0.6011,
+        "inactif": 0.1483
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "chomage",
+        "trancheAge": "senior",
+        "niveau": "moyen"
+      },
+      "distribution": {
+        "cdi": 0.0801,
+        "cdd": 0.1186,
+        "interim": 0.0519,
+        "chomage": 0.6011,
+        "inactif": 0.1483
+      }
+    },
+    {
+      "conditions": {
+        "emploi": "chomage",
+        "trancheAge": "senior",
+        "niveau": "haut"
+      },
+      "distribution": {
+        "cdi": 0.0801,
+        "cdd": 0.1186,
+        "interim": 0.0519,
+        "chomage": 0.6011,
+        "inactif": 0.1483
+      }
+    }
+  ]
+}

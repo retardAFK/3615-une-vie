@@ -1,0 +1,564 @@
+{
+  "table": "ageLegalRetraite",
+  "source": "Assurance retraite ; ordonnance du 26 mars 1982 ; loi n° 2010-1330 du 9 novembre 2010 (reforme Woerth) et LFSS 2012 ; loi n° 2023-270 du 14 avril 2023 (reforme Borne) ; LFSS 2026 (suspension partielle). Voir docs/regles-du-jeu.md, section 12.",
+  "url": null,
+  "aCalibrer": false,
+  "lignes": [
+    {
+      "conditions": {
+        "generation": "1950"
+      },
+      "valeurs": {
+        "ans": 60,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1951"
+      },
+      "valeurs": {
+        "ans": 60,
+        "mois": 4
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1952"
+      },
+      "valeurs": {
+        "ans": 60,
+        "mois": 9
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1953"
+      },
+      "valeurs": {
+        "ans": 61,
+        "mois": 2
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1954"
+      },
+      "valeurs": {
+        "ans": 61,
+        "mois": 7
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1955"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1956"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1957"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1958"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1959"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1960"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1961"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 3
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1962"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 6
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1963"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 9
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1964"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 9
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1965"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 9
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1966"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 9
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1967"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 9
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1968"
+      },
+      "valeurs": {
+        "ans": 62,
+        "mois": 9
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1969"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1970"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1971"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1972"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1973"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1974"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1975"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1976"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1977"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1978"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1979"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1980"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1981"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1982"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1983"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1984"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1985"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1986"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1987"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1988"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1989"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1990"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1991"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1992"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1993"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1994"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1995"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1996"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1997"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1998"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "1999"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2000"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2001"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2002"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2003"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2004"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2005"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2006"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2007"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2008"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2009"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {
+        "generation": "2010"
+      },
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    },
+    {
+      "conditions": {},
+      "valeurs": {
+        "ans": 64,
+        "mois": 0
+      }
+    }
+  ]
+}

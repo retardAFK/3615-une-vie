@@ -1,0 +1,12 @@
+{
+  "table": "repriseEtudes",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {},
+      "valeur": 0.6
+    }
+  ]
+}

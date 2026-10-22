@@ -1,0 +1,36 @@
+{
+  "table": "decrochage",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "voie": "generale"
+      },
+      "valeur": 0.01
+    },
+    {
+      "conditions": {
+        "voie": "technologique"
+      },
+      "valeur": 0.02
+    },
+    {
+      "conditions": {
+        "voie": "professionnelle"
+      },
+      "valeur": 0.05
+    },
+    {
+      "conditions": {
+        "voie": "apprentissage"
+      },
+      "valeur": 0.06
+    },
+    {
+      "conditions": {},
+      "valeur": 0.03
+    }
+  ]
+}

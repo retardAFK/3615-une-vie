@@ -1,0 +1,66 @@
+{
+  "table": "reussiteDiplome",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "formation": "generale"
+      },
+      "valeur": 0.85
+    },
+    {
+      "conditions": {
+        "formation": "technologique"
+      },
+      "valeur": 0.78
+    },
+    {
+      "conditions": {
+        "formation": "professionnelle"
+      },
+      "valeur": 0.75
+    },
+    {
+      "conditions": {
+        "formation": "apprentissage"
+      },
+      "valeur": 0.7
+    },
+    {
+      "conditions": {
+        "formation": "universite"
+      },
+      "valeur": 0.55
+    },
+    {
+      "conditions": {
+        "formation": "bts_but"
+      },
+      "valeur": 0.7
+    },
+    {
+      "conditions": {
+        "formation": "prepa"
+      },
+      "valeur": 0.85
+    },
+    {
+      "conditions": {
+        "formation": "ecole"
+      },
+      "valeur": 0.85
+    },
+    {
+      "conditions": {
+        "formation": "master"
+      },
+      "valeur": 0.8
+    },
+    {
+      "conditions": {},
+      "valeur": 0.7
+    }
+  ]
+}
