@@ -9,7 +9,11 @@
       "age": [2, 9],
       "pBase": 0.08,
       "aCalibrer": true,
-      "effets": { "jauges": { "santePhysique": -4 } },
+      "effets": {
+        "jauges": {
+          "santePhysique": -4
+        }
+      },
       "unique": true,
       "gravite": 1,
       "tags": ["sante", "enfance"],
@@ -24,20 +28,43 @@
       "age": [7, 13],
       "pBase": 0.12,
       "aCalibrer": true,
-      "modificateurs": [{ "trait": "sociabilite", "k": 0.5 }],
+      "modificateurs": [
+        {
+          "trait": "sociabilite",
+          "k": 0.5
+        }
+      ],
       "effets": {},
       "choix": [
         {
           "id": "s_inscrire",
           "libelle": "T'INSCRIRE AU CLUB",
-          "modificateurs": [{ "cible": { "tag": "sante" }, "m": 0.85, "duree": 15 }],
-          "affinites": [{ "trait": "sociabilite", "k": 0.7 }],
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "sante"
+              },
+              "m": 0.85,
+              "duree": 15
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.7
+            }
+          ],
           "journal": "TU T'INSCRIS."
         },
         {
           "id": "rester",
           "libelle": "RESTER A LA MAISON",
-          "affinites": [{ "trait": "sociabilite", "k": -0.7 }],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.7
+            }
+          ],
           "journal": "TU RESTES A LA MAISON."
         }
       ],
@@ -47,57 +74,6 @@
       "textes": [
         "UN COPAIN TE PROPOSE DE VENIR AU CLUB DE FOOT LE MERCREDI.",
         "LE CLUB DE BASKET DU QUARTIER CHERCHE DES JOUEURS DE TON AGE."
-      ]
-    },
-    {
-      "id": "demo_secher",
-      "module": "demo",
-      "age": [13, 17],
-      "pBase": 0.15,
-      "aCalibrer": true,
-      "effets": {},
-      "choix": [
-        {
-          "id": "secher",
-          "libelle": "SECHER AVEC EUX",
-          "cout": { "jauges": { "competences": -2 } },
-          "modificateurs": [{ "cible": { "evenement": "demo_examen" }, "m": 0.6, "duree": 3 }],
-          "affinites": [{ "trait": "impulsivite", "k": 0.8 }],
-          "journal": "TU SECHES."
-        },
-        {
-          "id": "aller_en_cours",
-          "libelle": "ALLER EN COURS",
-          "modificateurs": [{ "cible": { "evenement": "demo_examen" }, "m": 1.2, "duree": 2 }],
-          "affinites": [{ "trait": "impulsivite", "k": -0.8 }],
-          "journal": "TU VAS EN COURS."
-        }
-      ],
-      "cooldown": 2,
-      "gravite": 1,
-      "tags": ["ecole", "adolescence"],
-      "textes": [
-        "DES AMIS TE PROPOSENT DE SECHER LES COURS CET APRES-MIDI.",
-        "LA BANDE VA TRAINER EN VILLE AU LIEU DU COURS DE MATHS."
-      ]
-    },
-    {
-      "id": "demo_examen",
-      "module": "demo",
-      "age": [16, 19],
-      "pBase": 0.5,
-      "aCalibrer": true,
-      "modificateurs": [
-        { "trait": "facilite", "k": 0.7 },
-        { "jauge": "competences", "k": 0.6 }
-      ],
-      "effets": { "jauges": { "competences": 6 } },
-      "unique": true,
-      "gravite": 2,
-      "tags": ["ecole", "adolescence"],
-      "textes": [
-        "{annee} : TU ES RECU{e} AU BAC. [N] JEUNES SUR 100 L'OBTIENNENT CETTE ANNEE-LA.",
-        "BAC EN POCHE A {age} ANS. LA FAMILLE FETE CA AUTOUR D'UN GATEAU."
       ]
     },
     {
@@ -111,15 +87,38 @@
         {
           "id": "partir",
           "libelle": "PARTIR",
-          "cout": { "jauges": { "liens": -5 }, "argent": 800 },
-          "modificateurs": [{ "cible": { "tag": "rencontre" }, "m": 1.4, "duree": 5 }],
-          "affinites": [{ "trait": "ambition", "k": 0.7 }],
+          "cout": {
+            "jauges": {
+              "liens": -5
+            },
+            "argent": 800
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "rencontre"
+              },
+              "m": 1.4,
+              "duree": 5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "ambition",
+              "k": 0.7
+            }
+          ],
           "journal": "TU PARS."
         },
         {
           "id": "rester",
           "libelle": "RESTER PRES DES TIENS",
-          "affinites": [{ "trait": "sociabilite", "k": 0.5 }],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.5
+            }
+          ],
           "journal": "TU RESTES."
         }
       ],
@@ -137,8 +136,18 @@
       "age": [16, 70],
       "pBase": 0.06,
       "aCalibrer": true,
-      "modificateurs": [{ "trait": "sociabilite", "k": 0.7 }],
-      "effets": { "jauges": { "liens": 8, "santeMentale": 3 } },
+      "modificateurs": [
+        {
+          "trait": "sociabilite",
+          "k": 0.7
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "liens": 8,
+          "santeMentale": 3
+        }
+      },
       "cooldown": 5,
       "gravite": 2,
       "tags": ["rencontre"],
@@ -153,8 +162,18 @@
       "age": [18, 90],
       "pBase": 0.006,
       "aCalibrer": true,
-      "modificateurs": [{ "trait": "impulsivite", "k": 0.7 }],
-      "effets": { "jauges": { "santePhysique": -20 }, "deces": 0.1 },
+      "modificateurs": [
+        {
+          "trait": "impulsivite",
+          "k": 0.7
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santePhysique": -20
+        },
+        "deces": 0.1
+      },
       "cooldown": 2,
       "gravite": 3,
       "tags": ["sante", "accident"],
@@ -169,23 +188,65 @@
       "age": [30, 64],
       "pBase": 0.08,
       "aCalibrer": true,
-      "modificateurs": [{ "trait": "resilience", "k": -0.6 }],
-      "effets": { "jauges": { "santePhysique": -3, "santeMentale": -4 } },
+      "modificateurs": [
+        {
+          "trait": "resilience",
+          "k": -0.6
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santePhysique": -3,
+          "santeMentale": -4
+        }
+      },
       "choix": [
         {
           "id": "consulter",
           "libelle": "CONSULTER UN MEDECIN",
-          "cout": { "argent": 25 },
-          "modificateurs": [{ "cible": { "tag": "sante" }, "m": 0.8, "duree": 5 }],
-          "affinites": [{ "trait": "resilience", "k": 0.5 }],
+          "cout": {
+            "argent": 25
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "sante"
+              },
+              "m": 0.8,
+              "duree": 5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.5
+            }
+          ],
           "journal": "TU CONSULTES."
         },
         {
           "id": "serrer_les_dents",
           "libelle": "SERRER LES DENTS",
-          "cout": { "jauges": { "santeMentale": -3 } },
-          "modificateurs": [{ "cible": { "evenement": "demo_fatigue" }, "m": 1.5, "duree": 3 }],
-          "affinites": [{ "trait": "ambition", "k": 0.5 }],
+          "cout": {
+            "jauges": {
+              "santeMentale": -3
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "evenement": "demo_fatigue"
+              },
+              "m": 1.5,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "ambition",
+              "k": 0.5
+            }
+          ],
           "journal": "TU SERRES LES DENTS."
         }
       ],
@@ -208,14 +269,32 @@
         {
           "id": "rejoindre",
           "libelle": "REJOINDRE L'ASSOCIATION",
-          "modificateurs": [{ "cible": { "tag": "sante" }, "m": 0.9, "duree": 5 }],
-          "affinites": [{ "trait": "sociabilite", "k": 0.7 }],
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "sante"
+              },
+              "m": 0.9,
+              "duree": 5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.7
+            }
+          ],
           "journal": "TU T'ENGAGES."
         },
         {
           "id": "decliner",
           "libelle": "RESTER CHEZ TOI",
-          "affinites": [{ "trait": "sociabilite", "k": -0.5 }],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.5
+            }
+          ],
           "journal": "TU DECLINES."
         }
       ],
@@ -233,8 +312,18 @@
       "age": [75, 110],
       "pBase": 0.05,
       "aCalibrer": true,
-      "modificateurs": [{ "jauge": "santePhysique", "k": -0.8 }],
-      "effets": { "jauges": { "santePhysique": -15 }, "deces": 0.15 },
+      "modificateurs": [
+        {
+          "jauge": "santePhysique",
+          "k": -0.8
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santePhysique": -15
+        },
+        "deces": 0.15
+      },
       "cooldown": 2,
       "gravite": 3,
       "tags": ["sante", "accident", "vieillesse"],

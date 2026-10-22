@@ -1,0 +1,175 @@
+{
+  "module": "emploi",
+  "source": "Evenements du module emploi (regles, section 6). Probabilites de travail, a calibrer.",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "id": "emp_premier_emploi",
+      "module": "emploi",
+      "age": [14, 45],
+      "requiert": { "emploi": ["cdi", "cdd", "interim", "independant", "fonctionnaire"] },
+      "pBase": 1,
+      "effets": {},
+      "unique": true,
+      "gravite": 1,
+      "tags": ["emploi"],
+      "textes": ["{annee} : PREMIER EMPLOI.", "PREMIERE FICHE DE PAIE A {age} ANS."]
+    },
+    {
+      "id": "emp_promotion",
+      "module": "emploi",
+      "age": [20, 64],
+      "requiert": { "emploi": ["cdi", "fonctionnaire"] },
+      "pBase": 0.06,
+      "aCalibrer": true,
+      "modificateurs": [
+        { "jauge": "competences", "k": 0.6 },
+        { "trait": "ambition", "k": 0.5 }
+      ],
+      "effets": { "revenu": [1.1, 1.25], "jauges": { "santeMentale": 3 } },
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["promotion", "emploi"],
+      "textes": [
+        "{annee} : PROMOTION. TA FICHE DE PAIE S'ALLONGE.",
+        "TON CHEF T'ANNONCE UNE PROMOTION."
+      ]
+    },
+    {
+      "id": "emp_licenciement",
+      "module": "emploi",
+      "age": [18, 64],
+      "requiert": { "emploi": ["cdi", "cdd", "interim"] },
+      "pBase": 0.02,
+      "aCalibrer": true,
+      "modificateurs": [
+        { "si": { "pcs": ["ouvrier"] }, "m": 1.5 },
+        { "jauge": "competences", "k": -0.4 }
+      ],
+      "effets": { "etats": { "emploi": "chomage" }, "jauges": { "santeMentale": -8 } },
+      "cooldown": 2,
+      "gravite": 2,
+      "tags": ["licenciement", "emploi"],
+      "textes": [
+        "{annee} : LICENCIEMENT. TA BOITE SUPPRIME TON POSTE.",
+        "LETTRE RECOMMANDEE : TU ES LICENCIE{e}."
+      ]
+    },
+    {
+      "id": "emp_burnout",
+      "module": "emploi",
+      "age": [22, 64],
+      "requiert": { "emploi": ["cdi", "cdd", "interim", "fonctionnaire", "independant"] },
+      "pBase": 0.008,
+      "aCalibrer": true,
+      "modificateurs": [
+        { "trait": "resilience", "k": -0.8 },
+        { "jauge": "santeMentale", "k": -0.6 }
+      ],
+      "effets": {
+        "etats": { "emploi": "arret_longue_maladie" },
+        "jauges": { "santeMentale": -15 }
+      },
+      "cooldown": 5,
+      "gravite": 3,
+      "tags": ["sante", "emploi"],
+      "textes": [
+        "EPUISEMENT AU TRAVAIL. LE MEDECIN T'ARRETE POUR PLUSIEURS MOIS.",
+        "{annee} : BURN-OUT. TU NE PEUX PLUS ALLER TRAVAILLER."
+      ]
+    },
+    {
+      "id": "emp_accident_travail",
+      "module": "emploi",
+      "age": [16, 64],
+      "requiert": {
+        "emploi": ["cdi", "cdd", "interim", "independant"],
+        "pcs": ["ouvrier", "agriculteur", "artisan_commercant"]
+      },
+      "pBase": 0.01,
+      "aCalibrer": true,
+      "effets": {
+        "etats": { "emploi": "arret_longue_maladie" },
+        "jauges": { "santePhysique": -12 }
+      },
+      "cooldown": 3,
+      "gravite": 2,
+      "tags": ["sante", "accident", "emploi"],
+      "textes": [
+        "{annee} : ACCIDENT DU TRAVAIL. ARRET DE PLUSIEURS MOIS.",
+        "UNE CHUTE SUR LE CHANTIER. TU ES ARRETE{e}."
+      ]
+    },
+    {
+      "id": "emp_offre",
+      "module": "emploi",
+      "age": [20, 60],
+      "requiert": { "emploi": ["cdi", "cdd", "interim"] },
+      "pBase": 0.04,
+      "aCalibrer": true,
+      "modificateurs": [
+        { "trait": "sociabilite", "k": 0.6 },
+        { "jauge": "competences", "k": 0.5 }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "changer",
+          "libelle": "ACCEPTER L'OFFRE",
+          "effets": { "changerEmploi": true },
+          "affinites": [{ "trait": "ambition", "k": 0.8 }],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER OU TU ES",
+          "affinites": [{ "trait": "sociabilite", "k": 0.3 }],
+          "journal": "TU RESTES."
+        }
+      ],
+      "cooldown": 4,
+      "gravite": 1,
+      "tags": ["emploi", "opportunite"],
+      "textes": [
+        "UNE AUTRE ENTREPRISE TE PROPOSE UN POSTE EN CDI.",
+        "{annee} : UN ANCIEN COLLEGUE TE RECOMMANDE POUR UN POSTE MIEUX PAYE."
+      ]
+    },
+    {
+      "id": "emp_faillite",
+      "module": "emploi",
+      "age": [20, 75],
+      "requiert": { "emploi": ["independant"] },
+      "pBase": 0.02,
+      "aCalibrer": true,
+      "modificateurs": [{ "trait": "impulsivite", "k": 0.6 }],
+      "effets": {
+        "etats": { "emploi": "chomage" },
+        "argent": -15000,
+        "jauges": { "santeMentale": -10 }
+      },
+      "cooldown": 5,
+      "gravite": 3,
+      "tags": ["emploi"],
+      "textes": [
+        "{annee} : FAILLITE. TU DOIS FERMER BOUTIQUE, AVEC DES DETTES.",
+        "LE TRIBUNAL PRONONCE LA LIQUIDATION DE TON ENTREPRISE."
+      ]
+    },
+    {
+      "id": "emp_retraite",
+      "module": "emploi",
+      "age": [55, 80],
+      "requiert": { "emploi": ["retraite"] },
+      "pBase": 1,
+      "effets": {},
+      "unique": true,
+      "gravite": 1,
+      "tags": ["emploi"],
+      "textes": [
+        "{annee} : TE VOILA A LA RETRAITE.",
+        "POT DE DEPART ET DERNIER BADGE RENDU : PLACE A LA RETRAITE."
+      ]
+    }
+  ]
+}
