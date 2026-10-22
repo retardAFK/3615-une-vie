@@ -1,73 +1,104 @@
 import { describe, expect, it } from 'vitest';
-import { creerPartie, deriverJauges, jouerAnnee, probabiliteDeces } from '../../src/moteur/boucle';
+import {
+  creerPartie,
+  deriverJauges,
+  fermerAnnee,
+  jouerAnneeAuto,
+  ouvrirAnnee,
+  probabiliteDeces,
+} from '../../src/moteur/boucle';
 import { AGE_MAXIMAL, JAUGES_INITIALES } from '../../src/moteur/constantes';
-import type { EtatPartie, Tables } from '../../src/moteur/types';
+import type { Donnees, EtatPartie } from '../../src/moteur/types';
+import { DONNEES, TABLES_IMMORTELS, donneesAvec } from './donnees';
 import { TABLES } from './tables';
 
-function vivre(graine: string, tables: Tables = TABLES): EtatPartie {
-  let etat = creerPartie(graine, tables);
-  while (etat.personnage.vivant) etat = jouerAnnee(etat, null, tables).etat;
+function vivreAuto(graine: string, donnees: Donnees = DONNEES): EtatPartie {
+  let etat = creerPartie(graine, donnees);
+  while (etat.personnage.vivant) etat = jouerAnneeAuto(etat, donnees).etat;
+  return etat;
+}
+
+/** Vie jouée « à la main » : toujours la première option proposée. */
+function vivrePremierChoix(graine: string): EtatPartie {
+  let etat = creerPartie(graine, DONNEES);
+  while (etat.personnage.vivant) {
+    const ouverture = ouvrirAnnee(etat, DONNEES);
+    if (!ouverture.etat.personnage.vivant) return ouverture.etat;
+    const choix = ouverture.choixProposes.map((c) => ({
+      evenementId: c.evenementId,
+      choixId: c.options[0]!.id,
+    }));
+    etat = fermerAnnee(ouverture.etat, choix, DONNEES).etat;
+  }
   return etat;
 }
 
 describe('boucle', () => {
   it('cree une partie a la naissance', () => {
-    const etat = creerPartie('7F3A21C9', TABLES);
+    const etat = creerPartie('7F3A21C9', DONNEES);
     expect(etat.personnage.age).toBe(0);
     expect(etat.personnage.vivant).toBe(true);
     expect(etat.annee).toBe(etat.personnage.origine.anneeNaissance);
     expect(etat.historique).toEqual([{ annee: etat.annee, age: 0, type: 'naissance' }]);
+    expect(etat.anneeEnCours).toBeNull();
   });
 
-  it("fait vieillir d'un an par tour sans muter l'etat recu", () => {
-    const etat = creerPartie('7F3A21C9', TABLES);
+  it("ouvre puis ferme une annee sans muter l'etat recu", () => {
+    const etat = creerPartie('7F3A21C9', DONNEES);
     const copie = structuredClone(etat);
-    const { etat: suivant } = jouerAnnee(etat, null, TABLES);
+    const ouverte = ouvrirAnnee(etat, DONNEES).etat;
+    expect(ouverte.anneeEnCours).not.toBeNull();
+    expect(() => ouvrirAnnee(ouverte, DONNEES)).toThrow('deja ouverte');
+    const { etat: suivant } = fermerAnnee(ouverte, [], DONNEES);
     expect(etat).toEqual(copie);
     expect(suivant.personnage.age).toBe(1);
     expect(suivant.annee).toBe(etat.annee + 1);
+    expect(suivant.anneeEnCours).toBeNull();
+    expect(() => fermerAnnee(suivant, [], DONNEES)).toThrow('Aucune annee ouverte');
   });
 
-  it('redonne exactement la meme vie pour la meme graine', () => {
+  it('redonne exactement la meme vie pour la meme graine et les memes choix', () => {
     for (const graine of ['7F3A21C9', 'A', 'vie-42']) {
-      expect(vivre(graine)).toEqual(vivre(graine));
+      expect(vivreAuto(graine)).toEqual(vivreAuto(graine));
+      expect(vivrePremierChoix(graine)).toEqual(vivrePremierChoix(graine));
     }
   });
 
   it('donne des vies differentes pour des graines differentes', () => {
-    const vies = new Set(Array.from({ length: 100 }, (_, i) => JSON.stringify(vivre(`diff-${i}`))));
+    const vies = new Set(
+      Array.from({ length: 100 }, (_, i) => JSON.stringify(vivreAuto(`diff-${i}`))),
+    );
     expect(vies.size).toBe(100);
   });
 
   it("termine toute vie, au plus tard a l'age maximal", () => {
-    // Mortalité nulle : seul le plafond met fin à la vie.
-    const immortels: Tables = {
-      ...TABLES,
-      mortalite: {
-        ...TABLES.mortalite,
-        lignes: [{ conditions: {}, qParAge: Array.from({ length: 111 }, () => 0) }],
-      },
-    };
-    const etat = vivre('immortel', immortels);
+    const etat = vivreAuto('immortel', donneesAvec([]));
     expect(etat.personnage.vivant).toBe(false);
     expect(etat.personnage.age).toBe(AGE_MAXIMAL);
-    expect(etat.historique.at(-1)).toEqual({ annee: etat.annee, age: AGE_MAXIMAL, type: 'deces' });
-    expect(() => jouerAnnee(etat, null, immortels)).toThrow();
+    expect(etat.historique.at(-1)).toEqual({
+      annee: etat.annee,
+      age: AGE_MAXIMAL,
+      type: 'deces',
+      cause: 'mortalite',
+    });
+    expect(() => ouvrirAnnee(etat, donneesAvec([]))).toThrow();
   });
 
   it("teste la mortalite a l'age vecu : la valeur a 0 an sert", () => {
     // Décès certain la première année, aucun ensuite.
     const qParAge = Array.from({ length: 111 }, (_, age) => (age === 0 ? 1 : 0));
-    const fragiles: Tables = {
+    const fragiles = donneesAvec([], {
       ...TABLES,
       mortalite: { ...TABLES.mortalite, lignes: [{ conditions: {}, qParAge }] },
-    };
+    });
     const naissance = creerPartie('nourrisson', fragiles);
-    const { etat, journal } = jouerAnnee(naissance, null, fragiles);
+    const { etat, journal } = ouvrirAnnee(naissance, fragiles);
     expect(etat.personnage.vivant).toBe(false);
     expect(etat.personnage.age).toBe(0);
     expect(etat.annee).toBe(naissance.annee);
-    expect(journal).toEqual([{ annee: naissance.annee, age: 0, type: 'deces' }]);
+    expect(journal).toEqual([
+      { annee: naissance.annee, age: 0, type: 'deces', cause: 'mortalite' },
+    ]);
   });
 
   it('fait deriver les jauges avec l age, de facon deterministe et bornee', () => {
@@ -89,20 +120,18 @@ describe('boucle', () => {
     expect(apres.bienEtre).toBeCloseTo((santePhysique + santeMentale + liens + competences) / 4);
   });
 
-  it('fait baisser la sante physique au fil d une vie longue', () => {
-    let etat = creerPartie('immortel', TABLES);
-    const immortels: Tables = {
-      ...TABLES,
-      mortalite: {
-        ...TABLES.mortalite,
-        lignes: [{ conditions: {}, qParAge: Array.from({ length: 111 }, () => 0) }],
-      },
-    };
-    while (etat.personnage.age < 80) etat = jouerAnnee(etat, null, immortels).etat;
-    expect(etat.personnage.jauges.santePhysique).toBeLessThan(JAUGES_INITIALES.santePhysique);
-    for (const valeur of Object.values(etat.personnage.jauges)) {
-      expect(valeur).toBeGreaterThanOrEqual(0);
-      expect(valeur).toBeLessThanOrEqual(100);
+  it('garde les jauges dans [0, 100] au fil d une vie longue', () => {
+    const immortels = { ...DONNEES, tables: TABLES_IMMORTELS };
+    let etat = creerPartie('immortel', immortels);
+    while (etat.personnage.vivant && etat.personnage.age < 80) {
+      etat = jouerAnneeAuto(etat, immortels).etat;
+      for (const valeur of Object.values(etat.personnage.jauges)) {
+        expect(valeur).toBeGreaterThanOrEqual(0);
+        expect(valeur).toBeLessThanOrEqual(100);
+      }
+    }
+    if (etat.personnage.vivant) {
+      expect(etat.personnage.jauges.santePhysique).toBeLessThan(JAUGES_INITIALES.santePhysique);
     }
   });
 
@@ -112,27 +141,29 @@ describe('boucle', () => {
     expect(q).toBeLessThan(1);
   });
 
-  it('joue 10 000 vies completes en moins de 5 secondes', () => {
+  it('joue 10 000 vies completes en AUTO en moins de 5 secondes', () => {
     const debut = performance.now();
     const deces = { femme: [] as number[], homme: [] as number[] };
+    let evenements = 0;
     for (let i = 0; i < 10_000; i++) {
-      const { personnage } = vivre(`perf-${i}`);
-      expect(personnage.vivant).toBe(false);
-      expect(personnage.age).toBeLessThanOrEqual(AGE_MAXIMAL);
-      deces[personnage.origine.sexe].push(personnage.age);
+      const etat = vivreAuto(`perf-${i}`);
+      expect(etat.personnage.vivant).toBe(false);
+      expect(etat.personnage.age).toBeLessThanOrEqual(AGE_MAXIMAL);
+      deces[etat.personnage.origine.sexe].push(etat.personnage.age);
+      evenements += etat.historique.filter((e) => e.type === 'evenement').length;
     }
     const duree = performance.now() - debut;
     const moyenne = (v: number[]): number => v.reduce((a, b) => a + b, 0) / v.length;
     console.log(
-      `10 000 vies en ${Math.round(duree)} ms ; age moyen de deces : ` +
-        `femmes ${moyenne(deces.femme).toFixed(1)} ans (${deces.femme.length}), ` +
-        `hommes ${moyenne(deces.homme).toFixed(1)} ans (${deces.homme.length})`,
+      `10 000 vies en AUTO en ${Math.round(duree)} ms ; ${(evenements / 10_000).toFixed(1)} ` +
+        `evenements par vie ; age moyen de deces : femmes ${moyenne(deces.femme).toFixed(1)} ans, ` +
+        `hommes ${moyenne(deces.homme).toFixed(1)} ans`,
     );
     expect(duree).toBeLessThan(5000);
-    // Ordres de grandeur seulement : la table est une table de travail.
-    expect(moyenne(deces.femme)).toBeGreaterThan(80);
+    // Ordres de grandeur seulement : tables et événements de travail.
+    expect(moyenne(deces.femme)).toBeGreaterThan(78);
     expect(moyenne(deces.femme)).toBeLessThan(90);
-    expect(moyenne(deces.homme)).toBeGreaterThan(74);
+    expect(moyenne(deces.homme)).toBeGreaterThan(72);
     expect(moyenne(deces.homme)).toBeLessThan(84);
   }, 30_000);
 });

@@ -1,5 +1,6 @@
-// Boucle annuelle. Ce jalon ne gère que le vieillissement, le test de mortalité
-// et la fin de partie : pas d'événements, pas de choix, jauges figées.
+// Boucle annuelle, en deux temps (règles, section 1) :
+// ouvrirAnnee : mortalité, puis tirage des événements ;
+// fermerAnnee : choix, effets, journal, vieillissement.
 
 import {
   AGE_MAXIMAL,
@@ -9,21 +10,32 @@ import {
   etatsInitiaux,
 } from './constantes';
 import { probabiliteFinale } from './cotes';
+import {
+  appliquerEvenement,
+  choisirAuto,
+  choixRetenu,
+  evenementParId,
+  provoqueDeces,
+  tirerEvenements,
+} from './evenements';
 import { naitre } from './naissance';
 import { sousGenerateur } from './rng';
 import { chercherLigne, periodeDe } from './tables';
 import type {
   ChoixJoueur,
+  Donnees,
   EntreeJournal,
   EtatPartie,
   Jauges,
-  ResultatAnnee,
+  LigneMortalite,
+  ResultatFermeture,
+  ResultatOuverture,
   Sexe,
   Tables,
 } from './types';
 
-export function creerPartie(graine: string, tables: Tables): EtatPartie {
-  const { origine, traits, prenom } = naitre(graine, tables);
+export function creerPartie(graine: string, donnees: Donnees): EtatPartie {
+  const { origine, traits, prenom } = naitre(graine, donnees.tables);
   return {
     graine,
     annee: origine.anneeNaissance,
@@ -40,6 +52,8 @@ export function creerPartie(graine: string, tables: Tables): EtatPartie {
     historique: [{ annee: origine.anneeNaissance, age: 0, type: 'naissance' }],
     cooldowns: {},
     modificateursActifs: [],
+    anneeEnCours: null,
+    reportes: [],
   };
 }
 
@@ -56,60 +70,130 @@ export function deriverJauges(jauges: Jauges, age: number): Jauges {
   return { santePhysique, santeMentale, bienEtre, liens, competences };
 }
 
+const lignesMortalite = new WeakMap<Tables['mortalite'], Map<string, LigneMortalite>>();
+
+/** Ligne de mortalité pour ce sexe et cette période, mise en cache (appelée chaque année). */
+function ligneMortalite(tables: Tables, sexe: Sexe, periode: string): LigneMortalite {
+  let cache = lignesMortalite.get(tables.mortalite);
+  if (!cache) {
+    cache = new Map();
+    lignesMortalite.set(tables.mortalite, cache);
+  }
+  const cle = `${sexe}|${periode}`;
+  let ligne = cache.get(cle);
+  if (!ligne) {
+    ligne = chercherLigne(tables.mortalite, { sexe, periode }, ['periode', 'sexe']);
+    cache.set(cle, ligne);
+  }
+  return ligne;
+}
+
 /** Probabilité de décéder dans l'année, à cet âge, pour ce sexe et cette année. */
 export function probabiliteDeces(age: number, sexe: Sexe, annee: number, tables: Tables): number {
-  const ligne = chercherLigne(tables.mortalite, { sexe, periode: periodeDe(annee) }, [
-    'periode',
-    'sexe',
-  ]);
+  const ligne = ligneMortalite(tables, sexe, periodeDe(annee));
   const q = ligne.qParAge[Math.min(age, ligne.qParAge.length - 1)];
   if (q === undefined) throw new Error(`Table mortalite : aucune valeur pour ${age} ans`);
   return probabiliteFinale(q, []);
 }
 
-export function jouerAnnee(
-  etat: EtatPartie,
-  _choix: ChoixJoueur | null,
-  tables: Tables,
-): ResultatAnnee {
-  const { personnage } = etat;
-  if (!personnage.vivant) throw new Error('La partie est terminee');
-
-  const { age } = personnage;
-  const { annee } = etat;
-
-  // Étape 1 (revenus et dépenses) : jalon 4.
-  // Étape 2 : test de mortalité, à l'âge vécu pendant l'année.
-  const decede =
-    age >= AGE_MAXIMAL ||
-    sousGenerateur(etat.graine, age, 'mortalite')() <
-      probabiliteDeces(age, personnage.origine.sexe, annee, tables);
-
-  if (decede) {
-    const journal: EntreeJournal[] = [{ annee, age, type: 'deces' }];
-    return {
-      etat: {
-        ...etat,
-        personnage: { ...personnage, vivant: false },
-        historique: [...etat.historique, ...journal],
-      },
-      evenements: [],
-      choixProposes: [],
-      journal,
-    };
-  }
-
-  // Étapes 3, 4 et 6 (événements, choix, journal) : jalon 3.
-  // Étape 5 : jauges, avec une dérive provisoire liée à l'âge.
-  // Étape 7 : vieillissement.
+function deces(etat: EtatPartie, cause: string, journal: EntreeJournal[]): ResultatFermeture {
+  const entree: EntreeJournal = {
+    annee: etat.annee,
+    age: etat.personnage.age,
+    type: 'deces',
+    cause,
+  };
   return {
     etat: {
       ...etat,
-      annee: annee + 1,
-      personnage: { ...personnage, age: age + 1, jauges: deriverJauges(personnage.jauges, age) },
+      personnage: { ...etat.personnage, vivant: false },
+      historique: [...etat.historique, ...journal, entree],
+      anneeEnCours: null,
     },
-    evenements: [],
-    choixProposes: [],
+    journal: [...journal, entree],
+  };
+}
+
+/** Étapes 1 à 3 : (revenus, jalon 4), test de mortalité à l'âge vécu, tirage des événements. */
+export function ouvrirAnnee(etat: EtatPartie, donnees: Donnees): ResultatOuverture {
+  const { personnage } = etat;
+  if (!personnage.vivant) throw new Error('La partie est terminee');
+  if (etat.anneeEnCours) throw new Error('Une annee est deja ouverte');
+
+  const meurt =
+    personnage.age >= AGE_MAXIMAL ||
+    sousGenerateur(etat.graine, personnage.age, 'mortalite')() <
+      probabiliteDeces(personnage.age, personnage.origine.sexe, etat.annee, donnees.tables);
+  if (meurt) {
+    const { etat: final, journal } = deces(etat, 'mortalite', []);
+    return { etat: final, evenements: [], choixProposes: [], journal };
+  }
+
+  const { retenus, reportes } = tirerEvenements(etat, donnees);
+  return {
+    etat: { ...etat, anneeEnCours: { evenements: retenus }, reportes },
+    evenements: retenus,
+    choixProposes: retenus
+      .filter((e) => e.choix.length > 0)
+      .map((e) => ({ evenementId: e.id, options: e.choix })),
     journal: [],
   };
 }
+
+/** Étapes 4 à 7 : choix, effets (décès possible), journal, vieillissement. */
+export function fermerAnnee(
+  etat: EtatPartie,
+  choix: readonly ChoixJoueur[],
+  donnees: Donnees,
+): ResultatFermeture {
+  const enCours = etat.anneeEnCours;
+  if (!enCours) throw new Error('Aucune annee ouverte');
+
+  let courant = etat;
+  const journal: EntreeJournal[] = [];
+  for (const tire of enCours.evenements) {
+    const evenement = evenementParId(donnees.evenements, tire.id);
+    const retenu = choixRetenu(evenement, choix);
+    courant = appliquerEvenement(courant, evenement, retenu);
+    journal.push({
+      annee: courant.annee,
+      age: courant.personnage.age,
+      type: 'evenement',
+      texte: retenu?.journal ? `${tire.texte} ${retenu.journal}` : tire.texte,
+      evenementId: evenement.id,
+      ...(retenu ? { choixId: retenu.id } : {}),
+    });
+    if (provoqueDeces(courant, evenement)) return deces(courant, evenement.id, journal);
+  }
+
+  const { personnage } = courant;
+  const age = personnage.age + 1;
+  return {
+    etat: {
+      ...courant,
+      annee: courant.annee + 1,
+      personnage: { ...personnage, age, jauges: deriverJauges(personnage.jauges, personnage.age) },
+      historique: journal.length > 0 ? [...courant.historique, ...journal] : courant.historique,
+      // Les modificateurs dont la dernière année d'effet est passée expirent.
+      modificateursActifs: courant.modificateursActifs.some((m) => m.fin !== null && m.fin < age)
+        ? courant.modificateursActifs.filter((m) => m.fin === null || m.fin >= age)
+        : courant.modificateursActifs,
+      anneeEnCours: null,
+    },
+    journal,
+  };
+}
+
+/** Une année complète, les choix faits par choisirAuto (mode AUTO, worker, tests). */
+export function jouerAnneeAuto(etat: EtatPartie, donnees: Donnees): ResultatFermeture {
+  const ouverture = ouvrirAnnee(etat, donnees);
+  if (!ouverture.etat.personnage.vivant) {
+    return { etat: ouverture.etat, journal: ouverture.journal };
+  }
+  const choix = ouverture.evenements
+    .filter((e) => e.choix.length > 0)
+    .map((e) => choisirAuto(ouverture.etat, e, donnees));
+  return fermerAnnee(ouverture.etat, choix, donnees);
+}
+
+export { choisirAuto };

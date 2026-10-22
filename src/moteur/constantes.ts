@@ -47,7 +47,7 @@ export function etatsInitiaux(): Etats {
 
 /**
  * Dérive annuelle des jauges selon l'âge vécu.
- * PROVISOIRE, remplacée au jalon 3 par les effets des événements.
+ * PROVISOIRE, remplacée au jalon 6 par le module santé.
  * bienEtre n'y figure pas : c'est la moyenne des autres jauges.
  */
 export function deriveJaugesProvisoire(age: number): Readonly<Omit<Jauges, 'bienEtre'>> {
