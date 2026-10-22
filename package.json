@@ -11,6 +11,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "perf": "vite build --ssr tests/perf/banc.ts --outDir node_modules/.perf --emptyOutDir --logLevel warn && node node_modules/.perf/banc.js",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings"
