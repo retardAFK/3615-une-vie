@@ -7,7 +7,7 @@ describe('nouvelleGraine', () => {
   });
 
   it('convertit les octets de la source', () => {
-    const source = (octets: Uint8Array): Uint8Array =>
+    const source = (octets: Uint8Array<ArrayBuffer>): Uint8Array =>
       octets.map((_, i) => [0x7f, 0x3a, 0x21, 0xc9][i]!);
     expect(nouvelleGraine(source)).toBe('7F3A21C9');
   });

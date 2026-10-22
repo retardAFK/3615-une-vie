@@ -1,6 +1,6 @@
 // Graines de partie. Le hasard de la graine vient de l'interface, jamais du moteur.
 
-export type SourceAleatoire = (octets: Uint8Array) => Uint8Array;
+export type SourceAleatoire = (octets: Uint8Array<ArrayBuffer>) => Uint8Array;
 
 const sourceCrypto: SourceAleatoire = (octets) => crypto.getRandomValues(octets);
 
