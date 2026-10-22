@@ -164,8 +164,7 @@ describe('boucle', () => {
     expect(q).toBeLessThan(1);
   });
 
-  it('joue 10 000 vies completes en AUTO (limite temporaire, refonte en cours)', () => {
-    const debut = performance.now();
+  it('joue 10 000 vies completes en AUTO avec des ordres de grandeur plausibles', () => {
     const deces = { femme: [] as number[], homme: [] as number[] };
     let evenements = 0;
     for (let i = 0; i < 10_000; i++) {
@@ -175,19 +174,29 @@ describe('boucle', () => {
       deces[etat.personnage.origine.sexe].push(etat.personnage.age);
       evenements += etat.historique.filter((e) => e.type === 'evenement').length;
     }
-    const duree = performance.now() - debut;
     const moyenne = (v: number[]): number => v.reduce((a, b) => a + b, 0) / v.length;
     console.log(
-      `10 000 vies en AUTO en ${Math.round(duree)} ms ; ${(evenements / 10_000).toFixed(1)} ` +
+      `10 000 vies en AUTO : ${(evenements / 10_000).toFixed(1)} ` +
         `evenements par vie ; age moyen de deces : femmes ${moyenne(deces.femme).toFixed(1)} ans, ` +
         `hommes ${moyenne(deces.homme).toFixed(1)} ans`,
     );
-    // Limite temporaire, refonte en cours (10,3 s mesurées sur la CI avant refonte).
-    expect(duree).toBeLessThan(16000);
     // Ordres de grandeur seulement : tables et événements de travail.
     expect(moyenne(deces.femme)).toBeGreaterThan(78);
     expect(moyenne(deces.femme)).toBeLessThan(90);
     expect(moyenne(deces.homme)).toBeGreaterThan(72);
     expect(moyenne(deces.homme)).toBeLessThan(84);
+  }, 60_000);
+
+  // Non-régression seulement : les objectifs réels (5 ms par vie, 1 000 vies en 1 s)
+  // sont vérifiés par npm run perf, sur le moteur seul (docs/architecture.md, Budgets).
+  it('ne regresse pas : 1 000 vies en AUTO', () => {
+    for (let i = 0; i < 200; i++) vivreAuto(`chauffe-${i}`);
+    const debut = performance.now();
+    for (let i = 0; i < 1000; i++) vivreAuto(`regression-${i}`);
+    const duree = performance.now() - debut;
+    // Annotation GitHub : rend le temps mesuré sur la CI lisible sans les journaux.
+    console.log(`::notice title=Performance::1 000 vies en AUTO en ${Math.round(duree)} ms`);
+    // Limite provisoire, en attendant la mesure sur la CI.
+    expect(duree).toBeLessThan(3000);
   }, 30_000);
 });
