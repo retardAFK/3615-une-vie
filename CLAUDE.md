@@ -50,6 +50,7 @@ Node 24 (voir `.nvmrc`).
 - Jeux d'argent : jamais présentés comme gagnants ; le total misé et récupéré reste visible.
 - Ressources d'aide affichées aux moments sensibles (Joueurs Info Service, Drogues Info Service, Tabac Info Service, Alcool Info Service, 3114, 3919).
 - L'origine migratoire ne sert qu'à modéliser des discriminations mesurées (embauche, logement), jamais des comportements.
+- Seul un événement tagué `discrimination` peut tester l'origine migratoire, et jamais un événement tagué `delinquance`, même s'il porte aussi `discrimination`. Le validateur de contenu l'interdit partout ailleurs (règles, section 14).
 
 ## Conventions
 

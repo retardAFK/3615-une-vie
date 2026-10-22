@@ -552,3 +552,35 @@ La partie se termine au décès par un bilan qui compare la vie jouée à la moy
 - [Assemblée nationale – interdiction de fumer dans les lieux publics](https://questions.assemblee-nationale.fr/dyn/13/questions/QANR5L13QE17887.pdf)
 - [Quelles aides – suspension de la réforme des retraites 2026](https://quelles-aides.fr/mag/reformes/suspension-reforme-retraites-2026-1er-septembre-generations-1964-1968/)
 - [Moneyvox – suspension de la réforme, âge légal et trimestres](https://www.moneyvox.fr/retraite/actualites/107609/combien-de-futurs-retraites-vont-profiter-de-la-suspension-de-la-reforme)
+
+## 14. Sécurité, délinquance et police
+
+Ce module montre la sécurité telle qu'elle est vécue et mesurée : on peut en être victime partout, les contrôles visent certains plus que d'autres, et la délinquance naît de facteurs sociaux, jamais de l'origine. Ton sobre et factuel, aucun détail graphique, aucune valorisation de la délinquance. Toutes les statistiques réelles s'écrivent `[N]` ; les probabilités sont `aCalibrer`.
+
+**Être victime** (vol, agression, harcèlement)
+
+- Probabilité selon le territoire (plus forte en quartier prioritaire), l'âge et le sexe. Possible partout.
+- Après une violence subie, le jeu affiche les ressources d'aide : 116 006 (aide aux victimes) et le Défenseur des droits.
+
+**Contrôles d'identité et violences policières**
+
+- Contrôles d'identité : probabilité selon le territoire, l'âge, le sexe et l'origine migratoire. C'est un usage autorisé de l'origine, car il s'agit d'une discrimination mesurée (enquête « Accès aux droits » du Défenseur des droits, 2017).
+- Violences policières : rares, plus fréquentes en quartier prioritaire, possibles partout.
+- Après une violence ou un contrôle abusif, trois choix : porter plainte, saisir le Défenseur des droits, ou ne rien faire. Chacun a un coût différent sur les jauges, puis des suites possibles (plainte classée ou qui aboutit, réponse du Défenseur, mal-être si rien n'est fait).
+
+**Petite délinquance**
+
+- L'entrée dans la petite délinquance est un choix du joueur, proposé par un événement, et toujours refusable.
+- Sa probabilité d'être proposée dépend de facteurs sociaux uniquement : décrochage scolaire, chômage, fréquentations, précarité, impulsivité. **Jamais de l'origine migratoire.**
+- Accepter n'apporte aucun gain : cela rend plus probables les suites judiciaires pendant quelques années.
+
+**Conséquences judiciaires**
+
+- Garde à vue, puis condamnation possible pour qui a déjà été placé en garde à vue.
+- Une condamnation inscrit un casier judiciaire, qui pèse ensuite sur l'embauche (transitions vers l'emploi moins probables).
+- L'état « justice » garde le nombre de gardes à vue, le nombre de condamnations et la présence d'un casier.
+
+**Règle de l'origine migratoire**
+
+Seul un événement tagué `discrimination` peut tester l'origine migratoire, et jamais un événement tagué `delinquance`, même s'il porte aussi `discrimination`. Le validateur de contenu l'interdit partout ailleurs.
+

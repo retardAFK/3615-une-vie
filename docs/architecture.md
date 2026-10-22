@@ -98,7 +98,8 @@ interface Personnage {
   jauges: Jauges            // santePhysique, santeMentale, bienEtre, liens, competences
   finances: Finances        // euros constants : revenuAnnuel, epargne, dettes, patrimoine
   etats: Etats              // scolarite, emploi, couple, logement, addictions, maladies,
-                            // education (diplôme, voie, filière), travail (métier, salaire, retraite)
+                            // education (diplôme, voie, filière), travail (métier, salaire, retraite),
+                            // justice (gardes à vue, condamnations, casier : règles, section 14)
   age: number
   vivant: boolean
 }
