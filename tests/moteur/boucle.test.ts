@@ -196,7 +196,9 @@ describe('boucle', () => {
     const duree = performance.now() - debut;
     // Annotation GitHub : rend le temps mesuré sur la CI lisible sans les journaux.
     console.log(`::notice title=Performance::1 000 vies en AUTO en ${Math.round(duree)} ms`);
-    // Limite provisoire, en attendant la mesure sur la CI.
-    expect(duree).toBeLessThan(3000);
+    // Limite = environ 2 fois le temps mesuré sur la machine de CI GitHub après la refonte
+    // des tirages (652 ms, annotation « Performance » du run du 22 octobre 2026) : une
+    // vraie régression la dépasse, les variations normales de la machine non.
+    expect(duree).toBeLessThan(1300);
   }, 30_000);
 });
