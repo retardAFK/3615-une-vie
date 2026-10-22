@@ -1,0 +1,6 @@
+node_modules/
+dist/
+package-lock.json
+# Documents de référence rédigés à la main : pas de reformatage automatique.
+docs/
+CLAUDE.md
