@@ -19,6 +19,7 @@ import {
   TERRITOIRES,
   type Conditions,
   type Decile,
+  type OptionsPartie,
   type Origine,
   type Tables,
   type Traits,
@@ -109,9 +110,35 @@ export const ETAPES_NAISSANCE: readonly EtapeNaissance[] = [
 ];
 
 /** Tire les champs de l'origine, sous forme de chaînes, dans l'ordre des étapes. */
-export function tirerOrigineBrute(graine: string, tables: Tables): Required<OrigineBrute> {
+/** Années de naissance possibles : les clés de la table anneeNaissance. */
+export function bornesAnneeNaissance(tables: Tables): { min: number; max: number } {
+  const annees = tables.anneeNaissance.lignes.flatMap((l) =>
+    Object.keys(l.distribution).map(Number),
+  );
+  return { min: Math.min(...annees), max: Math.max(...annees) };
+}
+
+/**
+ * Tire les champs de l'origine, sous forme de chaînes, dans l'ordre des étapes.
+ * Une année imposée remplace le premier tirage ; les autres étapes gardent
+ * leurs sous-générateurs et restent conditionnées par cette année.
+ */
+export function tirerOrigineBrute(
+  graine: string,
+  tables: Tables,
+  options: OptionsPartie = {},
+): Required<OrigineBrute> {
   const brute: OrigineBrute = {};
+  if (options.anneeNaissance !== undefined) {
+    const { min, max } = bornesAnneeNaissance(tables);
+    const annee = options.anneeNaissance;
+    if (!Number.isInteger(annee) || annee < min || annee > max) {
+      throw new RangeError(`Annee de naissance hors bornes (${min}-${max}) : ${annee}`);
+    }
+    brute.anneeNaissance = String(annee);
+  }
   for (const etape of ETAPES_NAISSANCE) {
+    if (brute[etape.champ] !== undefined) continue;
     const ligne = chercherLigne(tables[etape.table], etape.conditions(brute), etape.ordreRepli);
     const g = sousGenerateur(graine, 0, `naissance.${etape.champ}`);
     brute[etape.champ] = tirerPondere(g, ligne.distribution);
@@ -132,8 +159,8 @@ function entierValide(valeur: string, champ: string): number {
   return n;
 }
 
-export function tirerOrigine(graine: string, tables: Tables): Origine {
-  const b = tirerOrigineBrute(graine, tables);
+export function tirerOrigine(graine: string, tables: Tables, options: OptionsPartie = {}): Origine {
+  const b = tirerOrigineBrute(graine, tables, options);
   return {
     anneeNaissance: entierValide(b.anneeNaissance, 'anneeNaissance'),
     sexe: valider(SEXES, b.sexe, 'sexe'),
@@ -177,7 +204,7 @@ export interface Naissance {
   prenom: string;
 }
 
-export function naitre(graine: string, tables: Tables): Naissance {
-  const origine = tirerOrigine(graine, tables);
+export function naitre(graine: string, tables: Tables, options: OptionsPartie = {}): Naissance {
+  const origine = tirerOrigine(graine, tables, options);
   return { origine, traits: tirerTraits(graine), prenom: tirerPrenom(graine, origine, tables) };
 }

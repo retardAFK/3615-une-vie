@@ -27,6 +27,7 @@ import type {
   EntreeJournal,
   EtatPartie,
   Jauges,
+  OptionsPartie,
   LigneMortalite,
   ResultatFermeture,
   ResultatOuverture,
@@ -34,10 +35,15 @@ import type {
   Tables,
 } from './types';
 
-export function creerPartie(graine: string, donnees: Donnees): EtatPartie {
-  const { origine, traits, prenom } = naitre(graine, donnees.tables);
+export function creerPartie(
+  graine: string,
+  donnees: Donnees,
+  options: OptionsPartie = {},
+): EtatPartie {
+  const { origine, traits, prenom } = naitre(graine, donnees.tables, options);
   return {
     graine,
+    options: { ...options },
     annee: origine.anneeNaissance,
     personnage: {
       prenom,

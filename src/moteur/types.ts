@@ -363,8 +363,15 @@ export interface AnneeEnCours {
   evenements: readonly EvenementTire[];
 }
 
+/** Options de création d'une partie, gardées pour REVIVRE. */
+export interface OptionsPartie {
+  /** Année imposée ; absente : tirage pondéré. */
+  anneeNaissance?: number;
+}
+
 export interface EtatPartie {
   graine: string;
+  options: OptionsPartie;
   annee: number;
   personnage: Personnage;
   historique: EntreeJournal[];

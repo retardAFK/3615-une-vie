@@ -8,12 +8,16 @@ import {
   probabiliteDeces,
 } from '../../src/moteur/boucle';
 import { AGE_MAXIMAL, JAUGES_INITIALES } from '../../src/moteur/constantes';
-import type { Donnees, EtatPartie } from '../../src/moteur/types';
+import type { Donnees, EtatPartie, OptionsPartie } from '../../src/moteur/types';
 import { DONNEES, TABLES_IMMORTELS, donneesAvec } from './donnees';
 import { TABLES } from './tables';
 
-function vivreAuto(graine: string, donnees: Donnees = DONNEES): EtatPartie {
-  let etat = creerPartie(graine, donnees);
+function vivreAuto(
+  graine: string,
+  donnees: Donnees = DONNEES,
+  options: OptionsPartie = {},
+): EtatPartie {
+  let etat = creerPartie(graine, donnees, options);
   while (etat.personnage.vivant) etat = jouerAnneeAuto(etat, donnees).etat;
   return etat;
 }
@@ -61,6 +65,25 @@ describe('boucle', () => {
     for (const graine of ['7F3A21C9', 'A', 'vie-42']) {
       expect(vivreAuto(graine)).toEqual(vivreAuto(graine));
       expect(vivrePremierChoix(graine)).toEqual(vivrePremierChoix(graine));
+    }
+  });
+
+  it("redonne la meme vie quand on impose l'annee que le hasard aurait tiree", () => {
+    for (const graine of ['7F3A21C9', 'annee-1', 'annee-2']) {
+      const tiree = vivreAuto(graine);
+      const imposee = vivreAuto(graine, DONNEES, {
+        anneeNaissance: tiree.personnage.origine.anneeNaissance,
+      });
+      expect(imposee.personnage).toEqual(tiree.personnage);
+      expect(imposee.historique).toEqual(tiree.historique);
+      expect(imposee.options).toEqual({ anneeNaissance: tiree.personnage.origine.anneeNaissance });
+    }
+  });
+
+  it("impose l'annee de naissance et refuse une annee hors bornes", () => {
+    expect(creerPartie('annee', DONNEES, { anneeNaissance: 1962 }).annee).toBe(1962);
+    for (const anneeNaissance of [1949, 2011, 1980.5, Number.NaN]) {
+      expect(() => creerPartie('annee', DONNEES, { anneeNaissance })).toThrow(RangeError);
     }
   });
 
