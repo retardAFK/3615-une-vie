@@ -83,7 +83,20 @@ function normaliser(e: Evenement): Evenement {
   };
 }
 
-export function validerEvenements(fichiers: readonly FichierAValider[]): ResultatValidation {
+export interface OptionsValidation {
+  /** Identifiants des ressources d'aide connues (contenu/textes/ressources.json). */
+  ressources?: readonly string[];
+}
+
+/** Conditions (requiert ou si) qui testent l'origine migratoire. */
+function testeOrigineMigratoire(conditions: unknown): boolean {
+  return estObjet(conditions) && 'origineMigratoire' in conditions;
+}
+
+export function validerEvenements(
+  fichiers: readonly FichierAValider[],
+  options: OptionsValidation = {},
+): ResultatValidation {
   const erreurs: string[] = [];
   const evenements: Evenement[] = [];
   const ids = new Set<string>();
@@ -229,6 +242,31 @@ export function validerEvenements(fichiers: readonly FichierAValider[]): Resulta
 
     if (brut.requiert !== undefined) verifierConditions(`${lieu} > requiert`, brut.requiert);
 
+    // Origine migratoire : seulement pour modéliser une discrimination mesurée, jamais
+    // un comportement (CLAUDE.md, règles section 14).
+    const testeOrigine =
+      testeOrigineMigratoire(brut.requiert) ||
+      (Array.isArray(brut.modificateurs) &&
+        brut.modificateurs.some((m: unknown) => estObjet(m) && testeOrigineMigratoire(m.si)));
+    if (testeOrigine) {
+      const etiquettes = Array.isArray(brut.tags) ? brut.tags : [];
+      if (etiquettes.includes('delinquance')) {
+        erreurs.push(`${lieu} : un evenement de delinquance ne teste jamais l'origine migratoire`);
+      } else if (!etiquettes.includes('discrimination')) {
+        erreurs.push(`${lieu} : origine migratoire reservee aux evenements tagues discrimination`);
+      }
+    }
+
+    if (brut.ressources !== undefined) {
+      if (!Array.isArray(brut.ressources) || !brut.ressources.every(estTexte)) {
+        erreurs.push(`${lieu} : ressources invalides`);
+      } else if (options.ressources) {
+        for (const r of brut.ressources as string[]) {
+          if (!options.ressources.includes(r)) erreurs.push(`${lieu} : ressource inconnue ${r}`);
+        }
+      }
+    }
+
     if (brut.modificateurs !== undefined) {
       if (!Array.isArray(brut.modificateurs)) erreurs.push(`${lieu} : modificateurs invalides`);
       else
@@ -264,6 +302,12 @@ export function validerEvenements(fichiers: readonly FichierAValider[]): Resulta
         if (!estNombre(min) || !estNombre(max) || min <= 0 || min > max) {
           erreurs.push(`${lieu} : revenu doit etre [min, max] avec 0 < min <= max`);
         }
+      }
+      if (
+        effets.justice !== undefined &&
+        !['garde_a_vue', 'condamnation'].includes(effets.justice as string)
+      ) {
+        erreurs.push(`${lieu} : justice doit valoir garde_a_vue ou condamnation`);
       }
       if (effets.argent !== undefined && !estEntier(effets.argent)) {
         erreurs.push(`${lieu} : argent doit etre un entier`);

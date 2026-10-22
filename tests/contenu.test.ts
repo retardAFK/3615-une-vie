@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import ressources from '../contenu/textes/ressources.json';
 import { validerEvenements } from '../src/moteur/validation';
 
 // Tous les fichiers de contenu/evenements/, tels que l'interface les charge.
@@ -12,6 +13,8 @@ describe('contenu/evenements', () => {
   });
 
   it('passe le validateur', () => {
-    expect(validerEvenements(fichiers).erreurs).toEqual([]);
+    expect(validerEvenements(fichiers, { ressources: Object.keys(ressources) }).erreurs).toEqual(
+      [],
+    );
   });
 });
