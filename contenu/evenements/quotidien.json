@@ -158,6 +158,9 @@
       "id": "quo_incendie",
       "module": "quotidien",
       "age": [18, 110],
+      "requiert": {
+        "scolarite": ["sortie"]
+      },
       "pBase": 0.002,
       "aCalibrer": true,
       "effets": {
@@ -178,6 +181,9 @@
       "id": "quo_cambriolage",
       "module": "quotidien",
       "age": [18, 110],
+      "requiert": {
+        "scolarite": ["sortie"]
+      },
       "pBase": 0.008,
       "aCalibrer": true,
       "modificateurs": [
@@ -206,6 +212,9 @@
       "id": "quo_degat_eaux",
       "module": "quotidien",
       "age": [18, 110],
+      "requiert": {
+        "scolarite": ["sortie"]
+      },
       "pBase": 0.015,
       "aCalibrer": true,
       "effets": {
@@ -226,6 +235,9 @@
       "id": "quo_inondation",
       "module": "quotidien",
       "age": [18, 110],
+      "requiert": {
+        "scolarite": ["sortie"]
+      },
       "pBase": 0.004,
       "aCalibrer": true,
       "modificateurs": [
@@ -254,6 +266,9 @@
       "id": "quo_panne_voiture",
       "module": "quotidien",
       "age": [18, 90],
+      "requiert": {
+        "scolarite": ["sortie"]
+      },
       "pBase": 0.015,
       "aCalibrer": true,
       "modificateurs": [
@@ -279,6 +294,9 @@
       "id": "quo_amende",
       "module": "quotidien",
       "age": [18, 85],
+      "requiert": {
+        "scolarite": ["sortie"]
+      },
       "pBase": 0.015,
       "aCalibrer": true,
       "effets": {

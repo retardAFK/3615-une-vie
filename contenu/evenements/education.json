@@ -7,21 +7,45 @@
       "id": "edu_effort_college",
       "module": "education",
       "age": [11, 12],
-      "requiert": { "scolarite": ["primaire", "college"] },
+      "requiert": {
+        "scolarite": ["primaire", "college"]
+      },
       "pBase": 1,
       "effets": {},
       "choix": [
         {
           "id": "fort",
           "libelle": "TRAVAILLER DUR",
-          "cout": { "jauges": { "santeMentale": -4 } },
+          "cout": {
+            "jauges": {
+              "santeMentale": -4
+            }
+          },
           "modificateurs": [
-            { "cible": { "tag": "reussite_scolaire" }, "m": 1.3, "duree": 4 },
-            { "cible": { "tag": "redoublement" }, "m": 0.7, "duree": 4 }
+            {
+              "cible": {
+                "tag": "reussite_scolaire"
+              },
+              "m": 1.3,
+              "duree": 4
+            },
+            {
+              "cible": {
+                "tag": "redoublement"
+              },
+              "m": 0.7,
+              "duree": 4
+            }
           ],
           "affinites": [
-            { "trait": "ambition", "k": 0.8 },
-            { "trait": "facilite", "k": 0.3 }
+            {
+              "trait": "ambition",
+              "k": 0.8
+            },
+            {
+              "trait": "facilite",
+              "k": 0.3
+            }
           ],
           "journal": "TU T'ACCROCHES."
         },
@@ -34,12 +58,30 @@
           "id": "faible",
           "libelle": "EN FAIRE LE MOINS POSSIBLE",
           "modificateurs": [
-            { "cible": { "tag": "reussite_scolaire" }, "m": 0.75, "duree": 4 },
-            { "cible": { "tag": "redoublement" }, "m": 1.4, "duree": 4 }
+            {
+              "cible": {
+                "tag": "reussite_scolaire"
+              },
+              "m": 0.75,
+              "duree": 4
+            },
+            {
+              "cible": {
+                "tag": "redoublement"
+              },
+              "m": 1.4,
+              "duree": 4
+            }
           ],
           "affinites": [
-            { "trait": "impulsivite", "k": 0.7 },
-            { "trait": "ambition", "k": -0.6 }
+            {
+              "trait": "impulsivite",
+              "k": 0.7
+            },
+            {
+              "trait": "ambition",
+              "k": -0.6
+            }
           ],
           "journal": "TU TE LAISSES PORTER."
         }
@@ -56,7 +98,9 @@
       "id": "edu_voeux_3e",
       "module": "education",
       "age": [14, 16],
-      "requiert": { "scolarite": ["college"] },
+      "requiert": {
+        "scolarite": ["college"]
+      },
       "pBase": 1,
       "effets": {},
       "choix": [
@@ -64,29 +108,74 @@
           "id": "generale",
           "libelle": "SECONDE GENERALE OU TECHNO",
           "modificateurs": [
-            { "cible": { "tag": "voie_generale" }, "m": 3, "duree": 3 },
-            { "cible": { "tag": "voie_technologique" }, "m": 2, "duree": 3 }
+            {
+              "cible": {
+                "tag": "voie_generale"
+              },
+              "m": 3,
+              "duree": 3
+            },
+            {
+              "cible": {
+                "tag": "voie_technologique"
+              },
+              "m": 2,
+              "duree": 3
+            }
           ],
           "affinites": [
-            { "trait": "facilite", "k": 0.8 },
-            { "trait": "ambition", "k": 0.5 }
+            {
+              "trait": "facilite",
+              "k": 0.8
+            },
+            {
+              "trait": "ambition",
+              "k": 0.5
+            }
           ],
           "journal": "TU DEMANDES LA SECONDE GENERALE."
         },
         {
           "id": "professionnelle",
           "libelle": "LYCEE PROFESSIONNEL",
-          "modificateurs": [{ "cible": { "tag": "voie_professionnelle" }, "m": 3, "duree": 3 }],
-          "affinites": [{ "trait": "facilite", "k": -0.5 }],
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "voie_professionnelle"
+              },
+              "m": 3,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "facilite",
+              "k": -0.5
+            }
+          ],
           "journal": "TU DEMANDES LE LYCEE PRO."
         },
         {
           "id": "apprentissage",
           "libelle": "APPRENTISSAGE",
-          "modificateurs": [{ "cible": { "tag": "voie_apprentissage" }, "m": 3, "duree": 3 }],
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "voie_apprentissage"
+              },
+              "m": 3,
+              "duree": 3
+            }
+          ],
           "affinites": [
-            { "trait": "facilite", "k": -0.4 },
-            { "trait": "ambition", "k": -0.3 }
+            {
+              "trait": "facilite",
+              "k": -0.4
+            },
+            {
+              "trait": "ambition",
+              "k": -0.3
+            }
           ],
           "journal": "TU DEMANDES L'APPRENTISSAGE."
         }
@@ -103,21 +192,45 @@
       "id": "edu_effort_lycee",
       "module": "education",
       "age": [15, 18],
-      "requiert": { "scolarite": ["lycee"] },
+      "requiert": {
+        "scolarite": ["lycee"]
+      },
       "pBase": 1,
       "effets": {},
       "choix": [
         {
           "id": "fort",
           "libelle": "TRAVAILLER DUR",
-          "cout": { "jauges": { "santeMentale": -4 } },
+          "cout": {
+            "jauges": {
+              "santeMentale": -4
+            }
+          },
           "modificateurs": [
-            { "cible": { "tag": "reussite_scolaire" }, "m": 1.3, "duree": 3 },
-            { "cible": { "tag": "decrochage" }, "m": 0.7, "duree": 3 }
+            {
+              "cible": {
+                "tag": "reussite_scolaire"
+              },
+              "m": 1.3,
+              "duree": 3
+            },
+            {
+              "cible": {
+                "tag": "decrochage"
+              },
+              "m": 0.7,
+              "duree": 3
+            }
           ],
           "affinites": [
-            { "trait": "ambition", "k": 0.8 },
-            { "trait": "facilite", "k": 0.3 }
+            {
+              "trait": "ambition",
+              "k": 0.8
+            },
+            {
+              "trait": "facilite",
+              "k": 0.3
+            }
           ],
           "journal": "TU T'ACCROCHES."
         },
@@ -130,12 +243,30 @@
           "id": "faible",
           "libelle": "EN FAIRE LE MOINS POSSIBLE",
           "modificateurs": [
-            { "cible": { "tag": "reussite_scolaire" }, "m": 0.75, "duree": 3 },
-            { "cible": { "tag": "decrochage" }, "m": 1.5, "duree": 3 }
+            {
+              "cible": {
+                "tag": "reussite_scolaire"
+              },
+              "m": 0.75,
+              "duree": 3
+            },
+            {
+              "cible": {
+                "tag": "decrochage"
+              },
+              "m": 1.5,
+              "duree": 3
+            }
           ],
           "affinites": [
-            { "trait": "impulsivite", "k": 0.7 },
-            { "trait": "ambition", "k": -0.6 }
+            {
+              "trait": "impulsivite",
+              "k": 0.7
+            },
+            {
+              "trait": "ambition",
+              "k": -0.6
+            }
           ],
           "journal": "TU TE LAISSES PORTER."
         }
@@ -152,7 +283,9 @@
       "id": "edu_voeux_postbac",
       "module": "education",
       "age": [17, 21],
-      "requiert": { "scolarite": ["lycee"] },
+      "requiert": {
+        "scolarite": ["lycee"]
+      },
       "pBase": 1,
       "effets": {},
       "choix": [
@@ -160,28 +293,78 @@
           "id": "longues",
           "libelle": "ETUDES LONGUES",
           "modificateurs": [
-            { "cible": { "tag": "filiere_universite" }, "m": 1.5, "duree": 4 },
-            { "cible": { "tag": "filiere_prepa" }, "m": 2.5, "duree": 4 },
-            { "cible": { "tag": "filiere_ecole" }, "m": 2.5, "duree": 4 }
+            {
+              "cible": {
+                "tag": "filiere_universite"
+              },
+              "m": 1.5,
+              "duree": 4
+            },
+            {
+              "cible": {
+                "tag": "filiere_prepa"
+              },
+              "m": 2.5,
+              "duree": 4
+            },
+            {
+              "cible": {
+                "tag": "filiere_ecole"
+              },
+              "m": 2.5,
+              "duree": 4
+            }
           ],
           "affinites": [
-            { "trait": "ambition", "k": 0.8 },
-            { "trait": "facilite", "k": 0.6 }
+            {
+              "trait": "ambition",
+              "k": 0.8
+            },
+            {
+              "trait": "facilite",
+              "k": 0.6
+            }
           ],
           "journal": "TU VISES DES ETUDES LONGUES."
         },
         {
           "id": "courtes",
           "libelle": "ETUDES COURTES (BTS, BUT)",
-          "modificateurs": [{ "cible": { "tag": "filiere_bts_but" }, "m": 3, "duree": 4 }],
-          "affinites": [{ "trait": "ambition", "k": 0.2 }],
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "filiere_bts_but"
+              },
+              "m": 3,
+              "duree": 4
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "ambition",
+              "k": 0.2
+            }
+          ],
           "journal": "TU VISES UN BTS OU UN BUT."
         },
         {
           "id": "travailler",
           "libelle": "TRAVAILLER TOUT DE SUITE",
-          "modificateurs": [{ "cible": { "tag": "filiere_emploi_direct" }, "m": 4, "duree": 4 }],
-          "affinites": [{ "trait": "ambition", "k": -0.6 }],
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "filiere_emploi_direct"
+              },
+              "m": 4,
+              "duree": 4
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "ambition",
+              "k": -0.6
+            }
+          ],
           "journal": "TU VEUX TRAVAILLER."
         }
       ],
@@ -208,12 +391,34 @@
         {
           "id": "reprendre",
           "libelle": "REPRENDRE LES ETUDES",
-          "cout": { "jauges": { "santeMentale": -2 }, "argent": 2000 },
+          "cout": {
+            "jauges": {
+              "santeMentale": -2
+            },
+            "argent": 2000
+          },
           "modificateurs": [
-            { "cible": { "tag": "reprise_diplome" }, "m": 1, "duree": 1 },
-            { "cible": { "tag": "promotion" }, "m": 1.5, "duree": 10 }
+            {
+              "cible": {
+                "tag": "reprise_diplome"
+              },
+              "m": 1,
+              "duree": 1
+            },
+            {
+              "cible": {
+                "tag": "promotion"
+              },
+              "m": 1.5,
+              "duree": 10
+            }
           ],
-          "affinites": [{ "trait": "ambition", "k": 0.8 }],
+          "affinites": [
+            {
+              "trait": "ambition",
+              "k": 0.8
+            }
+          ],
           "journal": "TU TE LANCES."
         },
         {
@@ -234,12 +439,15 @@
       "id": "edu_sans_diplome",
       "module": "education",
       "age": [14, 30],
-      "requiert": { "scolarite": ["sortie"], "diplome": ["aucun"] },
+      "requiert": {
+        "scolarite": ["sortie"],
+        "diplome": ["aucun"]
+      },
       "pBase": 1,
       "effets": {},
       "unique": true,
       "gravite": 1,
-      "tags": ["ecole"],
+      "tags": ["ecole", "etape"],
       "textes": [
         "TU QUITTES L'ECOLE SANS DIPLOME.",
         "{annee} : FIN DE L'ECOLE, SANS DIPLOME EN POCHE."
@@ -249,48 +457,56 @@
       "id": "edu_cap",
       "module": "education",
       "age": [15, 60],
-      "requiert": { "diplome": ["cap_bep"] },
+      "requiert": {
+        "diplome": ["cap_bep"]
+      },
       "pBase": 1,
       "effets": {},
       "unique": true,
       "gravite": 1,
-      "tags": ["ecole"],
+      "tags": ["ecole", "etape"],
       "textes": ["{annee} : CAP EN POCHE.", "TU DECROCHES TON CAP. UN METIER ENTRE LES MAINS."]
     },
     {
       "id": "edu_bac_pro",
       "module": "education",
       "age": [16, 60],
-      "requiert": { "diplome": ["bac_pro"] },
+      "requiert": {
+        "diplome": ["bac_pro"]
+      },
       "pBase": 1,
       "effets": {},
       "unique": true,
       "gravite": 1,
-      "tags": ["ecole"],
+      "tags": ["ecole", "etape"],
       "textes": ["{annee} : BAC PRO EN POCHE.", "TU ES RECU{e} AU BAC PROFESSIONNEL."]
     },
     {
       "id": "edu_bac_techno",
       "module": "education",
       "age": [16, 60],
-      "requiert": { "diplome": ["bac_techno"] },
+      "requiert": {
+        "diplome": ["bac_techno"]
+      },
       "pBase": 1,
       "effets": {},
       "unique": true,
       "gravite": 1,
-      "tags": ["ecole"],
+      "tags": ["ecole", "etape"],
       "textes": ["{annee} : BAC TECHNOLOGIQUE EN POCHE.", "TU ES RECU{e} AU BAC TECHNO."]
     },
     {
       "id": "edu_bac_general",
       "module": "education",
       "age": [16, 60],
-      "requiert": { "diplome": ["bac_general"] },
+      "requiert": {
+        "diplome": ["bac_general"]
+      },
       "pBase": 1,
       "effets": {},
       "unique": true,
       "gravite": 1,
-      "tags": ["ecole"],
+      "tags": ["ecole", "etape"],
       "textes": [
         "{annee} : BAC GENERAL EN POCHE.",
         "TU ES RECU{e} AU BAC GENERAL. [N] JEUNES SUR 100 DE TA GENERATION L'OBTIENNENT."
@@ -300,12 +516,14 @@
       "id": "edu_bac_2_3",
       "module": "education",
       "age": [19, 60],
-      "requiert": { "diplome": ["bac_2_3"] },
+      "requiert": {
+        "diplome": ["bac_2_3"]
+      },
       "pBase": 1,
       "effets": {},
       "unique": true,
       "gravite": 1,
-      "tags": ["ecole"],
+      "tags": ["ecole", "etape"],
       "textes": [
         "{annee} : DIPLOME BAC+2 OU BAC+3 EN POCHE.",
         "TU DECROCHES UN DIPLOME DU SUPERIEUR."
@@ -315,12 +533,14 @@
       "id": "edu_bac_5",
       "module": "education",
       "age": [21, 60],
-      "requiert": { "diplome": ["bac_5"] },
+      "requiert": {
+        "diplome": ["bac_5"]
+      },
       "pBase": 1,
       "effets": {},
       "unique": true,
       "gravite": 1,
-      "tags": ["ecole"],
+      "tags": ["ecole", "etape"],
       "textes": ["{annee} : DIPLOME BAC+5 EN POCHE.", "FIN DES ETUDES : TU ES DIPLOME{e} A BAC+5."]
     }
   ]
