@@ -44,3 +44,17 @@ export function etatsInitiaux(): Etats {
     maladies: [],
   };
 }
+
+/**
+ * Dérive annuelle des jauges selon l'âge vécu.
+ * PROVISOIRE, remplacée au jalon 3 par les effets des événements.
+ * bienEtre n'y figure pas : c'est la moyenne des autres jauges.
+ */
+export function deriveJaugesProvisoire(age: number): Readonly<Omit<Jauges, 'bienEtre'>> {
+  return {
+    santePhysique: age >= 75 ? -1.5 : age >= 40 ? -0.6 : 0,
+    santeMentale: 0,
+    liens: age >= 70 ? -0.5 : 0,
+    competences: age >= 6 && age < 25 ? 0.6 : age >= 65 ? -0.3 : 0,
+  };
+}

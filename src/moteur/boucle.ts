@@ -1,12 +1,26 @@
 // Boucle annuelle. Ce jalon ne gère que le vieillissement, le test de mortalité
 // et la fin de partie : pas d'événements, pas de choix, jauges figées.
 
-import { AGE_MAXIMAL, FINANCES_INITIALES, JAUGES_INITIALES, etatsInitiaux } from './constantes';
+import {
+  AGE_MAXIMAL,
+  FINANCES_INITIALES,
+  JAUGES_INITIALES,
+  deriveJaugesProvisoire,
+  etatsInitiaux,
+} from './constantes';
 import { probabiliteFinale } from './cotes';
 import { naitre } from './naissance';
 import { sousGenerateur } from './rng';
 import { chercherLigne, periodeDe } from './tables';
-import type { ChoixJoueur, EntreeJournal, EtatPartie, ResultatAnnee, Sexe, Tables } from './types';
+import type {
+  ChoixJoueur,
+  EntreeJournal,
+  EtatPartie,
+  Jauges,
+  ResultatAnnee,
+  Sexe,
+  Tables,
+} from './types';
 
 export function creerPartie(graine: string, tables: Tables): EtatPartie {
   const { origine, traits, prenom } = naitre(graine, tables);
@@ -27,6 +41,19 @@ export function creerPartie(graine: string, tables: Tables): EtatPartie {
     cooldowns: {},
     modificateursActifs: [],
   };
+}
+
+const borner = (valeur: number): number => Math.min(100, Math.max(0, valeur));
+
+/** Applique la dérive provisoire liée à l'âge ; bienEtre est la moyenne des autres jauges. */
+export function deriverJauges(jauges: Jauges, age: number): Jauges {
+  const derive = deriveJaugesProvisoire(age);
+  const santePhysique = borner(jauges.santePhysique + derive.santePhysique);
+  const santeMentale = borner(jauges.santeMentale + derive.santeMentale);
+  const liens = borner(jauges.liens + derive.liens);
+  const competences = borner(jauges.competences + derive.competences);
+  const bienEtre = (santePhysique + santeMentale + liens + competences) / 4;
+  return { santePhysique, santeMentale, bienEtre, liens, competences };
 }
 
 /** Probabilité de décéder dans l'année, à cet âge, pour ce sexe et cette année. */
@@ -72,13 +99,14 @@ export function jouerAnnee(
     };
   }
 
-  // Étapes 3 à 6 (événements, choix, jauges, journal) : jalon 3.
+  // Étapes 3, 4 et 6 (événements, choix, journal) : jalon 3.
+  // Étape 5 : jauges, avec une dérive provisoire liée à l'âge.
   // Étape 7 : vieillissement.
   return {
     etat: {
       ...etat,
       annee: annee + 1,
-      personnage: { ...personnage, age: age + 1 },
+      personnage: { ...personnage, age: age + 1, jauges: deriverJauges(personnage.jauges, age) },
     },
     evenements: [],
     choixProposes: [],

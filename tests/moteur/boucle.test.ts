@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { creerPartie, jouerAnnee, probabiliteDeces } from '../../src/moteur/boucle';
-import { AGE_MAXIMAL } from '../../src/moteur/constantes';
+import { creerPartie, deriverJauges, jouerAnnee, probabiliteDeces } from '../../src/moteur/boucle';
+import { AGE_MAXIMAL, JAUGES_INITIALES } from '../../src/moteur/constantes';
 import type { EtatPartie, Tables } from '../../src/moteur/types';
 import { TABLES } from './tables';
 
@@ -68,6 +68,42 @@ describe('boucle', () => {
     expect(etat.personnage.age).toBe(0);
     expect(etat.annee).toBe(naissance.annee);
     expect(journal).toEqual([{ annee: naissance.annee, age: 0, type: 'deces' }]);
+  });
+
+  it('fait deriver les jauges avec l age, de facon deterministe et bornee', () => {
+    const depart = {
+      santePhysique: 70,
+      santeMentale: 70,
+      bienEtre: 70,
+      liens: 70,
+      competences: 70,
+    };
+    expect(deriverJauges(depart, 20).santePhysique).toBe(70);
+    expect(deriverJauges(depart, 50).santePhysique).toBeLessThan(70);
+    expect(deriverJauges(depart, 50)).toEqual(deriverJauges(depart, 50));
+    const usees = { ...depart, santePhysique: 0.5, liens: 0.1 };
+    const apres = deriverJauges(usees, 90);
+    expect(apres.santePhysique).toBe(0);
+    expect(apres.liens).toBe(0);
+    const { santePhysique, santeMentale, liens, competences } = apres;
+    expect(apres.bienEtre).toBeCloseTo((santePhysique + santeMentale + liens + competences) / 4);
+  });
+
+  it('fait baisser la sante physique au fil d une vie longue', () => {
+    let etat = creerPartie('immortel', TABLES);
+    const immortels: Tables = {
+      ...TABLES,
+      mortalite: {
+        ...TABLES.mortalite,
+        lignes: [{ conditions: {}, qParAge: Array.from({ length: 111 }, () => 0) }],
+      },
+    };
+    while (etat.personnage.age < 80) etat = jouerAnnee(etat, null, immortels).etat;
+    expect(etat.personnage.jauges.santePhysique).toBeLessThan(JAUGES_INITIALES.santePhysique);
+    for (const valeur of Object.values(etat.personnage.jauges)) {
+      expect(valeur).toBeGreaterThanOrEqual(0);
+      expect(valeur).toBeLessThanOrEqual(100);
+    }
   });
 
   it('borne la probabilite de deces par la formule des cotes', () => {
