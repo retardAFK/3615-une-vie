@@ -48,26 +48,40 @@ export function jouerAnnee(
   const { personnage } = etat;
   if (!personnage.vivant) throw new Error('La partie est terminee');
 
-  // 1. Vieillissement
-  const age = personnage.age + 1;
-  const annee = etat.annee + 1;
+  const { age } = personnage;
+  const { annee } = etat;
 
-  // 3. Test de mortalité (l'étape 2, revenus et dépenses, viendra au jalon 4)
+  // Étape 1 (revenus et dépenses) : jalon 4.
+  // Étape 2 : test de mortalité, à l'âge vécu pendant l'année.
   const decede =
     age >= AGE_MAXIMAL ||
     sousGenerateur(etat.graine, age, 'mortalite')() <
       probabiliteDeces(age, personnage.origine.sexe, annee, tables);
 
-  const journal: EntreeJournal[] = decede ? [{ annee, age, type: 'deces' }] : [];
+  if (decede) {
+    const journal: EntreeJournal[] = [{ annee, age, type: 'deces' }];
+    return {
+      etat: {
+        ...etat,
+        personnage: { ...personnage, vivant: false },
+        historique: [...etat.historique, ...journal],
+      },
+      evenements: [],
+      choixProposes: [],
+      journal,
+    };
+  }
+
+  // Étapes 3 à 6 (événements, choix, jauges, journal) : jalon 3.
+  // Étape 7 : vieillissement.
   return {
     etat: {
       ...etat,
-      annee,
-      personnage: { ...personnage, age, vivant: !decede },
-      historique: journal.length > 0 ? [...etat.historique, ...journal] : etat.historique,
+      annee: annee + 1,
+      personnage: { ...personnage, age: age + 1 },
     },
     evenements: [],
     choixProposes: [],
-    journal,
+    journal: [],
   };
 }

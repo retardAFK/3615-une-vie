@@ -26,12 +26,12 @@ function qParAge(a, b) {
 
 /**
  * Âge moyen de décès avec la convention de src/moteur/boucle.ts :
- * chaque année l'âge augmente, puis on teste q à ce nouvel âge.
+ * chaque année, on teste q à l'âge vécu, puis l'âge augmente.
  */
 function ageMoyenDeces(q) {
   let survie = 1;
   let moyenne = 0;
-  for (let x = 1; x <= AGE_MAXIMAL; x++) {
+  for (let x = 0; x <= AGE_MAXIMAL; x++) {
     const deces = survie * q[x];
     moyenne += x * deces;
     survie -= deces;

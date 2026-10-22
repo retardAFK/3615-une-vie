@@ -55,6 +55,21 @@ describe('boucle', () => {
     expect(() => jouerAnnee(etat, null, immortels)).toThrow();
   });
 
+  it("teste la mortalite a l'age vecu : la valeur a 0 an sert", () => {
+    // Décès certain la première année, aucun ensuite.
+    const qParAge = Array.from({ length: 111 }, (_, age) => (age === 0 ? 1 : 0));
+    const fragiles: Tables = {
+      ...TABLES,
+      mortalite: { ...TABLES.mortalite, lignes: [{ conditions: {}, qParAge }] },
+    };
+    const naissance = creerPartie('nourrisson', fragiles);
+    const { etat, journal } = jouerAnnee(naissance, null, fragiles);
+    expect(etat.personnage.vivant).toBe(false);
+    expect(etat.personnage.age).toBe(0);
+    expect(etat.annee).toBe(naissance.annee);
+    expect(journal).toEqual([{ annee: naissance.annee, age: 0, type: 'deces' }]);
+  });
+
   it('borne la probabilite de deces par la formule des cotes', () => {
     const q = probabiliteDeces(40, 'homme', 1990, TABLES);
     expect(q).toBeGreaterThan(0);
