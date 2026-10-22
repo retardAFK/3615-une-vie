@@ -6,6 +6,7 @@
   import Jauge from '../composants/Jauge.svelte';
   import LigneValeur from '../composants/LigneValeur.svelte';
   import Touche from '../composants/Touche.svelte';
+  import { estSalarie } from '../../moteur/modules/emploi';
   import { libelle, minitel, montant } from '../texte';
 
   let {
@@ -46,6 +47,17 @@
   } = $props();
 
   const personnage = $derived(partie.personnage);
+  const finances = $derived(personnage.finances);
+  /** Scolarité tant que les études durent, puis état d'emploi et métier. */
+  const situation = $derived.by(() => {
+    const { scolarite, emploi, education, travail } = personnage.etats;
+    if (scolarite === 'lycee' && education.voie) return libelle('voie', education.voie);
+    if (scolarite === 'superieur' && education.filiere)
+      return libelle('filiere', education.filiere);
+    if (scolarite !== 'sortie') return libelle('scolarite', scolarite);
+    const metier = travail.pcs && estSalarie(emploi) ? ` · ${libelle('pcs', travail.pcs)}` : '';
+    return `${libelle('emploi', emploi)}${metier}`;
+  });
   const ageTexte = $derived(`${personnage.age} ${personnage.age > 1 ? 'ANS' : 'AN'}`);
   const titreAvis = $derived(minitel(avis?.tags[0] ?? 'quotidien'));
   const envoiBloque = $derived(!auto && !confirmation && !!avis?.choix.length && !choixFait);
@@ -88,18 +100,20 @@
           <Jauge libelle={libelle('jauges', nom)} valeur={personnage.jauges[nom]} />
         {/each}
       </div>
-      <LigneValeur
-        libelle="EPARGNE"
-        valeur={montant(personnage.finances.epargne, partie.annee)}
-        ton="valeur"
-      />
-      {#if personnage.finances.dettes > 0}
+      <div class="pile-serree">
+        <LigneValeur libelle="SITUATION" valeur={situation} />
+        <LigneValeur libelle="REVENU" valeur="{montant(finances.revenuAnnuel, partie.annee)}/AN" />
         <LigneValeur
-          libelle="DETTES"
-          valeur={montant(personnage.finances.dettes, partie.annee)}
+          libelle="EPARGNE"
+          valeur={montant(finances.epargne, partie.annee)}
           ton="valeur"
         />
-      {/if}
+        <LigneValeur
+          libelle="DETTES"
+          valeur={montant(finances.dettes, partie.annee)}
+          ton="valeur"
+        />
+      </div>
     </section>
 
     <section class="droite">
@@ -167,5 +181,11 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+
+  .pile-serree {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 </style>

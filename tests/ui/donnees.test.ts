@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { chargerTables, evenementsDuContenu, type Recuperer } from '../../src/ui/donnees';
+import {
+  NOMS_TABLES,
+  chargerTables,
+  evenementsDuContenu,
+  type Recuperer,
+} from '../../src/ui/donnees';
 
 describe('chargerTables', () => {
   it('charge chaque table sous le chemin de base', async () => {
@@ -9,7 +14,7 @@ describe('chargerTables', () => {
       return { ok: true, status: 200, json: async () => ({ table: url }) };
     };
     const tables = await chargerTables('/3615-une-vie/', recuperer);
-    expect(demandes).toHaveLength(14);
+    expect(demandes).toHaveLength(NOMS_TABLES.length);
     expect(demandes).toContain('/3615-une-vie/data/mortalite.json');
     expect(tables.sexe).toEqual({ table: '/3615-une-vie/data/sexe.json' });
   });
@@ -29,5 +34,14 @@ describe('evenementsDuContenu', () => {
     expect(() => evenementsDuContenu({ '/x/faux.json': { module: 'x' } })).toThrow(
       'Contenu invalide',
     );
+  });
+});
+
+describe('NOMS_TABLES', () => {
+  it('charge toutes les tables de public/data/, et seulement elles', () => {
+    const fichiers = Object.keys(import.meta.glob('../../public/data/*.json')).map((chemin) =>
+      chemin.split('/').at(-1)!.replace('.json', ''),
+    );
+    expect([...NOMS_TABLES].sort()).toEqual(fichiers.sort());
   });
 });

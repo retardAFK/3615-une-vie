@@ -10,7 +10,7 @@ const FICHIERS_EVENEMENTS = import.meta.glob<unknown>('../../contenu/evenements/
   import: 'default',
 });
 
-const NOMS_TABLES: readonly (keyof Tables)[] = [
+export const NOMS_TABLES: readonly (keyof Tables)[] = [
   'anneeNaissance',
   'sexe',
   'region',
@@ -25,6 +25,29 @@ const NOMS_TABLES: readonly (keyof Tables)[] = [
   'santeNaissance',
   'prenoms',
   'mortalite',
+  'obligationScolaire',
+  'redoublement',
+  'voieFin3e',
+  'decrochage',
+  'reussiteDiplome',
+  'orientationPostBac',
+  'abandonSup',
+  'poursuiteMaster',
+  'repriseEtudes',
+  'pcsJoueur',
+  'insertion',
+  'transitionsEmploi',
+  'salaireReference',
+  'coefficientPcs',
+  'coefficientDiplome',
+  'coefficientRegion',
+  'courbeAnciennete',
+  'quotite',
+  'parametresEmploi',
+  'ageLegalRetraite',
+  'depensesVie',
+  'parametresArgent',
+  'contexte',
 ];
 
 export type Recuperer = (

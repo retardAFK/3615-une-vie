@@ -1,5 +1,8 @@
 {
-  "sexe": { "femme": "FEMME", "homme": "HOMME" },
+  "sexe": {
+    "femme": "FEMME",
+    "homme": "HOMME"
+  },
   "region": {
     "ile_de_france": "ILE-DE-FRANCE",
     "auvergne_rhone_alpes": "AUVERGNE-RHONE-ALPES",
@@ -75,5 +78,50 @@
     "bienEtre": "BONHEUR",
     "liens": "LIENS",
     "competences": "SAVOIR"
+  },
+  "scolarite": {
+    "non_scolarise": "A LA MAISON",
+    "maternelle": "MATERNELLE",
+    "primaire": "PRIMAIRE",
+    "college": "COLLEGE",
+    "lycee": "LYCEE",
+    "superieur": "ETUDES SUP.",
+    "sortie": "FIN D'ETUDES"
+  },
+  "voie": {
+    "generale": "LYCEE GENERAL",
+    "technologique": "LYCEE TECHNO",
+    "professionnelle": "LYCEE PRO",
+    "apprentissage": "APPRENTISSAGE",
+    "sortie": "FIN D'ETUDES"
+  },
+  "filiere": {
+    "universite": "UNIVERSITE",
+    "bts_but": "BTS / BUT",
+    "prepa": "PREPA",
+    "ecole": "ECOLE",
+    "emploi_direct": "VIE ACTIVE",
+    "master": "MASTER"
+  },
+  "emploi": {
+    "etudiant": "ETUDIANT",
+    "cdi": "CDI",
+    "cdd": "CDD",
+    "interim": "INTERIM",
+    "independant": "INDEPENDANT",
+    "fonctionnaire": "FONCTIONNAIRE",
+    "chomage": "CHOMAGE",
+    "inactif": "SANS ACTIVITE",
+    "arret_longue_maladie": "ARRET MALADIE",
+    "retraite": "RETRAITE"
+  },
+  "pcs": {
+    "cadre": "CADRE",
+    "intermediaire": "PROF. INTER.",
+    "employe": "EMPLOYE",
+    "ouvrier": "OUVRIER",
+    "artisan_commercant": "ARTISAN",
+    "agriculteur": "AGRICULTEUR",
+    "sans_emploi": "SANS EMPLOI"
   }
 }
