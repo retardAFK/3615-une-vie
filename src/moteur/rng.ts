@@ -92,6 +92,30 @@ export function sousGenerateur(graine: string, age: number, idTirage: string): G
  * hachage de l'identifiant (calculé une fois par identifiant), puis mélangé.
  */
 function hacherTirage(graine: string, age: number, idTirage: string): void {
+  preparerPrefixe(graine, age);
+  melangerIdentifiant(hachageIdentifiant(idTirage));
+}
+
+/** Hachage d'un identifiant de tirage, calculé une fois (les identifiants sont en nombre fini). */
+export function hachageIdentifiant(idTirage: string): readonly number[] {
+  let id = identifiants.get(idTirage);
+  if (!id) {
+    id = cyrb128(idTirage);
+    identifiants.set(idTirage, id);
+  }
+  return id;
+}
+
+/** Combine l'état du préfixe de l'année au hachage de l'identifiant, puis mélange. */
+function melangerIdentifiant(id: readonly number[]): void {
+  h1 = prefixe.p1 ^ Math.imul(id[0]!, 597399067);
+  h2 = prefixe.p2 ^ Math.imul(id[1]!, 2869860233);
+  h3 = prefixe.p3 ^ Math.imul(id[2]!, 951274213);
+  h4 = prefixe.p4 ^ Math.imul(id[3]!, 2716044179);
+  finir();
+}
+
+function preparerPrefixe(graine: string, age: number): void {
   if (graine !== prefixe.graine || age !== prefixe.age) {
     initialiser();
     absorber(`${graine}|${age}|`);
@@ -102,16 +126,6 @@ function hacherTirage(graine: string, age: number, idTirage: string): void {
     prefixe.p3 = h3;
     prefixe.p4 = h4;
   }
-  let id = identifiants.get(idTirage);
-  if (!id) {
-    id = cyrb128(idTirage);
-    identifiants.set(idTirage, id);
-  }
-  h1 = prefixe.p1 ^ Math.imul(id[0], 597399067);
-  h2 = prefixe.p2 ^ Math.imul(id[1], 2869860233);
-  h3 = prefixe.p3 ^ Math.imul(id[2], 951274213);
-  h4 = prefixe.p4 ^ Math.imul(id[3], 2716044179);
-  finir();
 }
 
 const prefixe = { graine: '', age: -1, p1: 0, p2: 0, p3: 0, p4: 0 };
@@ -119,31 +133,21 @@ const prefixe = { graine: '', age: -1, p1: 0, p2: 0, p3: 0, p4: 0 };
 const identifiants = new Map<string, [number, number, number, number]>();
 
 /**
- * Premier tirage du sous-générateur (graine, age, idTirage), sans le créer :
- * même valeur que sousGenerateur(graine, age, idTirage)(), en moins coûteux.
- * Sert aux tirages à une seule valeur, très nombreux (un par événement et par an).
+ * Tirage simple (graine, age, idTirage) : un flottant dans [0, 1[ pris directement
+ * dans le hachage de « graine|age|idTirage », sans générateur. Déterministe et
+ * indépendant des autres tirages ; sert aux tirages à une seule valeur, très nombreux
+ * (un par événement éligible et par an). Les tirages à plusieurs valeurs utilisent
+ * sousGenerateur.
  */
 export function tirage(graine: string, age: number, idTirage: string): number {
-  hacherTirage(graine, age, idTirage);
-  let a = h1 >>> 0;
-  let b = h2 >>> 0;
-  let c = h3 >>> 0;
-  let d = h4 >>> 0;
-  let t = 0;
-  for (let i = 0; i <= TOURS_DE_CHAUFFE; i++) {
-    a >>>= 0;
-    b >>>= 0;
-    c >>>= 0;
-    d >>>= 0;
-    t = (a + b) | 0;
-    a = b ^ (b >>> 9);
-    b = (c + (c << 3)) | 0;
-    c = (c << 21) | (c >>> 11);
-    d = (d + 1) | 0;
-    t = (t + d) | 0;
-    c = (c + t) | 0;
-  }
-  return (t >>> 0) / 4294967296;
+  return tirageHache(graine, age, hachageIdentifiant(idTirage));
+}
+
+/** Même tirage, avec le hachage de l'identifiant déjà calculé (tirage annuel). */
+export function tirageHache(graine: string, age: number, identifiant: readonly number[]): number {
+  preparerPrefixe(graine, age);
+  melangerIdentifiant(identifiant);
+  return (h1 >>> 0) / 4294967296;
 }
 
 /** Flottant dans [0, 1[. */
