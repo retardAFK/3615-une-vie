@@ -16,7 +16,8 @@
         "tauxArret": 0.5,
         "tauxPension": 0.55,
         "trimestresRequis": 166,
-        "hausseChangementEmploi": 1.08
+        "hausseChangementEmploi": 1.08,
+        "effetCasierEmbauche": 0.6
       }
     }
   ]

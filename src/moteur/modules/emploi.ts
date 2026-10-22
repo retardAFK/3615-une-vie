@@ -179,6 +179,12 @@ export function nouvelEmploi(
   return avecTravail(personnage, { quotite, bruit }, emploi);
 }
 
+/** Un casier judiciaire rend l'embauche moins probable (règles, section 14). */
+function effetCasier(personnage: Personnage, issue: string, tables: Tables): number[] {
+  if (!personnage.etats.justice.casier || !estSalarie(issue as Emploi)) return [];
+  return [parametre(tables.parametresEmploi, 'effetCasierEmbauche')];
+}
+
 /** Sortie des études : métier (PCS) tiré, puis premier état sur le marché du travail. */
 function entrerSurLeMarche(etat: EtatPartie, personnage: Personnage, donnees: Donnees): Personnage {
   const { tables } = donnees;
@@ -199,7 +205,10 @@ function entrerSurLeMarche(etat: EtatPartie, personnage: Personnage, donnees: Do
     { niveau: niveau(diplome), periode: periodeDe(etat.annee + 1) },
     ['periode', 'niveau'],
   );
-  const premier = tirerPondere(g, ligne.distribution) as Emploi;
+  const premier = tirerPondere(
+    g,
+    distributionCorrigee(ligne.distribution, (issue) => effetCasier(personnage, issue, tables)),
+  ) as Emploi;
   return estSalarie(premier)
     ? nouvelEmploi(etat, avecPcs, premier, tables, 'premier')
     : avecTravail(avecPcs, {}, premier);
@@ -226,9 +235,10 @@ function transition(etat: EtatPartie, personnage: Personnage, donnees: Donnees):
     { emploi, trancheAge: trancheAge(suivant), niveau: niveau(education.diplome) },
     ['trancheAge', 'niveau'],
   );
-  const corrigee = distributionCorrigee(distribution, (issue) =>
-    multiplicateursTag(etat, `emploi_${issue}`, suivant, tables),
-  );
+  const corrigee = distributionCorrigee(distribution, (issue) => [
+    ...multiplicateursTag(etat, `emploi_${issue}`, suivant, tables),
+    ...effetCasier(personnage, issue, tables),
+  ]);
   const g = sousGenerateur(etat.graine, personnage.age, 'emploi.transition');
   const prochain = tirerPondere(g, corrigee) as Emploi;
   if (prochain === emploi) return personnage;

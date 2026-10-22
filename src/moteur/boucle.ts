@@ -3,6 +3,7 @@
 // fermerAnnee : choix, effets, éducation et emploi, journal, vieillissement.
 
 import {
+  AGE_FIN_PETITE_ENFANCE,
   AGE_MAXIMAL,
   FINANCES_INITIALES,
   JAUGES_INITIALES,
@@ -22,6 +23,7 @@ import { bilanAnnuel } from './modules/argent';
 import { evoluerEducation } from './modules/education';
 import { changerEmploi, comptabiliserAnnee, evoluerEmploi } from './modules/emploi';
 import { naitre } from './naissance';
+import { resumerPetiteEnfance } from './recit';
 import { tirage } from './rng';
 import { chercherLigne, periodeDe } from './tables';
 import type {
@@ -205,3 +207,38 @@ export function jouerAnneeAuto(etat: EtatPartie, donnees: Donnees): ResultatFerm
 }
 
 export { choisirAuto };
+
+/**
+ * Petite enfance accélérée (hors mode AUTO) : avant AGE_FIN_PETITE_ENFANCE, les années
+ * sans événement s'enchaînent sans arrêt et se résument en une ligne de journal.
+ * S'arrête à la première année qui a un événement (ou au décès, ou à l'âge de fin),
+ * et renvoie cette année ouverte, comme ouvrirAnnee.
+ */
+export function avancerPetiteEnfance(etat: EtatPartie, donnees: Donnees): ResultatOuverture {
+  const debut = etat.personnage.age;
+  let courant = etat;
+  let ouverture = ouvrirAnnee(courant, donnees);
+  while (
+    ouverture.etat.personnage.vivant &&
+    ouverture.evenements.length === 0 &&
+    courant.personnage.age < AGE_FIN_PETITE_ENFANCE
+  ) {
+    courant = fermerAnnee(ouverture.etat, [], donnees).etat;
+    ouverture = ouvrirAnnee(courant, donnees);
+  }
+  // Années passées sans arrêt : de l'âge de départ à l'année avant l'arrêt.
+  const fin = courant.personnage.age - 1;
+  if (fin < debut) return ouverture;
+  const resume: EntreeJournal = {
+    annee: courant.annee - 1,
+    age: fin,
+    type: 'resume',
+    texte: resumerPetiteEnfance(courant, debut, fin, donnees.libelles),
+  };
+  // Le résumé précède les entrées de l'année d'arrêt (un décès, par exemple).
+  const historique = [...courant.historique, resume, ...ouverture.journal];
+  return {
+    ...ouverture,
+    etat: { ...ouverture.etat, historique },
+  };
+}

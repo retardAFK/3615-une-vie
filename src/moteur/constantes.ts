@@ -34,6 +34,9 @@ export const SAVOIR_PAR_DIPLOME: Readonly<Record<DiplomeJoueur, number>> = {
   bac_5: 80,
 };
 
+/** Avant cet âge, hors mode AUTO, les années sans événement défilent sans arrêt. */
+export const AGE_FIN_PETITE_ENFANCE = 6;
+
 /** Retard scolaire maximal : au-delà, l'échec fait sortir du système scolaire. */
 export const RETARD_MAXIMAL = 2;
 
@@ -78,6 +81,7 @@ export function etatsInitiaux(): Etats {
       pension: 0,
       ageRetraite: null,
     },
+    justice: { gardesAVue: 0, condamnations: 0, casier: false },
   };
 }
 

@@ -4,9 +4,22 @@
 import { entier, sousGenerateur } from './rng';
 import type { EtatPartie, Evenement, Libelles } from './types';
 
-/** Variables autorisées dans les textes ({e} : accord au féminin, « NE{e} » → « NEE »). */
-export const VARIABLES_TEXTE = ['prenom', 'age', 'annee', 'region', 'territoire', 'e'] as const;
-export type VariableTexte = (typeof VARIABLES_TEXTE)[number];
+/**
+ * Variables autorisées dans les textes d'événements ({e} : accord au féminin,
+ * « NE{e} » → « NEE » ; {lieu} : « A LA CAMPAGNE », « DANS UNE GRANDE VILLE »...).
+ */
+export const VARIABLES_TEXTE = [
+  'prenom',
+  'age',
+  'annee',
+  'region',
+  'territoire',
+  'lieu',
+  'e',
+] as const;
+/** Variables en plus pour les résumés de plusieurs années : âges de début et de fin. */
+export const VARIABLES_RESUME = ['debut', 'fin'] as const;
+export type VariableTexte = (typeof VARIABLES_TEXTE)[number] | (typeof VARIABLES_RESUME)[number];
 
 const MOTIF_VARIABLE = /\{([^{}]*)\}/g;
 
@@ -28,7 +41,7 @@ export function variablesDe(modele: string): string[] {
   return [...modele.matchAll(MOTIF_VARIABLE)].map((m) => m[1]!);
 }
 
-type Valeurs = Readonly<Record<VariableTexte, string | (() => string)>>;
+type Valeurs = Readonly<Partial<Record<VariableTexte, string | (() => string)>>>;
 
 /** Remplit les variables ; une valeur peut être une fonction, appelée seulement si utilisée. */
 export function remplir(modele: string, valeurs: Valeurs): string {
@@ -42,10 +55,11 @@ export function remplir(modele: string, valeurs: Valeurs): string {
 export function valeursRecit(
   etat: EtatPartie,
   libelles: Libelles,
-): Record<VariableTexte, () => string> {
+): Record<(typeof VARIABLES_TEXTE)[number], () => string> {
   const { personnage } = etat;
   const { origine } = personnage;
   return {
+    lieu: () => libelles.lieu?.[origine.territoire] ?? minitel(origine.territoire),
     prenom: () => minitel(personnage.prenom),
     age: () => String(personnage.age),
     annee: () => String(etat.annee),
@@ -62,8 +76,23 @@ export function rediger(evenement: Evenement, etat: EtatPartie, libelles: Libell
   if (!modele.includes('{')) return modele;
   const valeurs = valeursRecit(etat, libelles);
   return modele.replace(MOTIF_VARIABLE, (_, nom: string) => {
-    const valeur = valeurs[nom as VariableTexte];
+    const valeur = valeurs[nom as (typeof VARIABLES_TEXTE)[number]];
     if (valeur === undefined) throw new Error(`Variable de texte inconnue : {${nom}}`);
     return valeur();
+  });
+}
+
+/** Résumé des années sans événement de la petite enfance (libelles.recits.petiteEnfance). */
+export function resumerPetiteEnfance(
+  etat: EtatPartie,
+  debut: number,
+  fin: number,
+  libelles: Libelles,
+): string {
+  const modele = libelles.recits?.petiteEnfance ?? '{debut} A {fin} ANS : ENFANCE {lieu}.';
+  return remplir(modele, {
+    ...valeursRecit(etat, libelles),
+    debut: String(debut),
+    fin: String(fin),
   });
 }

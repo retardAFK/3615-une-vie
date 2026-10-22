@@ -272,6 +272,17 @@ export interface Travail {
   ageRetraite: number | null;
 }
 
+/** Suites judiciaires (règles, section 14). */
+export interface Justice {
+  gardesAVue: number;
+  condamnations: number;
+  /** Casier judiciaire : pèse ensuite sur l'embauche. */
+  casier: boolean;
+}
+
+/** Niveau judiciaire, pour les conditions : « aucun », « garde_a_vue » ou « casier ». */
+export const NIVEAUX_JUSTICE = ['aucun', 'garde_a_vue', 'casier'] as const;
+
 export interface Etats {
   scolarite: Scolarite;
   emploi: Emploi;
@@ -282,6 +293,7 @@ export interface Etats {
   maladies: string[];
   education: Education;
   travail: Travail;
+  justice: Justice;
 }
 
 // --- Personnage et partie ---
@@ -300,7 +312,13 @@ export interface Personnage {
 // --- Événements (contenu/evenements/*.json) ---
 
 /** Champs qu'une condition peut tester, en plus de ceux de l'origine. */
-export const CHAMPS_ETATS_CONDITIONS = ['emploi', 'scolarite', 'diplome', 'pcs'] as const;
+export const CHAMPS_ETATS_CONDITIONS = [
+  'emploi',
+  'scolarite',
+  'diplome',
+  'pcs',
+  'justice',
+] as const;
 export type ChampCondition = keyof Origine | (typeof CHAMPS_ETATS_CONDITIONS)[number];
 
 /** Conditions : { champ: [valeurs acceptées] }, sur l'origine ou les états du joueur. */
@@ -359,6 +377,8 @@ export interface Effets {
   revenu?: readonly [number, number];
   /** Euros gagnés (positif) ou perdus (négatif : épargne, puis dettes). */
   argent?: number;
+  /** Suite judiciaire : une condamnation inscrit le casier. */
+  justice?: 'garde_a_vue' | 'condamnation';
 }
 
 export interface Evenement {
@@ -381,6 +401,8 @@ export interface Evenement {
   tags: readonly string[];
   /** Variantes du texte, avec {variables}. */
   textes: readonly string[];
+  /** Ressources d'aide affichées avec l'événement (contenu/textes/ressources.json). */
+  ressources?: readonly string[];
 }
 
 export interface FichierEvenements {
@@ -401,7 +423,8 @@ export interface Donnees {
 
 // --- Partie ---
 
-export type TypeEntree = 'naissance' | 'deces' | 'evenement';
+/** « resume » : années sans événement de la petite enfance, en une ligne. */
+export type TypeEntree = 'naissance' | 'deces' | 'evenement' | 'resume';
 
 export interface EntreeJournal {
   annee: number;
@@ -441,6 +464,8 @@ export interface EvenementTire {
   texte: string;
   /** Choix proposés (vide si aucun). */
   choix: readonly OptionChoix[];
+  /** Ressources d'aide à afficher avec l'événement. */
+  ressources: readonly string[];
 }
 
 /** Année ouverte : événements tirés, en attente des choix. */
