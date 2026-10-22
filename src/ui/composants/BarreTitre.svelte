@@ -21,4 +21,10 @@
     text-transform: uppercase;
     white-space: nowrap;
   }
+
+  @media (min-width: 900px) {
+    .barre-titre {
+      padding: 4px 32px;
+    }
+  }
 </style>

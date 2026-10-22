@@ -23,7 +23,21 @@
   --taille-precision-petite: 17px;
   --interligne: 1.15;
 
+  /* Typographie sur ordinateur (900 px et plus) */
+  --taille-accueil-ordinateur: 76px;
+  --taille-titre-ordinateur: 52px;
+  --taille-titre-petit-ordinateur: 48px;
+  --taille-barre-ordinateur: 28px;
+  --taille-texte-ordinateur: 26px;
+  --taille-precision-ordinateur: 22px;
+  --taille-precision-petite-ordinateur: 20px;
+
   /* Mise en page */
   --largeur-max: 480px;
   --marge: 18px;
+  --ecart-blocs: 16px;
+  --largeur-ecran-ordinateur: 1040px;
+  --marge-fenetre: 24px;
+  --ecart-colonnes: 32px;
+  --cible-tactile: 44px;
 }

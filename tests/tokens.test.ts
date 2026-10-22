@@ -21,3 +21,21 @@ describe('tokens.css', () => {
     expect(trouve?.[1]?.trim().toUpperCase()).toBe(valeur);
   });
 });
+
+// Tailles agrandies sur ordinateur (docs/design-minitel.md, section « Mise en page »).
+const taillesOrdinateur: Record<string, string> = {
+  '--taille-texte-ordinateur': '26px',
+  '--taille-titre-ordinateur': '52px',
+  '--taille-titre-petit-ordinateur': '48px',
+  '--taille-barre-ordinateur': '28px',
+  '--taille-accueil-ordinateur': '76px',
+  '--taille-precision-ordinateur': '22px',
+  '--taille-precision-petite-ordinateur': '20px',
+};
+
+describe('tokens.css, ordinateur', () => {
+  it.each(Object.entries(taillesOrdinateur))('declare %s = %s', (nom, valeur) => {
+    const trouve = new RegExp(`${nom}\\s*:\\s*([^;]+);`).exec(tokens);
+    expect(trouve?.[1]?.trim()).toBe(valeur);
+  });
+});

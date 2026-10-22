@@ -1,4 +1,5 @@
-/* Base commune : remise à zéro, fond noir, police pixel. */
+/* Base commune : remise à zéro, fond noir, police pixel, mise en page des écrans.
+   Voir docs/design-minitel.md, section « Mise en page ». */
 *,
 *::before,
 *::after {
@@ -20,4 +21,125 @@ body {
   line-height: var(--interligne);
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--valeur);
+  outline-offset: 2px;
+}
+
+/* Masqué à l'écran, lu par les lecteurs d'écran. */
+.lecteur-seulement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- Écran : une colonne sur mobile --- */
+
+.ecran {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--largeur-max);
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: var(--marge) var(--marge) 0;
+}
+
+.contenu {
+  flex: 1;
+  padding: var(--marge) 0;
+}
+
+.zones,
+.gauche,
+.droite {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ecart-blocs);
+  min-width: 0;
+}
+
+.touches {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: 10px;
+  padding: 12px 0 var(--marge);
+  background: var(--fond);
+}
+
+.discret {
+  color: var(--texte-discret);
+  font-size: var(--taille-precision);
+}
+
+.titre-valeur {
+  color: var(--valeur);
+  font-size: var(--taille-titre);
+  font-weight: normal;
+  line-height: 1;
+}
+
+/* --- Ordinateur : écran Minitel 4:3, deux colonnes --- */
+
+@media (min-width: 900px) {
+  :root {
+    --taille-accueil: var(--taille-accueil-ordinateur);
+    --taille-titre: var(--taille-titre-ordinateur);
+    --taille-titre-petit: var(--taille-titre-petit-ordinateur);
+    --taille-barre: var(--taille-barre-ordinateur);
+    --taille-texte: var(--taille-texte-ordinateur);
+    --taille-precision: var(--taille-precision-ordinateur);
+    --taille-precision-petite: var(--taille-precision-petite-ordinateur);
+  }
+
+  body {
+    display: grid;
+    place-items: center;
+    padding: var(--marge-fenetre) 0;
+  }
+
+  .ecran {
+    --largeur-ecran: min(var(--largeur-ecran-ordinateur), 100vw - 2 * var(--marge-fenetre));
+    width: var(--largeur-ecran);
+    max-width: none;
+    height: min(var(--largeur-ecran) * 3 / 4, 100vh - 2 * var(--marge-fenetre));
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 2px solid var(--piste);
+  }
+
+  .contenu {
+    overflow-y: auto;
+    padding: 24px 32px;
+  }
+
+  .zones {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: var(--ecart-colonnes);
+    align-items: start;
+  }
+
+  .zones.pleine {
+    grid-template-columns: 1fr;
+  }
+
+  .touches {
+    position: static;
+    padding: 12px 32px 16px;
+  }
 }
