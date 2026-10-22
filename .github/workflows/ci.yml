@@ -20,7 +20,14 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run check
-      - run: npm test -- --silent=false
+      - name: Tests
+        run: |
+          set -o pipefail
+          npm test -- --silent=false | tee sortie-tests.txt
+      # Réémet depuis le shell le temps mesuré par le test de non-régression (annotation lisible sans les journaux).
+      - name: Temps de performance
+        if: always()
+        run: grep -ho '::notice.*' sortie-tests.txt || true
       - run: npm run build
       - name: Préparer l'artefact GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
