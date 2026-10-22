@@ -41,6 +41,8 @@ contenu/evenements/*.json  ─────────────────�
 │   ├── moteur/
 │   │   ├── rng.ts               générateur à graine
 │   │   ├── cotes.ts             formule des cotes, effet des traits
+│   │   ├── tables.ts            recherche dans les tables, repli vers une table moins précise
+│   │   ├── constantes.ts        paramètres de jeu (âge maximal, valeurs initiales...)
 │   │   ├── types.ts             Personnage, Evenement, Choix...
 │   │   ├── naissance.ts         tirage de l'origine
 │   │   ├── boucle.ts            jouerAnnee()
@@ -52,14 +54,20 @@ contenu/evenements/*.json  ─────────────────�
 │   │   ├── ecrans/              Accueil, Naissance, Tour, Journal, Bilan
 │   │   ├── composants/          BarreTitre, BoutonNumerote, Touche, Jauge,
 │   │   │                        LigneValeur, Avis, Legende
-│   │   └── styles/tokens.css
+│   │   ├── styles/              tokens.css, base.css
+│   │   ├── App.svelte           composant racine, enchaînement des écrans
+│   │   ├── texte.ts             format Minitel (majuscules sans accents), montants
+│   │   ├── graine.ts            génération et validation des graines
+│   │   ├── donnees.ts           chargement des tables de public/data/
+│   │   └── clavier.ts           raccourcis clavier
 │   ├── worker/
 │   │   └── simulation.worker.ts
 │   ├── stockage/
 │   │   └── parties.ts
 │   └── main.ts
 └── tests/
-    └── moteur/
+    ├── moteur/
+    └── ui/                      fonctions pures de l'interface
 ```
 
 ## Contrat du moteur
@@ -140,7 +148,7 @@ interface Evenement {
 ## Interface
 
 - Svelte 5, aucune bibliothèque de composants.
-- Une seule colonne de 390 à 480 px, centrée ; bandes noires autour sur ordinateur, comme un écran de Minitel.
+- Mise en page mobile et ordinateur : voir `docs/design-minitel.md`, section « Mise en page ».
 - Clavier : chiffres 1 à 9 pour les choix, Entrée = ENVOI, Échap = RETOUR (voir `docs/design-minitel.md`).
 
 ## Web Worker

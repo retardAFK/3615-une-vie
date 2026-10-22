@@ -23,13 +23,13 @@ Le joueur naît en France avec une origine tirée au hasard, puis vit un tour pa
 
 **Ordre d'un tour (1 an)**
 
-1. Vieillissement : âge + 1, les traits liés à l'âge évoluent.
-2. Revenus et dépenses de l'année : calcul du solde, mise à jour de l'épargne et des dettes.
-3. Test de mortalité (section 10). En cas de décès, fin de partie.
-4. Tirage des événements de l'année (0 à 3), selon leurs probabilités conditionnelles.
-5. Choix du joueur, proposés par les événements ou par l'étape de vie.
-6. Mise à jour des jauges et des états (emploi, addictions, couple).
-7. Journal de l'année : 1 à 3 lignes de récit.
+1. Revenus et dépenses de l'année : calcul du solde, mise à jour de l'épargne et des dettes.
+2. Test de mortalité (section 10), à l'âge vécu pendant l'année (la valeur à 0 an sert donc la première année). En cas de décès, fin de partie.
+3. Tirage des événements de l'année (0 à 3), selon leurs probabilités conditionnelles.
+4. Choix du joueur, proposés par les événements ou par l'étape de vie.
+5. Mise à jour des jauges et des états (emploi, addictions, couple). Certains événements (accident grave, surdose, maladie déclarée) peuvent aussi provoquer le décès à cette étape : il est alors enregistré à l'âge vécu, comme pour le test de mortalité.
+6. Journal de l'année : 1 à 3 lignes de récit.
+7. Vieillissement : âge + 1, les traits liés à l'âge évoluent.
 
 Un mode « choix automatique » joue les décisions à la place du joueur, selon ses traits. Une partie complète doit tenir en 30 à 60 minutes.
 
@@ -342,7 +342,7 @@ Chaque année, le personnage passe un test de mortalité basé sur les tables IN
 q_{final} = f\left(q_{INSEE}(age, sexe, annee),\ m_{PCS},\ m_{addictions},\ m_{maladies},\ m_{santePhysique}\right)
 ```
 
-- **q INSEE** : probabilité de décéder dans l'année à cet âge, pour ce sexe et cette génération.
+- **q INSEE** : probabilité de décéder dans l'année à cet âge, pour ce sexe et cette année calendaire (tables du moment).
 - **m PCS** : l'écart d'espérance de vie entre cadres et ouvriers se reproduit par un multiplicateur sur la mortalité adulte.
 - Les autres multiplicateurs passent par la formule des cotes de la section 4.
 
