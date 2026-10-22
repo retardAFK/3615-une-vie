@@ -1,0 +1,17 @@
+# Dépendances et build
+node_modules/
+dist/
+*.local
+
+# Journaux
+*.log
+npm-debug.log*
+
+# Éditeurs et système
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.suo
+.DS_Store
+Thumbs.db
