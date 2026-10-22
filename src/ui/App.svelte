@@ -1,12 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import {
+    avancerPetiteEnfance,
     choisirAuto,
     creerPartie,
     fermerAnnee,
     jouerAnneeAuto,
     ouvrirAnnee,
   } from '../moteur/boucle';
+  import { AGE_FIN_PETITE_ENFANCE } from '../moteur/constantes';
   import { bornesAnneeNaissance } from '../moteur/naissance';
   import type {
     ChoixJoueur,
@@ -96,7 +98,12 @@
     if (!donnees || !partie) return;
     rangAvis = 0;
     choixFaits = {};
-    suivre(ouvrirAnnee(partie, donnees).etat);
+    // Petite enfance, hors AUTO : les années sans événement défilent sans arrêt.
+    const ouverture =
+      !auto && partie.personnage.age < AGE_FIN_PETITE_ENFANCE
+        ? avancerPetiteEnfance(partie, donnees)
+        : ouvrirAnnee(partie, donnees);
+    suivre(ouverture.etat);
   }
 
   /** Ferme l'année ouverte ; les choix manquants sont faits par choisirAuto. */

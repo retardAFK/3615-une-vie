@@ -1,7 +1,9 @@
 // Chargement des données passées au moteur : tables de public/data/ (fetch),
 // événements de contenu/evenements/ et libellés (inclus dans le bundle).
 
-import libelles from '../../contenu/textes/libelles.json';
+import libellesBruts from '../../contenu/textes/libelles.json';
+import recits from '../../contenu/textes/recits.json';
+import ressources from '../../contenu/textes/ressources.json';
 import type { Donnees, Evenement, Tables } from '../moteur/types';
 import { validerEvenements } from '../moteur/validation';
 
@@ -69,6 +71,12 @@ export async function chargerTables(
 }
 
 /** Événements validés ; une erreur de contenu arrête le chargement. */
+/** Libellés affichés et modèles de récit, dans un seul dictionnaire pour le moteur. */
+export const libelles = { ...libellesBruts, recits };
+
+/** Ressources d'aide : nom et contact (contenu/textes/ressources.json). */
+export const RESSOURCES: Readonly<Record<string, { nom: string; contact: string }>> = ressources;
+
 export function evenementsDuContenu(
   fichiers: Readonly<Record<string, unknown>> = FICHIERS_EVENEMENTS,
 ): Evenement[] {
@@ -77,6 +85,7 @@ export function evenementsDuContenu(
       nom: chemin.split('/').at(-1) ?? chemin,
       contenu,
     })),
+    { ressources: Object.keys(RESSOURCES) },
   );
   if (erreurs.length > 0) throw new Error(`Contenu invalide :\n${erreurs.join('\n')}`);
   return evenements;

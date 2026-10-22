@@ -7,6 +7,7 @@
   import LigneValeur from '../composants/LigneValeur.svelte';
   import Touche from '../composants/Touche.svelte';
   import { estSalarie } from '../../moteur/modules/emploi';
+  import { RESSOURCES } from '../donnees';
   import { libelle, minitel, montant } from '../texte';
 
   let {
@@ -141,6 +142,11 @@
         <Avis titre={titreAvis}>
           {#if totalAvis > 1}<p class="discret">AVIS {rangAvis + 1}/{totalAvis}</p>{/if}
           <p>{avis.texte}</p>
+          {#each avis.ressources as id (id)}
+            {#if RESSOURCES[id]}
+              <p class="ressource">AIDE : {RESSOURCES[id].contact} · {RESSOURCES[id].nom}</p>
+            {/if}
+          {/each}
           {#if avis.choix.length > 0}
             <div class="pile" role="group" aria-label="Choix">
               {#each avis.choix as option, i (option.id)}
@@ -181,6 +187,11 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+
+  .ressource {
+    color: var(--accent);
+    font-size: var(--taille-precision);
   }
 
   .pile-serree {
