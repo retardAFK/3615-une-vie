@@ -97,7 +97,8 @@ interface Personnage {
   traits: Traits            // 0–100, dérive lente, cachés au joueur
   jauges: Jauges            // santePhysique, santeMentale, bienEtre, liens, competences
   finances: Finances        // euros constants : revenuAnnuel, epargne, dettes, patrimoine
-  etats: Etats              // scolarite, emploi, couple, logement, addictions, maladies
+  etats: Etats              // scolarite, emploi, couple, logement, addictions, maladies,
+                            // education (diplôme, voie, filière), travail (métier, salaire, retraite)
   age: number
   vivant: boolean
 }
@@ -117,10 +118,10 @@ interface Evenement {
   id: string
   module: string
   age: [number, number]
-  requiert?: Conditions      // sur l'origine
+  requiert?: Conditions      // sur l'origine, et sur emploi, scolarite, diplome, pcs du joueur
   pBase: number | { source: string; par: string[] }
   modificateurs: Modificateur[]   // { trait, k }, { jauge, k } ou { si, m }
-  effets: Effets            // jauges, états, deces (probabilité)
+  effets: Effets            // jauges, états, deces (probabilité), revenu [min, max], argent
   choix?: ChoixPossible[]
   cooldown?: number
   unique?: boolean          // au plus une fois dans une vie (incompatible avec cooldown)
@@ -153,6 +154,9 @@ interface Evenement {
 ```
 
 - Tant qu'une table n'est pas calibrée, elle contient des valeurs de travail plausibles et `"aCalibrer": true`. Le bilan peut alors afficher un avertissement discret.
+- Les règles de droit (âge légal de retraite, obligation scolaire) sont des tables à part, sourcées, avec `"aCalibrer": false`.
+- Les modules (`src/moteur/modules/`) tirent leurs issues à plusieurs valeurs (voie, orientation, transitions d'emploi) par la formule des cotes appliquée à chaque issue, puis renormalisée (`distributionCorrigee`). Les choix agissent sur ces tirages par des modificateurs visant des tags d'issue (`voie_generale`, `emploi_chomage`...). Un choix ne peut avoir un effet direct que pour accepter une opportunité déjà tirée (`effets: { changerEmploi: true }`).
+- La table `contexte` est le point d'accroche du contexte historique : des multiplicateurs par année et par tag, vide jusqu'au jalon 4c.
 - Chargement paresseux : chaque module charge ses tables quand il devient utile.
 
 ## Interface
