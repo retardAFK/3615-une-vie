@@ -5,7 +5,8 @@ import { multiplicateurTrait, probabiliteFinale, probabiliteParProduit } from '.
 import { appliquerMontant } from './modules/argent';
 import { multiplicateurContexte } from './modules/contexte';
 import { rediger } from './recit';
-import { sousGenerateur, tirage, tirerPondere } from './rng';
+import { hachageIdentifiant, sousGenerateur, tirage, tirageHache, tirerPondere } from './rng';
+import { CHAMPS_ETATS_CONDITIONS } from './types';
 import type {
   ChampCondition,
   ChoixJoueur,
@@ -27,10 +28,27 @@ export const EVENEMENTS_PAR_AN = 3;
 
 const index = new WeakMap<readonly Evenement[], Map<string, Evenement>>();
 
-/** Événement et son rang de déclaration (départage à gravité égale). */
+/** Événement de la tranche d'âge, avec ce dont le tirage annuel a besoin. */
 export interface EvenementRange {
   evenement: Evenement;
+  /** Rang de déclaration : départage à gravité égale, index des cooldowns. */
   rang: number;
+  /** Hachage de l'identifiant, calculé une fois. */
+  identifiant: readonly number[];
+}
+
+const rangs = new WeakMap<readonly Evenement[], Map<Evenement, number>>();
+
+/** Rang d'un événement dans sa liste (index des cooldowns). */
+export function rangDe(evenements: readonly Evenement[], evenement: Evenement): number {
+  let parEvenement = rangs.get(evenements);
+  if (!parEvenement) {
+    parEvenement = new Map(evenements.map((e, rang) => [e, rang]));
+    rangs.set(evenements, parEvenement);
+  }
+  const rang = parEvenement.get(evenement);
+  if (rang === undefined) throw new Error(`Evenement hors de la liste : ${evenement.id}`);
+  return rang;
 }
 
 const indexParAge = new WeakMap<readonly Evenement[], EvenementRange[][]>();
@@ -46,7 +64,7 @@ export function evenementsParAge(evenements: readonly Evenement[]): EvenementRan
     evenements.forEach((evenement, rang) => {
       const [min, max] = evenement.age;
       for (let age = Math.max(0, min); age <= Math.min(max, AGE_MAXIMAL); age++) {
-        tranches[age]!.push({ evenement, rang });
+        tranches[age]!.push({ evenement, rang, identifiant: hachageIdentifiant(evenement.id) });
       }
     });
     parAge = tranches;
@@ -101,16 +119,16 @@ export function remplitConditions(
   return true;
 }
 
-export function estEligible(evenement: Evenement, etat: EtatPartie): boolean {
+export function estEligible(evenement: Evenement, etat: EtatPartie, donnees: Donnees): boolean {
   const { age } = etat.personnage;
   const [min, max] = evenement.age;
   if (age < min || age > max) return false;
-  return estEligibleAgeCompris(evenement, etat);
+  return estEligibleAgeCompris(evenement, rangDe(donnees.evenements, evenement), etat);
 }
 
 /** Éligibilité hors tranche d'âge (déjà garantie par l'index par âge) : cooldown, conditions. */
-function estEligibleAgeCompris(evenement: Evenement, etat: EtatPartie): boolean {
-  const reprise = etat.cooldowns[evenement.id];
+function estEligibleAgeCompris(evenement: Evenement, rang: number, etat: EtatPartie): boolean {
+  const reprise = etat.cooldowns[rang];
   if (reprise !== undefined && etat.personnage.age < reprise) return false;
   return !evenement.requiert || remplitConditions(etat.personnage, evenement.requiert);
 }
@@ -146,11 +164,93 @@ export function multiplicateursTag(
 }
 
 /** Probabilité finale de l'événement cette année : pBase corrigée par la formule des cotes. */
+/** Ce dont dépend la probabilité d'un événement. */
+export type Dependance = 'origine' | 'traits' | 'jauges' | 'etats' | 'annee';
+
+/**
+ * Dépendances de la probabilité d'un événement, déduites de ce qu'il déclare
+ * (modificateurs, pBase) et du contexte historique (un tag présent dans la table
+ * contexte rend l'événement dépendant de l'année). Jamais établies à la main.
+ */
+export function dependancesProbabilite(evenement: Evenement, tables: Tables): Set<Dependance> {
+  const dependances = new Set<Dependance>();
+  // pBase par table (jalon 4c et suivants) : dépendance supposée aux états.
+  if (typeof evenement.pBase !== 'number') dependances.add('etats');
+  for (const mod of evenement.modificateurs ?? []) {
+    if ('trait' in mod) dependances.add('traits');
+    else if ('jauge' in mod) dependances.add('jauges');
+    else {
+      for (const champ in mod.si) {
+        const surEtat = (CHAMPS_ETATS_CONDITIONS as readonly string[]).includes(champ);
+        dependances.add(surEtat ? 'etats' : 'origine');
+      }
+    }
+  }
+  const tags = new Set(evenement.tags);
+  for (const ligne of tables.contexte.lignes) {
+    if (Object.keys(ligne.multiplicateurs).some((tag) => tags.has(tag))) dependances.add('annee');
+  }
+  return dependances;
+}
+
+const fixes = new WeakMap<object, WeakMap<Evenement, boolean>>();
+
+/**
+ * Probabilité fixe pour toute une vie : ne dépend que de l'origine et des traits,
+ * qui ne changent jamais. Classement mis en cache par table de contexte.
+ */
+export function aProbabiliteFixe(evenement: Evenement, tables: Tables): boolean {
+  let parEvenement = fixes.get(tables.contexte);
+  if (!parEvenement) {
+    parEvenement = new WeakMap();
+    fixes.set(tables.contexte, parEvenement);
+  }
+  let fixe = parEvenement.get(evenement);
+  if (fixe === undefined) {
+    const d = dependancesProbabilite(evenement, tables);
+    fixe = !d.has('jauges') && !d.has('etats') && !d.has('annee');
+    parEvenement.set(evenement, fixe);
+  }
+  return fixe;
+}
+
+/** Probabilités fixes déjà calculées, par vie (l'origine et les traits ne changent pas). */
+const probabilitesFixes = new WeakMap<
+  object,
+  { traits: object; valeurs: Map<Evenement, number> }
+>();
+
+function viseParUnChoix(evenement: Evenement, etat: EtatPartie): boolean {
+  const actifs = etat.modificateursActifs;
+  for (let i = 0; i < actifs.length; i++) {
+    if (estActif(actifs[i]!, etat.personnage.age) && vise(actifs[i]!, evenement)) return true;
+  }
+  return false;
+}
+
 export function probabiliteEvenement(
   evenement: Evenement,
   etat: EtatPartie,
   tables?: Tables,
 ): number {
+  if (!tables || !aProbabiliteFixe(evenement, tables) || viseParUnChoix(evenement, etat)) {
+    return calculerProbabilite(evenement, etat, tables);
+  }
+  const { origine, traits } = etat.personnage;
+  let cache = probabilitesFixes.get(origine);
+  if (!cache || cache.traits !== traits) {
+    cache = { traits, valeurs: new Map() };
+    probabilitesFixes.set(origine, cache);
+  }
+  let p = cache.valeurs.get(evenement);
+  if (p === undefined) {
+    p = calculerProbabilite(evenement, etat, tables);
+    cache.valeurs.set(evenement, p);
+  }
+  return p;
+}
+
+function calculerProbabilite(evenement: Evenement, etat: EtatPartie, tables?: Tables): number {
   if (typeof evenement.pBase !== 'number') {
     throw new Error(`${evenement.id} : pBase par table pas encore prise en charge`);
   }
@@ -212,14 +312,14 @@ export function tirerEvenements(
   // La plupart des années, rien n'est tiré : aucune allocation dans ce cas.
   let candidats: { tire: EvenementTire; rang: number }[] | null = null;
   for (let i = 0; i < tranche.length; i++) {
-    const { evenement, rang } = tranche[i]!;
-    if (!estEligibleAgeCompris(evenement, etat)) continue;
+    const { evenement, rang, identifiant } = tranche[i]!;
+    if (!estEligibleAgeCompris(evenement, rang, etat)) continue;
     if (reportes.length > 0 && reportes.includes(evenement.id)) {
       (candidats ??= []).push({ tire: tire(evenement, etat, donnees, 1, true), rang });
       continue;
     }
     const p = probabiliteEvenement(evenement, etat, donnees.tables);
-    if (tirage(graine, personnage.age, evenement.id) < p) {
+    if (tirageHache(graine, personnage.age, identifiant) < p) {
       (candidats ??= []).push({ tire: tire(evenement, etat, donnees, p, false), rang });
     }
   }
@@ -268,6 +368,7 @@ export function appliquerEvenement(
   etat: EtatPartie,
   evenement: Evenement,
   choix: ChoixPossible | null,
+  rang: number,
 ): EtatPartie {
   const { personnage } = etat;
   const { age } = personnage;
@@ -301,9 +402,11 @@ export function appliquerEvenement(
     justice = { ...justice, condamnations: justice.condamnations + 1, casier: true };
   }
 
-  const cooldowns = { ...etat.cooldowns };
-  if (evenement.unique) cooldowns[evenement.id] = AGE_MAXIMAL + 1;
-  else if (evenement.cooldown) cooldowns[evenement.id] = age + evenement.cooldown;
+  let cooldowns = etat.cooldowns;
+  if (evenement.unique || evenement.cooldown) {
+    cooldowns = etat.cooldowns.slice();
+    cooldowns[rang] = evenement.unique ? AGE_MAXIMAL + 1 : age + evenement.cooldown!;
+  }
 
   const etatsChanges =
     evenement.effets.etats !== undefined ||

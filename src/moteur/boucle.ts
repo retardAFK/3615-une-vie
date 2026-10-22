@@ -13,6 +13,7 @@ import {
 import { probabiliteFinale } from './cotes';
 import {
   appliquerEvenement,
+  rangDe,
   choisirAuto,
   choixRetenu,
   evenementParId,
@@ -60,7 +61,7 @@ export function creerPartie(
       vivant: true,
     },
     historique: [{ annee: origine.anneeNaissance, age: 0, type: 'naissance' }],
-    cooldowns: {},
+    cooldowns: [],
     modificateursActifs: [],
     anneeEnCours: null,
     reportes: [],
@@ -158,7 +159,7 @@ export function fermerAnnee(
   for (const tire of enCours.evenements) {
     const evenement = evenementParId(donnees.evenements, tire.id);
     const retenu = choixRetenu(evenement, choix);
-    courant = appliquerEvenement(courant, evenement, retenu);
+    courant = appliquerEvenement(courant, evenement, retenu, rangDe(donnees.evenements, evenement));
     // Opportunité acceptée (offre extérieure) : seule exception aux choix sans résultat direct.
     if (retenu?.effets?.changerEmploi) courant = changerEmploi(courant, donnees, evenement.id);
     journal.push({

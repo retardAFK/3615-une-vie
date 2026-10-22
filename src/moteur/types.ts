@@ -485,8 +485,11 @@ export interface EtatPartie {
   annee: number;
   personnage: Personnage;
   historique: EntreeJournal[];
-  /** Âge à partir duquel chaque événement redevient éligible. */
-  cooldowns: Record<string, number>;
+  /**
+   * Âge à partir duquel chaque événement redevient éligible, indexé par son rang
+   * dans donnees.evenements (case vide : éligible).
+   */
+  cooldowns: number[];
   modificateursActifs: ModificateurTemporaire[];
   anneeEnCours: AnneeEnCours | null;
   /** Événements écartés cette année, à passer l'an prochain. */

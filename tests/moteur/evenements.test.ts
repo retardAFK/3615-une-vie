@@ -2,13 +2,15 @@ import { describe, expect, it } from 'vitest';
 import { creerPartie, fermerAnnee, jouerAnneeAuto, ouvrirAnnee } from '../../src/moteur/boucle';
 import {
   EVENEMENTS_PAR_AN,
+  aProbabiliteFixe,
   choisirAuto,
+  dependancesProbabilite,
   estEligible,
   evenementsParAge,
   probabiliteEvenement,
   tirerEvenements,
 } from '../../src/moteur/evenements';
-import { sousGenerateur } from '../../src/moteur/rng';
+import { tirage } from '../../src/moteur/rng';
 import type { ChoixJoueur, Donnees, EtatPartie } from '../../src/moteur/types';
 import { DONNEES, donneesAvec, evenement } from './donnees';
 
@@ -229,14 +231,17 @@ describe('evenement mortel', () => {
 });
 
 describe('index des evenements par age', () => {
-  /** Tirage de référence, sans index : parcourt toute la liste (version du jalon 3). */
+  /**
+   * Tirage de référence, sans index ni cache : parcourt toute la liste et recalcule
+   * chaque probabilité (sans tables : pas de cache des probabilités fixes).
+   */
   function tirageReference(etat: EtatPartie, donnees: Donnees): string[] {
     const candidats: { id: string; gravite: number; rang: number }[] = [];
     donnees.evenements.forEach((ev, rang) => {
-      if (!estEligible(ev, etat)) return;
+      if (!estEligible(ev, etat, donnees)) return;
       if (
         etat.reportes.includes(ev.id) ||
-        sousGenerateur(etat.graine, etat.personnage.age, ev.id)() < probabiliteEvenement(ev, etat)
+        tirage(etat.graine, etat.personnage.age, ev.id) < probabiliteEvenement(ev, etat)
       ) {
         candidats.push({ id: ev.id, gravite: ev.gravite, rang });
       }
@@ -265,5 +270,56 @@ describe('index des evenements par age', () => {
       const attendus = DONNEES.evenements.filter((e) => age >= e.age[0] && age <= e.age[1]);
       expect(parAge[age]!.map((r) => r.evenement)).toEqual(attendus);
     }
+  });
+});
+
+describe('probabilites fixes pour une vie', () => {
+  const tables = DONNEES.tables;
+  const avecContexte = (tag: string) => ({
+    ...tables,
+    contexte: {
+      ...tables.contexte,
+      lignes: [{ conditions: { annee: '2008' }, multiplicateurs: { [tag]: 2 } }],
+    },
+  });
+
+  it("classe comme fixe un evenement qui ne depend que de l'origine et des traits", () => {
+    const ev = evenement('fixe', {
+      modificateurs: [
+        { trait: 'impulsivite', k: 0.5 },
+        { si: { territoire: ['rural'] }, m: 2 },
+      ],
+    });
+    expect([...dependancesProbabilite(ev, tables)].sort()).toEqual(['origine', 'traits']);
+    expect(aProbabiliteFixe(ev, tables)).toBe(true);
+  });
+
+  it("en sort automatiquement un evenement dependant d'un etat, d'une jauge ou de l'annee", () => {
+    const surEtat = evenement('etat', { modificateurs: [{ si: { emploi: ['chomage'] }, m: 2 }] });
+    const surJauge = evenement('jauge', { modificateurs: [{ jauge: 'santeMentale', k: -0.5 }] });
+    const surAnnee = evenement('annee', { tags: ['crise_test'] });
+    expect(aProbabiliteFixe(surEtat, tables)).toBe(false);
+    expect(aProbabiliteFixe(surJauge, tables)).toBe(false);
+    // Sans contexte pour son tag, l'événement est fixe ; dès qu'une année le vise, il ne l'est plus.
+    expect(aProbabiliteFixe(surAnnee, tables)).toBe(true);
+    expect(dependancesProbabilite(surAnnee, avecContexte('crise_test'))).toContain('annee');
+    expect(aProbabiliteFixe(surAnnee, avecContexte('crise_test'))).toBe(false);
+  });
+
+  it('recalcule une probabilite fixe quand un choix la vise, puis reprend la valeur fixe', () => {
+    const ev = evenement('cible_fixe', {
+      pBase: 0.1,
+      modificateurs: [{ trait: 'ambition', k: 0.4 }],
+    });
+    const etat = creerPartie('fixe', DONNEES);
+    const fixe = probabiliteEvenement(ev, etat, tables);
+    expect(fixe).toBeCloseTo(probabiliteEvenement(ev, etat), 12);
+    const vise: EtatPartie = {
+      ...etat,
+      modificateursActifs: [{ cible: { evenement: 'cible_fixe' }, m: 3, debut: 0, fin: 0 }],
+    };
+    expect(probabiliteEvenement(ev, vise, tables)).toBeGreaterThan(fixe * 2);
+    const expire = { ...vise, personnage: { ...vise.personnage, age: 1 } };
+    expect(probabiliteEvenement(ev, expire, tables)).toBe(fixe);
   });
 });
