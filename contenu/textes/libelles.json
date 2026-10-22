@@ -123,5 +123,13 @@
     "artisan_commercant": "ARTISAN",
     "agriculteur": "AGRICULTEUR",
     "sans_emploi": "SANS EMPLOI"
+  },
+  "lieu": {
+    "grande_metropole": "DANS UNE GRANDE VILLE",
+    "ville_moyenne": "DANS UNE VILLE MOYENNE",
+    "periurbain": "EN PERIPHERIE D'UNE VILLE",
+    "rural": "A LA CAMPAGNE",
+    "quartier_prioritaire": "DANS UN QUARTIER POPULAIRE",
+    "drom": "EN OUTRE-MER"
   }
 }

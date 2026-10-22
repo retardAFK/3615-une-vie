@@ -1,0 +1,296 @@
+{
+  "module": "quotidien",
+  "source": "Evenements subis du quotidien, sans choix. Probabilites de travail, a calibrer. Les catastrophes historiques datees arrivent au jalon 4c.",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "id": "quo_divorce_parents",
+      "module": "quotidien",
+      "age": [11, 25],
+      "requiert": {
+        "structureFamiliale": ["couple", "recomposee"]
+      },
+      "pBase": 0.012,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "decileRevenuFoyer": ["1", "2", "3"]
+          },
+          "m": 1.3
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -6,
+          "liens": -3
+        }
+      },
+      "unique": true,
+      "gravite": 2,
+      "tags": ["famille"],
+      "textes": [
+        "TES PARENTS DIVORCENT. LA FAMILLE SE REORGANISE.",
+        "{annee} : TES PARENTS ANNONCENT LEUR SEPARATION AU DINER."
+      ]
+    },
+    {
+      "id": "quo_deuil_grand_parent",
+      "module": "quotidien",
+      "age": [3, 45],
+      "pBase": 0.04,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -5,
+          "liens": -2
+        }
+      },
+      "cooldown": 8,
+      "gravite": 2,
+      "tags": ["deuil", "famille"],
+      "textes": [
+        "{annee} : DECES D'UN GRAND-PARENT. TOUTE LA FAMILLE SE RETROUVE A L'ENTERREMENT.",
+        "TA GRAND-MERE S'ETEINT. LA MAISON DE VACANCES NE SERA PLUS LA MEME."
+      ]
+    },
+    {
+      "id": "quo_deuil_pere",
+      "module": "quotidien",
+      "age": [15, 95],
+      "requiert": {
+        "structureFamiliale": ["couple", "recomposee", "monoparentale"]
+      },
+      "pBase": 0.012,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -10,
+          "liens": -4
+        }
+      },
+      "unique": true,
+      "gravite": 3,
+      "tags": ["deuil", "famille"],
+      "textes": ["{annee} : DECES DE TON PERE.", "TON PERE S'EN VA APRES UNE LONGUE MALADIE."]
+    },
+    {
+      "id": "quo_deuil_mere",
+      "module": "quotidien",
+      "age": [15, 95],
+      "requiert": {
+        "structureFamiliale": ["couple", "recomposee", "monoparentale"]
+      },
+      "pBase": 0.01,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -10,
+          "liens": -4
+        }
+      },
+      "unique": true,
+      "gravite": 3,
+      "tags": ["deuil", "famille"],
+      "textes": ["{annee} : DECES DE TA MERE.", "TA MERE S'ETEINT. TU PERDS UN REPERE."]
+    },
+    {
+      "id": "quo_deuil_ami",
+      "module": "quotidien",
+      "age": [16, 100],
+      "pBase": 0.012,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -7,
+          "liens": -3
+        }
+      },
+      "cooldown": 6,
+      "gravite": 2,
+      "tags": ["deuil"],
+      "textes": [
+        "UN AMI PROCHE MEURT. LE CHOC EST RUDE.",
+        "{annee} : TU APPRENDS LA MORT D'UN AMI D'ENFANCE."
+      ]
+    },
+    {
+      "id": "quo_accident_proche",
+      "module": "quotidien",
+      "age": [8, 90],
+      "pBase": 0.01,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -5,
+          "liens": 1
+        }
+      },
+      "cooldown": 6,
+      "gravite": 2,
+      "tags": ["famille", "accident"],
+      "textes": [
+        "{annee} : UN PROCHE EST GRAVEMENT BLESSE DANS UN ACCIDENT. DES SEMAINES DE VISITES A L'HOPITAL.",
+        "TON FRERE OU TA SOEUR SE FAIT RENVERSER EN SCOOTER. LONGUE CONVALESCENCE."
+      ]
+    },
+    {
+      "id": "quo_maladie_parent",
+      "module": "quotidien",
+      "age": [20, 70],
+      "pBase": 0.015,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -4,
+          "liens": 2
+        }
+      },
+      "cooldown": 8,
+      "gravite": 2,
+      "tags": ["famille"],
+      "textes": [
+        "UN DE TES PARENTS TOMBE MALADE. TU PASSES TES WEEK-ENDS A T'EN OCCUPER.",
+        "{annee} : HOSPITALISATION D'UN PARENT. TU JONGLES ENTRE LE TRAVAIL ET L'HOPITAL."
+      ]
+    },
+    {
+      "id": "quo_incendie",
+      "module": "quotidien",
+      "age": [18, 110],
+      "pBase": 0.002,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -8
+        },
+        "argent": -3000
+      },
+      "cooldown": 20,
+      "gravite": 3,
+      "tags": ["logement", "sinistre"],
+      "textes": [
+        "{annee} : INCENDIE DANS TON LOGEMENT. PERSONNE N'EST BLESSE, MAIS IL FAUT TOUT RECOMMENCER.",
+        "UN COURT-CIRCUIT MET LE FEU A LA CUISINE. L'ASSURANCE NE COUVRE PAS TOUT."
+      ]
+    },
+    {
+      "id": "quo_cambriolage",
+      "module": "quotidien",
+      "age": [18, 110],
+      "pBase": 0.008,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "territoire": ["grande_metropole", "quartier_prioritaire"]
+          },
+          "m": 1.4
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -5
+        },
+        "argent": -1500
+      },
+      "cooldown": 5,
+      "gravite": 2,
+      "tags": ["logement", "sinistre"],
+      "textes": [
+        "{annee} : CAMBRIOLAGE. LA PORTE FRACTUREE, LES TIROIRS RETOURNES.",
+        "EN RENTRANT DE VACANCES, TU DECOUVRES QU'ON EST ENTRE CHEZ TOI."
+      ]
+    },
+    {
+      "id": "quo_degat_eaux",
+      "module": "quotidien",
+      "age": [18, 110],
+      "pBase": 0.015,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -2
+        },
+        "argent": -500
+      },
+      "cooldown": 4,
+      "gravite": 1,
+      "tags": ["logement", "sinistre"],
+      "textes": [
+        "DEGAT DES EAUX : LE VOISIN DU DESSUS A LAISSE COULER SON BAIN.",
+        "{annee} : UNE FUITE SOUS L'EVIER ABIME LE PARQUET. FRANCHISE A PAYER."
+      ]
+    },
+    {
+      "id": "quo_inondation",
+      "module": "quotidien",
+      "age": [18, 110],
+      "pBase": 0.004,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "territoire": ["rural", "periurbain"]
+          },
+          "m": 1.4
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -6
+        },
+        "argent": -2000
+      },
+      "cooldown": 15,
+      "gravite": 2,
+      "tags": ["logement", "sinistre"],
+      "textes": [
+        "{annee} : LA RIVIERE DEBORDE. UN METRE D'EAU AU REZ-DE-CHAUSSEE.",
+        "APRES DES JOURS DE PLUIE, LA CAVE ET LE GARAGE SONT INONDES."
+      ]
+    },
+    {
+      "id": "quo_panne_voiture",
+      "module": "quotidien",
+      "age": [18, 90],
+      "pBase": 0.015,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "territoire": ["rural", "periurbain"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {
+        "argent": -800
+      },
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["quotidien"],
+      "textes": [
+        "{annee} : LA VOITURE TOMBE EN PANNE. GROSSE FACTURE AU GARAGE.",
+        "LE MOTEUR LACHE SUR LA ROUTE DU TRAVAIL. REMORQUAGE ET REPARATION."
+      ]
+    },
+    {
+      "id": "quo_amende",
+      "module": "quotidien",
+      "age": [18, 85],
+      "pBase": 0.015,
+      "aCalibrer": true,
+      "effets": {
+        "argent": -135
+      },
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["quotidien"],
+      "textes": [
+        "UN PROCES-VERBAL POUR STATIONNEMENT GENANT. AMENDE A PAYER.",
+        "{annee} : FLASHE{e} PAR UN RADAR. UN POINT EN MOINS ET UNE AMENDE."
+      ]
+    }
+  ]
+}

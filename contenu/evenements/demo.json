@@ -26,7 +26,7 @@
       "id": "demo_club_sport",
       "module": "demo",
       "age": [7, 13],
-      "pBase": 0.12,
+      "pBase": 0.04,
       "aCalibrer": true,
       "modificateurs": [
         {

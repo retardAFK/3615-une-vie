@@ -1,7 +1,9 @@
 // Données de test : tables de travail, tous les événements de contenu/, libellés,
 // et un fabricant d'événements synthétiques.
 
-import libelles from '../../contenu/textes/libelles.json';
+import libellesBruts from '../../contenu/textes/libelles.json';
+import recits from '../../contenu/textes/recits.json';
+import ressources from '../../contenu/textes/ressources.json';
 import { validerEvenements } from '../../src/moteur/validation';
 import type { Donnees, Evenement, Tables } from '../../src/moteur/types';
 import { TABLES } from './tables';
@@ -15,7 +17,9 @@ const validation = validerEvenements(
     nom: chemin.split('/').at(-1)!,
     contenu,
   })),
+  { ressources: Object.keys(ressources) },
 );
+const libelles = { ...libellesBruts, recits };
 if (validation.erreurs.length > 0) throw new Error(validation.erreurs.join('\n'));
 
 export const DONNEES: Donnees = { tables: TABLES, evenements: validation.evenements, libelles };

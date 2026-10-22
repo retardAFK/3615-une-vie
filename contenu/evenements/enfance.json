@@ -1,0 +1,581 @@
+{
+  "module": "enfance",
+  "source": "Evenements de l'enfance (0 a 10 ans). Probabilites de travail, a calibrer.",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "id": "enf_mode_garde",
+      "module": "enfance",
+      "age": [0, 2],
+      "requiert": {
+        "structureFamiliale": ["couple", "monoparentale", "recomposee"]
+      },
+      "pBase": 0.09,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "creche",
+          "libelle": "LA CRECHE",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "maladie_infantile"
+              },
+              "m": 1.5,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.6
+            }
+          ],
+          "journal": "CE SERA LA CRECHE."
+        },
+        {
+          "id": "nourrice",
+          "libelle": "UNE NOURRICE",
+          "journal": "CE SERA UNE NOURRICE."
+        },
+        {
+          "id": "grands_parents",
+          "libelle": "LES GRANDS-PARENTS",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "famille"
+              },
+              "m": 1.2,
+              "duree": 5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.4
+            }
+          ],
+          "journal": "CE SERONT LES GRANDS-PARENTS."
+        }
+      ],
+      "unique": true,
+      "gravite": 1,
+      "tags": ["enfance", "famille"],
+      "textes": [
+        "TES PARENTS DECIDENT : QUI VA TE GARDER PENDANT QU'ILS TRAVAILLENT ?",
+        "{annee} : LA REPRISE DU TRAVAIL APPROCHE. TES PARENTS CHERCHENT UN MODE DE GARDE."
+      ]
+    },
+    {
+      "id": "enf_placement",
+      "module": "enfance",
+      "age": [0, 10],
+      "requiert": {
+        "structureFamiliale": ["placement_ase"]
+      },
+      "pBase": 0.5,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "liens": -5,
+          "santeMentale": -4
+        }
+      },
+      "unique": true,
+      "gravite": 2,
+      "tags": ["enfance", "famille"],
+      "textes": [
+        "TU ES CONFIE{e} A UNE FAMILLE D'ACCUEIL PAR L'AIDE SOCIALE A L'ENFANCE.",
+        "{annee} : UN JUGE DECIDE DE TON PLACEMENT. NOUVELLE MAISON, NOUVELLE ECOLE."
+      ]
+    },
+    {
+      "id": "enf_frere_soeur",
+      "module": "enfance",
+      "age": [1, 8],
+      "requiert": {
+        "structureFamiliale": ["couple", "recomposee"]
+      },
+      "pBase": 0.08,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "fratrie": ["0"]
+          },
+          "m": 0.5
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "liens": 3
+        }
+      },
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["enfance", "famille"],
+      "textes": ["{annee} : NAISSANCE D'UN PETIT FRERE.", "UNE PETITE SOEUR ARRIVE A LA MAISON."]
+    },
+    {
+      "id": "enf_maladie_infantile",
+      "module": "enfance",
+      "age": [0, 4],
+      "pBase": 0.07,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "logementFamilial": ["hlm", "precaire"]
+          },
+          "m": 1.4
+        },
+        {
+          "si": {
+            "santeNaissance": ["prematurite"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santePhysique": -3
+        }
+      },
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["enfance", "sante", "maladie_infantile"],
+      "textes": [
+        "{annee} : BRONCHIOLITE. TROIS NUITS A L'HOPITAL AVEC TES PARENTS.",
+        "OTITE SUR OTITE CET HIVER. LE PEDIATRE CONNAIT TON PRENOM PAR COEUR."
+      ]
+    },
+    {
+      "id": "enf_accident_domestique",
+      "module": "enfance",
+      "age": [1, 6],
+      "pBase": 0.03,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santePhysique": -6
+        }
+      },
+      "cooldown": 3,
+      "gravite": 2,
+      "tags": ["enfance", "sante", "accident"],
+      "textes": [
+        "UNE CHUTE DANS L'ESCALIER : QUELQUES POINTS DE SUTURE AU FRONT.",
+        "{annee} : TU TE BRULES A LA MAIN EN CUISINE. PLUS DE PEUR QUE DE MAL."
+      ]
+    },
+    {
+      "id": "enf_demenagement",
+      "module": "enfance",
+      "age": [1, 10],
+      "pBase": 0.06,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "logementFamilial": ["locataire_prive", "hlm", "precaire"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "liens": -3
+        }
+      },
+      "cooldown": 4,
+      "gravite": 1,
+      "tags": ["enfance", "famille"],
+      "textes": [
+        "TES PARENTS DEMENAGENT. NOUVELLE CHAMBRE, NOUVEAUX VOISINS.",
+        "{annee} : CARTONS PARTOUT. LA FAMILLE CHANGE DE LOGEMENT."
+      ]
+    },
+    {
+      "id": "enf_separation_parents",
+      "module": "enfance",
+      "age": [2, 10],
+      "requiert": {
+        "structureFamiliale": ["couple", "recomposee"]
+      },
+      "pBase": 0.015,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "decileRevenuFoyer": ["1", "2", "3"]
+          },
+          "m": 1.3
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -8,
+          "liens": -4
+        }
+      },
+      "unique": true,
+      "gravite": 2,
+      "tags": ["enfance", "famille"],
+      "textes": [
+        "TES PARENTS SE SEPARENT. TU VAS VIVRE ENTRE DEUX MAISONS.",
+        "{annee} : PAPA ET MAMAN NE VIVENT PLUS ENSEMBLE."
+      ]
+    },
+    {
+      "id": "enf_vacances",
+      "module": "enfance",
+      "age": [3, 10],
+      "requiert": {
+        "decileRevenuFoyer": ["5", "6", "7", "8", "9", "10"]
+      },
+      "pBase": 0.2,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "liens": 2,
+          "santeMentale": 2
+        }
+      },
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["enfance", "famille"],
+      "textes": [
+        "{annee} : VACANCES A LA MER EN FAMILLE.",
+        "UN MOIS D'ETE CHEZ DES COUSINS, A LA MONTAGNE."
+      ]
+    },
+    {
+      "id": "enf_sans_vacances",
+      "module": "enfance",
+      "age": [4, 10],
+      "requiert": {
+        "decileRevenuFoyer": ["1", "2", "3", "4"]
+      },
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -1
+        }
+      },
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["enfance"],
+      "textes": [
+        "L'ETE SE PASSE A LA MAISON. PAS DE DEPART EN VACANCES CETTE ANNEE.",
+        "{annee} : PAS DE VACANCES CET ETE. [N] ENFANTS SUR 100 NE PARTENT PAS."
+      ]
+    },
+    {
+      "id": "enf_lecture",
+      "module": "enfance",
+      "age": [5, 7],
+      "pBase": 0.08,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "diplomeParents": ["bac_2_3", "bac_5"]
+          },
+          "m": 2
+        },
+        {
+          "trait": "facilite",
+          "k": 0.7
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "competences": 3
+        }
+      },
+      "unique": true,
+      "gravite": 1,
+      "tags": ["enfance", "ecole"],
+      "textes": [
+        "{annee} : TU APPRENDS A LIRE AVANT LES AUTRES.",
+        "LE SOIR, TU DECHIFFRES SEUL{e} LES HISTOIRES DU LIVRE DE CHEVET."
+      ]
+    },
+    {
+      "id": "enf_instrument",
+      "module": "enfance",
+      "age": [6, 10],
+      "pBase": 0.06,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "pcsParents": ["cadre", "intermediaire"]
+          },
+          "m": 2
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "apprendre",
+          "libelle": "APPRENDRE UN INSTRUMENT",
+          "cout": {
+            "jauges": {
+              "santeMentale": -1
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "reussite_scolaire"
+              },
+              "m": 1.1,
+              "duree": 5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "ambition",
+              "k": 0.6
+            }
+          ],
+          "journal": "TU T'INSCRIS."
+        },
+        {
+          "id": "refuser",
+          "libelle": "NON MERCI",
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU PREFERES JOUER DEHORS."
+        }
+      ],
+      "unique": true,
+      "gravite": 1,
+      "tags": ["enfance", "loisirs"],
+      "textes": [
+        "LE CONSERVATOIRE OUVRE SES INSCRIPTIONS. A TOI DE CHOISIR : VEUX-TU APPRENDRE UN INSTRUMENT ?",
+        "{annee} : UNE VOISINE DONNE DES COURS DE PIANO. A TOI DE DECIDER."
+      ]
+    },
+    {
+      "id": "enf_colonie",
+      "module": "enfance",
+      "age": [7, 10],
+      "pBase": 0.08,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "partir",
+          "libelle": "PARTIR EN COLONIE",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "loisirs"
+              },
+              "m": 1.5,
+              "duree": 4
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.7
+            }
+          ],
+          "journal": "TU PARS EN COLONIE."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER A LA MAISON",
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.7
+            }
+          ],
+          "journal": "TU RESTES A LA MAISON."
+        }
+      ],
+      "unique": true,
+      "gravite": 1,
+      "tags": ["enfance", "loisirs"],
+      "textes": [
+        "TES PARENTS TE PROPOSENT DEUX SEMAINES EN COLONIE DE VACANCES. A TOI DE CHOISIR.",
+        "{annee} : LA MAIRIE ORGANISE UN SEJOUR A LA MONTAGNE. TU PEUX Y ALLER SI TU VEUX."
+      ]
+    },
+    {
+      "id": "enf_ecrans",
+      "module": "enfance",
+      "age": [5, 10],
+      "pBase": 0.1,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "limiter",
+          "libelle": "LIMITER LE TEMPS D'ECRAN",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "reussite_scolaire"
+              },
+              "m": 1.1,
+              "duree": 4
+            }
+          ],
+          "journal": "TES PARENTS FIXENT DES LIMITES."
+        },
+        {
+          "id": "laisser",
+          "libelle": "LAISSER FAIRE",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "reussite_scolaire"
+              },
+              "m": 0.9,
+              "duree": 4
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            }
+          ],
+          "journal": "TES PARENTS LAISSENT FAIRE."
+        }
+      ],
+      "unique": true,
+      "gravite": 1,
+      "tags": ["enfance", "famille"],
+      "textes": [
+        "TES PARENTS DECIDENT DES REGLES : COMBIEN DE TEMPS DEVANT L'ECRAN ?",
+        "{annee} : DISPUTE A LA MAISON SUR LA TELE. TES PARENTS DOIVENT TRANCHER."
+      ]
+    },
+    {
+      "id": "enf_harcelement",
+      "module": "enfance",
+      "age": [7, 10],
+      "pBase": 0.03,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -6,
+          "liens": -3
+        }
+      },
+      "choix": [
+        {
+          "id": "en_parler",
+          "libelle": "EN PARLER A UN ADULTE",
+          "cout": {
+            "jauges": {
+              "santeMentale": -1
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "evenement": "enf_harcelement"
+              },
+              "m": 0.4,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.6
+            }
+          ],
+          "journal": "TU EN PARLES A TA MAITRESSE."
+        },
+        {
+          "id": "se_taire",
+          "libelle": "GARDER LE SILENCE",
+          "modificateurs": [
+            {
+              "cible": {
+                "evenement": "enf_harcelement"
+              },
+              "m": 1.5,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": -0.6
+            }
+          ],
+          "journal": "TU GARDES LE SILENCE."
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 2,
+      "tags": ["enfance", "ecole"],
+      "textes": [
+        "A L'ECOLE, DES ENFANTS S'EN PRENNENT A TOI CHAQUE JOUR. A TOI DE CHOISIR : EN PARLER ?",
+        "{annee} : MOQUERIES DANS LA COUR DE RECREATION. TU NE SAIS PAS A QUI LE DIRE."
+      ]
+    },
+    {
+      "id": "enf_animal",
+      "module": "enfance",
+      "age": [4, 10],
+      "pBase": 0.03,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -3
+        }
+      },
+      "unique": true,
+      "gravite": 1,
+      "tags": ["enfance", "deuil"],
+      "textes": [
+        "TON CHAT MEURT. PREMIER GRAND CHAGRIN.",
+        "{annee} : LE CHIEN DE LA FAMILLE S'EN VA. TU PLEURES TOUTE LA SOIREE."
+      ]
+    },
+    {
+      "id": "enf_anniversaire",
+      "module": "enfance",
+      "age": [3, 10],
+      "pBase": 0.06,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "decileRevenuFoyer": ["7", "8", "9", "10"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "liens": 2
+        }
+      },
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["enfance", "famille"],
+      "textes": [
+        "{age} ANS : UNE FETE AVEC TOUTE LA CLASSE.",
+        "POUR TES {age} ANS, TU RECOIS LE VELO DONT TU REVAIS."
+      ]
+    }
+  ]
+}

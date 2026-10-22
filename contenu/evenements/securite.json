@@ -1,0 +1,546 @@
+{
+  "module": "securite",
+  "source": "Securite, delinquance et police (regles, section 14). Probabilites de travail, a calibrer ; statistiques reelles en [N]. Controles et violences policieres : discrimination mesuree par l'enquete Acces aux droits du Defenseur des droits (2017).",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "id": "sec_vol",
+      "module": "securite",
+      "age": [12, 90],
+      "pBase": 0.012,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "territoire": ["quartier_prioritaire"]
+          },
+          "m": 1.6
+        },
+        {
+          "si": {
+            "territoire": ["grande_metropole"]
+          },
+          "m": 1.3
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -3
+        }
+      },
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["securite", "victime"],
+      "textes": [
+        "{annee} : ON TE VOLE TON TELEPHONE DANS LA RUE.",
+        "TON SAC DISPARAIT DANS LES TRANSPORTS. PAPIERS A REFAIRE."
+      ]
+    },
+    {
+      "id": "sec_agression",
+      "module": "securite",
+      "age": [12, 90],
+      "pBase": 0.008,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "territoire": ["quartier_prioritaire"]
+          },
+          "m": 1.8
+        },
+        {
+          "si": {
+            "sexe": ["homme"]
+          },
+          "m": 1.3
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -10,
+          "santePhysique": -5
+        }
+      },
+      "cooldown": 3,
+      "gravite": 3,
+      "tags": ["securite", "victime", "violence"],
+      "ressources": ["victimes"],
+      "textes": [
+        "{annee} : TU ES AGRESSE{e} DANS LA RUE. LE CHOC RESTE LONGTEMPS.",
+        "UN SOIR, ON TE FRAPPE POUR TE PRENDRE TON PORTEFEUILLE. [N] PERSONNES SUR 100 VIVENT CELA CHAQUE ANNEE."
+      ]
+    },
+    {
+      "id": "sec_harcelement",
+      "module": "securite",
+      "age": [12, 60],
+      "pBase": 0.01,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "sexe": ["femme"]
+          },
+          "m": 2.5
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -7
+        }
+      },
+      "cooldown": 3,
+      "gravite": 2,
+      "tags": ["securite", "victime"],
+      "ressources": ["victimes"],
+      "textes": [
+        "{annee} : HARCELEMENT DANS LA RUE ET LES TRANSPORTS. TU CHANGES D'ITINERAIRE.",
+        "DES MESSAGES INSULTANTS TE SUIVENT PENDANT DES SEMAINES."
+      ]
+    },
+    {
+      "id": "sec_controle_identite",
+      "module": "securite",
+      "age": [14, 45],
+      "pBase": 0.015,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "territoire": ["quartier_prioritaire"]
+          },
+          "m": 2
+        },
+        {
+          "si": {
+            "sexe": ["homme"]
+          },
+          "m": 2
+        },
+        {
+          "si": {
+            "origineMigratoire": ["premiere_generation", "deuxieme_generation"]
+          },
+          "m": 3
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -2
+        }
+      },
+      "cooldown": 1,
+      "gravite": 1,
+      "tags": ["police", "discrimination"],
+      "textes": [
+        "CONTROLE D'IDENTITE PRES DE CHEZ TOI. PAPIERS, QUESTIONS, PUIS ON TE LAISSE PARTIR.",
+        "{annee} : ENCORE UN CONTROLE D'IDENTITE. [N] JEUNES SUR 100 DISENT EN SUBIR SOUVENT."
+      ]
+    },
+    {
+      "id": "sec_controle_abusif",
+      "module": "securite",
+      "age": [14, 45],
+      "pBase": 0.005,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "territoire": ["quartier_prioritaire"]
+          },
+          "m": 2
+        },
+        {
+          "si": {
+            "sexe": ["homme"]
+          },
+          "m": 2
+        },
+        {
+          "si": {
+            "origineMigratoire": ["premiere_generation", "deuxieme_generation"]
+          },
+          "m": 3
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -6
+        }
+      },
+      "choix": [
+        {
+          "id": "plainte",
+          "libelle": "PORTER PLAINTE",
+          "cout": {
+            "jauges": {
+              "santeMentale": -3
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "evenement": "sec_suite_plainte"
+              },
+              "m": 2000000,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.6
+            }
+          ],
+          "journal": "TU PORTES PLAINTE."
+        },
+        {
+          "id": "defenseur",
+          "libelle": "SAISIR LE DEFENSEUR DES DROITS",
+          "cout": {
+            "jauges": {
+              "santeMentale": -1
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "evenement": "sec_suite_defenseur"
+              },
+              "m": 1000000,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "ambition",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU SAISIS LE DEFENSEUR DES DROITS."
+        },
+        {
+          "id": "rien",
+          "libelle": "NE RIEN FAIRE",
+          "modificateurs": [
+            {
+              "cible": {
+                "evenement": "sec_mal_etre"
+              },
+              "m": 800000,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": -0.6
+            }
+          ],
+          "journal": "TU LAISSES TOMBER."
+        }
+      ],
+      "cooldown": 3,
+      "gravite": 2,
+      "tags": ["police", "discrimination"],
+      "ressources": ["defenseur"],
+      "textes": [
+        "UN CONTROLE D'IDENTITE TOURNE MAL : TUTOIEMENT, INSULTES, FOUILLE HUMILIANTE.",
+        "{annee} : TROIS CONTROLES DANS LA MEME SEMAINE, LE DERNIER AVEC DES INSULTES."
+      ]
+    },
+    {
+      "id": "sec_violence_policiere",
+      "module": "securite",
+      "age": [14, 70],
+      "pBase": 0.0015,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "territoire": ["quartier_prioritaire"]
+          },
+          "m": 3
+        },
+        {
+          "si": {
+            "sexe": ["homme"]
+          },
+          "m": 1.5
+        },
+        {
+          "si": {
+            "origineMigratoire": ["premiere_generation", "deuxieme_generation"]
+          },
+          "m": 2
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -10,
+          "santePhysique": -6
+        }
+      },
+      "choix": [
+        {
+          "id": "plainte",
+          "libelle": "PORTER PLAINTE",
+          "cout": {
+            "jauges": {
+              "santeMentale": -3
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "evenement": "sec_suite_plainte"
+              },
+              "m": 2000000,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.6
+            }
+          ],
+          "journal": "TU PORTES PLAINTE."
+        },
+        {
+          "id": "defenseur",
+          "libelle": "SAISIR LE DEFENSEUR DES DROITS",
+          "cout": {
+            "jauges": {
+              "santeMentale": -1
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "evenement": "sec_suite_defenseur"
+              },
+              "m": 1000000,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "ambition",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU SAISIS LE DEFENSEUR DES DROITS."
+        },
+        {
+          "id": "rien",
+          "libelle": "NE RIEN FAIRE",
+          "modificateurs": [
+            {
+              "cible": {
+                "evenement": "sec_mal_etre"
+              },
+              "m": 800000,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": -0.6
+            }
+          ],
+          "journal": "TU LAISSES TOMBER."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 3,
+      "tags": ["police", "discrimination", "violence"],
+      "ressources": ["victimes", "defenseur"],
+      "textes": [
+        "{annee} : UNE INTERPELLATION VIOLENTE. TU TE RETROUVES AUX URGENCES.",
+        "DES POLICIERS TE PLAQUENT AU SOL LORS D'UN CONTROLE. LE MEDECIN CONSTATE DES BLESSURES."
+      ]
+    },
+    {
+      "id": "sec_suite_plainte",
+      "module": "securite",
+      "age": [14, 90],
+      "pBase": 0.000001,
+      "effets": {
+        "jauges": {
+          "santeMentale": -3
+        }
+      },
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["police"],
+      "textes": [
+        "TA PLAINTE EST CLASSEE SANS SUITE. [N] PLAINTES SUR 100 CONNAISSENT CE SORT.",
+        "{annee} : MOIS D'ATTENTE, AUDITIONS, PUIS UN COURRIER : PLAINTE CLASSEE."
+      ]
+    },
+    {
+      "id": "sec_suite_defenseur",
+      "module": "securite",
+      "age": [14, 90],
+      "pBase": 0.000001,
+      "effets": {
+        "jauges": {
+          "santeMentale": 5
+        }
+      },
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["police"],
+      "textes": [
+        "LE DEFENSEUR DES DROITS RECONNAIT UN MANQUEMENT A LA DEONTOLOGIE. TU TE SENS ENTENDU{e}.",
+        "{annee} : REPONSE DU DEFENSEUR DES DROITS : TON SIGNALEMENT EST RETENU."
+      ]
+    },
+    {
+      "id": "sec_mal_etre",
+      "module": "securite",
+      "age": [14, 90],
+      "pBase": 0.000001,
+      "effets": {
+        "jauges": {
+          "santeMentale": -6
+        }
+      },
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["police"],
+      "textes": [
+        "TU REPENSES SOUVENT A CE QUI S'EST PASSE. TU EVITES CERTAINS ENDROITS.",
+        "{annee} : LA SCENE REVIENT LA NUIT. TU N'EN AS PARLE A PERSONNE."
+      ]
+    },
+    {
+      "id": "sec_proposition_delit",
+      "module": "securite",
+      "age": [13, 30],
+      "pBase": 0.015,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "scolarite": ["sortie"],
+            "diplome": ["aucun"]
+          },
+          "m": 2.5
+        },
+        {
+          "si": {
+            "emploi": ["chomage"]
+          },
+          "m": 2
+        },
+        {
+          "si": {
+            "decileRevenuFoyer": ["1", "2"]
+          },
+          "m": 1.5
+        },
+        {
+          "trait": "impulsivite",
+          "k": 0.8
+        },
+        {
+          "trait": "sociabilite",
+          "k": 0.3
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "refuser",
+          "libelle": "REFUSER",
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": -0.8
+            }
+          ],
+          "journal": "TU REFUSES."
+        },
+        {
+          "id": "accepter",
+          "libelle": "ACCEPTER",
+          "cout": {
+            "jauges": {
+              "santeMentale": -2
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "evenement": "sec_garde_a_vue"
+              },
+              "m": 500,
+              "duree": 4
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.8
+            }
+          ],
+          "journal": "TU ACCEPTES. CA NE TE RAPPORTE PRESQUE RIEN."
+        }
+      ],
+      "cooldown": 3,
+      "gravite": 2,
+      "tags": ["delinquance"],
+      "textes": [
+        "DES CONNAISSANCES TE PROPOSENT DE FAIRE LE GUET POUR UN TRAFIC. A TOI DE CHOISIR.",
+        "{annee} : ON TE PROPOSE DE REVENDRE DES OBJETS VOLES. TU PEUX REFUSER."
+      ]
+    },
+    {
+      "id": "sec_garde_a_vue",
+      "module": "securite",
+      "age": [13, 60],
+      "pBase": 0.0003,
+      "aCalibrer": true,
+      "effets": {
+        "justice": "garde_a_vue",
+        "jauges": {
+          "santeMentale": -6
+        }
+      },
+      "cooldown": 2,
+      "gravite": 2,
+      "tags": ["delinquance", "justice"],
+      "textes": [
+        "{annee} : INTERPELLATION. VINGT-QUATRE HEURES DE GARDE A VUE AU COMMISSARIAT.",
+        "LA POLICE T'INTERPELLE. UNE NUIT EN CELLULE, PUIS UNE CONVOCATION AU TRIBUNAL."
+      ]
+    },
+    {
+      "id": "sec_condamnation",
+      "module": "securite",
+      "age": [16, 70],
+      "requiert": {
+        "justice": ["garde_a_vue"]
+      },
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "effets": {
+        "justice": "condamnation",
+        "jauges": {
+          "santeMentale": -8
+        }
+      },
+      "cooldown": 5,
+      "gravite": 3,
+      "tags": ["delinquance", "justice"],
+      "textes": [
+        "{annee} : LE TRIBUNAL TE CONDAMNE. LA MENTION FIGURERA SUR TON CASIER JUDICIAIRE.",
+        "CONDAMNATION AVEC SURSIS. CHAQUE EMPLOYEUR POURRA L'APPRENDRE."
+      ]
+    }
+  ]
+}
