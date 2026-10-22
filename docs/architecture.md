@@ -109,7 +109,7 @@ interface EtatPartie {
   annee: number
   personnage: Personnage
   historique: EntreeJournal[]
-  cooldowns: Record<string, number>
+  cooldowns: number[]                 // âge de reprise, indexé par le rang de l'événement
   modificateursActifs: ModificateurTemporaire[]
   anneeEnCours: AnneeEnCours | null   // événements tirés, en attente des choix
   reportes: string[]                  // événements écartés, à passer l'an prochain
@@ -134,8 +134,10 @@ interface Evenement {
 
 ## Aléatoire reproductible
 
-- Générateur : sfc32 ou mulberry32, initialisé par un hachage de la graine.
-- Chaque tirage utilise un sous-générateur dérivé de `(graine, age, idDuTirage)`. Ainsi, un choix différent une année ne décale pas tous les tirages suivants.
+- Générateur : sfc32, initialisé par un hachage cyrb128 de la graine.
+- Chaque tirage dépend seulement de `(graine, age, idDuTirage)`. Ainsi, un choix différent une année ne décale pas tous les tirages suivants, et chaque événement garde son propre tirage indépendant (deux événements rares peuvent arriver la même année).
+- Tirage simple (un événement, la mortalité) : le nombre est pris directement dans le hachage de `graine|age|idDuTirage`. Tirage à plusieurs valeurs (naissance, voies, transitions) : un sous-générateur sfc32 est créé à partir de ce hachage.
+- Performance du tirage annuel : les événements sont indexés par âge ; la probabilité d'un événement qui ne dépend que de l'origine et des traits est calculée une fois par vie. Cette liste est déduite des dépendances déclarées (modificateurs, conditions, tags visés par le contexte historique), jamais établie à la main.
 - Conséquence voulue : on peut rejouer une vie, la partager par sa graine, et comparer « mêmes choix, autre naissance » dans le bilan.
 
 ## Données
