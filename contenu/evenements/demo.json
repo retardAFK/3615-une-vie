@@ -1,0 +1,247 @@
+{
+  "module": "demo",
+  "source": "Evenements de demonstration, probabilites inventees. Remplaces par les modules des jalons 4 a 6.",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "id": "demo_varicelle",
+      "module": "demo",
+      "age": [2, 9],
+      "pBase": 0.08,
+      "aCalibrer": true,
+      "effets": { "jauges": { "santePhysique": -4 } },
+      "unique": true,
+      "gravite": 1,
+      "tags": ["sante", "enfance"],
+      "textes": [
+        "{annee} : VARICELLE. UNE SEMAINE A LA MAISON, DES BOUTONS PARTOUT.",
+        "TU ATTRAPES LA VARICELLE. TU TE GRATTES PENDANT DIX JOURS."
+      ]
+    },
+    {
+      "id": "demo_club_sport",
+      "module": "demo",
+      "age": [7, 13],
+      "pBase": 0.12,
+      "aCalibrer": true,
+      "modificateurs": [{ "trait": "sociabilite", "k": 0.5 }],
+      "effets": {},
+      "choix": [
+        {
+          "id": "s_inscrire",
+          "libelle": "T'INSCRIRE AU CLUB",
+          "modificateurs": [{ "cible": { "tag": "sante" }, "m": 0.85, "duree": 15 }],
+          "affinites": [{ "trait": "sociabilite", "k": 0.7 }],
+          "journal": "TU T'INSCRIS."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER A LA MAISON",
+          "affinites": [{ "trait": "sociabilite", "k": -0.7 }],
+          "journal": "TU RESTES A LA MAISON."
+        }
+      ],
+      "cooldown": 4,
+      "gravite": 1,
+      "tags": ["loisirs", "enfance"],
+      "textes": [
+        "UN COPAIN TE PROPOSE DE VENIR AU CLUB DE FOOT LE MERCREDI.",
+        "LE CLUB DE BASKET DU QUARTIER CHERCHE DES JOUEURS DE TON AGE."
+      ]
+    },
+    {
+      "id": "demo_secher",
+      "module": "demo",
+      "age": [13, 17],
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "secher",
+          "libelle": "SECHER AVEC EUX",
+          "cout": { "jauges": { "competences": -2 } },
+          "modificateurs": [{ "cible": { "evenement": "demo_examen" }, "m": 0.6, "duree": 3 }],
+          "affinites": [{ "trait": "impulsivite", "k": 0.8 }],
+          "journal": "TU SECHES."
+        },
+        {
+          "id": "aller_en_cours",
+          "libelle": "ALLER EN COURS",
+          "modificateurs": [{ "cible": { "evenement": "demo_examen" }, "m": 1.2, "duree": 2 }],
+          "affinites": [{ "trait": "impulsivite", "k": -0.8 }],
+          "journal": "TU VAS EN COURS."
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["ecole", "adolescence"],
+      "textes": [
+        "DES AMIS TE PROPOSENT DE SECHER LES COURS CET APRES-MIDI.",
+        "LA BANDE VA TRAINER EN VILLE AU LIEU DU COURS DE MATHS."
+      ]
+    },
+    {
+      "id": "demo_examen",
+      "module": "demo",
+      "age": [16, 19],
+      "pBase": 0.5,
+      "aCalibrer": true,
+      "modificateurs": [
+        { "trait": "facilite", "k": 0.7 },
+        { "jauge": "competences", "k": 0.6 }
+      ],
+      "effets": { "jauges": { "competences": 6 } },
+      "unique": true,
+      "gravite": 2,
+      "tags": ["ecole", "adolescence"],
+      "textes": [
+        "{annee} : TU ES RECU{e} AU BAC. [N] JEUNES SUR 100 L'OBTIENNENT CETTE ANNEE-LA.",
+        "BAC EN POCHE A {age} ANS. LA FAMILLE FETE CA AUTOUR D'UN GATEAU."
+      ]
+    },
+    {
+      "id": "demo_demenagement",
+      "module": "demo",
+      "age": [18, 45],
+      "pBase": 0.06,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "partir",
+          "libelle": "PARTIR",
+          "cout": { "jauges": { "liens": -5 }, "argent": 800 },
+          "modificateurs": [{ "cible": { "tag": "rencontre" }, "m": 1.4, "duree": 5 }],
+          "affinites": [{ "trait": "ambition", "k": 0.7 }],
+          "journal": "TU PARS."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER PRES DES TIENS",
+          "affinites": [{ "trait": "sociabilite", "k": 0.5 }],
+          "journal": "TU RESTES."
+        }
+      ],
+      "cooldown": 6,
+      "gravite": 1,
+      "tags": ["mobilite"],
+      "textes": [
+        "UNE OCCASION DE PARTIR VIVRE DANS UNE AUTRE REGION SE PRESENTE.",
+        "UN AMI TE PROPOSE DE TE LOGER DANS UNE GRANDE VILLE, LOIN D'ICI."
+      ]
+    },
+    {
+      "id": "demo_rencontre",
+      "module": "demo",
+      "age": [16, 70],
+      "pBase": 0.06,
+      "aCalibrer": true,
+      "modificateurs": [{ "trait": "sociabilite", "k": 0.7 }],
+      "effets": { "jauges": { "liens": 8, "santeMentale": 3 } },
+      "cooldown": 5,
+      "gravite": 2,
+      "tags": ["rencontre"],
+      "textes": [
+        "{annee} : UNE RENCONTRE QUI COMPTE.",
+        "TU RENCONTRES QUELQU'UN LORS D'UNE FETE CHEZ DES AMIS."
+      ]
+    },
+    {
+      "id": "demo_accident_route",
+      "module": "demo",
+      "age": [18, 90],
+      "pBase": 0.006,
+      "aCalibrer": true,
+      "modificateurs": [{ "trait": "impulsivite", "k": 0.7 }],
+      "effets": { "jauges": { "santePhysique": -20 }, "deces": 0.1 },
+      "cooldown": 2,
+      "gravite": 3,
+      "tags": ["sante", "accident"],
+      "textes": [
+        "{annee} : ACCIDENT DE LA ROUTE. TU ES GRAVEMENT BLESSE{e}.",
+        "UNE VOITURE TE PERCUTE A UN CARREFOUR. LONGUE HOSPITALISATION."
+      ]
+    },
+    {
+      "id": "demo_fatigue",
+      "module": "demo",
+      "age": [30, 64],
+      "pBase": 0.08,
+      "aCalibrer": true,
+      "modificateurs": [{ "trait": "resilience", "k": -0.6 }],
+      "effets": { "jauges": { "santePhysique": -3, "santeMentale": -4 } },
+      "choix": [
+        {
+          "id": "consulter",
+          "libelle": "CONSULTER UN MEDECIN",
+          "cout": { "argent": 25 },
+          "modificateurs": [{ "cible": { "tag": "sante" }, "m": 0.8, "duree": 5 }],
+          "affinites": [{ "trait": "resilience", "k": 0.5 }],
+          "journal": "TU CONSULTES."
+        },
+        {
+          "id": "serrer_les_dents",
+          "libelle": "SERRER LES DENTS",
+          "cout": { "jauges": { "santeMentale": -3 } },
+          "modificateurs": [{ "cible": { "evenement": "demo_fatigue" }, "m": 1.5, "duree": 3 }],
+          "affinites": [{ "trait": "ambition", "k": 0.5 }],
+          "journal": "TU SERRES LES DENTS."
+        }
+      ],
+      "cooldown": 3,
+      "gravite": 2,
+      "tags": ["sante"],
+      "textes": [
+        "UNE GRANDE FATIGUE NE TE QUITTE PLUS DEPUIS DES SEMAINES.",
+        "{age} ANS ET LE DOS EN COMPOTE. TU DORS MAL."
+      ]
+    },
+    {
+      "id": "demo_benevolat",
+      "module": "demo",
+      "age": [65, 95],
+      "pBase": 0.08,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "rejoindre",
+          "libelle": "REJOINDRE L'ASSOCIATION",
+          "modificateurs": [{ "cible": { "tag": "sante" }, "m": 0.9, "duree": 5 }],
+          "affinites": [{ "trait": "sociabilite", "k": 0.7 }],
+          "journal": "TU T'ENGAGES."
+        },
+        {
+          "id": "decliner",
+          "libelle": "RESTER CHEZ TOI",
+          "affinites": [{ "trait": "sociabilite", "k": -0.5 }],
+          "journal": "TU DECLINES."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["vieillesse"],
+      "textes": [
+        "L'ASSOCIATION DU QUARTIER CHERCHE DES BENEVOLES.",
+        "AU CLUB DES ANCIENS, ON CHERCHE QUELQU'UN POUR TENIR LA BIBLIOTHEQUE."
+      ]
+    },
+    {
+      "id": "demo_chute",
+      "module": "demo",
+      "age": [75, 110],
+      "pBase": 0.05,
+      "aCalibrer": true,
+      "modificateurs": [{ "jauge": "santePhysique", "k": -0.8 }],
+      "effets": { "jauges": { "santePhysique": -15 }, "deces": 0.15 },
+      "cooldown": 2,
+      "gravite": 3,
+      "tags": ["sante", "accident", "vieillesse"],
+      "textes": [
+        "{annee} : CHUTE DANS L'ESCALIER. HOSPITALISATION.",
+        "UNE MAUVAISE CHUTE A LA MAISON. PLUSIEURS SEMAINES A L'HOPITAL."
+      ]
+    }
+  ]
+}
