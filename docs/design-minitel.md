@@ -29,9 +29,38 @@ L'accent est réglable (cyan par défaut ; jaune ou vert possibles). Tous ces te
 
 ## Mise en page
 
-- Une colonne de 390 px de référence (480 px maximum), marges de 18 px, espacement vertical de 14 à 18 px entre blocs.
-- Sur grand écran : colonne centrée, bandes noires de chaque côté.
-- Les touches de fonction sont toujours collées en bas de l'écran.
+Deux dispositions, mêmes composants, même contenu. Le passage de
+l'une à l'autre se fait uniquement en CSS (media query), sans
+dupliquer les composants.
+
+### Mobile (moins de 900 px de large)
+- Une colonne, marges de 18 px, largeur pleine jusqu'à 480 px puis
+  centrée.
+- Touches de fonction collées en bas de l'écran.
+
+### Ordinateur (900 px et plus)
+- Un écran Minitel paysage au rapport 4:3, comme l'original
+  (40 colonnes × 25 lignes), centré dans la fenêtre.
+- Largeur : min(1040 px, 100vw − 48 px). Hauteur : rapport 4:3,
+  plafonnée à 100vh − 48 px ; si le contenu dépasse, défilement à
+  l'intérieur de l'écran.
+- Fond de page #000, écran bordé de 2 px #333.
+- Barre de titre et touches de fonction sur toute la largeur de
+  l'écran.
+- Zone centrale en grille de deux colonnes (5fr / 7fr), écart 32 px :
+  - Accueil : titre et accroche à gauche ; menu et champ graine à
+    droite.
+  - Naissance : lignes de l'origine à gauche ; prénom, statistique et
+    traits cachés à droite.
+  - Tour : identité, jauges et ligne jeux d'argent à gauche ; encadré
+    Avis et choix à droite.
+  - Journal : une seule colonne pleine largeur (liste plus lisible).
+  - Bilan : identité et moral par décennie à gauche ; valeurs, jeux
+    d'argent et « autre naissance » à droite.
+- Tailles de police agrandies : texte 26 px, titres 52 px, barre de
+  titre 28 px, accueil 76 px (jetons dédiés dans tokens.css).
+- Sur ordinateur uniquement, les touches affichent leur raccourci :
+  « ENVOI (ENTREE) », « RETOUR (ECHAP) », « AUTO (A) »...
 
 ## Composants
 
