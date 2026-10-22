@@ -346,6 +346,8 @@ q_{final} = f\left(q_{INSEE}(age, sexe, annee),\ m_{PCS},\ m_{addictions},\ m_{m
 - **m PCS** : l'écart d'espérance de vie entre cadres et ouvriers se reproduit par un multiplicateur sur la mortalité adulte.
 - Les autres multiplicateurs passent par la formule des cotes de la section 4.
 
+La table de mortalité couvre toutes les causes de décès. Au calibrage, toute cause modélisée par un événement mortel (accident, surdose, maladie) est retirée de la table, pour ne pas compter deux fois les mêmes décès. Jusque-là, un léger excès de mortalité est accepté.
+
 **Maladies**
 
 | Catégorie | Âge | Facteurs de risque | Effet |
