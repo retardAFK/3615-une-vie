@@ -1,36 +1,50 @@
 <script lang="ts">
+  // Champ de saisie Minitel : libellé accent, saisie jaune sur soulignement pointillé.
+  // Sert à la graine et à l'année de naissance ; le formulaire est fourni par l'écran.
   let {
+    id,
+    libelle,
     valeur = $bindable(''),
     erreur = null,
-    onvalider,
+    indication,
+    maxlength = 16,
+    placeholder = '........',
+    numerique = false,
   }: {
+    id: string;
+    libelle: string;
     valeur?: string;
     erreur?: string | null;
-    /** Entrée dans le champ. */
-    onvalider: () => void;
+    /** Précision affichée sous le libellé, par exemple « VIDE = HASARD ». */
+    indication?: string;
+    maxlength?: number;
+    placeholder?: string;
+    /** Clavier numérique sur mobile. */
+    numerique?: boolean;
   } = $props();
 
-  function soumettre(evenement: SubmitEvent): void {
-    evenement.preventDefault();
-    onvalider();
-  }
+  const decrit = $derived(
+    [indication ? `${id}-indication` : '', erreur ? `${id}-erreur` : ''].join(' ').trim(),
+  );
 </script>
 
-<form class="champ" onsubmit={soumettre}>
-  <label for="graine">REJOUER UNE GRAINE :</label>
+<div class="champ">
+  <label for={id}>{libelle}</label>
+  {#if indication}<p id="{id}-indication" class="indication">{indication}</p>{/if}
   <input
-    id="graine"
+    {id}
     bind:value={valeur}
-    maxlength="16"
+    {maxlength}
+    {placeholder}
+    inputmode={numerique ? 'numeric' : undefined}
     autocomplete="off"
     autocapitalize="characters"
     spellcheck="false"
-    placeholder="........"
-    aria-describedby={erreur ? 'graine-erreur' : undefined}
+    aria-describedby={decrit || undefined}
     aria-invalid={erreur ? 'true' : undefined}
   />
-  {#if erreur}<p id="graine-erreur" class="erreur" role="alert">{erreur}</p>{/if}
-</form>
+  {#if erreur}<p id="{id}-erreur" class="erreur" role="alert">{erreur}</p>{/if}
+</div>
 
 <style>
   .champ {
@@ -41,6 +55,11 @@
 
   label {
     color: var(--accent);
+  }
+
+  .indication {
+    color: var(--texte-discret);
+    font-size: var(--taille-precision);
   }
 
   input {

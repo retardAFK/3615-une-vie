@@ -6,13 +6,22 @@
 
   let {
     graine = $bindable(''),
+    annee = $bindable(''),
     erreurGraine,
+    erreurAnnee,
     onnouvellevie,
   }: {
     graine?: string;
+    annee?: string;
     erreurGraine: string | null;
+    erreurAnnee: string | null;
     onnouvellevie: () => void;
   } = $props();
+
+  function soumettre(evenement: SubmitEvent): void {
+    evenement.preventDefault();
+    onnouvellevie();
+  }
 </script>
 
 <BarreTitre libelle="SOMMAIRE" />
@@ -34,7 +43,26 @@
         <BoutonNumerote numero={2} libelle="REPRENDRE" desactive mention="BIENTOT" />
         <BoutonNumerote numero={3} libelle="VIES PASSEES" desactive mention="BIENTOT" />
       </nav>
-      <ChampGraine bind:valeur={graine} erreur={erreurGraine} onvalider={onnouvellevie} />
+      <!-- Entrée dans l'un ou l'autre champ lance NOUVELLE VIE. -->
+      <form class="champs" onsubmit={soumettre}>
+        <ChampGraine
+          id="graine"
+          libelle="REJOUER UNE GRAINE :"
+          bind:valeur={graine}
+          erreur={erreurGraine}
+        />
+        <ChampGraine
+          id="annee"
+          libelle="ANNEE DE NAISSANCE :"
+          indication="VIDE = HASARD"
+          bind:valeur={annee}
+          erreur={erreurAnnee}
+          maxlength={4}
+          placeholder="...."
+          numerique
+        />
+        <button type="submit" class="lecteur-seulement" tabindex="-1">NOUVELLE VIE</button>
+      </form>
       <p class="avertissement">DECONSEILLE AUX MOINS DE 15 ANS</p>
     </section>
   </div>
@@ -57,6 +85,12 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+
+  .champs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ecart-blocs);
   }
 
   .avertissement {

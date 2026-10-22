@@ -7,7 +7,14 @@
     jouerAnneeAuto,
     ouvrirAnnee,
   } from '../moteur/boucle';
-  import type { ChoixJoueur, Donnees, EntreeJournal, EtatPartie } from '../moteur/types';
+  import { bornesAnneeNaissance } from '../moteur/naissance';
+  import type {
+    ChoixJoueur,
+    Donnees,
+    EntreeJournal,
+    EtatPartie,
+    OptionsPartie,
+  } from '../moteur/types';
   import { actionClavier, type Action } from './clavier';
   import BarreTitre from './composants/BarreTitre.svelte';
   import Touche from './composants/Touche.svelte';
@@ -16,7 +23,7 @@
   import Fin from './ecrans/Fin.svelte';
   import Naissance from './ecrans/Naissance.svelte';
   import Tour from './ecrans/Tour.svelte';
-  import { normaliserGraine, nouvelleGraine } from './graine';
+  import { lireAnnee, normaliserGraine, nouvelleGraine } from './graine';
 
   type Ecran = 'chargement' | 'erreur' | 'accueil' | 'naissance' | 'tour' | 'fin';
 
@@ -28,6 +35,8 @@
   let partie = $state.raw<EtatPartie | null>(null);
   let saisieGraine = $state('');
   let erreurGraine = $state<string | null>(null);
+  let saisieAnnee = $state('');
+  let erreurAnnee = $state<string | null>(null);
   let auto = $state(false);
   let confirmation = $state(false);
   /** Rang de l'avis affiché parmi les événements de l'année ouverte. */
@@ -54,23 +63,24 @@
 
   onMount(charger);
 
-  function commencer(graine: string): void {
+  function commencer(graine: string, options: OptionsPartie): void {
     if (!donnees) return;
-    partie = creerPartie(graine, donnees);
+    partie = creerPartie(graine, donnees, options);
     auto = false;
     confirmation = false;
     ecran = 'naissance';
   }
 
   function nouvelleVie(): void {
+    if (!donnees) return;
     const saisie = saisieGraine.trim();
     const graine = saisie === '' ? nouvelleGraine() : normaliserGraine(saisie);
-    if (graine === null) {
-      erreurGraine = 'GRAINE INVALIDE : 4 A 16 LETTRES OU CHIFFRES.';
-      return;
-    }
-    erreurGraine = null;
-    commencer(graine);
+    erreurGraine = graine === null ? 'GRAINE INVALIDE : 4 A 16 LETTRES OU CHIFFRES.' : null;
+    const { min, max } = bornesAnneeNaissance(donnees.tables);
+    const annee = lireAnnee(saisieAnnee, min, max);
+    erreurAnnee = annee === null ? `ANNEE INVALIDE : DE ${min} A ${max}.` : null;
+    if (graine === null || annee === null) return;
+    commencer(graine, annee === 'hasard' ? {} : { anneeNaissance: annee });
   }
 
   /** Vérifie la fin de partie après chaque étape du moteur. */
@@ -210,7 +220,7 @@
         else return false;
         return true;
       case 'fin':
-        if (action.type === 'envoi' && partie) commencer(partie.graine);
+        if (action.type === 'envoi' && partie) commencer(partie.graine, partie.options);
         else if (action.type === 'sommaire') allerAuSommaire();
         else return false;
         return true;
@@ -248,7 +258,13 @@
       <Touche libelle="REESSAYER" principale onclick={charger} />
     </div>
   {:else if ecran === 'accueil'}
-    <Accueil bind:graine={saisieGraine} {erreurGraine} onnouvellevie={nouvelleVie} />
+    <Accueil
+      bind:graine={saisieGraine}
+      bind:annee={saisieAnnee}
+      {erreurGraine}
+      {erreurAnnee}
+      onnouvellevie={nouvelleVie}
+    />
   {:else if ecran === 'naissance' && partie}
     <Naissance {partie} onretour={allerAuSommaire} oncommencer={debuterVie} />
   {:else if ecran === 'tour' && partie}
@@ -269,7 +285,11 @@
       onconfirmer={confirmer}
     />
   {:else if ecran === 'fin' && partie}
-    <Fin {partie} onsommaire={allerAuSommaire} onrevivre={() => commencer(partie!.graine)} />
+    <Fin
+      {partie}
+      onsommaire={allerAuSommaire}
+      onrevivre={() => commencer(partie!.graine, partie!.options)}
+    />
   {/if}
 </main>
 

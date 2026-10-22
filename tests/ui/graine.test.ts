@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { normaliserGraine, nouvelleGraine } from '../../src/ui/graine';
+import { lireAnnee, normaliserGraine, nouvelleGraine } from '../../src/ui/graine';
 
 describe('nouvelleGraine', () => {
   it('produit 8 caracteres hexadecimaux majuscules', () => {
@@ -26,5 +26,20 @@ describe('normaliserGraine', () => {
     expect(normaliserGraine('7F3A-21C9')).toBeNull();
     expect(normaliserGraine('ÉTÉ1')).toBeNull();
     expect(normaliserGraine('')).toBeNull();
+  });
+});
+
+describe('lireAnnee', () => {
+  it('lit une annee dans les bornes, vide = hasard', () => {
+    expect(lireAnnee('', 1950, 2010)).toBe('hasard');
+    expect(lireAnnee(' 1985 ', 1950, 2010)).toBe(1985);
+    expect(lireAnnee('1950', 1950, 2010)).toBe(1950);
+  });
+
+  it('refuse une annee hors bornes ou mal ecrite', () => {
+    expect(lireAnnee('1949', 1950, 2010)).toBeNull();
+    expect(lireAnnee('2011', 1950, 2010)).toBeNull();
+    expect(lireAnnee('85', 1950, 2010)).toBeNull();
+    expect(lireAnnee('19A5', 1950, 2010)).toBeNull();
   });
 });

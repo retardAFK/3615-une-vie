@@ -1,4 +1,5 @@
-// Graines de partie. Le hasard de la graine vient de l'interface, jamais du moteur.
+// Graines et année de naissance saisies. Le hasard de la graine vient de l'interface,
+// jamais du moteur.
 
 export type SourceAleatoire = (octets: Uint8Array<ArrayBuffer>) => Uint8Array;
 
@@ -15,4 +16,13 @@ export function nouvelleGraine(source: SourceAleatoire = sourceCrypto): string {
 export function normaliserGraine(saisie: string): string | null {
   const graine = saisie.trim().toUpperCase();
   return /^[A-Z0-9]{4,16}$/.test(graine) ? graine : null;
+}
+
+/** Année saisie : vide = « hasard », entier dans [min, max], sinon null. */
+export function lireAnnee(saisie: string, min: number, max: number): number | 'hasard' | null {
+  const texte = saisie.trim();
+  if (texte === '') return 'hasard';
+  if (!/^\d{4}$/.test(texte)) return null;
+  const annee = Number(texte);
+  return annee >= min && annee <= max ? annee : null;
 }
