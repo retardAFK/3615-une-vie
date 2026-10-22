@@ -1,6 +1,6 @@
 // Paramètres de jeu (choix de conception, pas des statistiques réelles).
 
-import type { Etats, Finances, Jauges } from './types';
+import type { DiplomeJoueur, Etats, Finances, Jauges } from './types';
 
 /** Âge auquel toute vie se termine. */
 export const AGE_MAXIMAL = 110;
@@ -17,8 +17,29 @@ export const JAUGES_INITIALES: Readonly<Jauges> = {
   santeMentale: 70,
   bienEtre: 70,
   liens: 70,
-  competences: 70,
+  competences: 20,
 };
+
+/** Savoir gagné par année de scolarité (jauge competences), jusqu'à la sortie. */
+export const SAVOIR_PAR_ANNEE_SCOLAIRE = 3;
+
+/** Le diplôme final fixe la jauge « savoir » de départ (règles, section 5). */
+export const SAVOIR_PAR_DIPLOME: Readonly<Record<DiplomeJoueur, number>> = {
+  aucun: 35,
+  cap_bep: 50,
+  bac_pro: 55,
+  bac_techno: 58,
+  bac_general: 62,
+  bac_2_3: 70,
+  bac_5: 80,
+};
+
+/** Retard scolaire maximal : au-delà, l'échec fait sortir du système scolaire. */
+export const RETARD_MAXIMAL = 2;
+
+/** Âge d'entrée à l'école maternelle, puis au CP. */
+export const AGE_MATERNELLE = 3;
+export const AGE_CP = 6;
 
 export const FINANCES_INITIALES: Readonly<Finances> = {
   revenuAnnuel: 0,
@@ -42,6 +63,21 @@ export function etatsInitiaux(): Etats {
       ecrans: 'jamais_expose',
     },
     maladies: [],
+    education: { diplome: 'aucun', voie: null, filiere: null, retard: 0, finPalier: null },
+    travail: {
+      pcs: null,
+      quotite: 1,
+      bruit: 1,
+      progression: 1,
+      anciennete: 0,
+      salaire: 0,
+      dernierSalaire: 0,
+      dureeChomage: 0,
+      trimestres: 0,
+      meilleursSalaires: [],
+      pension: 0,
+      ageRetraite: null,
+    },
   };
 }
 
@@ -49,12 +85,13 @@ export function etatsInitiaux(): Etats {
  * Dérive annuelle des jauges selon l'âge vécu.
  * PROVISOIRE, remplacée au jalon 6 par le module santé.
  * bienEtre n'y figure pas : c'est la moyenne des autres jauges.
+ * Le savoir des jeunes vient désormais du module éducation ; seul son déclin reste ici.
  */
 export function deriveJaugesProvisoire(age: number): Readonly<Omit<Jauges, 'bienEtre'>> {
   return {
     santePhysique: age >= 75 ? -1.5 : age >= 40 ? -0.6 : 0,
     santeMentale: 0,
     liens: age >= 70 ? -0.5 : 0,
-    competences: age >= 6 && age < 25 ? 0.6 : age >= 65 ? -0.3 : 0,
+    competences: age >= 65 ? -0.3 : 0,
   };
 }

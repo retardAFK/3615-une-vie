@@ -29,3 +29,28 @@ export function probabiliteFinale(pBase: number, multiplicateurs: readonly numbe
 export function multiplicateurTrait(trait: number, k: number): number {
   return Math.exp((k * (trait - 50)) / 50);
 }
+
+/**
+ * Tirage à plusieurs issues : chaque issue passe par la formule des cotes avec ses
+ * propres multiplicateurs, puis l'ensemble est renormalisé. Une issue de poids nul
+ * reste impossible. Sans aucun multiplicateur, la distribution est rendue telle quelle.
+ */
+export function distributionCorrigee<K extends string>(
+  distribution: Readonly<Record<K, number>>,
+  multiplicateurs: (issue: K) => readonly number[],
+): Record<K, number> {
+  const issues = Object.keys(distribution) as K[];
+  const parIssue = issues.map(multiplicateurs);
+  if (parIssue.every((m) => m.length === 0)) return { ...distribution };
+  const total = issues.reduce((somme, issue) => somme + Math.max(0, distribution[issue]), 0);
+  if (total <= 0) throw new RangeError('Distribution vide');
+  const corrigee = {} as Record<K, number>;
+  let somme = 0;
+  issues.forEach((issue, i) => {
+    const p = Math.max(0, distribution[issue]) / total;
+    corrigee[issue] = p > 0 ? probabiliteFinale(Math.min(p, 1), parIssue[i]!) : 0;
+    somme += corrigee[issue];
+  });
+  for (const issue of issues) corrigee[issue] /= somme;
+  return corrigee;
+}

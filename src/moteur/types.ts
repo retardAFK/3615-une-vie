@@ -202,6 +202,76 @@ export type EtatAddiction =
   | 'sevrage'
   | 'abstinent';
 
+// --- Éducation et travail du joueur (règles, sections 5 et 6) ---
+
+/** Diplôme le plus élevé obtenu par le joueur. */
+export const DIPLOMES_JOUEUR = [
+  'aucun',
+  'cap_bep',
+  'bac_pro',
+  'bac_techno',
+  'bac_general',
+  'bac_2_3',
+  'bac_5',
+] as const;
+export type DiplomeJoueur = (typeof DIPLOMES_JOUEUR)[number];
+
+/** Voies de fin de 3e ; « sortie » : fin de la scolarité. */
+export const VOIES = [
+  'generale',
+  'technologique',
+  'professionnelle',
+  'apprentissage',
+  'sortie',
+] as const;
+export type Voie = (typeof VOIES)[number];
+
+/** Après le bac ; « master » : poursuite après une licence. */
+export const FILIERES = [
+  'universite',
+  'bts_but',
+  'prepa',
+  'ecole',
+  'emploi_direct',
+  'master',
+] as const;
+export type Filiere = (typeof FILIERES)[number];
+
+export interface Education {
+  diplome: DiplomeJoueur;
+  voie: Voie | null;
+  filiere: Filiere | null;
+  /** Années de retard (redoublements, échec au bac). */
+  retard: number;
+  /** Âge auquel se termine la formation en cours ; null hors formation. */
+  finPalier: number | null;
+}
+
+export interface Travail {
+  /** Métier du joueur : sa PCS, tirée à l'entrée sur le marché du travail. */
+  pcs: Pcs | null;
+  /** 1 (temps plein), 0,8 ou 0,5. */
+  quotite: number;
+  /** Facteur tiré une fois par emploi (loi log-normale autour de 1). */
+  bruit: number;
+  /** Cumul des promotions et changements d'emploi. */
+  progression: number;
+  /** Années passées en emploi (courbe d'ancienneté). */
+  anciennete: number;
+  /** Salaire annuel net de l'année en cours, euros constants. */
+  salaire: number;
+  /** Dernier salaire avant le chômage ou l'arrêt (base des indemnités). */
+  dernierSalaire: number;
+  /** Années d'indemnisation déjà consommées dans l'épisode de chômage. */
+  dureeChomage: number;
+  trimestres: number;
+  /** Les 25 meilleurs salaires annuels, du plus haut au plus bas (pension). */
+  meilleursSalaires: number[];
+  pension: number;
+  /** Âge de départ à la retraite ; null avant. */
+  ageRetraite: number | null;
+}
+
 export interface Etats {
   scolarite: Scolarite;
   emploi: Emploi;
@@ -210,6 +280,8 @@ export interface Etats {
   addictions: Record<Produit, EtatAddiction>;
   /** Identifiants des pathologies actives. */
   maladies: string[];
+  education: Education;
+  travail: Travail;
 }
 
 // --- Personnage et partie ---
@@ -227,14 +299,18 @@ export interface Personnage {
 
 // --- Événements (contenu/evenements/*.json) ---
 
-/** Conditions sur l'origine : { champ: [valeurs acceptées] }. */
-export type ConditionsOrigine = Readonly<Partial<Record<keyof Origine, readonly string[]>>>;
+/** Champs qu'une condition peut tester, en plus de ceux de l'origine. */
+export const CHAMPS_ETATS_CONDITIONS = ['emploi', 'scolarite', 'diplome', 'pcs'] as const;
+export type ChampCondition = keyof Origine | (typeof CHAMPS_ETATS_CONDITIONS)[number];
+
+/** Conditions : { champ: [valeurs acceptées] }, sur l'origine ou les états du joueur. */
+export type ConditionsPersonnage = Readonly<Partial<Record<ChampCondition, readonly string[]>>>;
 
 /** Modificateur de probabilité d'un événement (règles, section 4). */
 export type ModificateurEvenement =
   | { trait: NomTrait; k: number }
   | { jauge: keyof Jauges; k: number }
-  | { si: ConditionsOrigine; m: number };
+  | { si: ConditionsPersonnage; m: number };
 
 /** Cible d'un modificateur de choix : un événement précis, ou tous ceux d'un tag. */
 export type CibleModificateur = { evenement: string } | { tag: string };
@@ -267,6 +343,11 @@ export interface ChoixPossible {
   affinites?: readonly Affinite[];
   /** Phrase ajoutée à la ligne de journal. */
   journal?: string;
+  /**
+   * Accepter une opportunité déjà tirée par le hasard : seule exception
+   * à la règle des choix sans résultat direct (règles, section 4).
+   */
+  effets?: { changerEmploi?: boolean };
 }
 
 export interface Effets {
@@ -274,6 +355,10 @@ export interface Effets {
   etats?: Partial<Pick<Etats, 'scolarite' | 'emploi' | 'couple' | 'logement'>>;
   /** Probabilité que l'événement soit mortel. */
   deces?: number;
+  /** Salaire multiplié par un facteur tiré dans [min, max] (promotion). */
+  revenu?: readonly [number, number];
+  /** Euros gagnés (positif) ou perdus (négatif : épargne, puis dettes). */
+  argent?: number;
 }
 
 export interface Evenement {
@@ -281,7 +366,7 @@ export interface Evenement {
   module: string;
   /** Âges d'éligibilité, bornes comprises. */
   age: readonly [number, number];
-  requiert?: ConditionsOrigine;
+  requiert?: ConditionsPersonnage;
   /** La forme par table sera prise en charge au jalon 4. */
   pBase: number | { source: string; par: readonly string[] };
   aCalibrer?: boolean;
@@ -430,6 +515,32 @@ export interface Table<L> {
 
 export type TableDistribution = Table<LigneDistribution>;
 
+/** Une valeur par combinaison de conditions (probabilité, coefficient, montant...). */
+export interface LigneValeur {
+  conditions: Conditions;
+  valeur: number;
+}
+export type TableValeur = Table<LigneValeur>;
+
+/** Plusieurs paramètres nommés par combinaison de conditions. */
+export interface LigneValeurs {
+  conditions: Conditions;
+  valeurs: Readonly<Record<string, number>>;
+}
+export type TableValeurs = Table<LigneValeurs>;
+
+/** Une valeur par année écoulée (courbe d'ancienneté). */
+export interface LigneCourbe {
+  conditions: Conditions;
+  parAnnee: readonly number[];
+}
+
+/** Contexte historique d'une année : multiplicateurs par tag (format complet au jalon 4c). */
+export interface LigneContexte {
+  conditions: Conditions;
+  multiplicateurs: Readonly<Record<string, number>>;
+}
+
 export interface Tables {
   anneeNaissance: TableDistribution;
   sexe: TableDistribution;
@@ -445,4 +556,31 @@ export interface Tables {
   santeNaissance: TableDistribution;
   prenoms: TableDistribution;
   mortalite: Table<LigneMortalite>;
+  // Éducation
+  obligationScolaire: TableValeur;
+  redoublement: TableValeur;
+  voieFin3e: TableDistribution;
+  decrochage: TableValeur;
+  reussiteDiplome: TableValeur;
+  orientationPostBac: TableDistribution;
+  abandonSup: TableValeur;
+  poursuiteMaster: TableValeur;
+  repriseEtudes: TableValeur;
+  // Emploi et retraite
+  pcsJoueur: TableDistribution;
+  insertion: TableDistribution;
+  transitionsEmploi: TableDistribution;
+  salaireReference: TableValeur;
+  coefficientPcs: TableValeur;
+  coefficientDiplome: TableValeur;
+  coefficientRegion: TableValeur;
+  courbeAnciennete: Table<LigneCourbe>;
+  quotite: TableDistribution;
+  parametresEmploi: TableValeurs;
+  ageLegalRetraite: TableValeurs;
+  // Argent
+  depensesVie: TableValeur;
+  parametresArgent: TableValeurs;
+  // Contexte historique (point d'accroche)
+  contexte: Table<LigneContexte>;
 }
