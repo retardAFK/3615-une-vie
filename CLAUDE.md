@@ -23,12 +23,16 @@ En cas de contradiction entre un document et le code, signale-la au lieu de tran
 
 ## Commandes
 
-À compléter au fil du projet :
+Node 24 (voir `.nvmrc`).
 
 - `npm run dev` : serveur de développement
-- `npm run build` : build de production
+- `npm run build` : build de production dans `dist/`
+- `npm run preview` : sert le build de production en local
 - `npm test` : tests Vitest
-- `npm run data` : régénère les tables JSON à partir de `data/brut/`
+- `npm run lint` : ESLint puis vérification Prettier
+- `npm run format` : formate le code avec Prettier
+- `npm run check` : vérification des types (svelte-check, avertissements bloquants)
+- `npm run data` : régénère les tables JSON à partir de `data/brut/` (jalon 8, pas encore disponible)
 
 ## Principes non négociables
 
