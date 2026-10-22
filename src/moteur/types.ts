@@ -117,6 +117,15 @@ export interface Jauges {
   competences: number;
 }
 
+/** Jauges modifiables directement ; bienEtre est la moyenne des autres. */
+export const JAUGES_MODIFIABLES = [
+  'santePhysique',
+  'santeMentale',
+  'liens',
+  'competences',
+] as const;
+export type JaugeModifiable = (typeof JAUGES_MODIFIABLES)[number];
+
 // --- Finances (euros constants, entiers) ---
 
 export interface Finances {
@@ -128,25 +137,50 @@ export interface Finances {
 
 // --- États (variables discrètes) ---
 
-export type Scolarite =
-  'non_scolarise' | 'maternelle' | 'primaire' | 'college' | 'lycee' | 'superieur' | 'sortie';
+export const SCOLARITES = [
+  'non_scolarise',
+  'maternelle',
+  'primaire',
+  'college',
+  'lycee',
+  'superieur',
+  'sortie',
+] as const;
+export type Scolarite = (typeof SCOLARITES)[number];
 
-export type Emploi =
-  | 'etudiant'
-  | 'cdi'
-  | 'cdd'
-  | 'interim'
-  | 'independant'
-  | 'fonctionnaire'
-  | 'chomage'
-  | 'inactif'
-  | 'arret_longue_maladie'
-  | 'retraite';
+export const EMPLOIS = [
+  'etudiant',
+  'cdi',
+  'cdd',
+  'interim',
+  'independant',
+  'fonctionnaire',
+  'chomage',
+  'inactif',
+  'arret_longue_maladie',
+  'retraite',
+] as const;
+export type Emploi = (typeof EMPLOIS)[number];
 
-export type Couple =
-  'celibataire' | 'en_couple' | 'cohabitation' | 'pacs' | 'mariage' | 'separation' | 'veuvage';
+export const COUPLES = [
+  'celibataire',
+  'en_couple',
+  'cohabitation',
+  'pacs',
+  'mariage',
+  'separation',
+  'veuvage',
+] as const;
+export type Couple = (typeof COUPLES)[number];
 
-export type Logement = 'chez_parents' | 'locataire_prive' | 'hlm' | 'proprietaire' | 'precaire';
+export const LOGEMENTS = [
+  'chez_parents',
+  'locataire_prive',
+  'hlm',
+  'proprietaire',
+  'precaire',
+] as const;
+export type Logement = (typeof LOGEMENTS)[number];
 
 export const PRODUITS = [
   'tabac',
@@ -191,20 +225,142 @@ export interface Personnage {
   vivant: boolean;
 }
 
-export type TypeEntree = 'naissance' | 'deces';
+// --- Événements (contenu/evenements/*.json) ---
+
+/** Conditions sur l'origine : { champ: [valeurs acceptées] }. */
+export type ConditionsOrigine = Readonly<Partial<Record<keyof Origine, readonly string[]>>>;
+
+/** Modificateur de probabilité d'un événement (règles, section 4). */
+export type ModificateurEvenement =
+  | { trait: NomTrait; k: number }
+  | { jauge: keyof Jauges; k: number }
+  | { si: ConditionsOrigine; m: number };
+
+/** Cible d'un modificateur de choix : un événement précis, ou tous ceux d'un tag. */
+export type CibleModificateur = { evenement: string } | { tag: string };
+
+export interface ModificateurChoix {
+  cible: CibleModificateur;
+  m: number;
+  /** Durée en années ; absente : permanent. */
+  duree?: number;
+}
+
+export interface CoutChoix {
+  /** Variations immédiates des jauges, toujours négatives ou nulles. */
+  jauges?: Partial<Record<JaugeModifiable, number>>;
+  /** Euros dépensés : pris sur l'épargne, puis en dettes. */
+  argent?: number;
+}
+
+export interface Affinite {
+  trait: NomTrait;
+  k: number;
+}
+
+export interface ChoixPossible {
+  id: string;
+  libelle: string;
+  cout?: CoutChoix;
+  modificateurs?: readonly ModificateurChoix[];
+  /** Penchant du mode automatique : poids = produit des e^(k × (trait − 50) / 50). */
+  affinites?: readonly Affinite[];
+  /** Phrase ajoutée à la ligne de journal. */
+  journal?: string;
+}
+
+export interface Effets {
+  jauges?: Partial<Record<JaugeModifiable, number>>;
+  etats?: Partial<Pick<Etats, 'scolarite' | 'emploi' | 'couple' | 'logement'>>;
+  /** Probabilité que l'événement soit mortel. */
+  deces?: number;
+}
+
+export interface Evenement {
+  id: string;
+  module: string;
+  /** Âges d'éligibilité, bornes comprises. */
+  age: readonly [number, number];
+  requiert?: ConditionsOrigine;
+  /** La forme par table sera prise en charge au jalon 4. */
+  pBase: number | { source: string; par: readonly string[] };
+  aCalibrer?: boolean;
+  modificateurs?: readonly ModificateurEvenement[];
+  effets: Effets;
+  choix?: readonly ChoixPossible[];
+  cooldown?: number;
+  /** Au plus une fois dans une vie. */
+  unique?: boolean;
+  /** 1 à 3 : au-delà de 3 événements dans l'année, les plus graves passent. */
+  gravite: 1 | 2 | 3;
+  tags: readonly string[];
+  /** Variantes du texte, avec {variables}. */
+  textes: readonly string[];
+}
+
+export interface FichierEvenements {
+  module: string;
+  source: string;
+  aCalibrer: boolean;
+  evenements: readonly Evenement[];
+}
+
+export type Libelles = Readonly<Record<string, Readonly<Record<string, string>>>>;
+
+/** Tout ce que le moteur reçoit en plus de l'état. */
+export interface Donnees {
+  tables: Tables;
+  evenements: readonly Evenement[];
+  libelles: Libelles;
+}
+
+// --- Partie ---
+
+export type TypeEntree = 'naissance' | 'deces' | 'evenement';
 
 export interface EntreeJournal {
   annee: number;
   age: number;
   type: TypeEntree;
+  /** Texte rendu (événement). */
+  texte?: string;
+  evenementId?: string;
+  choixId?: string;
+  /** Décès : « mortalite » (test annuel) ou id de l'événement mortel. */
+  cause?: string;
 }
 
 export interface ModificateurTemporaire {
-  /** Événement ou groupe d'événements visé. */
-  cible: string;
+  cible: CibleModificateur;
   m: number;
-  /** Âge auquel le modificateur expire. */
-  jusquA: number;
+  /** Premier âge d'effet. */
+  debut: number;
+  /** Dernier âge d'effet, compris ; null : permanent. */
+  fin: number | null;
+}
+
+export interface OptionChoix {
+  id: string;
+  libelle: string;
+}
+
+export interface EvenementTire {
+  id: string;
+  /** Probabilité finale qui a servi au tirage (1 pour un événement reporté). */
+  probabilite: number;
+  gravite: 1 | 2 | 3;
+  tags: readonly string[];
+  /** Tiré l'année précédente, puis reporté. */
+  reporte: boolean;
+  /** Texte rendu, au format Minitel. */
+  texte: string;
+  /** Choix proposés (vide si aucun). */
+  choix: readonly OptionChoix[];
+}
+
+/** Année ouverte : événements tirés, en attente des choix. */
+export interface AnneeEnCours {
+  evenements: readonly EvenementTire[];
 }
 
 export interface EtatPartie {
@@ -212,8 +368,12 @@ export interface EtatPartie {
   annee: number;
   personnage: Personnage;
   historique: EntreeJournal[];
+  /** Âge à partir duquel chaque événement redevient éligible. */
   cooldowns: Record<string, number>;
   modificateursActifs: ModificateurTemporaire[];
+  anneeEnCours: AnneeEnCours | null;
+  /** Événements écartés cette année, à passer l'an prochain. */
+  reportes: string[];
 }
 
 export interface ChoixJoueur {
@@ -221,16 +381,20 @@ export interface ChoixJoueur {
   choixId: string;
 }
 
-export interface EvenementTire {
-  id: string;
-  /** Probabilité finale qui a servi au tirage. */
-  probabilite: number;
+export interface ChoixPropose {
+  evenementId: string;
+  options: readonly OptionChoix[];
 }
 
-export interface ResultatAnnee {
+export interface ResultatOuverture {
   etat: EtatPartie;
-  evenements: EvenementTire[];
-  choixProposes: ChoixJoueur[];
+  evenements: readonly EvenementTire[];
+  choixProposes: readonly ChoixPropose[];
+  journal: EntreeJournal[];
+}
+
+export interface ResultatFermeture {
+  etat: EtatPartie;
   journal: EntreeJournal[];
 }
 
