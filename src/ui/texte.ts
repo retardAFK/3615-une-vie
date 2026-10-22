@@ -1,24 +1,15 @@
 // Mise en forme des textes à l'écran : style Minitel, libellés et montants.
 
 import libelles from '../../contenu/textes/libelles.json';
+import { minitel } from '../moteur/recit';
+
+// Le format Minitel sert aussi au moteur (récit) : une seule définition.
+export { minitel };
 
 /** Taux légal de conversion entre le franc et l'euro. */
 export const FRANCS_PAR_EURO = 6.55957;
 /** Première année affichée en euros. */
 export const ANNEE_EURO = 2002;
-
-/** Majuscules sans accents : « Hélène, cœur » → « HELENE, COEUR ». */
-export function minitel(texte: string): string {
-  return texte
-    .replace(/œ/g, 'oe')
-    .replace(/Œ/g, 'OE')
-    .replace(/æ/g, 'ae')
-    .replace(/Æ/g, 'AE')
-    .replace(/[’‘]/g, "'")
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toUpperCase();
-}
 
 /** Groupe les milliers par une espace : 1234567 → « 1 234 567 ». */
 function grouper(entier: number): string {
