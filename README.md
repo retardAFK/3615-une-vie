@@ -15,6 +15,7 @@ npm test          # tests Vitest
 npm run lint      # ESLint + Prettier (vérification)
 npm run format    # formate le code
 npm run check     # vérification des types (svelte-check)
+npm run perf      # banc d'essai du moteur (temps réels)
 ```
 
 ## Licence

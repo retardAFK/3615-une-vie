@@ -68,7 +68,8 @@ contenu/evenements/*.json  ─────────────────�
 │   └── main.ts
 └── tests/
     ├── moteur/
-    └── ui/                      fonctions pures de l'interface
+    ├── ui/                      fonctions pures de l'interface
+    └── perf/banc.ts             banc d'essai local (npm run perf), hors de Vitest
 ```
 
 ## Contrat du moteur
@@ -190,5 +191,8 @@ interface Evenement {
 | --- | --- |
 | JavaScript compressé | < 300 Ko |
 | Données au premier écran | < 200 Ko |
-| Une vie complète simulée | < 10 ms |
-| 10 000 vies dans le worker | < 5 s |
+| Une vie complète en AUTO, en moyenne | < 5 ms (fluidité : le mode AUTO et les années qui s'enchaînent ne doivent jamais ramer) |
+| 1 000 vies | < 1 s (bilan comparatif « mêmes choix, autre naissance », calculé dans le worker) |
+| 10 000 vies | mesuré, sans objectif bloquant (équilibrage sur un grand nombre de vies, hors partie) |
+
+Les trois temps se mesurent avec `npm run perf`, banc d'essai local sur le moteur seul, regroupé hors de Vitest. Les deux premiers sont bloquants : le banc échoue s'ils ne sont pas tenus. La CI ne surveille que les régressions : un test sur 1 000 vies, avec une limite large fixée d'après le temps mesuré sur la machine de CI.

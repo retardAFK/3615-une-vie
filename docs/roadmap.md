@@ -18,7 +18,7 @@ Un jalon à la fois. Un jalon est fini quand tous ses critères sont vrais et qu
 - `naissance.ts` : tirage de l'origine dans l'ordre des règles (section 3), avec des tables de travail marquées `aCalibrer`.
 - `boucle.ts` : vieillissement, test de mortalité par table, fin de partie.
 
-**Fini quand** : un test fait naître un personnage avec une graine fixe, le fait vivre jusqu'à sa mort, et retrouve exactement la même vie au second lancement ; 10 000 vies passent en moins de 5 s.
+**Fini quand** : un test fait naître un personnage avec une graine fixe, le fait vivre jusqu'à sa mort, et retrouve exactement la même vie au second lancement ; `npm run perf` passe.
 
 ## Jalon 2 — Écrans Accueil, Naissance, Tour (vide)
 

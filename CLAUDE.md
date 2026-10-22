@@ -32,6 +32,7 @@ Node 24 (voir `.nvmrc`).
 - `npm run lint` : ESLint puis vérification Prettier
 - `npm run format` : formate le code avec Prettier
 - `npm run check` : vérification des types (svelte-check, avertissements bloquants)
+- `npm run perf` : banc d'essai du moteur (une vie en moins de 5 ms, 1 000 vies en moins de 1 s)
 - `npm run data` : régénère les tables JSON à partir de `data/brut/` (jalon 8, pas encore disponible)
 
 ## Principes non négociables
