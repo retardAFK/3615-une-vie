@@ -1,4 +1,6 @@
-// Mise en forme des textes à l'écran : style Minitel et montants.
+// Mise en forme des textes à l'écran : style Minitel, libellés et montants.
+
+import libelles from '../../contenu/textes/libelles.json';
 
 /** Taux légal de conversion entre le franc et l'euro. */
 export const FRANCS_PAR_EURO = 6.55957;
@@ -37,4 +39,12 @@ export function montant(euros: number, annee: number): string {
 /** Rang d'un décile : 1 → « 1ER DECILE », 2 → « 2E DECILE ». */
 export function decile(rang: number): string {
   return `${rang}${rang === 1 ? 'ER' : 'E'} DECILE`;
+}
+
+export type CategorieLibelle = keyof typeof libelles;
+
+/** Libellé affiché d'une valeur du moteur (contenu/textes/libelles.json). */
+export function libelle(categorie: CategorieLibelle, cle: string | number): string {
+  const table: Readonly<Record<string, string>> = libelles[categorie];
+  return minitel(table[String(cle)] ?? String(cle));
 }

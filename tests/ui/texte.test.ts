@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { FRANCS_PAR_EURO, decile, minitel, montant } from '../../src/ui/texte';
+import { FRANCS_PAR_EURO, decile, libelle, minitel, montant } from '../../src/ui/texte';
 
 describe('minitel', () => {
   it('met en majuscules et retire les accents', () => {
@@ -43,5 +43,16 @@ describe('decile', () => {
     expect(decile(1)).toBe('1ER DECILE');
     expect(decile(2)).toBe('2E DECILE');
     expect(decile(10)).toBe('10E DECILE');
+  });
+});
+
+describe('libelle', () => {
+  it('renvoie le libelle Minitel d une valeur du moteur', () => {
+    expect(libelle('region', 'hauts_de_france')).toBe('HAUTS-DE-FRANCE');
+    expect(libelle('fratrie', 0)).toBe('ENFANT UNIQUE');
+  });
+
+  it('retombe sur la cle quand le libelle manque', () => {
+    expect(libelle('region', 'inconnue')).toBe('INCONNUE');
   });
 });

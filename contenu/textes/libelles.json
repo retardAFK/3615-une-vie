@@ -1,0 +1,79 @@
+{
+  "sexe": { "femme": "FEMME", "homme": "HOMME" },
+  "region": {
+    "ile_de_france": "ILE-DE-FRANCE",
+    "auvergne_rhone_alpes": "AUVERGNE-RHONE-ALPES",
+    "hauts_de_france": "HAUTS-DE-FRANCE",
+    "nouvelle_aquitaine": "NOUVELLE-AQUITAINE",
+    "occitanie": "OCCITANIE",
+    "grand_est": "GRAND EST",
+    "provence_alpes_cote_d_azur": "PROVENCE-ALPES-COTE D'AZUR",
+    "pays_de_la_loire": "PAYS DE LA LOIRE",
+    "bretagne": "BRETAGNE",
+    "normandie": "NORMANDIE",
+    "bourgogne_franche_comte": "BOURGOGNE-FRANCHE-COMTE",
+    "centre_val_de_loire": "CENTRE-VAL DE LOIRE",
+    "corse": "CORSE",
+    "guadeloupe": "GUADELOUPE",
+    "martinique": "MARTINIQUE",
+    "guyane": "GUYANE",
+    "la_reunion": "LA REUNION",
+    "mayotte": "MAYOTTE"
+  },
+  "territoire": {
+    "grande_metropole": "GRANDE VILLE",
+    "ville_moyenne": "VILLE MOYENNE",
+    "periurbain": "PERIURBAIN",
+    "rural": "CAMPAGNE",
+    "quartier_prioritaire": "QUARTIER PRIORITAIRE",
+    "drom": "OUTRE-MER"
+  },
+  "pcsParents": {
+    "cadre": "CADRES",
+    "intermediaire": "PROF. INTERMEDIAIRES",
+    "employe": "EMPLOYES",
+    "ouvrier": "OUVRIERS",
+    "artisan_commercant": "ARTISANS, COMMERCANTS",
+    "agriculteur": "AGRICULTEURS",
+    "sans_emploi": "SANS EMPLOI"
+  },
+  "diplomeParents": {
+    "aucun": "AUCUN",
+    "cap_bep": "CAP, BEP",
+    "bac": "BAC",
+    "bac_2_3": "BAC +2/3",
+    "bac_5": "BAC +5 ET PLUS"
+  },
+  "structureFamiliale": {
+    "couple": "PARENTS EN COUPLE",
+    "monoparentale": "MONOPARENTALE",
+    "recomposee": "RECOMPOSEE",
+    "placement_ase": "PLACEMENT ASE"
+  },
+  "logementFamilial": {
+    "proprietaire": "PROPRIETAIRES",
+    "locataire_prive": "LOCATAIRES",
+    "hlm": "HLM",
+    "precaire": "PRECAIRE"
+  },
+  "fratrie": {
+    "0": "ENFANT UNIQUE",
+    "1": "1 FRERE OU SOEUR",
+    "2": "2 FRERES ET SOEURS",
+    "3": "3 FRERES ET SOEURS",
+    "4": "4 FRERES ET SOEURS",
+    "5": "5 ET PLUS"
+  },
+  "santeNaissance": {
+    "normale": "NORMALE",
+    "prematurite": "PREMATURITE",
+    "handicap": "HANDICAP"
+  },
+  "jauges": {
+    "santePhysique": "SANTE",
+    "santeMentale": "MORAL",
+    "bienEtre": "BONHEUR",
+    "liens": "LIENS",
+    "competences": "SAVOIR"
+  }
+}
