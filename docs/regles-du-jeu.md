@@ -161,6 +161,8 @@ Avec k = 0,7, un trait à 95 multiplie les cotes par environ 1,9 et un trait à 
 
 Un choix ne produit jamais un résultat direct. Il applique un multiplicateur temporaire ou permanent sur des événements futurs, et un coût immédiat (argent, temps, jauge). Exemple : « reprendre des études » coûte 1 an de revenus, puis multiplie par 1,5 les chances de promotion pendant 10 ans.
 
+Un choix peut accepter une opportunité déjà tirée par le hasard ; c'est la seule exception à la règle des choix sans résultat direct.
+
 ## 5. Module éducation
 
 La scolarité est une suite de paliers, chacun tiré selon la facilité, l'origine sociale et l'effort choisi par le joueur. L'origine pèse lourd : c'est ici que le jeu montre la reproduction sociale.
@@ -464,6 +466,24 @@ Le calendrier réel de la France sert de toile de fond : chaque année calendair
 | 2026 | Suspension partielle de la réforme de 2023 (LFSS 2026), à partir du 1er septembre | nés 1964–1968 | âge légal gelé à 62 ans et 9 mois, 170 trimestres ; 64 ans maintenu pour les nés en 1969 et après |
 
 L'âge légal et le nombre de trimestres requis par génération forment une table à part (génération → âge, trimestres), à reprendre du simulateur officiel de l'Assurance retraite.
+
+**Âge légal de départ par génération** (règles de droit, valeurs officielles)
+
+| Génération | Âge légal | Texte |
+| --- | --- | --- |
+| 1950 | 60 ans | réforme de 1982 (ordonnance du 26 mars 1982) |
+| 1951 | 60 ans et 4 mois | réforme Woerth (loi n° 2010-1330 du 9 novembre 2010, accélérée par la LFSS 2012) |
+| 1952 | 60 ans et 9 mois | réforme Woerth |
+| 1953 | 61 ans et 2 mois | réforme Woerth |
+| 1954 | 61 ans et 7 mois | réforme Woerth |
+| 1955 à 1960 | 62 ans | réforme Woerth |
+| 1961 | 62 ans et 3 mois | réforme Borne (LFRSS 2023, loi n° 2023-270 du 14 avril 2023) |
+| 1962 | 62 ans et 6 mois | réforme Borne |
+| 1963 | 62 ans et 9 mois | réforme Borne |
+| 1964 à 1968 | 62 ans et 9 mois | suspension partielle de la réforme de 2023 (LFSS 2026) |
+| 1969 et après | 64 ans | réforme Borne |
+
+Source : Assurance retraite et textes de loi cités. Le jeu fait partir le personnage l'année où il atteint l'âge légal (âge en années entières, mois ignorés). Le nombre de trimestres requis reste une valeur de travail à calibrer.
 
 Après 2026, le jeu tire un futur plausible (croissance, crise, stabilité) au lieu d'inventer des événements précis.
 
