@@ -1,0 +1,127 @@
+{
+  "table": "logementFamilial",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "decileRevenuFoyer": "1"
+      },
+      "distribution": {
+        "proprietaire": 0.2105,
+        "locataire_prive": 0.3158,
+        "hlm": 0.3684,
+        "precaire": 0.1053
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "2"
+      },
+      "distribution": {
+        "proprietaire": 0.2771,
+        "locataire_prive": 0.3002,
+        "hlm": 0.3291,
+        "precaire": 0.0935
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "3"
+      },
+      "distribution": {
+        "proprietaire": 0.3421,
+        "locataire_prive": 0.2851,
+        "hlm": 0.2908,
+        "precaire": 0.0821
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "4"
+      },
+      "distribution": {
+        "proprietaire": 0.4054,
+        "locataire_prive": 0.2703,
+        "hlm": 0.2534,
+        "precaire": 0.0709
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "5"
+      },
+      "distribution": {
+        "proprietaire": 0.4672,
+        "locataire_prive": 0.2558,
+        "hlm": 0.2169,
+        "precaire": 0.0601
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "6"
+      },
+      "distribution": {
+        "proprietaire": 0.5275,
+        "locataire_prive": 0.2418,
+        "hlm": 0.1813,
+        "precaire": 0.0495
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "7"
+      },
+      "distribution": {
+        "proprietaire": 0.5863,
+        "locataire_prive": 0.228,
+        "hlm": 0.1466,
+        "precaire": 0.0391
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "8"
+      },
+      "distribution": {
+        "proprietaire": 0.6438,
+        "locataire_prive": 0.2146,
+        "hlm": 0.1127,
+        "precaire": 0.029
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "9"
+      },
+      "distribution": {
+        "proprietaire": 0.6999,
+        "locataire_prive": 0.2015,
+        "hlm": 0.0795,
+        "precaire": 0.0191
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "10"
+      },
+      "distribution": {
+        "proprietaire": 0.7547,
+        "locataire_prive": 0.1887,
+        "hlm": 0.0472,
+        "precaire": 0.0094
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "proprietaire": 0.5,
+        "locataire_prive": 0.25,
+        "hlm": 0.2,
+        "precaire": 0.05
+      }
+    }
+  ]
+}

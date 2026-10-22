@@ -1,0 +1,31 @@
+{
+  "table": "region",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {},
+      "distribution": {
+        "ile_de_france": 0.1786,
+        "auvergne_rhone_alpes": 0.119,
+        "hauts_de_france": 0.0893,
+        "nouvelle_aquitaine": 0.0893,
+        "occitanie": 0.0893,
+        "grand_est": 0.0794,
+        "provence_alpes_cote_d_azur": 0.0794,
+        "pays_de_la_loire": 0.0595,
+        "bretagne": 0.0496,
+        "normandie": 0.0496,
+        "bourgogne_franche_comte": 0.0397,
+        "centre_val_de_loire": 0.0397,
+        "corse": 0.005,
+        "guadeloupe": 0.006,
+        "martinique": 0.006,
+        "guyane": 0.004,
+        "la_reunion": 0.0129,
+        "mayotte": 0.004
+      }
+    }
+  ]
+}

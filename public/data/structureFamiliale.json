@@ -1,0 +1,94 @@
+{
+  "table": "structureFamiliale",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "couple": 0.9,
+        "monoparentale": 0.07,
+        "recomposee": 0.02,
+        "placement_ase": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "couple": 0.89,
+        "monoparentale": 0.08,
+        "recomposee": 0.02,
+        "placement_ase": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "couple": 0.86,
+        "monoparentale": 0.1,
+        "recomposee": 0.03,
+        "placement_ase": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "couple": 0.8,
+        "monoparentale": 0.14,
+        "recomposee": 0.05,
+        "placement_ase": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "couple": 0.75,
+        "monoparentale": 0.17,
+        "recomposee": 0.07,
+        "placement_ase": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "couple": 0.72,
+        "monoparentale": 0.19,
+        "recomposee": 0.08,
+        "placement_ase": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "couple": 0.7,
+        "monoparentale": 0.2,
+        "recomposee": 0.09,
+        "placement_ase": 0.01
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "couple": 0.8,
+        "monoparentale": 0.13,
+        "recomposee": 0.06,
+        "placement_ase": 0.01
+      }
+    }
+  ]
+}

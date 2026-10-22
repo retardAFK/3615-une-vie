@@ -1,0 +1,15 @@
+{
+  "table": "sexe",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {},
+      "distribution": {
+        "homme": 0.51,
+        "femme": 0.49
+      }
+    }
+  ]
+}

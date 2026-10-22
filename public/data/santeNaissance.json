@@ -1,0 +1,116 @@
+{
+  "table": "santeNaissance",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "decileRevenuFoyer": "1"
+      },
+      "distribution": {
+        "normale": 0.9,
+        "prematurite": 0.08,
+        "handicap": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "2"
+      },
+      "distribution": {
+        "normale": 0.9,
+        "prematurite": 0.08,
+        "handicap": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "3"
+      },
+      "distribution": {
+        "normale": 0.9,
+        "prematurite": 0.08,
+        "handicap": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "4"
+      },
+      "distribution": {
+        "normale": 0.925,
+        "prematurite": 0.06,
+        "handicap": 0.015
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "5"
+      },
+      "distribution": {
+        "normale": 0.925,
+        "prematurite": 0.06,
+        "handicap": 0.015
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "6"
+      },
+      "distribution": {
+        "normale": 0.925,
+        "prematurite": 0.06,
+        "handicap": 0.015
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "7"
+      },
+      "distribution": {
+        "normale": 0.925,
+        "prematurite": 0.06,
+        "handicap": 0.015
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "8"
+      },
+      "distribution": {
+        "normale": 0.925,
+        "prematurite": 0.06,
+        "handicap": 0.015
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "9"
+      },
+      "distribution": {
+        "normale": 0.925,
+        "prematurite": 0.06,
+        "handicap": 0.015
+      }
+    },
+    {
+      "conditions": {
+        "decileRevenuFoyer": "10"
+      },
+      "distribution": {
+        "normale": 0.925,
+        "prematurite": 0.06,
+        "handicap": 0.015
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "normale": 0.92,
+        "prematurite": 0.065,
+        "handicap": 0.015
+      }
+    }
+  ]
+}

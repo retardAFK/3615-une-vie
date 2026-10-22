@@ -1,0 +1,86 @@
+{
+  "table": "origineMigratoire",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "aucune": 0.88,
+        "premiere_generation": 0.04,
+        "deuxieme_generation": 0.08
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "aucune": 0.86,
+        "premiere_generation": 0.05,
+        "deuxieme_generation": 0.09
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "aucune": 0.84,
+        "premiere_generation": 0.05,
+        "deuxieme_generation": 0.11
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "aucune": 0.82,
+        "premiere_generation": 0.05,
+        "deuxieme_generation": 0.13
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "aucune": 0.8,
+        "premiere_generation": 0.05,
+        "deuxieme_generation": 0.15
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "aucune": 0.79,
+        "premiere_generation": 0.05,
+        "deuxieme_generation": 0.16
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "aucune": 0.78,
+        "premiere_generation": 0.06,
+        "deuxieme_generation": 0.16
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "aucune": 0.83,
+        "premiere_generation": 0.05,
+        "deuxieme_generation": 0.12
+      }
+    }
+  ]
+}

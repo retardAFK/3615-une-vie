@@ -1,0 +1,80 @@
+{
+  "table": "territoire",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "region": "guadeloupe"
+      },
+      "distribution": {
+        "drom": 1
+      }
+    },
+    {
+      "conditions": {
+        "region": "martinique"
+      },
+      "distribution": {
+        "drom": 1
+      }
+    },
+    {
+      "conditions": {
+        "region": "guyane"
+      },
+      "distribution": {
+        "drom": 1
+      }
+    },
+    {
+      "conditions": {
+        "region": "la_reunion"
+      },
+      "distribution": {
+        "drom": 1
+      }
+    },
+    {
+      "conditions": {
+        "region": "mayotte"
+      },
+      "distribution": {
+        "drom": 1
+      }
+    },
+    {
+      "conditions": {
+        "region": "ile_de_france"
+      },
+      "distribution": {
+        "grande_metropole": 0.55,
+        "ville_moyenne": 0.07,
+        "periurbain": 0.2,
+        "rural": 0.03,
+        "quartier_prioritaire": 0.15
+      }
+    },
+    {
+      "conditions": {
+        "region": "corse"
+      },
+      "distribution": {
+        "ville_moyenne": 0.4,
+        "periurbain": 0.15,
+        "rural": 0.45
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "grande_metropole": 0.25,
+        "ville_moyenne": 0.22,
+        "periurbain": 0.22,
+        "rural": 0.23,
+        "quartier_prioritaire": 0.08
+      }
+    }
+  ]
+}

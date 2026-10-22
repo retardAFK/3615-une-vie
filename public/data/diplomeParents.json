@@ -1,0 +1,739 @@
+{
+  "table": "diplomeParents",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "aucun": 0.214,
+        "cap_bep": 0.227,
+        "bac": 0.2211,
+        "bac_2_3": 0.201,
+        "bac_5": 0.137
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "aucun": 0.1432,
+        "cap_bep": 0.1856,
+        "bac": 0.221,
+        "bac_2_3": 0.2455,
+        "bac_5": 0.2046
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "aucun": 0.0783,
+        "cap_bep": 0.1305,
+        "bac": 0.1998,
+        "bac_2_3": 0.2855,
+        "bac_5": 0.3058
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "aucun": 0.04,
+        "cap_bep": 0.0848,
+        "bac": 0.1652,
+        "bac_2_3": 0.3004,
+        "bac_5": 0.4096
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "aucun": 0.0216,
+        "cap_bep": 0.0559,
+        "bac": 0.1332,
+        "bac_2_3": 0.296,
+        "bac_5": 0.4933
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "aucun": 0.0119,
+        "cap_bep": 0.037,
+        "bac": 0.1057,
+        "bac_2_3": 0.2818,
+        "bac_5": 0.5636
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "aucun": 0.0073,
+        "cap_bep": 0.0262,
+        "bac": 0.0865,
+        "bac_2_3": 0.266,
+        "bac_5": 0.614
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "cadre"
+      },
+      "distribution": {
+        "aucun": 0.03,
+        "cap_bep": 0.07,
+        "bac": 0.15,
+        "bac_2_3": 0.3,
+        "bac_5": 0.45
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "aucun": 0.2409,
+        "cap_bep": 0.365,
+        "bac": 0.2488,
+        "bac_2_3": 0.1282,
+        "bac_5": 0.0171
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "aucun": 0.181,
+        "cap_bep": 0.3351,
+        "bac": 0.2793,
+        "bac_2_3": 0.1758,
+        "bac_5": 0.0287
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "aucun": 0.1186,
+        "cap_bep": 0.2824,
+        "bac": 0.3026,
+        "bac_2_3": 0.2449,
+        "bac_5": 0.0515
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "aucun": 0.0738,
+        "cap_bep": 0.2235,
+        "bac": 0.3048,
+        "bac_2_3": 0.314,
+        "bac_5": 0.084
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "aucun": 0.0472,
+        "cap_bep": 0.1748,
+        "bac": 0.2913,
+        "bac_2_3": 0.3668,
+        "bac_5": 0.1199
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "aucun": 0.0303,
+        "cap_bep": 0.1345,
+        "bac": 0.2691,
+        "bac_2_3": 0.4066,
+        "bac_5": 0.1595
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "aucun": 0.0209,
+        "cap_bep": 0.107,
+        "bac": 0.2469,
+        "bac_2_3": 0.4305,
+        "bac_5": 0.1948
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "intermediaire"
+      },
+      "distribution": {
+        "aucun": 0.06,
+        "cap_bep": 0.2,
+        "bac": 0.3,
+        "bac_2_3": 0.34,
+        "bac_5": 0.1
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "aucun": 0.3691,
+        "cap_bep": 0.4474,
+        "bac": 0.1525,
+        "bac_2_3": 0.0277,
+        "bac_5": 0.0032
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "aucun": 0.3072,
+        "cap_bep": 0.4551,
+        "bac": 0.1896,
+        "bac_2_3": 0.0421,
+        "bac_5": 0.0059
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "aucun": 0.2343,
+        "cap_bep": 0.4462,
+        "bac": 0.239,
+        "bac_2_3": 0.0683,
+        "bac_5": 0.0122
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "aucun": 0.172,
+        "cap_bep": 0.4169,
+        "bac": 0.2843,
+        "bac_2_3": 0.1034,
+        "bac_5": 0.0235
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "aucun": 0.1276,
+        "cap_bep": 0.3782,
+        "bac": 0.3152,
+        "bac_2_3": 0.1401,
+        "bac_5": 0.0389
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "aucun": 0.094,
+        "cap_bep": 0.3342,
+        "bac": 0.3342,
+        "bac_2_3": 0.1782,
+        "bac_5": 0.0594
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "aucun": 0.0721,
+        "cap_bep": 0.2958,
+        "bac": 0.3413,
+        "bac_2_3": 0.21,
+        "bac_5": 0.0808
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "employe"
+      },
+      "distribution": {
+        "aucun": 0.15,
+        "cap_bep": 0.4,
+        "bac": 0.3,
+        "bac_2_3": 0.12,
+        "bac_5": 0.03
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "aucun": 0.5946,
+        "cap_bep": 0.3475,
+        "bac": 0.0491,
+        "bac_2_3": 0.008,
+        "bac_5": 0.0007
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "aucun": 0.5362,
+        "cap_bep": 0.383,
+        "bac": 0.0662,
+        "bac_2_3": 0.0131,
+        "bac_5": 0.0015
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "aucun": 0.4583,
+        "cap_bep": 0.4209,
+        "bac": 0.0935,
+        "bac_2_3": 0.0239,
+        "bac_5": 0.0034
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "aucun": 0.3808,
+        "cap_bep": 0.4451,
+        "bac": 0.1259,
+        "bac_2_3": 0.0409,
+        "bac_5": 0.0074
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "aucun": 0.3163,
+        "cap_bep": 0.4518,
+        "bac": 0.1562,
+        "bac_2_3": 0.062,
+        "bac_5": 0.0138
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "aucun": 0.2594,
+        "cap_bep": 0.4448,
+        "bac": 0.1845,
+        "bac_2_3": 0.0879,
+        "bac_5": 0.0234
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "aucun": 0.2172,
+        "cap_bep": 0.4295,
+        "bac": 0.2056,
+        "bac_2_3": 0.113,
+        "bac_5": 0.0348
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "ouvrier"
+      },
+      "distribution": {
+        "aucun": 0.35,
+        "cap_bep": 0.45,
+        "bac": 0.14,
+        "bac_2_3": 0.05,
+        "bac_5": 0.01
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "aucun": 0.4373,
+        "cap_bep": 0.4472,
+        "bac": 0.0903,
+        "bac_2_3": 0.0205,
+        "bac_5": 0.0047
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "aucun": 0.3748,
+        "cap_bep": 0.4685,
+        "bac": 0.1157,
+        "bac_2_3": 0.0321,
+        "bac_5": 0.0089
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "aucun": 0.2972,
+        "cap_bep": 0.4777,
+        "bac": 0.1516,
+        "bac_2_3": 0.0542,
+        "bac_5": 0.0193
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "aucun": 0.2263,
+        "cap_bep": 0.4629,
+        "bac": 0.1871,
+        "bac_2_3": 0.085,
+        "bac_5": 0.0386
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "aucun": 0.1724,
+        "cap_bep": 0.4309,
+        "bac": 0.2128,
+        "bac_2_3": 0.1182,
+        "bac_5": 0.0657
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "aucun": 0.129,
+        "cap_bep": 0.3869,
+        "bac": 0.2293,
+        "bac_2_3": 0.1529,
+        "bac_5": 0.1019
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "aucun": 0.0995,
+        "cap_bep": 0.3444,
+        "bac": 0.2355,
+        "bac_2_3": 0.1812,
+        "bac_5": 0.1394
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "artisan_commercant"
+      },
+      "distribution": {
+        "aucun": 0.2,
+        "cap_bep": 0.45,
+        "bac": 0.2,
+        "bac_2_3": 0.1,
+        "bac_5": 0.05
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "aucun": 0.6104,
+        "cap_bep": 0.3171,
+        "bac": 0.0613,
+        "bac_2_3": 0.0098,
+        "bac_5": 0.0015
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "aucun": 0.5496,
+        "cap_bep": 0.3489,
+        "bac": 0.0824,
+        "bac_2_3": 0.0162,
+        "bac_5": 0.003
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "aucun": 0.467,
+        "cap_bep": 0.3812,
+        "bac": 0.1157,
+        "bac_2_3": 0.0292,
+        "bac_5": 0.0069
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "aucun": 0.3834,
+        "cap_bep": 0.3983,
+        "bac": 0.1539,
+        "bac_2_3": 0.0494,
+        "bac_5": 0.015
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "aucun": 0.3133,
+        "cap_bep": 0.3979,
+        "bac": 0.1879,
+        "bac_2_3": 0.0737,
+        "bac_5": 0.0273
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "aucun": 0.2516,
+        "cap_bep": 0.3834,
+        "bac": 0.2173,
+        "bac_2_3": 0.1022,
+        "bac_5": 0.0454
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "aucun": 0.2061,
+        "cap_bep": 0.3624,
+        "bac": 0.2369,
+        "bac_2_3": 0.1286,
+        "bac_5": 0.066
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "agriculteur"
+      },
+      "distribution": {
+        "aucun": 0.35,
+        "cap_bep": 0.4,
+        "bac": 0.17,
+        "bac_2_3": 0.06,
+        "bac_5": 0.02
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "aucun": 0.7082,
+        "cap_bep": 0.2361,
+        "bac": 0.0455,
+        "bac_2_3": 0.0089,
+        "bac_5": 0.0013
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "aucun": 0.6534,
+        "cap_bep": 0.2662,
+        "bac": 0.0627,
+        "bac_2_3": 0.0149,
+        "bac_5": 0.0028
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "aucun": 0.5738,
+        "cap_bep": 0.3006,
+        "bac": 0.0911,
+        "bac_2_3": 0.0279,
+        "bac_5": 0.0066
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "aucun": 0.4868,
+        "cap_bep": 0.3245,
+        "bac": 0.1252,
+        "bac_2_3": 0.0488,
+        "bac_5": 0.0148
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "aucun": 0.4082,
+        "cap_bep": 0.3326,
+        "bac": 0.1568,
+        "bac_2_3": 0.0747,
+        "bac_5": 0.0277
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "aucun": 0.3347,
+        "cap_bep": 0.3273,
+        "bac": 0.1851,
+        "bac_2_3": 0.1058,
+        "bac_5": 0.047
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "aucun": 0.2779,
+        "cap_bep": 0.3135,
+        "bac": 0.2046,
+        "bac_2_3": 0.1349,
+        "bac_5": 0.0692
+      }
+    },
+    {
+      "conditions": {
+        "pcsParents": "sans_emploi"
+      },
+      "distribution": {
+        "aucun": 0.45,
+        "cap_bep": 0.33,
+        "bac": 0.14,
+        "bac_2_3": 0.06,
+        "bac_5": 0.02
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "aucun": 0.2,
+        "cap_bep": 0.35,
+        "bac": 0.2,
+        "bac_2_3": 0.15,
+        "bac_5": 0.1
+      }
+    }
+  ]
+}

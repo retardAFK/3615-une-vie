@@ -1,0 +1,268 @@
+{
+  "table": "prenoms",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "sexe": "femme",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "Marie": 1,
+        "Martine": 1,
+        "Françoise": 1,
+        "Monique": 1,
+        "Nicole": 1,
+        "Catherine": 1,
+        "Christiane": 1,
+        "Sylvie": 1,
+        "Jacqueline": 1,
+        "Danielle": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "femme",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "Sylvie": 1,
+        "Catherine": 1,
+        "Isabelle": 1,
+        "Nathalie": 1,
+        "Christine": 1,
+        "Martine": 1,
+        "Brigitte": 1,
+        "Françoise": 1,
+        "Véronique": 1,
+        "Patricia": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "femme",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "Nathalie": 1,
+        "Isabelle": 1,
+        "Sandrine": 1,
+        "Valérie": 1,
+        "Stéphanie": 1,
+        "Céline": 1,
+        "Karine": 1,
+        "Sophie": 1,
+        "Christelle": 1,
+        "Virginie": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "femme",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "Aurélie": 1,
+        "Émilie": 1,
+        "Julie": 1,
+        "Céline": 1,
+        "Élodie": 1,
+        "Stéphanie": 1,
+        "Audrey": 1,
+        "Sandra": 1,
+        "Laetitia": 1,
+        "Mélanie": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "femme",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "Laura": 1,
+        "Camille": 1,
+        "Manon": 1,
+        "Marine": 1,
+        "Julie": 1,
+        "Pauline": 1,
+        "Marion": 1,
+        "Anaïs": 1,
+        "Sarah": 1,
+        "Léa": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "femme",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "Léa": 1,
+        "Manon": 1,
+        "Chloé": 1,
+        "Emma": 1,
+        "Camille": 1,
+        "Océane": 1,
+        "Clara": 1,
+        "Inès": 1,
+        "Sarah": 1,
+        "Lucie": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "femme",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "Emma": 1,
+        "Louise": 1,
+        "Jade": 1,
+        "Alice": 1,
+        "Chloé": 1,
+        "Lina": 1,
+        "Léa": 1,
+        "Manon": 1,
+        "Rose": 1,
+        "Inès": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "homme",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "Jean": 1,
+        "Michel": 1,
+        "Alain": 1,
+        "Philippe": 1,
+        "Daniel": 1,
+        "Bernard": 1,
+        "Patrick": 1,
+        "Gérard": 1,
+        "Christian": 1,
+        "Jacques": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "homme",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "Philippe": 1,
+        "Pascal": 1,
+        "Patrick": 1,
+        "Thierry": 1,
+        "Éric": 1,
+        "Christophe": 1,
+        "Laurent": 1,
+        "Frédéric": 1,
+        "Didier": 1,
+        "Dominique": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "homme",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "Christophe": 1,
+        "Stéphane": 1,
+        "Sébastien": 1,
+        "David": 1,
+        "Nicolas": 1,
+        "Laurent": 1,
+        "Olivier": 1,
+        "Frédéric": 1,
+        "Cédric": 1,
+        "Julien": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "homme",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "Nicolas": 1,
+        "Julien": 1,
+        "Sébastien": 1,
+        "Guillaume": 1,
+        "Mickaël": 1,
+        "Jérémy": 1,
+        "Anthony": 1,
+        "Romain": 1,
+        "Kévin": 1,
+        "Thomas": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "homme",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "Thomas": 1,
+        "Kévin": 1,
+        "Nicolas": 1,
+        "Alexandre": 1,
+        "Maxime": 1,
+        "Quentin": 1,
+        "Julien": 1,
+        "Romain": 1,
+        "Florian": 1,
+        "Anthony": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "homme",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "Lucas": 1,
+        "Thomas": 1,
+        "Hugo": 1,
+        "Théo": 1,
+        "Mathis": 1,
+        "Nathan": 1,
+        "Enzo": 1,
+        "Maxime": 1,
+        "Louis": 1,
+        "Alexandre": 1
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "homme",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "Gabriel": 1,
+        "Louis": 1,
+        "Raphaël": 1,
+        "Jules": 1,
+        "Adam": 1,
+        "Lucas": 1,
+        "Léo": 1,
+        "Hugo": 1,
+        "Arthur": 1,
+        "Nathan": 1
+      }
+    },
+    {
+      "conditions": {},
+      "distribution": {
+        "Camille": 1,
+        "Dominique": 1,
+        "Claude": 1
+      }
+    }
+  ]
+}

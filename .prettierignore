@@ -4,3 +4,5 @@ package-lock.json
 # Documents de référence rédigés à la main : pas de reformatage automatique.
 docs/
 CLAUDE.md
+# Tables générées par data/scripts/ (ou à la main en attendant le calibrage).
+public/data/
