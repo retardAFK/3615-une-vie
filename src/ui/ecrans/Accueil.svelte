@@ -10,12 +10,14 @@
     erreurGraine,
     erreurAnnee,
     onnouvellevie,
+    onreglages,
   }: {
     graine?: string;
     annee?: string;
     erreurGraine: string | null;
     erreurAnnee: string | null;
     onnouvellevie: () => void;
+    onreglages: () => void;
   } = $props();
 
   function soumettre(evenement: SubmitEvent): void {
@@ -42,6 +44,7 @@
         <BoutonNumerote numero={1} libelle="NOUVELLE VIE" onclick={onnouvellevie} />
         <BoutonNumerote numero={2} libelle="REPRENDRE" desactive mention="BIENTOT" />
         <BoutonNumerote numero={3} libelle="VIES PASSEES" desactive mention="BIENTOT" />
+        <BoutonNumerote numero={4} libelle="REGLAGES" onclick={onreglages} />
       </nav>
       <!-- Entrée dans l'un ou l'autre champ lance NOUVELLE VIE. -->
       <form class="champs" onsubmit={soumettre}>

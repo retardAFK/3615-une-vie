@@ -7,10 +7,13 @@
   // Écran de fin provisoire : le bilan complet arrive au jalon 7.
   let {
     partie,
+    anime = false,
     onsommaire,
     onrevivre,
   }: {
     partie: EtatPartie;
+    /** Animation d'apparition du nom (jamais en mouvement réduit). */
+    anime?: boolean;
     onsommaire: () => void;
     onrevivre: () => void;
   } = $props();
@@ -31,7 +34,8 @@
 <div class="contenu">
   <div class="zones pleine">
     <section class="gauche">
-      <h1 class="titre-valeur">{minitel(personnage.prenom)}</h1>
+      <!-- Grand moment : le nom en double hauteur. -->
+      <h1 class="titre-valeur double" class:apparait={anime}>{minitel(personnage.prenom)}</h1>
       <p>
         {personnage.origine.anneeNaissance} - {partie.annee} · {personnage.age}
         {personnage.age > 1 ? 'ANS' : 'AN'}
@@ -46,3 +50,25 @@
   <Touche libelle="SOMMAIRE" raccourci="S" onclick={onsommaire} />
   <Touche libelle="REVIVRE" raccourci="ENTREE" principale onclick={onrevivre} />
 </div>
+
+<style>
+  .double {
+    display: inline-block;
+    transform: scaleY(2);
+    transform-origin: top left;
+    margin-bottom: 0.6em;
+  }
+
+  .apparait {
+    animation: apparaitre 0.9s steps(6) both;
+  }
+
+  @keyframes apparaitre {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0);
+    }
+  }
+</style>

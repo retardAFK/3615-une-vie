@@ -143,3 +143,13 @@ input {
     padding: 12px 32px 16px;
   }
 }
+
+/* Moins de mouvement demandé par le système : aucune animation, quoi qu'il arrive. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

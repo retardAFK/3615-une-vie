@@ -5,9 +5,11 @@
   import BoutonNumerote from '../composants/BoutonNumerote.svelte';
   import Jauge from '../composants/Jauge.svelte';
   import LigneValeur from '../composants/LigneValeur.svelte';
+  import TexteMinitel from '../composants/TexteMinitel.svelte';
   import Touche from '../composants/Touche.svelte';
   import { estSalarie } from '../../moteur/modules/emploi';
   import { RESSOURCES } from '../donnees';
+  import { pictoPour } from '../pictos';
   import { libelle, minitel, montant } from '../texte';
 
   let {
@@ -20,6 +22,8 @@
     journalAuto,
     annonceSeule,
     confirmation,
+    msParCaractere = 0,
+    anime = false,
     onchoisir,
     onenvoi,
     onauto,
@@ -40,6 +44,10 @@
     annonceSeule: boolean;
     /** Encadré « QUITTER CETTE VIE ? » ouvert. */
     confirmation: boolean;
+    /** Révélation du texte des avis (0 : d'un coup). */
+    msParCaractere?: number;
+    /** Animations permises : transitions, jauges, clignotements (jamais en AUTO). */
+    anime?: boolean;
     onchoisir: (numero: number) => void;
     onenvoi: () => void;
     onauto: () => void;
@@ -98,7 +106,7 @@
       </div>
       <div class="pile">
         {#each NOMS_JAUGES as nom (nom)}
-          <Jauge libelle={libelle('jauges', nom)} valeur={personnage.jauges[nom]} />
+          <Jauge libelle={libelle('jauges', nom)} valeur={personnage.jauges[nom]} {anime} />
         {/each}
       </div>
       <div class="pile-serree">
@@ -117,55 +125,64 @@
       </div>
     </section>
 
-    <section class="droite">
-      {#if confirmation}
-        <Avis titre="SOMMAIRE">
-          <p>QUITTER CETTE VIE ? ELLE NE SERA PAS SAUVEGARDEE.</p>
-          <div class="pile">
-            <BoutonNumerote numero={1} libelle="OUI, QUITTER" onclick={() => onconfirmer(true)} />
-            <BoutonNumerote
-              numero={2}
-              libelle="NON, CONTINUER"
-              onclick={() => onconfirmer(false)}
-            />
-          </div>
-        </Avis>
-      {:else if auto}
-        <Avis titre="AUTO">
-          {#each evenementsAuto as entree, i (i)}
-            <p>{entree.texte}</p>
-          {:else}
-            <p>AUCUN EVENEMENT CETTE ANNEE.</p>
-          {/each}
-        </Avis>
-      {:else if avis}
-        <Avis titre={titreAvis}>
-          {#if totalAvis > 1}<p class="discret">AVIS {rangAvis + 1}/{totalAvis}</p>{/if}
-          <p>{avis.texte}</p>
-          {#each avis.ressources as id (id)}
-            {#if RESSOURCES[id]}
-              <p class="ressource">AIDE : {RESSOURCES[id].contact} · {RESSOURCES[id].nom}</p>
-            {/if}
-          {/each}
-          {#if avis.choix.length > 0}
-            <div class="pile" role="group" aria-label="Choix">
-              {#each avis.choix as option, i (option.id)}
-                <BoutonNumerote
-                  numero={i + 1}
-                  libelle={option.libelle}
-                  selectionne={choixFait === option.id}
-                  onclick={() => onchoisir(i + 1)}
-                />
-              {/each}
+    <!-- Nouvelle année ou nouvel avis : l'encadré se redessine de haut en bas. -->
+    {#key `${partie.annee}-${rangAvis}-${confirmation}`}
+      <section class="droite" class:balayage={anime}>
+        {#if confirmation}
+          <Avis titre="SOMMAIRE">
+            <p>QUITTER CETTE VIE ? ELLE NE SERA PAS SAUVEGARDEE.</p>
+            <div class="pile">
+              <BoutonNumerote numero={1} libelle="OUI, QUITTER" onclick={() => onconfirmer(true)} />
+              <BoutonNumerote
+                numero={2}
+                libelle="NON, CONTINUER"
+                onclick={() => onconfirmer(false)}
+              />
             </div>
-          {/if}
-        </Avis>
-      {:else}
-        <Avis titre="QUOTIDIEN">
-          <p>AUCUN EVENEMENT CETTE ANNEE.</p>
-        </Avis>
-      {/if}
-    </section>
+          </Avis>
+        {:else if auto}
+          <Avis titre="AUTO">
+            {#each evenementsAuto as entree, i (i)}
+              <p>{entree.texte}</p>
+            {:else}
+              <p>AUCUN EVENEMENT CETTE ANNEE.</p>
+            {/each}
+          </Avis>
+        {:else if avis}
+          <Avis
+            titre={titreAvis}
+            picto={pictoPour(avis.tags)}
+            grave={avis.gravite === 3}
+            grandMoment={avis.gravite === 3 || avis.tags.includes('etape')}
+            {anime}
+          >
+            {#if totalAvis > 1}<p class="discret">AVIS {rangAvis + 1}/{totalAvis}</p>{/if}
+            <p><TexteMinitel texte={avis.texte} {msParCaractere} /></p>
+            {#each avis.ressources as id (id)}
+              {#if RESSOURCES[id]}
+                <p class="ressource">AIDE : {RESSOURCES[id].contact} · {RESSOURCES[id].nom}</p>
+              {/if}
+            {/each}
+            {#if avis.choix.length > 0}
+              <div class="pile" role="group" aria-label="Choix">
+                {#each avis.choix as option, i (option.id)}
+                  <BoutonNumerote
+                    numero={i + 1}
+                    libelle={option.libelle}
+                    selectionne={choixFait === option.id}
+                    onclick={() => onchoisir(i + 1)}
+                  />
+                {/each}
+              </div>
+            {/if}
+          </Avis>
+        {:else}
+          <Avis titre="QUOTIDIEN">
+            <p>AUCUN EVENEMENT CETTE ANNEE.</p>
+          </Avis>
+        {/if}
+      </section>
+    {/key}
   </div>
 </div>
 
@@ -192,6 +209,20 @@
   .ressource {
     color: var(--accent);
     font-size: var(--taille-precision);
+  }
+
+  /* Rafraîchissement façon Minitel : l'encadré se redessine de haut en bas. */
+  .balayage {
+    animation: balayer 240ms steps(8) both;
+  }
+
+  @keyframes balayer {
+    from {
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      clip-path: inset(0);
+    }
   }
 
   .pile-serree {

@@ -2,15 +2,19 @@
   import type { EtatPartie } from '../../moteur/types';
   import BarreTitre from '../composants/BarreTitre.svelte';
   import LigneValeur from '../composants/LigneValeur.svelte';
+  import TexteMinitel from '../composants/TexteMinitel.svelte';
   import Touche from '../composants/Touche.svelte';
   import { decile, libelle, minitel } from '../texte';
 
   let {
     partie,
+    msParCaractere = 0,
     onretour,
     oncommencer,
   }: {
     partie: EtatPartie;
+    /** Révélation du titre ; les lignes de l'origine apparaissent ensuite une à une. */
+    msParCaractere?: number;
     onretour: () => void;
     oncommencer: () => void;
   } = $props();
@@ -41,10 +45,18 @@
   <div class="zones">
     <section class="gauche">
       <p class="discret">TIRAGE EN COURS · GRAINE {partie.graine}</p>
-      <h1 class="titre-valeur">{origine.sexe === 'femme' ? 'TU ES NEE.' : 'TU ES NE.'}</h1>
-      <div class="lignes">
-        {#each lignes as ligne (ligne.libelle)}
-          <LigneValeur libelle={ligne.libelle} valeur={ligne.valeur} />
+      <h1 class="titre-valeur">
+        <TexteMinitel
+          texte={origine.sexe === 'femme' ? 'TU ES NEE.' : 'TU ES NE.'}
+          {msParCaractere}
+        />
+      </h1>
+      <!-- Origine révélée ligne par ligne, dans l'ordre du tirage. -->
+      <div class="lignes" class:revelees={msParCaractere > 0} style:--pas="{msParCaractere * 9}ms">
+        {#each lignes as ligne, i (ligne.libelle)}
+          <div class="ligne" style:--rang={i + 1}>
+            <LigneValeur libelle={ligne.libelle} valeur={ligne.valeur} />
+          </div>
         {/each}
       </div>
     </section>
@@ -69,6 +81,17 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+  }
+
+  .revelees .ligne {
+    animation: apparaitre 0s steps(1) both;
+    animation-delay: calc(var(--rang) * var(--pas));
+  }
+
+  @keyframes apparaitre {
+    from {
+      visibility: hidden;
+    }
   }
 
   .prenom {

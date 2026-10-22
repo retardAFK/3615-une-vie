@@ -22,17 +22,32 @@
   import Touche from './composants/Touche.svelte';
   import { chargerDonnees } from './donnees';
   import Accueil from './ecrans/Accueil.svelte';
+  import Connexion from './ecrans/Connexion.svelte';
   import Fin from './ecrans/Fin.svelte';
   import Naissance from './ecrans/Naissance.svelte';
+  import Reglages from './ecrans/Reglages.svelte';
   import Tour from './ecrans/Tour.svelte';
   import { lireAnnee, normaliserGraine, nouvelleGraine } from './graine';
+  import {
+    animationsPermises,
+    delaiParCaractere,
+    ecrireReglages,
+    lireReglages,
+    vitesseSuivante,
+  } from './reglages';
+  import { jouerSon, type NomSon } from './sons';
 
-  type Ecran = 'chargement' | 'erreur' | 'accueil' | 'naissance' | 'tour' | 'fin';
+  type Ecran = 'connexion' | 'erreur' | 'accueil' | 'reglages' | 'naissance' | 'tour' | 'fin';
 
   /** Une année toutes les 100 ms en mode AUTO, soit environ 10 ans par seconde. */
   const INTERVALLE_AUTO = 100;
 
-  let ecran = $state<Ecran>('chargement');
+  let ecran = $state<Ecran>('connexion');
+  let reglages = $state(lireReglages());
+  /** Préférence système « moins de mouvement » : aucune animation. */
+  let mouvementReduit = $state(false);
+  /** La séquence de connexion est terminée (ou passée) : l'accueil peut s'afficher. */
+  let connexionVue = $state(false);
   let donnees = $state.raw<Donnees | null>(null);
   let partie = $state.raw<EtatPartie | null>(null);
   let saisieGraine = $state('');
@@ -51,19 +66,53 @@
 
   const evenementsOuverts = $derived(partie?.anneeEnCours?.evenements ?? []);
   const avis = $derived(evenementsOuverts[rangAvis] ?? null);
+  /** Délai de révélation des textes et animations : coupés en AUTO et en mouvement réduit. */
+  const msParCaractere = $derived(delaiParCaractere(reglages, mouvementReduit, auto));
+  const anime = $derived(animationsPermises(reglages, mouvementReduit, auto));
+
+  function son(nom: NomSon): void {
+    jouerSon(nom, reglages.sons);
+  }
 
   async function charger(): Promise<void> {
-    ecran = 'chargement';
+    ecran = 'connexion';
     try {
       donnees = await chargerDonnees();
-      ecran = 'accueil';
+      if (connexionVue || delaiParCaractere(reglages, mouvementReduit, false) === 0)
+        ecran = 'accueil';
     } catch (erreur) {
       console.error(erreur);
       ecran = 'erreur';
     }
   }
 
-  onMount(charger);
+  /** Fin (ou abandon) de la séquence de connexion : accueil dès que les données sont là. */
+  function terminerConnexion(): void {
+    connexionVue = true;
+    if (donnees && ecran === 'connexion') ecran = 'accueil';
+  }
+
+  onMount(() => {
+    const requete = matchMedia('(prefers-reduced-motion: reduce)');
+    mouvementReduit = requete.matches;
+    const changer = (e: MediaQueryListEvent): void => void (mouvementReduit = e.matches);
+    requete.addEventListener('change', changer);
+    void charger();
+    return () => requete.removeEventListener('change', changer);
+  });
+
+  function changerReglage(numero: number): void {
+    if (numero === 1) reglages = { ...reglages, vitesse: vitesseSuivante(reglages.vitesse) };
+    else if (numero === 2) reglages = { ...reglages, sons: !reglages.sons };
+    else return;
+    ecrireReglages(reglages);
+    son('touche');
+  }
+
+  // Événement grave affiché : son d'alerte.
+  $effect(() => {
+    if (avis?.gravite === 3 && ecran === 'tour' && !auto) son('grave');
+  });
 
   function commencer(graine: string, options: OptionsPartie): void {
     if (!donnees) return;
@@ -71,6 +120,7 @@
     auto = false;
     confirmation = false;
     ecran = 'naissance';
+    son('connexion');
   }
 
   function nouvelleVie(): void {
@@ -91,6 +141,7 @@
     if (etat.personnage.vivant) return true;
     auto = false;
     ecran = 'fin';
+    son('fin');
     return false;
   }
 
@@ -201,13 +252,32 @@
   });
 
   function agir(action: Action): boolean {
+    const fait = executer(action);
+    if (fait) son('touche');
+    return fait;
+  }
+
+  function executer(action: Action): boolean {
     switch (ecran) {
+      case 'connexion':
+        if (action.type !== 'envoi') return false;
+        terminerConnexion();
+        return true;
       case 'accueil':
         if (action.type === 'envoi' || (action.type === 'choix' && action.numero === 1)) {
           nouvelleVie();
           return true;
         }
+        if (action.type === 'choix' && action.numero === 4) {
+          ecran = 'reglages';
+          return true;
+        }
         return false;
+      case 'reglages':
+        if (action.type === 'choix' && action.numero <= 2) changerReglage(action.numero);
+        else if (action.type === 'retour' || action.type === 'envoi') ecran = 'accueil';
+        else return false;
+        return true;
       case 'naissance':
         if (action.type === 'envoi') debuterVie();
         else if (action.type === 'retour') allerAuSommaire();
@@ -251,11 +321,12 @@
 <svelte:window onkeydown={surTouche} />
 
 <main class="ecran" bind:this={cadre} tabindex="-1">
-  {#if ecran === 'chargement'}
-    <BarreTitre libelle="CONNEXION" />
-    <div class="contenu" aria-live="polite">
-      <p>CONNEXION EN COURS...</p>
-    </div>
+  {#if ecran === 'connexion'}
+    <Connexion
+      prete={donnees !== null}
+      msParCaractere={delaiParCaractere(reglages, mouvementReduit, false)}
+      onterminee={terminerConnexion}
+    />
   {:else if ecran === 'erreur'}
     <BarreTitre libelle="CONNEXION" />
     <div class="contenu">
@@ -271,9 +342,22 @@
       {erreurGraine}
       {erreurAnnee}
       onnouvellevie={nouvelleVie}
+      onreglages={() => (ecran = 'reglages')}
+    />
+  {:else if ecran === 'reglages'}
+    <Reglages
+      {reglages}
+      {mouvementReduit}
+      onchanger={changerReglage}
+      onretour={() => (ecran = 'accueil')}
     />
   {:else if ecran === 'naissance' && partie}
-    <Naissance {partie} onretour={allerAuSommaire} oncommencer={debuterVie} />
+    <Naissance
+      {partie}
+      msParCaractere={delaiParCaractere(reglages, mouvementReduit, false)}
+      onretour={allerAuSommaire}
+      oncommencer={debuterVie}
+    />
   {:else if ecran === 'tour' && partie}
     <Tour
       {partie}
@@ -285,6 +369,8 @@
       {journalAuto}
       {annonceSeule}
       {confirmation}
+      {msParCaractere}
+      {anime}
       onchoisir={choisir}
       onenvoi={envoi}
       onauto={basculerAuto}
@@ -294,6 +380,7 @@
   {:else if ecran === 'fin' && partie}
     <Fin
       {partie}
+      {anime}
       onsommaire={allerAuSommaire}
       onrevivre={() => commencer(partie!.graine, partie!.options)}
     />
