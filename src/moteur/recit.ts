@@ -59,5 +59,11 @@ export function valeursRecit(
 export function rediger(evenement: Evenement, etat: EtatPartie, libelles: Libelles): string {
   const g = sousGenerateur(etat.graine, etat.personnage.age, `${evenement.id}.texte`);
   const modele = evenement.textes[entier(g, 0, evenement.textes.length - 1)]!;
-  return remplir(modele, valeursRecit(etat, libelles));
+  if (!modele.includes('{')) return modele;
+  const valeurs = valeursRecit(etat, libelles);
+  return modele.replace(MOTIF_VARIABLE, (_, nom: string) => {
+    const valeur = valeurs[nom as VariableTexte];
+    if (valeur === undefined) throw new Error(`Variable de texte inconnue : {${nom}}`);
+    return valeur();
+  });
 }
