@@ -29,4 +29,26 @@ export default defineConfig(
       parserOptions: { parser: ts.parser, extraFileExtensions: ['.svelte'], svelteConfig },
     },
   },
+  {
+    // Le moteur est pur : ni DOM, ni stockage, ni Svelte (CLAUDE.md, principe 1).
+    files: ['src/moteur/**'],
+    rules: {
+      'no-restricted-globals': [
+        'error',
+        'window',
+        'document',
+        'navigator',
+        'localStorage',
+        'sessionStorage',
+        'indexedDB',
+        'fetch',
+      ],
+      'no-restricted-imports': ['error', { patterns: ['svelte', 'svelte/*'] }],
+    },
+  },
+  {
+    // Scripts du pipeline de données : exécutés par Node, en local.
+    files: ['data/scripts/**'],
+    languageOptions: { globals: { ...globals.node } },
+  },
 );
