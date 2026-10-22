@@ -23,6 +23,34 @@ export const EVENEMENTS_PAR_AN = 3;
 
 const index = new WeakMap<readonly Evenement[], Map<string, Evenement>>();
 
+/** Événement et son rang de déclaration (départage à gravité égale). */
+export interface EvenementRange {
+  evenement: Evenement;
+  rang: number;
+}
+
+const indexParAge = new WeakMap<readonly Evenement[], EvenementRange[][]>();
+
+/**
+ * Événements éligibles par l'âge, pour chaque âge de 0 à AGE_MAXIMAL, dans l'ordre
+ * de déclaration. Construit une fois par liste d'événements, puis mis en cache.
+ */
+export function evenementsParAge(evenements: readonly Evenement[]): EvenementRange[][] {
+  let parAge = indexParAge.get(evenements);
+  if (!parAge) {
+    const tranches: EvenementRange[][] = Array.from({ length: AGE_MAXIMAL + 1 }, () => []);
+    evenements.forEach((evenement, rang) => {
+      const [min, max] = evenement.age;
+      for (let age = Math.max(0, min); age <= Math.min(max, AGE_MAXIMAL); age++) {
+        tranches[age]!.push({ evenement, rang });
+      }
+    });
+    parAge = tranches;
+    indexParAge.set(evenements, parAge);
+  }
+  return parAge;
+}
+
 /** Retrouve un événement par son id (index mis en cache par liste). */
 export function evenementParId(evenements: readonly Evenement[], id: string): Evenement {
   let parId = index.get(evenements);
@@ -113,17 +141,17 @@ export function tirerEvenements(
 ): { retenus: EvenementTire[]; reportes: string[] } {
   const { graine, personnage } = etat;
   const candidats: { tire: EvenementTire; rang: number }[] = [];
-  donnees.evenements.forEach((evenement, rang) => {
-    if (!estEligible(evenement, etat)) return;
+  for (const { evenement, rang } of evenementsParAge(donnees.evenements)[personnage.age] ?? []) {
+    if (!estEligible(evenement, etat)) continue;
     if (etat.reportes.includes(evenement.id)) {
       candidats.push({ tire: tire(evenement, etat, donnees, 1, true), rang });
-      return;
+      continue;
     }
     const p = probabiliteEvenement(evenement, etat);
     if (sousGenerateur(graine, personnage.age, evenement.id)() < p) {
       candidats.push({ tire: tire(evenement, etat, donnees, p, false), rang });
     }
-  });
+  }
   candidats.sort((a, b) => b.tire.gravite - a.tire.gravite || a.rang - b.rang);
   return {
     retenus: candidats.slice(0, EVENEMENTS_PAR_AN).map((c) => c.tire),

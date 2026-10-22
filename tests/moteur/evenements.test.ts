@@ -1,8 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { creerPartie, fermerAnnee, jouerAnneeAuto, ouvrirAnnee } from '../../src/moteur/boucle';
-import { choisirAuto, probabiliteEvenement } from '../../src/moteur/evenements';
+import {
+  EVENEMENTS_PAR_AN,
+  choisirAuto,
+  estEligible,
+  evenementsParAge,
+  probabiliteEvenement,
+  tirerEvenements,
+} from '../../src/moteur/evenements';
+import { sousGenerateur } from '../../src/moteur/rng';
 import type { ChoixJoueur, Donnees, EtatPartie } from '../../src/moteur/types';
-import { donneesAvec, evenement } from './donnees';
+import { DONNEES, donneesAvec, evenement } from './donnees';
 
 /** Joue jusqu'à l'âge voulu ; choisir donne les choix d'une année ouverte. */
 function vivreJusqua(
@@ -217,5 +225,45 @@ describe('evenement mortel', () => {
     expect(etat.historique.at(-1)).toMatchObject({ type: 'deces', age: 30, cause: 'fatal' });
     expect(etat.historique.at(-2)).toMatchObject({ type: 'evenement', evenementId: 'fatal' });
     expect(() => ouvrirAnnee(etat, donnees)).toThrow();
+  });
+});
+
+describe('index des evenements par age', () => {
+  /** Tirage de référence, sans index : parcourt toute la liste (version du jalon 3). */
+  function tirageReference(etat: EtatPartie, donnees: Donnees): string[] {
+    const candidats: { id: string; gravite: number; rang: number }[] = [];
+    donnees.evenements.forEach((ev, rang) => {
+      if (!estEligible(ev, etat)) return;
+      if (
+        etat.reportes.includes(ev.id) ||
+        sousGenerateur(etat.graine, etat.personnage.age, ev.id)() < probabiliteEvenement(ev, etat)
+      ) {
+        candidats.push({ id: ev.id, gravite: ev.gravite, rang });
+      }
+    });
+    candidats.sort((a, b) => b.gravite - a.gravite || a.rang - b.rang);
+    return candidats.slice(0, EVENEMENTS_PAR_AN).map((c) => c.id);
+  }
+
+  it('donne exactement les memes tirages que le parcours complet, sur 200 vies', () => {
+    let annees = 0;
+    for (let i = 0; i < 200; i++) {
+      let etat = creerPartie(`index-${i}`, DONNEES);
+      while (etat.personnage.vivant) {
+        const attendu = tirageReference(etat, DONNEES);
+        expect(tirerEvenements(etat, DONNEES).retenus.map((e) => e.id)).toEqual(attendu);
+        etat = jouerAnneeAuto(etat, DONNEES).etat;
+        annees++;
+      }
+    }
+    expect(annees).toBeGreaterThan(10_000);
+  });
+
+  it('range chaque evenement aux ages de sa tranche, dans l ordre de declaration', () => {
+    const parAge = evenementsParAge(DONNEES.evenements);
+    for (let age = 0; age < parAge.length; age++) {
+      const attendus = DONNEES.evenements.filter((e) => age >= e.age[0] && age <= e.age[1]);
+      expect(parAge[age]!.map((r) => r.evenement)).toEqual(attendus);
+    }
   });
 });
