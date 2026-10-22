@@ -1,6 +1,14 @@
-// Chargement des tables de public/data/, passées ensuite au moteur.
+// Chargement des données passées au moteur : tables de public/data/ (fetch),
+// événements de contenu/evenements/ et libellés (inclus dans le bundle).
 
-import type { Tables } from '../moteur/types';
+import libelles from '../../contenu/textes/libelles.json';
+import type { Donnees, Evenement, Tables } from '../moteur/types';
+import { validerEvenements } from '../moteur/validation';
+
+const FICHIERS_EVENEMENTS = import.meta.glob<unknown>('../../contenu/evenements/*.json', {
+  eager: true,
+  import: 'default',
+});
 
 const NOMS_TABLES: readonly (keyof Tables)[] = [
   'anneeNaissance',
@@ -35,4 +43,29 @@ export async function chargerTables(
     }),
   );
   return Object.fromEntries(entrees) as unknown as Tables;
+}
+
+/** Événements validés ; une erreur de contenu arrête le chargement. */
+export function evenementsDuContenu(
+  fichiers: Readonly<Record<string, unknown>> = FICHIERS_EVENEMENTS,
+): Evenement[] {
+  const { erreurs, evenements } = validerEvenements(
+    Object.entries(fichiers).map(([chemin, contenu]) => ({
+      nom: chemin.split('/').at(-1) ?? chemin,
+      contenu,
+    })),
+  );
+  if (erreurs.length > 0) throw new Error(`Contenu invalide :\n${erreurs.join('\n')}`);
+  return evenements;
+}
+
+export async function chargerDonnees(
+  base: string = import.meta.env.BASE_URL,
+  recuperer?: Recuperer,
+): Promise<Donnees> {
+  return {
+    tables: await chargerTables(base, recuperer),
+    evenements: evenementsDuContenu(),
+    libelles,
+  };
 }

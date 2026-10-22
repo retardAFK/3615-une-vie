@@ -46,6 +46,7 @@
   }
 
   .touche:disabled {
+    background: var(--fond);
     border-color: var(--pointilles);
     color: var(--texte-discret);
     cursor: not-allowed;

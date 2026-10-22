@@ -4,18 +4,28 @@
     libelle,
     onclick,
     desactive = false,
+    selectionne,
     mention,
   }: {
     numero: number;
     libelle: string;
     onclick?: () => void;
     desactive?: boolean;
+    /** Bouton de choix : état sélectionné, annoncé par aria-pressed. */
+    selectionne?: boolean;
     /** Précision affichée à droite, par exemple « BIENTOT ». */
     mention?: string;
   } = $props();
 </script>
 
-<button class="bouton" type="button" disabled={desactive} {onclick}>
+<button
+  class="bouton"
+  class:selectionne
+  type="button"
+  disabled={desactive}
+  aria-pressed={selectionne}
+  {onclick}
+>
   <span class="pastille" aria-hidden="true">{numero}</span>
   <span class="libelle">{libelle}</span>
   {#if mention}<span class="mention">{mention}</span>{/if}
@@ -55,6 +65,15 @@
 
   .mention {
     font-size: var(--taille-precision);
+  }
+
+  .selectionne {
+    border-color: var(--valeur);
+    color: var(--valeur);
+  }
+
+  .selectionne .pastille {
+    background: var(--valeur);
   }
 
   .bouton:disabled {

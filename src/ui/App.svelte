@@ -1,11 +1,17 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { creerPartie, jouerAnnee } from '../moteur/boucle';
-  import type { EtatPartie, Tables } from '../moteur/types';
+  import {
+    choisirAuto,
+    creerPartie,
+    fermerAnnee,
+    jouerAnneeAuto,
+    ouvrirAnnee,
+  } from '../moteur/boucle';
+  import type { ChoixJoueur, Donnees, EntreeJournal, EtatPartie } from '../moteur/types';
   import { actionClavier, type Action } from './clavier';
   import BarreTitre from './composants/BarreTitre.svelte';
   import Touche from './composants/Touche.svelte';
-  import { chargerTables } from './donnees';
+  import { chargerDonnees } from './donnees';
   import Accueil from './ecrans/Accueil.svelte';
   import Fin from './ecrans/Fin.svelte';
   import Naissance from './ecrans/Naissance.svelte';
@@ -18,18 +24,27 @@
   const INTERVALLE_AUTO = 100;
 
   let ecran = $state<Ecran>('chargement');
-  let tables = $state.raw<Tables | null>(null);
+  let donnees = $state.raw<Donnees | null>(null);
   let partie = $state.raw<EtatPartie | null>(null);
   let saisieGraine = $state('');
   let erreurGraine = $state<string | null>(null);
   let auto = $state(false);
   let confirmation = $state(false);
+  /** Rang de l'avis affiché parmi les événements de l'année ouverte. */
+  let rangAvis = $state(0);
+  /** Choix faits dans l'année ouverte : id d'événement → id de choix. */
+  let choixFaits = $state<Record<string, string>>({});
+  let journalAuto = $state.raw<EntreeJournal[]>([]);
+  let annonceSeule = $state(false);
   let cadre = $state<HTMLElement>();
+
+  const evenementsOuverts = $derived(partie?.anneeEnCours?.evenements ?? []);
+  const avis = $derived(evenementsOuverts[rangAvis] ?? null);
 
   async function charger(): Promise<void> {
     ecran = 'chargement';
     try {
-      tables = await chargerTables();
+      donnees = await chargerDonnees();
       ecran = 'accueil';
     } catch (erreur) {
       console.error(erreur);
@@ -40,8 +55,8 @@
   onMount(charger);
 
   function commencer(graine: string): void {
-    if (!tables) return;
-    partie = creerPartie(graine, tables);
+    if (!donnees) return;
+    partie = creerPartie(graine, donnees);
     auto = false;
     confirmation = false;
     ecran = 'naissance';
@@ -58,24 +73,90 @@
     commencer(graine);
   }
 
-  function jouerUneAnnee(): void {
-    if (!tables || !partie?.personnage.vivant) return;
-    partie = jouerAnnee(partie, null, tables).etat;
-    if (!partie.personnage.vivant) {
-      auto = false;
-      ecran = 'fin';
-    }
+  /** Vérifie la fin de partie après chaque étape du moteur. */
+  function suivre(etat: EtatPartie): boolean {
+    partie = etat;
+    if (etat.personnage.vivant) return true;
+    auto = false;
+    ecran = 'fin';
+    return false;
+  }
+
+  function ouvrir(): void {
+    if (!donnees || !partie) return;
+    rangAvis = 0;
+    choixFaits = {};
+    suivre(ouvrirAnnee(partie, donnees).etat);
+  }
+
+  /** Ferme l'année ouverte ; les choix manquants sont faits par choisirAuto. */
+  function fermer(): boolean {
+    if (!donnees || !partie?.anneeEnCours) return true;
+    const etat = partie;
+    const choix: ChoixJoueur[] = etat
+      .anneeEnCours!.evenements.filter((e) => e.choix.length > 0)
+      .map((e) =>
+        choixFaits[e.id]
+          ? { evenementId: e.id, choixId: choixFaits[e.id]! }
+          : choisirAuto(etat, e, donnees!),
+      );
+    return suivre(fermerAnnee(etat, choix, donnees).etat);
+  }
+
+  function debuterVie(): void {
+    ecran = 'tour';
+    ouvrir();
+  }
+
+  function choisir(numero: number): void {
+    const option = avis?.choix[numero - 1];
+    if (!avis || !option) return;
+    choixFaits = { ...choixFaits, [avis.id]: option.id };
+    annonceSeule = false;
   }
 
   function envoi(): void {
-    // ENVOI arrête le mode AUTO ; sinon, il joue une année.
-    if (auto) auto = false;
-    else jouerUneAnnee();
+    if (auto) return arreterAuto();
+    annonceSeule = false;
+    if (avis && avis.choix.length > 0 && !choixFaits[avis.id]) return;
+    if (rangAvis < evenementsOuverts.length - 1) {
+      rangAvis += 1;
+      return;
+    }
+    if (fermer()) ouvrir();
+  }
+
+  function demarrerAuto(): void {
+    confirmation = false;
+    if (fermer()) {
+      journalAuto = [];
+      auto = true;
+    }
+  }
+
+  /** Pause : l'année suivante s'ouvre pour reprendre la main ; on n'annonce que l'état. */
+  function arreterAuto(): void {
+    if (!auto) return;
+    auto = false;
+    annonceSeule = true;
+    if (partie?.personnage.vivant && !partie.anneeEnCours) ouvrir();
+  }
+
+  function basculerAuto(): void {
+    if (auto) arreterAuto();
+    else demarrerAuto();
+  }
+
+  function anneeAuto(): void {
+    if (!donnees || !partie?.personnage.vivant) return;
+    const resultat = jouerAnneeAuto(partie, donnees);
+    journalAuto = resultat.journal;
+    suivre(resultat.etat);
   }
 
   function demanderSommaire(): void {
-    auto = false;
-    confirmation = true;
+    arreterAuto();
+    if (ecran === 'tour') confirmation = true;
   }
 
   function confirmer(quitter: boolean): void {
@@ -92,7 +173,7 @@
 
   $effect(() => {
     if (!auto || ecran !== 'tour') return;
-    const minuterie = setInterval(jouerUneAnnee, INTERVALLE_AUTO);
+    const minuterie = setInterval(anneeAuto, INTERVALLE_AUTO);
     return () => clearInterval(minuterie);
   });
 
@@ -111,7 +192,7 @@
         }
         return false;
       case 'naissance':
-        if (action.type === 'envoi') ecran = 'tour';
+        if (action.type === 'envoi') debuterVie();
         else if (action.type === 'retour') allerAuSommaire();
         else return false;
         return true;
@@ -122,8 +203,9 @@
           else return false;
           return true;
         }
-        if (action.type === 'envoi') envoi();
-        else if (action.type === 'auto') auto = !auto;
+        if (action.type === 'choix' && !auto) choisir(action.numero);
+        else if (action.type === 'envoi') envoi();
+        else if (action.type === 'auto') basculerAuto();
         else if (action.type === 'sommaire' || action.type === 'retour') demanderSommaire();
         else return false;
         return true;
@@ -168,14 +250,21 @@
   {:else if ecran === 'accueil'}
     <Accueil bind:graine={saisieGraine} {erreurGraine} onnouvellevie={nouvelleVie} />
   {:else if ecran === 'naissance' && partie}
-    <Naissance {partie} onretour={allerAuSommaire} oncommencer={() => (ecran = 'tour')} />
+    <Naissance {partie} onretour={allerAuSommaire} oncommencer={debuterVie} />
   {:else if ecran === 'tour' && partie}
     <Tour
       {partie}
+      {avis}
+      {rangAvis}
+      totalAvis={evenementsOuverts.length}
+      choixFait={avis ? (choixFaits[avis.id] ?? null) : null}
       {auto}
+      {journalAuto}
+      {annonceSeule}
       {confirmation}
+      onchoisir={choisir}
       onenvoi={envoi}
-      onauto={() => (auto = !auto)}
+      onauto={basculerAuto}
       onsommaire={demanderSommaire}
       onconfirmer={confirmer}
     />

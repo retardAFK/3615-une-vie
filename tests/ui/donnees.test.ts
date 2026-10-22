@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { chargerTables, type Recuperer } from '../../src/ui/donnees';
+import { chargerTables, evenementsDuContenu, type Recuperer } from '../../src/ui/donnees';
 
 describe('chargerTables', () => {
   it('charge chaque table sous le chemin de base', async () => {
@@ -17,5 +17,17 @@ describe('chargerTables', () => {
   it('signale une table introuvable', async () => {
     const recuperer: Recuperer = async () => ({ ok: false, status: 404, json: async () => null });
     await expect(chargerTables('/', recuperer)).rejects.toThrow('erreur HTTP 404');
+  });
+});
+
+describe('evenementsDuContenu', () => {
+  it('charge et valide les evenements de contenu/evenements/', () => {
+    expect(evenementsDuContenu().length).toBeGreaterThanOrEqual(10);
+  });
+
+  it('refuse un contenu invalide', () => {
+    expect(() => evenementsDuContenu({ '/x/faux.json': { module: 'x' } })).toThrow(
+      'Contenu invalide',
+    );
   });
 });
