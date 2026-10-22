@@ -21,7 +21,7 @@ L'accent est réglable (cyan par défaut ; jaune ou vert possibles). Tous ces te
 
 ## Typographie
 
-- Police unique : **VT323** (Google Fonts), repli `'Courier New', monospace`.
+- Police unique : **VT323**, auto-hébergée via @fontsource/vt323, repli `'Courier New', monospace`.
 - Tailles : 64 px (titre d'accueil), 40–44 px (année, nom), 24 px (barre de titre), 22 px (texte courant), 19–17 px (précisions).
 - Interligne 1,15.
 - Textes en **majuscules sans accents**, comme sur les maquettes. Choix de style assumé, à revalider en test si la lecture devient pénible.

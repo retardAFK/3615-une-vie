@@ -1,0 +1,29 @@
+/* Jetons de design : voir docs/design-minitel.md. Chaque couleur a un sens fixe. */
+:root {
+  /* Couleurs */
+  --fond: #000000;
+  --texte: #ffffff;
+  --texte-discret: #aaaaaa;
+  --accent: #00ffff;
+  --valeur: #ffff00;
+  --alerte: #ff55ff;
+  --choc: #ff3333;
+  --bien: #55ff55;
+  --piste: #333333;
+  --pointilles: #555555;
+
+  /* Typographie */
+  --police: 'VT323', 'Courier New', monospace;
+  --taille-accueil: 64px;
+  --taille-titre: 44px;
+  --taille-titre-petit: 40px;
+  --taille-barre: 24px;
+  --taille-texte: 22px;
+  --taille-precision: 19px;
+  --taille-precision-petite: 17px;
+  --interligne: 1.15;
+
+  /* Mise en page */
+  --largeur-max: 480px;
+  --marge: 18px;
+}

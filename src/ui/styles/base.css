@@ -1,0 +1,23 @@
+/* Base commune : remise à zéro, fond noir, police pixel. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: var(--fond);
+  color: var(--texte);
+}
+
+body {
+  min-height: 100dvh;
+  font-family: var(--police);
+  font-size: var(--taille-texte);
+  line-height: var(--interligne);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+}
