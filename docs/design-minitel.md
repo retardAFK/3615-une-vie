@@ -83,9 +83,21 @@ dupliquer les composants.
 | **Naissance** | `TU ES NEE.`, puis l'origine révélée ligne par ligne dans l'ordre du tirage (année, sexe, région, commune, parents, revenu, logement, fratrie), encadré prénom + statistique, touches RETOUR · ENVOI COMMENCER |
 | **Tour** | barre `TOUR N`, année, identité, jauges, lignes SITUATION (scolarité ou emploi et métier), REVENU, EPARGNE, DETTES, encadré Avis, 1 à 3 choix numérotés, ligne jeux d'argent si pertinent, touches SOMMAIRE · AUTO · ENVOI |
 | **Journal** | légende, liste année / âge / événement colorée selon le type, pagination, touches RETOUR · SUITE · REPRENDRE |
+| **Connexion** | au lancement, pendant le chargement : lignes « APPEL DU 3615... », « CONNEXION AU SERVICE UNE VIE... », puis « CONNECTE. » ; passable avec ENVOI |
+| **Réglages** | depuis l'accueil (4 REGLAGES) : vitesse d'affichage (lente, normale, rapide, instantanée) et sons (non par défaut), touche RETOUR |
 | **Bilan** | barre `FIN DE CONNEXION`, dates et cause du décès, moral par décennie en barres mosaïque, lignes de valeur (déciles, chômage, patrimoine), encadré jeux d'argent sur toute la vie, « mêmes choix, autre naissance », touches PARTAGER · JOURNAL · REVIVRE |
 
-La révélation ligne par ligne (naissance, avis) peut s'animer comme un affichage Minitel, environ 30 ms par caractère, désactivée si `prefers-reduced-motion`.
+## Animation et sons
+
+- **Révélation** : textes des avis et titre de naissance affichés caractère par caractère, avec un curseur (environ 28 ms par caractère en vitesse normale) ; lignes de l'origine révélées une à une.
+- **Transition d'année** : l'encadré Avis se redessine de haut en bas, comme un écran Minitel qui se rafraîchit.
+- **Jauges** : remplissage par à-coups et écart affiché (+3, -5) pendant 1,5 s.
+- **Grands moments** (gravité 3, ou tag `etape` : diplômes, premier emploi, retraite) : titre de l'Avis en double hauteur. Le nom de l'écran de fin est aussi en double hauteur.
+- **Événement grave** (gravité 3) : le cadre de l'Avis clignote trois fois.
+- **Pictogrammes** en mosaïque (blocs 8 × 6) devant le titre de l'Avis, choisis d'après les tags de l'événement.
+- **Sons** générés en WebAudio, sans fichier, désactivés par défaut : touche, connexion, événement grave, fin de vie.
+- **Jamais en AUTO** : aucune révélation ni animation, pour ne pas ralentir le défilement.
+- **`prefers-reduced-motion`** : textes affichés d'un coup, aucune animation, quel que soit le réglage de vitesse.
 
 ## Clavier
 
@@ -97,6 +109,8 @@ La révélation ligne par ligne (naissance, avis) peut s'animer comme un afficha
 | `S` | SOMMAIRE |
 | `A` | AUTO |
 | `G` | GUIDE |
+
+À l'accueil, `4` ouvre les réglages ; dans les réglages, `1` change la vitesse et `2` les sons.
 
 Raccourcis actifs seulement quand le focus n'est pas dans un champ de saisie.
 

@@ -52,15 +52,20 @@ contenu/evenements/*.json  ─────────────────�
 │   │   │                        sante, famille, contexte
 │   │   └── recit.ts             remplissage des modèles de texte
 │   ├── ui/
-│   │   ├── ecrans/              Accueil, Naissance, Tour, Journal, Bilan
+│   │   ├── ecrans/              Connexion, Accueil, Reglages, Naissance, Tour,
+│   │   │                        Journal, Bilan
 │   │   ├── composants/          BarreTitre, BoutonNumerote, Touche, Jauge,
-│   │   │                        LigneValeur, Avis, Legende
+│   │   │                        LigneValeur, Avis, Legende, TexteMinitel, Mosaique
 │   │   ├── styles/              tokens.css, base.css
 │   │   ├── App.svelte           composant racine, enchaînement des écrans
 │   │   ├── texte.ts             format Minitel (majuscules sans accents), montants
 │   │   ├── graine.ts            génération et validation des graines
 │   │   ├── donnees.ts           chargement des tables de public/data/
-│   │   └── clavier.ts           raccourcis clavier
+│   │   ├── clavier.ts           raccourcis clavier
+│   │   ├── reglages.ts          vitesse d'affichage et sons (stockage du navigateur)
+│   │   ├── revelation.ts        révélation des textes caractère par caractère
+│   │   ├── pictos.ts            pictogrammes en mosaïque
+│   │   └── sons.ts              sons générés en WebAudio
 │   ├── worker/
 │   │   └── simulation.worker.ts
 │   ├── stockage/
