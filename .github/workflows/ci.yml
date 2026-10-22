@@ -20,7 +20,7 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run check
-      - run: npm test
+      - run: npm test -- --silent=false
       - run: npm run build
       - name: Préparer l'artefact GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
