@@ -87,8 +87,9 @@ export function sousGenerateur(graine: string, age: number, idTirage: string): G
 }
 
 /**
- * Hache « graine|age|idTirage » dans h1..h4. Équivaut à cyrb128 de cette chaîne :
- * seul l'état après le préfixe « graine|age| », commun aux tirages de l'année, est gardé.
+ * Graine du tirage (graine, age, idTirage), dans h1..h4 : l'état du hachage de
+ * « graine|age| » (commun aux tirages de l'année, gardé en cache) est combiné au
+ * hachage de l'identifiant (calculé une fois par identifiant), puis mélangé.
  */
 function hacherTirage(graine: string, age: number, idTirage: string): void {
   if (graine !== prefixe.graine || age !== prefixe.age) {
@@ -101,15 +102,21 @@ function hacherTirage(graine: string, age: number, idTirage: string): void {
     prefixe.p3 = h3;
     prefixe.p4 = h4;
   }
-  h1 = prefixe.p1;
-  h2 = prefixe.p2;
-  h3 = prefixe.p3;
-  h4 = prefixe.p4;
-  absorber(idTirage);
+  let id = identifiants.get(idTirage);
+  if (!id) {
+    id = cyrb128(idTirage);
+    identifiants.set(idTirage, id);
+  }
+  h1 = prefixe.p1 ^ Math.imul(id[0], 597399067);
+  h2 = prefixe.p2 ^ Math.imul(id[1], 2869860233);
+  h3 = prefixe.p3 ^ Math.imul(id[2], 951274213);
+  h4 = prefixe.p4 ^ Math.imul(id[3], 2716044179);
   finir();
 }
 
 const prefixe = { graine: '', age: -1, p1: 0, p2: 0, p3: 0, p4: 0 };
+/** Hachage de chaque identifiant de tirage (ils sont en nombre fini). */
+const identifiants = new Map<string, [number, number, number, number]>();
 
 /**
  * Premier tirage du sous-générateur (graine, age, idTirage), sans le créer :

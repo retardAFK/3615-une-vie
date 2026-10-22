@@ -13,14 +13,28 @@ function borner(p: number): number {
  * Un multiplicateur > 1 augmente le risque, < 1 le réduit.
  */
 export function probabiliteFinale(pBase: number, multiplicateurs: readonly number[] = []): number {
+  let produit = 1;
+  for (const m of multiplicateurs) {
+    if (!Number.isFinite(m) || m <= 0) throw new RangeError(`Multiplicateur invalide : ${m}`);
+    produit *= m;
+  }
+  return probabiliteParProduit(pBase, produit);
+}
+
+/**
+ * Même formule, quand le produit des multiplicateurs est déjà calculé
+ * (tirage annuel des événements : pas de tableau intermédiaire).
+ */
+export function probabiliteParProduit(pBase: number, produit: number): number {
   if (!Number.isFinite(pBase) || pBase < 0 || pBase > 1) {
     throw new RangeError(`Probabilite de base invalide : ${pBase}`);
   }
-  let cotes = borner(pBase) / (1 - borner(pBase));
-  for (const m of multiplicateurs) {
-    if (!Number.isFinite(m) || m <= 0) throw new RangeError(`Multiplicateur invalide : ${m}`);
-    cotes *= m;
+  // Un produit nul vient d'un dépassement de capacité (multiplicateurs minuscules) :
+  // la probabilité est alors bornée à P_MIN, jamais refusée.
+  if (Number.isNaN(produit) || produit < 0) {
+    throw new RangeError(`Produit de multiplicateurs invalide : ${produit}`);
   }
+  const cotes = (borner(pBase) / (1 - borner(pBase))) * produit;
   if (!Number.isFinite(cotes)) return P_MAX;
   return borner(cotes / (1 + cotes));
 }

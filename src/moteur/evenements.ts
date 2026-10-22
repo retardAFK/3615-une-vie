@@ -1,7 +1,7 @@
 // Sélection et application des événements (règles, section 4).
 
 import { AGE_MAXIMAL } from './constantes';
-import { multiplicateurTrait, probabiliteFinale } from './cotes';
+import { multiplicateurTrait, probabiliteFinale, probabiliteParProduit } from './cotes';
 import { appliquerMontant } from './modules/argent';
 import { multiplicateurContexte } from './modules/contexte';
 import { rediger } from './recit';
@@ -79,6 +79,12 @@ function valeurChamp(personnage: Personnage, champ: ChampCondition): string {
       return etats.education.diplome;
     case 'pcs':
       return etats.travail.pcs ?? '';
+    case 'justice':
+      return etats.justice.casier
+        ? 'casier'
+        : etats.justice.gardesAVue > 0
+          ? 'garde_a_vue'
+          : 'aucun';
     default:
       return String(personnage.origine[champ]);
   }
@@ -99,8 +105,13 @@ export function estEligible(evenement: Evenement, etat: EtatPartie): boolean {
   const { age } = etat.personnage;
   const [min, max] = evenement.age;
   if (age < min || age > max) return false;
+  return estEligibleAgeCompris(evenement, etat);
+}
+
+/** Éligibilité hors tranche d'âge (déjà garantie par l'index par âge) : cooldown, conditions. */
+function estEligibleAgeCompris(evenement: Evenement, etat: EtatPartie): boolean {
   const reprise = etat.cooldowns[evenement.id];
-  if (reprise !== undefined && age < reprise) return false;
+  if (reprise !== undefined && etat.personnage.age < reprise) return false;
   return !evenement.requiert || remplitConditions(etat.personnage, evenement.requiert);
 }
 
@@ -144,24 +155,26 @@ export function probabiliteEvenement(
     throw new Error(`${evenement.id} : pBase par table pas encore prise en charge`);
   }
   const { personnage } = etat;
-  const multiplicateurs: number[] = [];
-  for (const mod of evenement.modificateurs ?? []) {
-    if ('trait' in mod)
-      multiplicateurs.push(multiplicateurTrait(personnage.traits[mod.trait], mod.k));
-    else if ('jauge' in mod)
-      multiplicateurs.push(multiplicateurTrait(personnage.jauges[mod.jauge], mod.k));
-    else if (remplitConditions(personnage, mod.si)) multiplicateurs.push(mod.m);
-  }
-  for (const mod of etat.modificateursActifs) {
-    if (estActif(mod, personnage.age) && vise(mod, evenement)) multiplicateurs.push(mod.m);
-  }
-  if (tables && tables.contexte.lignes.length > 0) {
-    for (const tag of evenement.tags) {
-      const contexte = multiplicateurContexte(tables, etat.annee, tag);
-      if (contexte !== 1) multiplicateurs.push(contexte);
+  // Produit des multiplicateurs, calculé au fil de l'eau (appelé ~20 fois par an).
+  let produit = 1;
+  const modificateurs = evenement.modificateurs;
+  if (modificateurs) {
+    for (let i = 0; i < modificateurs.length; i++) {
+      const mod = modificateurs[i]!;
+      if ('trait' in mod) produit *= multiplicateurTrait(personnage.traits[mod.trait], mod.k);
+      else if ('jauge' in mod) produit *= multiplicateurTrait(personnage.jauges[mod.jauge], mod.k);
+      else if (remplitConditions(personnage, mod.si)) produit *= mod.m;
     }
   }
-  return probabiliteFinale(evenement.pBase, multiplicateurs);
+  const actifs = etat.modificateursActifs;
+  for (let i = 0; i < actifs.length; i++) {
+    const mod = actifs[i]!;
+    if (estActif(mod, personnage.age) && vise(mod, evenement)) produit *= mod.m;
+  }
+  if (tables && tables.contexte.lignes.length > 0) {
+    for (const tag of evenement.tags) produit *= multiplicateurContexte(tables, etat.annee, tag);
+  }
+  return probabiliteParProduit(evenement.pBase, produit);
 }
 
 function tire(
@@ -179,6 +192,7 @@ function tire(
     reporte,
     texte: rediger(evenement, etat, donnees.libelles),
     choix: (evenement.choix ?? []).map(({ id, libelle }) => ({ id, libelle })),
+    ressources: evenement.ressources ?? [],
   };
 }
 
@@ -199,7 +213,7 @@ export function tirerEvenements(
   let candidats: { tire: EvenementTire; rang: number }[] | null = null;
   for (let i = 0; i < tranche.length; i++) {
     const { evenement, rang } = tranche[i]!;
-    if (!estEligible(evenement, etat)) continue;
+    if (!estEligibleAgeCompris(evenement, etat)) continue;
     if (reportes.length > 0 && reportes.includes(evenement.id)) {
       (candidats ??= []).push({ tire: tire(evenement, etat, donnees, 1, true), rang });
       continue;
@@ -272,6 +286,7 @@ export function appliquerEvenement(
     travail = { ...travail, progression: travail.progression * (min + (max - min) * g()) };
   }
 
+  // Seuls les objets qui changent sont copiés (un événement s'applique ~40 fois par vie).
   const nouveaux: ModificateurTemporaire[] = (choix?.modificateurs ?? []).map((mod) => ({
     cible: mod.cible,
     m: mod.m,
@@ -279,20 +294,34 @@ export function appliquerEvenement(
     fin: mod.duree === undefined ? null : age + mod.duree,
   }));
 
+  let { justice } = personnage.etats;
+  if (evenement.effets.justice === 'garde_a_vue') {
+    justice = { ...justice, gardesAVue: justice.gardesAVue + 1 };
+  } else if (evenement.effets.justice === 'condamnation') {
+    justice = { ...justice, condamnations: justice.condamnations + 1, casier: true };
+  }
+
   const cooldowns = { ...etat.cooldowns };
   if (evenement.unique) cooldowns[evenement.id] = AGE_MAXIMAL + 1;
   else if (evenement.cooldown) cooldowns[evenement.id] = age + evenement.cooldown;
 
+  const etatsChanges =
+    evenement.effets.etats !== undefined ||
+    travail !== personnage.etats.travail ||
+    justice !== personnage.etats.justice;
   return {
     ...etat,
     personnage: {
       ...personnage,
       jauges,
       finances,
-      etats: { ...personnage.etats, ...evenement.effets.etats, travail },
+      etats: etatsChanges
+        ? { ...personnage.etats, ...evenement.effets.etats, travail, justice }
+        : personnage.etats,
     },
     cooldowns,
-    modificateursActifs: [...etat.modificateursActifs, ...nouveaux],
+    modificateursActifs:
+      nouveaux.length > 0 ? [...etat.modificateursActifs, ...nouveaux] : etat.modificateursActifs,
   };
 }
 
