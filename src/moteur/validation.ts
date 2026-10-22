@@ -2,8 +2,11 @@
 // sans lever d'exception, pour toutes les signaler d'un coup.
 
 import { AGE_MAXIMAL } from './constantes';
+import { TAGS_EDUCATION } from './modules/education';
+import { TAGS_EMPLOI } from './modules/emploi';
 import { VARIABLES_TEXTE, minitel, variablesDe } from './recit';
 import {
+  CHAMPS_ETATS_CONDITIONS,
   COUPLES,
   EMPLOIS,
   JAUGES_MODIFIABLES,
@@ -27,7 +30,10 @@ const CHAMPS_ORIGINE = [
   'logementFamilial',
   'origineMigratoire',
   'santeNaissance',
+  ...CHAMPS_ETATS_CONDITIONS,
 ];
+/** Tags d'issue des modules : cibles possibles des modificateurs de choix. */
+const TAGS_MODULES: readonly string[] = [...TAGS_EDUCATION, ...TAGS_EMPLOI];
 const JAUGES = [...JAUGES_MODIFIABLES, 'bienEtre'];
 const ETATS: Record<string, readonly string[]> = {
   scolarite: SCOLARITES,
@@ -52,6 +58,29 @@ export interface FichierAValider {
 export interface ResultatValidation {
   erreurs: string[];
   evenements: Evenement[];
+}
+
+/**
+ * Copie de l'événement avec tous ses champs, dans un ordre fixe : tous les événements
+ * ont la même forme en mémoire, ce qui accélère le tirage annuel (moteur JavaScript).
+ */
+function normaliser(e: Evenement): Evenement {
+  return {
+    id: e.id,
+    module: e.module,
+    age: e.age,
+    requiert: e.requiert,
+    pBase: e.pBase,
+    aCalibrer: e.aCalibrer,
+    modificateurs: e.modificateurs,
+    effets: e.effets,
+    choix: e.choix,
+    cooldown: e.cooldown,
+    unique: e.unique,
+    gravite: e.gravite,
+    tags: e.tags,
+    textes: e.textes,
+  };
 }
 
 export function validerEvenements(fichiers: readonly FichierAValider[]): ResultatValidation {
@@ -81,8 +110,7 @@ export function validerEvenements(fichiers: readonly FichierAValider[]): Resulta
   const verifierConditions = (lieu: string, conditions: unknown): void => {
     if (!estObjet(conditions)) return void erreurs.push(`${lieu} : conditions invalides`);
     for (const [champ, valeurs] of Object.entries(conditions)) {
-      if (!CHAMPS_ORIGINE.includes(champ))
-        erreurs.push(`${lieu} : champ d'origine inconnu ${champ}`);
+      if (!CHAMPS_ORIGINE.includes(champ)) erreurs.push(`${lieu} : champ inconnu ${champ}`);
       if (!Array.isArray(valeurs) || valeurs.length === 0 || !valeurs.every(estTexte)) {
         erreurs.push(`${lieu} : valeurs de ${champ} invalides`);
       }
@@ -137,6 +165,14 @@ export function validerEvenements(fichiers: readonly FichierAValider[]): Resulta
           if (!estObjet(mod.cible)) erreurs.push(`${ici} : cible absente`);
           else cibles.push({ lieu: ici, cible: mod.cible });
         });
+    }
+    if (choix.effets !== undefined) {
+      // Seule exception aux choix sans résultat direct : accepter une opportunité.
+      const valide =
+        estObjet(choix.effets) &&
+        Object.keys(choix.effets).every((cle) => cle === 'changerEmploi') &&
+        choix.effets.changerEmploi === true;
+      if (!valide) erreurs.push(`${lieu} : effets de choix limites a { changerEmploi: true }`);
     }
     if (choix.affinites !== undefined) {
       if (!Array.isArray(choix.affinites)) erreurs.push(`${lieu} : affinites invalides`);
@@ -223,6 +259,15 @@ export function validerEvenements(fichiers: readonly FichierAValider[]): Resulta
             }
           }
       }
+      if (effets.revenu !== undefined) {
+        const [min, max] = Array.isArray(effets.revenu) ? effets.revenu : [];
+        if (!estNombre(min) || !estNombre(max) || min <= 0 || min > max) {
+          erreurs.push(`${lieu} : revenu doit etre [min, max] avec 0 < min <= max`);
+        }
+      }
+      if (effets.argent !== undefined && !estEntier(effets.argent)) {
+        erreurs.push(`${lieu} : argent doit etre un entier`);
+      }
       if (effets.deces !== undefined) {
         if (!estNombre(effets.deces) || effets.deces < 0 || effets.deces > 1) {
           erreurs.push(`${lieu} : deces doit etre entre 0 et 1`);
@@ -253,7 +298,7 @@ export function validerEvenements(fichiers: readonly FichierAValider[]): Resulta
       erreurs.push(`${lieu} : unique et cooldown sont incompatibles`);
     }
 
-    if (erreurs.length === avant) evenements.push(brut as unknown as Evenement);
+    if (erreurs.length === avant) evenements.push(normaliser(brut as unknown as Evenement));
   };
 
   for (const { nom, contenu } of fichiers) {
@@ -274,7 +319,9 @@ export function validerEvenements(fichiers: readonly FichierAValider[]): Resulta
       if (!ids.has(cible.evenement))
         erreurs.push(`${lieu} : evenement cible inconnu ${cible.evenement}`);
     } else if (typeof cible.tag === 'string') {
-      if (!tags.has(cible.tag)) erreurs.push(`${lieu} : tag cible inconnu ${cible.tag}`);
+      if (!tags.has(cible.tag) && !TAGS_MODULES.includes(cible.tag)) {
+        erreurs.push(`${lieu} : tag cible inconnu ${cible.tag}`);
+      }
     } else erreurs.push(`${lieu} : cible sans evenement ni tag`);
   }
 

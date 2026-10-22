@@ -2,12 +2,15 @@
 
 import { AGE_MAXIMAL } from './constantes';
 import { multiplicateurTrait, probabiliteFinale } from './cotes';
+import { appliquerMontant } from './modules/argent';
+import { multiplicateurContexte } from './modules/contexte';
 import { rediger } from './recit';
-import { sousGenerateur, tirerPondere } from './rng';
+import { sousGenerateur, tirage, tirerPondere } from './rng';
 import type {
+  ChampCondition,
   ChoixJoueur,
   ChoixPossible,
-  ConditionsOrigine,
+  ConditionsPersonnage,
   Donnees,
   EtatPartie,
   Evenement,
@@ -16,6 +19,7 @@ import type {
   Jauges,
   ModificateurTemporaire,
   Personnage,
+  Tables,
 } from './types';
 
 /** Au plus 3 événements par an. */
@@ -63,21 +67,41 @@ export function evenementParId(evenements: readonly Evenement[], id: string): Ev
   return evenement;
 }
 
-export function remplitConditions(personnage: Personnage, conditions: ConditionsOrigine): boolean {
-  return Object.entries(conditions).every(([champ, valeurs]) =>
-    (valeurs as readonly string[]).includes(
-      String(personnage.origine[champ as keyof Personnage['origine']]),
-    ),
-  );
+/** Valeur d'un champ de condition : origine, ou états du joueur. */
+function valeurChamp(personnage: Personnage, champ: ChampCondition): string {
+  const { etats } = personnage;
+  switch (champ) {
+    case 'emploi':
+      return etats.emploi;
+    case 'scolarite':
+      return etats.scolarite;
+    case 'diplome':
+      return etats.education.diplome;
+    case 'pcs':
+      return etats.travail.pcs ?? '';
+    default:
+      return String(personnage.origine[champ]);
+  }
+}
+
+export function remplitConditions(
+  personnage: Personnage,
+  conditions: ConditionsPersonnage,
+): boolean {
+  for (const champ in conditions) {
+    const valeurs = conditions[champ as ChampCondition]!;
+    if (!valeurs.includes(valeurChamp(personnage, champ as ChampCondition))) return false;
+  }
+  return true;
 }
 
 export function estEligible(evenement: Evenement, etat: EtatPartie): boolean {
   const { age } = etat.personnage;
   const [min, max] = evenement.age;
   if (age < min || age > max) return false;
-  if (evenement.requiert && !remplitConditions(etat.personnage, evenement.requiert)) return false;
   const reprise = etat.cooldowns[evenement.id];
-  return reprise === undefined || age >= reprise;
+  if (reprise !== undefined && age < reprise) return false;
+  return !evenement.requiert || remplitConditions(etat.personnage, evenement.requiert);
 }
 
 function vise(modificateur: ModificateurTemporaire, evenement: Evenement): boolean {
@@ -91,8 +115,31 @@ export function estActif(modificateur: ModificateurTemporaire, age: number): boo
   return age >= modificateur.debut && (modificateur.fin === null || age <= modificateur.fin);
 }
 
+/**
+ * Multiplicateurs visant un tag à un âge donné : modificateurs de choix actifs,
+ * puis contexte historique de l'année correspondante. Sert aux tirages des modules.
+ */
+export function multiplicateursTag(
+  etat: EtatPartie,
+  tag: string,
+  age: number,
+  tables: Tables,
+): number[] {
+  const resultat: number[] = [];
+  for (const mod of etat.modificateursActifs) {
+    if ('tag' in mod.cible && mod.cible.tag === tag && estActif(mod, age)) resultat.push(mod.m);
+  }
+  const contexte = multiplicateurContexte(tables, etat.annee + age - etat.personnage.age, tag);
+  if (contexte !== 1) resultat.push(contexte);
+  return resultat;
+}
+
 /** Probabilité finale de l'événement cette année : pBase corrigée par la formule des cotes. */
-export function probabiliteEvenement(evenement: Evenement, etat: EtatPartie): number {
+export function probabiliteEvenement(
+  evenement: Evenement,
+  etat: EtatPartie,
+  tables?: Tables,
+): number {
   if (typeof evenement.pBase !== 'number') {
     throw new Error(`${evenement.id} : pBase par table pas encore prise en charge`);
   }
@@ -107,6 +154,12 @@ export function probabiliteEvenement(evenement: Evenement, etat: EtatPartie): nu
   }
   for (const mod of etat.modificateursActifs) {
     if (estActif(mod, personnage.age) && vise(mod, evenement)) multiplicateurs.push(mod.m);
+  }
+  if (tables && tables.contexte.lignes.length > 0) {
+    for (const tag of evenement.tags) {
+      const contexte = multiplicateurContexte(tables, etat.annee, tag);
+      if (contexte !== 1) multiplicateurs.push(contexte);
+    }
   }
   return probabiliteFinale(evenement.pBase, multiplicateurs);
 }
@@ -140,18 +193,23 @@ export function tirerEvenements(
   donnees: Donnees,
 ): { retenus: EvenementTire[]; reportes: string[] } {
   const { graine, personnage } = etat;
-  const candidats: { tire: EvenementTire; rang: number }[] = [];
-  for (const { evenement, rang } of evenementsParAge(donnees.evenements)[personnage.age] ?? []) {
+  const tranche = evenementsParAge(donnees.evenements)[personnage.age] ?? [];
+  const reportes = etat.reportes;
+  // La plupart des années, rien n'est tiré : aucune allocation dans ce cas.
+  let candidats: { tire: EvenementTire; rang: number }[] | null = null;
+  for (let i = 0; i < tranche.length; i++) {
+    const { evenement, rang } = tranche[i]!;
     if (!estEligible(evenement, etat)) continue;
-    if (etat.reportes.includes(evenement.id)) {
-      candidats.push({ tire: tire(evenement, etat, donnees, 1, true), rang });
+    if (reportes.length > 0 && reportes.includes(evenement.id)) {
+      (candidats ??= []).push({ tire: tire(evenement, etat, donnees, 1, true), rang });
       continue;
     }
-    const p = probabiliteEvenement(evenement, etat);
-    if (sousGenerateur(graine, personnage.age, evenement.id)() < p) {
-      candidats.push({ tire: tire(evenement, etat, donnees, p, false), rang });
+    const p = probabiliteEvenement(evenement, etat, donnees.tables);
+    if (tirage(graine, personnage.age, evenement.id) < p) {
+      (candidats ??= []).push({ tire: tire(evenement, etat, donnees, p, false), rang });
     }
   }
+  if (candidats === null) return { retenus: [], reportes: [] };
   candidats.sort((a, b) => b.tire.gravite - a.tire.gravite || a.rang - b.rang);
   return {
     retenus: candidats.slice(0, EVENEMENTS_PAR_AN).map((c) => c.tire),
@@ -188,7 +246,10 @@ export function choixRetenu(
   return possible;
 }
 
-/** Applique l'événement et son choix : effets, coût, modificateurs, cooldown. */
+/**
+ * Applique l'événement et son choix : effets, coût, modificateurs, cooldown.
+ * L'acceptation d'une opportunité (changerEmploi) est traitée par la boucle.
+ */
 export function appliquerEvenement(
   etat: EtatPartie,
   evenement: Evenement,
@@ -201,13 +262,14 @@ export function appliquerEvenement(
 
   let finances = personnage.finances;
   const depense = choix?.cout?.argent ?? 0;
-  if (depense > 0) {
-    const prisSurEpargne = Math.min(finances.epargne, depense);
-    finances = {
-      ...finances,
-      epargne: finances.epargne - prisSurEpargne,
-      dettes: finances.dettes + depense - prisSurEpargne,
-    };
+  if (depense > 0) finances = appliquerMontant(finances, -depense);
+  if (evenement.effets.argent) finances = appliquerMontant(finances, evenement.effets.argent);
+
+  let travail = personnage.etats.travail;
+  if (evenement.effets.revenu) {
+    const [min, max] = evenement.effets.revenu;
+    const g = sousGenerateur(etat.graine, age, `${evenement.id}.revenu`);
+    travail = { ...travail, progression: travail.progression * (min + (max - min) * g()) };
   }
 
   const nouveaux: ModificateurTemporaire[] = (choix?.modificateurs ?? []).map((mod) => ({
@@ -227,7 +289,7 @@ export function appliquerEvenement(
       ...personnage,
       jauges,
       finances,
-      etats: { ...personnage.etats, ...evenement.effets.etats },
+      etats: { ...personnage.etats, ...evenement.effets.etats, travail },
     },
     cooldowns,
     modificateursActifs: [...etat.modificateursActifs, ...nouveaux],
@@ -238,8 +300,9 @@ export function appliquerEvenement(
 export function provoqueDeces(etat: EtatPartie, evenement: Evenement): boolean {
   const p = evenement.effets.deces;
   if (p === undefined || p <= 0) return false;
-  const g = sousGenerateur(etat.graine, etat.personnage.age, `${evenement.id}.deces`);
-  return g() < probabiliteFinale(p, []);
+  return (
+    tirage(etat.graine, etat.personnage.age, `${evenement.id}.deces`) < probabiliteFinale(p, [])
+  );
 }
 
 /** Choix du mode automatique, pondéré par les affinités et les traits. */

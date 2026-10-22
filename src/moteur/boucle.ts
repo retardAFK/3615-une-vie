@@ -1,6 +1,6 @@
 // Boucle annuelle, en deux temps (règles, section 1) :
-// ouvrirAnnee : mortalité, puis tirage des événements ;
-// fermerAnnee : choix, effets, journal, vieillissement.
+// ouvrirAnnee : revenus et bilan d'argent, mortalité, puis tirage des événements ;
+// fermerAnnee : choix, effets, éducation et emploi, journal, vieillissement.
 
 import {
   AGE_MAXIMAL,
@@ -18,8 +18,11 @@ import {
   provoqueDeces,
   tirerEvenements,
 } from './evenements';
+import { bilanAnnuel } from './modules/argent';
+import { evoluerEducation } from './modules/education';
+import { changerEmploi, comptabiliserAnnee, evoluerEmploi } from './modules/emploi';
 import { naitre } from './naissance';
-import { sousGenerateur } from './rng';
+import { tirage } from './rng';
 import { chercherLigne, periodeDe } from './tables';
 import type {
   ChoixJoueur,
@@ -28,7 +31,6 @@ import type {
   EtatPartie,
   Jauges,
   OptionsPartie,
-  LigneMortalite,
   ResultatFermeture,
   ResultatOuverture,
   Sexe,
@@ -76,27 +78,12 @@ export function deriverJauges(jauges: Jauges, age: number): Jauges {
   return { santePhysique, santeMentale, bienEtre, liens, competences };
 }
 
-const lignesMortalite = new WeakMap<Tables['mortalite'], Map<string, LigneMortalite>>();
-
-/** Ligne de mortalité pour ce sexe et cette période, mise en cache (appelée chaque année). */
-function ligneMortalite(tables: Tables, sexe: Sexe, periode: string): LigneMortalite {
-  let cache = lignesMortalite.get(tables.mortalite);
-  if (!cache) {
-    cache = new Map();
-    lignesMortalite.set(tables.mortalite, cache);
-  }
-  const cle = `${sexe}|${periode}`;
-  let ligne = cache.get(cle);
-  if (!ligne) {
-    ligne = chercherLigne(tables.mortalite, { sexe, periode }, ['periode', 'sexe']);
-    cache.set(cle, ligne);
-  }
-  return ligne;
-}
-
 /** Probabilité de décéder dans l'année, à cet âge, pour ce sexe et cette année. */
 export function probabiliteDeces(age: number, sexe: Sexe, annee: number, tables: Tables): number {
-  const ligne = ligneMortalite(tables, sexe, periodeDe(annee));
+  const ligne = chercherLigne(tables.mortalite, { sexe, periode: periodeDe(annee) }, [
+    'periode',
+    'sexe',
+  ]);
   const q = ligne.qParAge[Math.min(age, ligne.qParAge.length - 1)];
   if (q === undefined) throw new Error(`Table mortalite : aucune valeur pour ${age} ans`);
   return probabiliteFinale(q, []);
@@ -121,14 +108,22 @@ function deces(etat: EtatPartie, cause: string, journal: EntreeJournal[]): Resul
 }
 
 /** Étapes 1 à 3 : (revenus, jalon 4), test de mortalité à l'âge vécu, tirage des événements. */
-export function ouvrirAnnee(etat: EtatPartie, donnees: Donnees): ResultatOuverture {
+export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuverture {
+  if (!etatRecu.personnage.vivant) throw new Error('La partie est terminee');
+  if (etatRecu.anneeEnCours) throw new Error('Une annee est deja ouverte');
+
+  // Étape 1 : revenus de l'année (salaire, indemnités, pension), puis bilan d'argent.
+  const { tables } = donnees;
+  const comptes = comptabiliserAnnee(etatRecu.personnage, etatRecu.annee, tables);
+  const etat: EtatPartie = {
+    ...etatRecu,
+    personnage: bilanAnnuel(comptes, etatRecu.annee, tables),
+  };
   const { personnage } = etat;
-  if (!personnage.vivant) throw new Error('La partie est terminee');
-  if (etat.anneeEnCours) throw new Error('Une annee est deja ouverte');
 
   const meurt =
     personnage.age >= AGE_MAXIMAL ||
-    sousGenerateur(etat.graine, personnage.age, 'mortalite')() <
+    tirage(etat.graine, personnage.age, 'mortalite') <
       probabiliteDeces(personnage.age, personnage.origine.sexe, etat.annee, donnees.tables);
   if (meurt) {
     const { etat: final, journal } = deces(etat, 'mortalite', []);
@@ -155,12 +150,15 @@ export function fermerAnnee(
   const enCours = etat.anneeEnCours;
   if (!enCours) throw new Error('Aucune annee ouverte');
 
+  const emploiAvant = etat.personnage.etats.emploi;
   let courant = etat;
   const journal: EntreeJournal[] = [];
   for (const tire of enCours.evenements) {
     const evenement = evenementParId(donnees.evenements, tire.id);
     const retenu = choixRetenu(evenement, choix);
     courant = appliquerEvenement(courant, evenement, retenu);
+    // Opportunité acceptée (offre extérieure) : seule exception aux choix sans résultat direct.
+    if (retenu?.effets?.changerEmploi) courant = changerEmploi(courant, donnees, evenement.id);
     journal.push({
       annee: courant.annee,
       age: courant.personnage.age,
@@ -171,6 +169,10 @@ export function fermerAnnee(
     });
     if (provoqueDeces(courant, evenement)) return deces(courant, evenement.id, journal);
   }
+
+  // Étape 5 : éducation, puis emploi (entrée sur le marché, transitions, retraite).
+  const eduque = evoluerEducation(courant, donnees);
+  courant = { ...courant, personnage: evoluerEmploi(courant, eduque, emploiAvant, donnees) };
 
   const { personnage } = courant;
   const age = personnage.age + 1;

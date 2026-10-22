@@ -30,7 +30,19 @@ export type OrigineBrute = Partial<Record<ChampOrigine, string>>;
 
 export interface EtapeNaissance {
   champ: ChampOrigine;
-  table: Exclude<keyof Tables, 'mortalite' | 'prenoms'>;
+  table:
+    | 'anneeNaissance'
+    | 'sexe'
+    | 'region'
+    | 'territoire'
+    | 'pcsParents'
+    | 'diplomeParents'
+    | 'decileRevenuFoyer'
+    | 'structureFamiliale'
+    | 'fratrie'
+    | 'logementFamilial'
+    | 'origineMigratoire'
+    | 'santeNaissance';
   /** Conditions de la table, tirées des champs déjà connus. */
   conditions: (brute: OrigineBrute) => Conditions;
   /** Conditions à abandonner, dans l'ordre, quand une combinaison manque. */
