@@ -18,5 +18,17 @@
         "decileModeste": 3
       }
     }
-  ]
+  ],
+  "reglages": {
+    "noms": [
+      "cibleMoral",
+      "tauxRetourMoral",
+      "kResilienceRetour",
+      "ageAdulteMortalite",
+      "kSantePhysiqueMortalite",
+      "centreSantePhysique",
+      "decileModeste"
+    ],
+    "source": "Choix de conception (pas une statistique) : effets sur les jauges, poids des traits, seuils et multiplicateurs de mécanique de jeu, sans mesure directe. Ajustés à l'équilibrage (jalon 9), jamais présentés comme des faits."
+  }
 }

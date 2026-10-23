@@ -229,5 +229,14 @@
         "santeMentale": -1
       }
     }
-  ]
+  ],
+  "reglages": {
+    "noms": [
+      "santePhysique",
+      "santeMentale",
+      "liens",
+      "competences"
+    ],
+    "source": "Choix de conception (pas une statistique) : effets sur les jauges, poids des traits, seuils et multiplicateurs de mécanique de jeu, sans mesure directe. Ajustés à l'équilibrage (jalon 9), jamais présentés comme des faits."
+  }
 }

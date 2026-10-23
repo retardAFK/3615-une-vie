@@ -54,5 +54,35 @@
         "facteurFecondite": 2.732
       }
     }
-  ]
+  ],
+  "reglages": {
+    "noms": [
+      "kSociabiliteRencontre",
+      "ageCohabitationMin",
+      "mDettesTendu",
+      "mDettesCritique",
+      "anneesChomageLong",
+      "mChomageLongSeparation",
+      "kLiensSeparation",
+      "mEnCoupleNaissance",
+      "enfantsMax",
+      "ageAutonomieEnfant",
+      "bonusLiensCouple",
+      "perteMentaleSeparation",
+      "perteLiensSeparation",
+      "perteMentaleVeuvage",
+      "perteLiensVeuvage",
+      "bonusLiensNaissance",
+      "ageDeuilParents",
+      "perteMentaleDeuil",
+      "perteLiensDeuil",
+      "kDecileHeritage",
+      "mEmploiDepart",
+      "pSortiePrecaire",
+      "perteSantePrecaire",
+      "mPrecaireChomage",
+      "ageAchatMax"
+    ],
+    "source": "Choix de conception (pas une statistique) : effets sur les jauges, poids des traits, seuils et multiplicateurs de mécanique de jeu, sans mesure directe. Ajustés à l'équilibrage (jalon 9), jamais présentés comme des faits."
+  }
 }

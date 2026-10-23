@@ -792,6 +792,11 @@ export interface Table<L> {
   url: string | null;
   aCalibrer: boolean;
   lignes: readonly L[];
+  /**
+   * Paramètres qui sont des choix de conception (effets sur les jauges, poids des traits,
+   * seuils de mécanique), pas des statistiques : jamais calibrés sur des données.
+   */
+  reglages?: { noms: readonly string[]; source: string };
 }
 
 export type TableDistribution = Table<LigneDistribution>;

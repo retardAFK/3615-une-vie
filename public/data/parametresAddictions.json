@@ -28,5 +28,24 @@
         "decroissanceEscalade": 0.78
       }
     }
-  ]
+  ],
+  "reglages": {
+    "noms": [
+      "kImpulsivite",
+      "kVulnerabiliteGenetique",
+      "kSanteMentale",
+      "kSociabilite",
+      "kLiensJeu",
+      "mHorsAge",
+      "decroissanceRechute",
+      "decroissanceInitiation",
+      "decroissanceEscalade",
+      "mMiseChasse",
+      "seuilChasse",
+      "multipleGrosGain",
+      "mGrosGain",
+      "dureeGrosGain"
+    ],
+    "source": "Choix de conception (pas une statistique) : effets sur les jauges, poids des traits, seuils et multiplicateurs de mécanique de jeu, sans mesure directe. Ajustés à l'équilibrage (jalon 9), jamais présentés comme des faits."
+  }
 }

@@ -1,8 +1,8 @@
 {
   "table": "vieillissement",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE, DREES et Sante publique France.",
+  "source": "Choix de conception (pas une statistique) : usure annuelle des jauges avec l'âge. Ajustée à l'équilibrage (jalon 9).",
   "url": null,
-  "aCalibrer": true,
+  "aCalibrer": false,
   "lignes": [
     {
       "conditions": {

@@ -30,5 +30,22 @@
         "partDeficitIncompressible": 0.3
       }
     }
-  ]
+  ],
+  "reglages": {
+    "noms": [
+      "ageJeune",
+      "partRemboursee",
+      "remboursementMinimum",
+      "plafondCreditRevenus",
+      "plafondCreditMinimum",
+      "seuilCritique",
+      "perteSanteTendu",
+      "perteSanteCritique",
+      "perteSantePrivation",
+      "anneesAvantDossier",
+      "partCapacitePlan",
+      "partDeficitIncompressible"
+    ],
+    "source": "Choix de conception (pas une statistique) : effets sur les jauges, poids des traits, seuils et multiplicateurs de mécanique de jeu, sans mesure directe. Ajustés à l'équilibrage (jalon 9), jamais présentés comme des faits."
+  }
 }
