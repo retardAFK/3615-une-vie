@@ -287,15 +287,14 @@ Le taux de retour est le cœur du calcul : sur 100 € misés en paris sportifs,
 
 **Profil de joueur (état)**
 
-non\_joueur → occasionnel → regulier → a\_risque → pathologique → abstinent
+Le jeu suit la chaîne commune des addictions (section 9, décision du 23 octobre 2026) : jamais\_expose et expose (non-joueur), usage\_occasionnel (occasionnel), usage\_regulier (régulier), dependance (pathologique), sevrage, abstinent. « À risque » n'est pas un état : c'est le signal des pertes élevées (au-delà du seuil de chasse aux pertes), qui ouvre l'événement « se refaire ».
 
 | Transition | Facteurs qui l'augmentent | Facteurs qui la réduisent |
 | --- | --- | --- |
-| non\_joueur → occasionnel | âge 18+, entourage joueur, pub sportive, homme jeune | — |
-| occasionnel → regulier | impulsivite, gros gain précoce, ennui, chômage | liens, mises plafonnées |
-| regulier → a\_risque | paris en ligne, « se refaire » après une perte, santeMentale basse | resilience, couple stable |
-| a\_risque → pathologique | dettes, isolement, alcool actif | interdiction volontaire de jeu |
-| pathologique → abstinent | choix « se faire aider », interdiction volontaire | rechute possible (voir section 9) |
+| expose → occasionnel | choix de jouer (premier jeu selon l'époque), âge 18+, homme | refuser |
+| occasionnel → régulier | impulsivite, gros gain précoce, chômage, miser plus | liens |
+| régulier → dépendance | « se refaire » après une perte, dettes, isolement, alcool actif, santeMentale basse | interdiction volontaire de jeu |
+| dépendance → sevrage → abstinent | choix « arrêter », « se faire aider », interdiction volontaire | rechute possible (voir section 9) |
 
 **Le piège de la « chasse aux pertes »**
 
@@ -307,6 +306,14 @@ Quand le personnage perd plus de 10 % de ses revenus annuels au jeu, un événem
 - S'inscrire à l'interdiction volontaire de jeux (bloque les jeux en ligne et en casino).
 - Demander de l'aide (Joueurs Info Service, consultation spécialisée).
 - Cacher ses pertes à son conjoint : évite un conflit immédiat, augmente le risque de séparation plus tard.
+
+**Dans le jeu** (jalon 5)
+
+- Chaque jeu a ses règles dans `jeuxArgent` : prix d'une mise et rangs de gain (probabilité, gain). Le nombre de mises gagnantes de chaque rang est tiré chaque année (loi binomiale) ; le taux de retour en découle et reste toujours inférieur à 1.
+- Le premier jeu proposé dépend de l'époque : tiercé et casino, puis loto (1976), tickets à grattage (1989), EuroMillions (2004), paris sportifs en ligne (2010).
+- La mise annuelle suit le budget choisi, plus lourde en jeu régulier et en dépendance, doublée l'année qui suit un « se refaire ». Mises et gains entrent dans le bilan annuel ; les totaux misés et récupérés de toute la vie restent affichés.
+- L'interdiction volontaire bloque les paris en ligne, le poker et le casino, et freine l'escalade.
+- Cacher ses pertes à son conjoint viendra avec le couple (jalon 6). Les facteurs « pub sportive », « ennui » et « mises plafonnées » ne sont pas encore modélisés.
 
 ## 9. Module addictions
 
@@ -344,6 +351,15 @@ Les âges et niveaux sont des valeurs de départ pour le prototype ; les probabi
 - Une addiction active multiplie le risque d'en développer une autre (alcool et jeu, tabac et cannabis).
 - Chaque addiction active pèse sur les événements des autres modules : licenciement, séparation, accident, maladie.
 - Les dépenses liées entrent dans le bilan annuel (section 7).
+
+**Dans le jeu** (jalon 5)
+
+- Chaque année, chaque produit fait un tirage selon son état : exposition (à partir de l'âge minimum du produit, selon la période, le sexe et la sociabilité), initiation, escalade, dépendance, arrêt, rechute. Tous passent par la formule des cotes.
+- Les risques d'initiation, d'escalade et de rechute décroissent avec les années passées dans l'état : on commence, on s'installe dans un usage et on rechute surtout au début.
+- Initiation : des événements de proposition (adolescence et début de l'âge adulte) ; accepter multiplie fortement les cotes de l'initiation, refuser les réduit, à l'adolescence au prix d'un peu de liens. Arrêt : un événement propose d'arrêter seul ou de se faire aider ; se faire aider divise par deux les cotes de rechute pendant le sevrage. Les ressources d'aide s'affichent avec ces événements.
+- Effets annuels et coût de chaque état dans `effetsAddictions` ; interactions entre produits dans `interactionsAddictions` ; poids d'une addiction active sur les tags des autres modules (perte d'emploi, accident, violence, police, décrochage, dettes) dans `addictionsAutresTags`. Séparation et maladies viendront avec le jalon 6.
+- Autres drogues : surdose possible, sans détail, avec Drogues Info Service.
+- Toutes les probabilités sont des valeurs de travail `aCalibrer` (enquêtes OFDT et Santé publique France au jalon 8).
 
 ## 10. Module santé et mortalité
 

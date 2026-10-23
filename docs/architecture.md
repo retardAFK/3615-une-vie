@@ -108,7 +108,9 @@ interface Personnage {
                             // aides de l'année, niveau d'endettement, plan d'apurement
   etats: Etats              // scolarite, emploi, couple, logement, addictions, maladies,
                             // education (diplôme, voie, filière), travail (métier, salaire, retraite),
-                            // justice (gardes à vue, condamnations, casier : règles, section 14)
+                            // justice (gardes à vue, condamnations, casier : règles, section 14),
+                            // debutEtatAddiction (âge d'entrée dans l'état de chaque produit),
+                            // jeu (jeu, budget, totaux misés et récupérés, chasse, interdiction)
   age: number
   vivant: boolean
 }
@@ -129,12 +131,15 @@ interface Evenement {
   module: string
   age: [number, number]
   requiert?: Conditions      // sur l'origine, et sur emploi, scolarite, diplome, pcs, justice,
-                            // logement, endettement du joueur
+                            // logement, endettement, état de chaque produit d'addiction
+                            // (tabac, alcool...), pertesJeu, budgetJeu du joueur
   pBase: number | { source: string; par: string[] }
   modificateurs: Modificateur[]   // { trait, k }, { jauge, k } ou { si, m }
   effets: Effets            // jauges, états, deces (probabilité), revenu [min, max], argent,
                             // justice, surendettement (ouvre un plan d'apurement)
-  choix?: ChoixPossible[]
+  choix?: ChoixPossible[]   // effets directs limités aux actes du joueur : accepter une
+                            // opportunité, choisir un jeu et un budget, se refaire,
+                            // demander l'interdiction volontaire de jeux
   cooldown?: number
   unique?: boolean          // au plus une fois dans une vie (incompatible avec cooldown)
   gravite: 1 | 2 | 3        // au-delà de 3 événements dans l'année, les plus graves passent
@@ -151,7 +156,8 @@ interface Evenement {
 - Générateur : sfc32, initialisé par un hachage cyrb128 de la graine.
 - Chaque tirage dépend seulement de `(graine, age, idDuTirage)`. Ainsi, un choix différent une année ne décale pas tous les tirages suivants, et chaque événement garde son propre tirage indépendant (deux événements rares peuvent arriver la même année).
 - Tirage simple (un événement, la mortalité) : le nombre est pris directement dans le hachage de `graine|age|idDuTirage`. Tirage à plusieurs valeurs (naissance, voies, transitions) : un sous-générateur sfc32 est créé à partir de ce hachage.
-- Performance du tirage annuel : les événements sont indexés par âge ; la probabilité d'un événement qui ne dépend que de l'origine et des traits est calculée une fois par vie. Cette liste est déduite des dépendances déclarées (modificateurs, conditions, tags visés par le contexte historique), jamais établie à la main.
+- Performance du tirage annuel : les événements sont indexés par âge, puis rangés selon la valeur acceptée de leur première condition (seuls ceux dont cette condition correspond sont examinés) ; la probabilité d'un événement qui ne dépend que de l'origine et des traits est calculée une fois par vie. Cette liste est déduite des dépendances déclarées (modificateurs, conditions, tags visés par le contexte historique), jamais établie à la main. Le facteur des addictions actives sur les tags des autres modules s'applique à part, à chaque tirage.
+- Addictions et jeux : les tables des addictions sont lues une fois par jeu de tables (une configuration par produit) ; les identifiants de tirage dérivés (`id.texte`, `id.auto`, `education.x`...) sont hachés une fois.
 - Conséquence voulue : on peut rejouer une vie, la partager par sa graine, et comparer « mêmes choix, autre naissance » dans le bilan.
 
 ## Données
