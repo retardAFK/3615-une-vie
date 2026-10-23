@@ -495,6 +495,156 @@
         "{annee} : TU AS ENVIE D'AVOIR TON CHEZ-TOI.",
         "{annee} : TES PARENTS TE DEMANDENT QUAND TU COMPTES PARTIR."
       ]
+    },
+    {
+      "id": "fam_mobilite_emploi",
+      "module": "famille",
+      "age": [22, 55],
+      "requiert": {
+        "logement": ["chez_parents", "locataire_prive", "hlm"],
+        "emploi": ["cdi", "cdd", "interim", "chomage", "fonctionnaire"]
+      },
+      "pBase": 0.025,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "diplome": ["bac_2_3", "bac_5"]
+          },
+          "m": 2
+        },
+        {
+          "si": {
+            "emploi": ["chomage"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "partir",
+          "libelle": "ACCEPTER ET DEMENAGER",
+          "modificateurs": [],
+          "affinites": [
+            {
+              "trait": "ambition",
+              "k": 0.5
+            },
+            {
+              "trait": "sociabilite",
+              "k": -0.2
+            }
+          ],
+          "journal": "TU FAIS TES CARTONS.",
+          "cout": {
+            "jauges": {
+              "liens": -4
+            }
+          },
+          "effets": {
+            "demenager": true,
+            "changerEmploi": true
+          }
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER ICI",
+          "modificateurs": [],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU RESTES PRES DES TIENS."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["logement", "mobilite"],
+      "textes": [
+        "{annee} : UN POSTE T'EST PROPOSE, LOIN D'ICI, DANS UNE AUTRE REGION.",
+        "{annee} : UNE ENTREPRISE D'UNE AUTRE REGION VEUT T'EMBAUCHER."
+      ]
+    },
+    {
+      "id": "fam_refus_location",
+      "module": "logement",
+      "age": [18, 60],
+      "requiert": {
+        "logement": ["chez_parents", "locataire_prive", "precaire"]
+      },
+      "pBase": 0.015,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "origineMigratoire": ["premiere_generation", "deuxieme_generation"]
+          },
+          "m": 3
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": -3
+        },
+        "modificateurs": [
+          {
+            "cible": {
+              "tag": "depart_parents"
+            },
+            "m": 0.6,
+            "duree": 2
+          },
+          {
+            "cible": {
+              "tag": "logement_hlm"
+            },
+            "m": 0.8,
+            "duree": 2
+          }
+        ]
+      },
+      "choix": [
+        {
+          "id": "defenseur",
+          "libelle": "SAISIR LE DEFENSEUR DES DROITS",
+          "modificateurs": [],
+          "affinites": [
+            {
+              "trait": "ambition",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU SAISIS LE DEFENSEUR DES DROITS.",
+          "cout": {
+            "jauges": {
+              "santeMentale": -1
+            }
+          }
+        },
+        {
+          "id": "ailleurs",
+          "libelle": "CHERCHER AILLEURS",
+          "modificateurs": [],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU CHERCHES AILLEURS."
+        }
+      ],
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["logement", "discrimination"],
+      "ressources": ["defenseur"],
+      "textes": [
+        "{annee} : POUR LA VISITE, ON TE DIT QUE L'APPARTEMENT EST DEJA LOUE. UN AMI, LE LENDEMAIN, OBTIENT UN RENDEZ-VOUS.",
+        "{annee} : DOSSIER COMPLET, GARANT SOLIDE : PAS DE REPONSE. A DOSSIER EGAL, [N] CANDIDATS SUR 100 SONT ECARTES POUR LEUR NOM."
+      ]
     }
   ]
 }

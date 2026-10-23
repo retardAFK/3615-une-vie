@@ -29,5 +29,6 @@
   "logementPrecaire": "TU N'AS PLUS DE LOGEMENT STABLE.",
   "logementSortie": "TU RETROUVES UN TOIT : {logement}.",
   "logementAchat": "TU ACHETES TON LOGEMENT, A CREDIT.",
-  "logementCreditFini": "DERNIERE ECHEANCE : TON LOGEMENT EST PAYE."
+  "logementCreditFini": "DERNIERE ECHEANCE : TON LOGEMENT EST PAYE.",
+  "mobiliteDemenagement": "TU DEMENAGES : {region}."
 }
