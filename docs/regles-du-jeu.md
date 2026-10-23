@@ -262,12 +262,19 @@ RSA, prime d'activité, aides au logement, allocations familiales, AAH, bourses 
 
 - Le bilan commence à la sortie des études. Sous le plancher de dépense de vie, le personnage réduit son train de vie : seule une part de l'écart reste incompressible.
 - Soutien familial : avant l'âge du minimum social, la famille couvre le déficit d'un jeune qui vit chez ses parents, sauf après un placement à l'aide sociale à l'enfance.
-- Une aide n'existe qu'à partir de la loi du contexte historique qui la crée, et porte le nom de l'époque : minimum vieillesse puis ASPA, allocation de logement puis APL, AAH, RMI puis RSA, prime pour l'emploi puis RSA activité puis prime d'activité. Les aides sont calculées dans cet ordre : AAH, minimum vieillesse, minimum social, complément d'activité, aide au logement ; chacune compte dans les ressources des suivantes. AAH, minimum vieillesse et minimum social complètent les ressources jusqu'au montant du barème ; complément d'activité et aide au logement diminuent avec les ressources jusqu'au plafond. Les allocations familiales et les bourses viendront avec la famille et les études autonomes.
+- Une aide n'existe qu'à partir de la loi du contexte historique qui la crée, et porte le nom de l'époque : minimum vieillesse puis ASPA, allocation de logement puis APL, AAH, RMI puis RSA, prime pour l'emploi puis RSA activité puis prime d'activité. Les aides sont calculées dans cet ordre : AAH, minimum vieillesse, minimum social, complément d'activité, aide au logement ; chacune compte dans les ressources des suivantes. AAH, minimum vieillesse et minimum social complètent les ressources jusqu'au montant du barème ; complément d'activité et aide au logement diminuent avec les ressources jusqu'au plafond. Les allocations familiales (jalon 6) sont calculées en premier : un montant par enfant à charge au-delà du premier, sans condition de ressources. Les bourses viendront avec les études autonomes.
 - Non-recours : tiré chaque année et pour chaque aide par la formule des cotes, plus fréquent avant 30 ans et à la campagne. Un choix (faire le point sur ses droits avec une assistante sociale) le réduit pendant quelques années. Une aide non demandée est notée au journal.
 - Dettes : les intérêts courent chaque année ; le remboursement de l'année est une part des dettes, avec un minimum. Le déficit est pris sur l'épargne, puis emprunté jusqu'à un plafond de crédit proportionnel aux ressources ; au-delà, le personnage se prive (santé physique −) et c'est un incident de paiement.
 - Niveaux : la part des ressources prise par les remboursements fixe le niveau (sain, tendu, critique) ; un incident de paiement rend la situation critique. Tendu et critique font baisser le moral chaque année. En situation critique : relances, huissier, expulsion pour un locataire.
 - Surendettement (à partir de la loi Neiertz, 1990) : dossier déposé par choix (les relances le proposent, la commission le juge ensuite recevable) ou d'office après plusieurs années critiques. Pendant le plan d'apurement, pas d'intérêts, un remboursement selon la capacité, pas de crédit. À la fin du plan, les dettes restantes sont effacées si la procédure de rétablissement personnel existe (2004).
 - Tous les montants, seuils et taux sont dans `baremesAides`, `nonRecours` et `parametresArgent`, `aCalibrer`.
+
+**Dans le jeu** (jalon 6)
+
+- Charges fixes : le loyer (ou les charges d'un propriétaire), le coût des enfants à charge et l'annuité du crédit immobilier passent d'abord ; la dépense de vie se règle sur ce qui reste. En vie commune, ces charges sont partagées. La dépense de vie ne comprend plus le logement.
+- Achat immobilier : quand l'apport est épargné, que les revenus suffisent et qu'il n'y a pas de dettes, un événement propose d'acheter. L'apport est pris sur l'épargne, le reste emprunté à annuités constantes ; le logement entre au patrimoine.
+- Héritage : au décès du dernier parent, selon le logement familial et le décile de revenu du foyer ; rien après un placement à l'aide sociale à l'enfance. Il va à l'épargne.
+- Valeurs dans `loyers`, `prixLogement`, `heritage` et `parametresFamille`, `aCalibrer`.
 
 ## 8. Module jeux d'argent
 
@@ -313,7 +320,7 @@ Quand le personnage perd plus de 10 % de ses revenus annuels au jeu, un événem
 - Le premier jeu proposé dépend de l'époque : tiercé et casino, puis loto (1976), tickets à grattage (1989), EuroMillions (2004), paris sportifs en ligne (2010).
 - La mise annuelle suit le budget choisi, plus lourde en jeu régulier et en dépendance, doublée l'année qui suit un « se refaire ». Mises et gains entrent dans le bilan annuel ; les totaux misés et récupérés de toute la vie restent affichés.
 - L'interdiction volontaire bloque les paris en ligne, le poker et le casino, et freine l'escalade.
-- Cacher ses pertes à son conjoint viendra avec le couple (jalon 6). Les facteurs « pub sportive », « ennui » et « mises plafonnées » ne sont pas encore modélisés.
+- Cacher ses pertes à son conjoint (jalon 6) : quand les pertes de l'année sont élevées et que le joueur vit en couple, un événement propose de les cacher (le risque de séparation monte pour plusieurs années) ou de tout dire (une dispute tout de suite, un risque à peine plus haut). Les facteurs « pub sportive », « ennui » et « mises plafonnées » ne sont pas encore modélisés.
 
 ## 9. Module addictions
 
@@ -357,7 +364,7 @@ Les âges et niveaux sont des valeurs de départ pour le prototype ; les probabi
 - Chaque année, chaque produit fait un tirage selon son état : exposition (à partir de l'âge minimum du produit, selon la période, le sexe et la sociabilité), initiation, escalade, dépendance, arrêt, rechute. Tous passent par la formule des cotes.
 - Les risques d'initiation, d'escalade et de rechute décroissent avec les années passées dans l'état : on commence, on s'installe dans un usage et on rechute surtout au début.
 - Initiation : des événements de proposition (adolescence et début de l'âge adulte) ; accepter multiplie fortement les cotes de l'initiation, refuser les réduit, à l'adolescence au prix d'un peu de liens. Arrêt : un événement propose d'arrêter seul ou de se faire aider ; se faire aider divise par deux les cotes de rechute pendant le sevrage. Les ressources d'aide s'affichent avec ces événements.
-- Effets annuels et coût de chaque état dans `effetsAddictions` ; interactions entre produits dans `interactionsAddictions` ; poids d'une addiction active sur les tags des autres modules (perte d'emploi, accident, violence, police, décrochage, dettes, maladies) dans `addictionsAutresTags`. La séparation viendra avec le volet famille du jalon 6.
+- Effets annuels et coût de chaque état dans `effetsAddictions` ; interactions entre produits dans `interactionsAddictions` ; poids d'une addiction active sur les tags des autres modules (perte d'emploi, accident, violence, police, décrochage, dettes, maladies) dans `addictionsAutresTags`. Une addiction active augmente aussi le risque de séparation (section 11).
 - Autres drogues : surdose possible, sans détail, avec Drogues Info Service.
 - Toutes les probabilités sont des valeurs de travail `aCalibrer` (enquêtes OFDT et Santé publique France au jalon 8).
 
@@ -448,6 +455,18 @@ Le couple, les enfants et le logement sont des états qui pèsent sur l'argent e
 **Mobilité**
 
 Déménager vers une autre région est un choix : il change la grille de salaire, les loyers et peut coûter des liens.
+
+**Dans le jeu** (jalon 6)
+
+- Couple : rencontre tirée chaque année à partir de 16 ans (courbe par âge, sociabilité, choix de sortir). En couple, une seule avancée par an : vie commune ou mariage direct, puis mariage ou PACS (à partir de la loi de 1999), avec des propensions qui changent selon la décennie (`unions`). Pas de naissance l'année de la rencontre.
+- Séparation : tirée chaque année, plus fréquente pour un couple qui ne vit pas ensemble, moins pour un couple marié ou pacsé ; augmentée par les dettes, une addiction active, le chômage prolongé, les choix (cacher ses pertes au jeu, s'éloigner lors d'une dispute) ; réduite par des liens forts. Elle coûte du moral, des liens et, en vie commune, de l'argent la première année.
+- Veuvage : mortalité du conjoint, d'âge proche, par la table de mortalité de l'autre sexe.
+- Enfants : naissance tirée selon la fécondité à l'âge de la mère, réduite avec le nombre d'enfants et hors vie commune ; un événement de projet d'enfant la multiplie ou la réduit pendant quelques années. À la naissance, une mère salariée passe plus souvent à temps partiel et sa progression ralentit davantage que celle d'un père (`effetsEnfant`).
+- Parents : le dernier parent meurt selon la table de mortalité, à partir des 18 ans du joueur. Deuil, puis héritage (section 7).
+- Logement : le départ de chez les parents est tiré à partir de 18 ans, plus fréquent pour qui travaille, et forcé par la vie commune, la fin d'un placement ou le décès des parents. La destination dépend des revenus : location si le revenu atteint trois fois le loyer, sinon HLM sous plafond de ressources (file d'attente tirée, accélérée par une demande), sinon on reste, ou, si le départ est forcé, sans logement stable. Sans logement stable : santé physique en baisse et risque de chômage accru chaque année, jusqu'à en sortir.
+- Violences conjugales : événement rare à partir de 15 ans, sans détail, avec le 3919 ; partir rend la séparation presque certaine.
+- Les enfants ne sont pas encore des personnages secondaires (réussite selon la situation du joueur), et la mobilité entre régions n'est pas modélisée : ils viendront avec le bilan (jalon 7) ou plus tard.
+- Toutes les probabilités sont des valeurs de travail `aCalibrer` (INED, INSEE au jalon 8).
 
 ## 12. Contexte historique et événements aléatoires
 

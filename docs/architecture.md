@@ -105,12 +105,15 @@ interface Personnage {
   traits: Traits            // 0–100, dérive lente, cachés au joueur
   jauges: Jauges            // santePhysique, santeMentale, bienEtre, liens, competences
   finances: Finances        // euros constants : revenuAnnuel, epargne, dettes, patrimoine,
-                            // aides de l'année, niveau d'endettement, plan d'apurement
+                            // aides de l'année, niveau d'endettement, plan d'apurement,
+                            // crédit immobilier (capital restant, annuité)
   etats: Etats              // scolarite, emploi, couple, logement, addictions, maladies,
                             // education (diplôme, voie, filière), travail (métier, salaire, retraite),
                             // justice (gardes à vue, condamnations, casier : règles, section 14),
                             // debutEtatAddiction (âge d'entrée dans l'état de chaque produit),
-                            // jeu (jeu, budget, totaux misés et récupérés, chasse, interdiction)
+                            // jeu (jeu, budget, totaux misés et récupérés, chasse, interdiction),
+                            // famille (âges du joueur à la naissance des enfants, parents
+                            // en vie, achat possible)
   age: number
   vivant: boolean
 }
@@ -132,14 +135,15 @@ interface Evenement {
   age: [number, number]
   requiert?: Conditions      // sur l'origine, et sur emploi, scolarite, diplome, pcs, justice,
                             // logement, endettement, état de chaque produit d'addiction
-                            // (tabac, alcool...), pertesJeu, budgetJeu du joueur
+                            // (tabac, alcool...), pertesJeu, budgetJeu, maladies, couple,
+                            // enfants, achatPossible du joueur
   pBase: number | { source: string; par: string[] }
   modificateurs: Modificateur[]   // { trait, k }, { jauge, k } ou { si, m }
   effets: Effets            // jauges, états, deces (probabilité), revenu [min, max], argent,
-                            // justice, surendettement (ouvre un plan d'apurement)
+                            // justice, surendettement (ouvre un plan d'apurement), maladie
   choix?: ChoixPossible[]   // effets directs limités aux actes du joueur : accepter une
                             // opportunité, choisir un jeu et un budget, se refaire,
-                            // demander l'interdiction volontaire de jeux
+                            // demander l'interdiction volontaire de jeux, acheter son logement
   cooldown?: number
   unique?: boolean          // au plus une fois dans une vie (incompatible avec cooldown)
   gravite: 1 | 2 | 3        // au-delà de 3 événements dans l'année, les plus graves passent
