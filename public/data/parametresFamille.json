@@ -50,7 +50,8 @@
         "dureeCredit": 20,
         "tauxCredit": 0.04,
         "multipleRevenuAchat": 5,
-        "ageAchatMax": 60
+        "ageAchatMax": 60,
+        "facteurFecondite": 2.732
       }
     }
   ]

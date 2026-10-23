@@ -847,6 +847,8 @@ export interface Tables {
   santeNaissance: TableDistribution;
   prenoms: TableDistribution;
   mortalite: Table<LigneMortalite>;
+  /** Correction des causes modélisées par le jeu, par sexe, décennie et âge (calibrée). */
+  correctionMortalite: Table<LigneCourbe>;
   // Éducation
   obligationScolaire: TableValeur;
   redoublement: TableValeur;
@@ -891,6 +893,7 @@ export interface Tables {
   parametresSante: TableValeurs;
   // Famille et logement
   courbesFamille: Table<LigneCourbe>;
+  fecondite: Table<LigneCourbe>;
   parametresFamille: TableValeurs;
   unions: TableValeurs;
   effetsEnfant: TableValeurs;

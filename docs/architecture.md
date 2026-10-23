@@ -179,7 +179,9 @@ interface Evenement {
 ## Données
 
 - `data/brut/` garde les fichiers sources tels que téléchargés, avec un `SOURCES.md` qui donne l'URL et la date de chaque fichier.
-- `data/scripts/` agrège et produit `public/data/*.json`. Ces scripts tournent en local, jamais chez le joueur.
+- `data/scripts/` agrège et produit `public/data/*.json` (`npm run data`). Ces scripts tournent en local, jamais chez le joueur, en Node et sans dépendance (`lib/xlsx.mjs` lit les classeurs de l'Insee). La dernière étape, `calibrer.ts`, est construite par Vite comme le banc d'essai et joue des vies avec le moteur pour ajuster les réglages qui relient les données au jeu (`correctionMortalite`, `facteurFecondite`).
+- Montants en euros constants de 2025, convertis par les coefficients du convertisseur franc-euro de l'Insee.
+- La table de mortalité reste celle de l'Insee (elle sert aussi aux parents et au conjoint) ; le joueur y ajoute ses propres causes (maladies, addictions, événements mortels), retirées par `correctionMortalite`.
 - Chaque table JSON porte ses métadonnées :
 
 ```json

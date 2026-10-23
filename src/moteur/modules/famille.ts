@@ -62,6 +62,7 @@ const NOMS_PARAMETRES = [
   'kLiensSeparation',
   'ecartAgeConjoint',
   'mEnCoupleNaissance',
+  'facteurFecondite',
   'mParEnfant',
   'enfantsMax',
   'ageAutonomieEnfant',
@@ -121,6 +122,8 @@ interface AnneeFamille {
   pMariage: number;
   pPacs: number;
   pSeparation: number;
+  /** Probabilité annuelle d'une naissance pour une femme de chaque âge (table fecondite). */
+  fecondite: readonly number[];
 }
 
 /** Tout ce que le module lit dans les tables, une fois par jeu de tables (et par année). */
@@ -129,7 +132,6 @@ interface ConfigFamille {
   parametres: ParametresFamille;
   rencontre: readonly number[];
   decohabitation: readonly number[];
-  fecondite: readonly number[];
   annees: Map<number, AnneeFamille>;
   /** Avant cet âge, rien ne peut changer (ni rencontre, ni départ, ni deuil). */
   ageDebut: number;
@@ -155,7 +157,6 @@ function configuration(tables: Tables): ConfigFamille {
       parametres,
       rencontre: courbe('rencontre'),
       decohabitation: courbe('decohabitation'),
-      fecondite: courbe('fecondite'),
       annees: new Map(),
       ageDebut: Math.min(
         premierAge(courbe('rencontre')),
@@ -195,6 +196,7 @@ function anneeFamille(config: ConfigFamille, annee: number): AnneeFamille {
       pMariage: unions('pMariage'),
       pPacs: unions('pPacs'),
       pSeparation: unions('pSeparation'),
+      fecondite: chercherLigne(tables.fecondite, { periode }, ['periode']).parAnnee,
     };
     config.annees.set(annee, valeurs);
   }
@@ -682,7 +684,7 @@ function evoluerCouple(
 }
 
 /**
- * Naissance d'un enfant : fécondité selon l'âge de la mère (le joueur, ou sa
+ * Naissance d'un enfant : fécondité de l'année selon l'âge de la mère (le joueur, ou sa
  * conjointe), réduite hors vie commune et avec le nombre d'enfants, augmentée par le
  * projet d'enfant (choix). Effet sur la carrière, plus fort pour les femmes.
  */
@@ -703,9 +705,12 @@ function naissance(
   if (enfants.length >= parametres.enfantsMax) return;
   const { age } = personnage;
   const ageMere = personnage.origine.sexe === 'femme' ? age : age - parametres.ecartAgeConjoint;
-  const base = auAge(config.fecondite, ageMere);
+  // Au-delà de la table (50 ans), aucune naissance : pas de report de la dernière valeur.
+  const base = ageMere < 0 ? 0 : (anneeFamille(config, etat.annee).fecondite[ageMere] ?? 0);
   if (base === 0) return;
+  // Les taux valent pour toutes les femmes ; le jeu ne les applique qu'aux couples.
   let m =
+    parametres.facteurFecondite *
     Math.pow(parametres.mParEnfant, enfants.length) *
     produitTag(etat, 'naissance_enfant', age + 1, donnees);
   if (!vitEnCouple(couple)) m *= parametres.mEnCoupleNaissance;

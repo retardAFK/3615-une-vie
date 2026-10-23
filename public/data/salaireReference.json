@@ -1,60 +1,60 @@
 {
   "table": "salaireReference",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
-  "url": null,
-  "aCalibrer": true,
+  "source": "Insee, séries longues sur les salaires dans le secteur privé (base Tous salariés), tableau TC01 : salaire net annuel moyen des salariés à temps complet, ensemble. Moyenne des années connues de chaque décennie (1951-2021), en euros 2025 (convertisseur franc-euro de l'Insee, série 011813530).",
+  "url": "https://www.insee.fr/fr/statistiques/8668548",
+  "aCalibrer": false,
   "lignes": [
     {
       "conditions": {
         "periode": "1950-1959"
       },
-      "valeur": 9000
+      "valeur": 11400
     },
     {
       "conditions": {
         "periode": "1960-1969"
       },
-      "valeur": 11500
+      "valeur": 16600
     },
     {
       "conditions": {
         "periode": "1970-1979"
       },
-      "valeur": 15000
+      "valeur": 23800
     },
     {
       "conditions": {
         "periode": "1980-1989"
       },
-      "valeur": 17500
+      "valeur": 27000
     },
     {
       "conditions": {
         "periode": "1990-1999"
       },
-      "valeur": 19000
+      "valeur": 28800
     },
     {
       "conditions": {
         "periode": "2000-2009"
       },
-      "valeur": 20500
+      "valeur": 30500
     },
     {
       "conditions": {
         "periode": "2010-2019"
       },
-      "valeur": 21500
+      "valeur": 32000
     },
     {
       "conditions": {
         "periode": "2020-2029"
       },
-      "valeur": 22000
+      "valeur": 31800
     },
     {
       "conditions": {},
-      "valeur": 22500
+      "valeur": 31800
     }
   ]
 }

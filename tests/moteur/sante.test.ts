@@ -13,6 +13,7 @@ import type {
   Maladie,
   ModificateurTemporaire,
   Personnage,
+  Tables,
 } from '../../src/moteur/types';
 import { DONNEES, donneesAvec, evenement } from './donnees';
 import { parametre } from '../../src/moteur/tables';
@@ -129,14 +130,25 @@ describe('sante', () => {
       probabiliteDecesPersonnage(personnage, 2010, TABLES);
 
     it('part de la table et reste une probabilite', () => {
-      // Santé physique au centre de la correction : seule la PCS employé (1) s'applique.
+      // Santé physique au centre de la correction, correction des causes modélisées
+      // neutre : seule la PCS employé (1) s'applique.
+      const neutre: Tables = {
+        ...TABLES,
+        correctionMortalite: {
+          ...TABLES.correctionMortalite,
+          lignes: [{ conditions: {}, parAnnee: [1] }],
+        },
+      };
       const base = avec([], 'table').personnage;
       const centre = parametre(TABLES.parametresSante, 'centreSantePhysique');
       const personnage = { ...base, jauges: { ...base.jauges, santePhysique: centre } };
-      const table = probabiliteDecesTable(50, personnage.origine.sexe, 2010, TABLES);
+      const table = probabiliteDecesTable(50, personnage.origine.sexe, 2010, neutre);
+      const qNeutre = probabiliteDecesPersonnage(personnage, 2010, neutre);
+      expect(qNeutre).toBeGreaterThan(0);
+      expect(qNeutre).toBeLessThan(1);
+      expect(qNeutre).toBeCloseTo(table, 6);
+      // La correction calibrée s'applique en plus.
       expect(q(personnage)).toBeGreaterThan(0);
-      expect(q(personnage)).toBeLessThan(1);
-      expect(q(personnage)).toBeCloseTo(table, 6);
     });
 
     it('augmente avec les maladies, les addictions et une sante physique basse', () => {

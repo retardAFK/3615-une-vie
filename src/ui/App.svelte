@@ -11,7 +11,7 @@
   import { bilan as bilanDe, rejouer, type Comparaison } from '../moteur/bilan';
   import { AGE_FIN_PETITE_ENFANCE } from '../moteur/constantes';
   import { nouveautesDeLAnnee } from '../moteur/modules/contexte';
-  import { bornesAnneeNaissance } from '../moteur/naissance';
+  import { bornesAnneeNaissance, frequencePrenom } from '../moteur/naissance';
   import type {
     ChoixJoueur,
     Donnees,
@@ -546,6 +546,9 @@
   {:else if ecran === 'naissance' && partie}
     <Naissance
       {partie}
+      frequence={donnees
+        ? frequencePrenom(partie.personnage.prenom, partie.personnage.origine, donnees.tables)
+        : null}
       msParCaractere={delaiParCaractere(reglages, mouvementReduit, false)}
       onretour={allerAuSommaire}
       oncommencer={debuterVie}

@@ -8,11 +8,14 @@
 
   let {
     partie,
+    frequence = null,
     msParCaractere = 0,
     onretour,
     oncommencer,
   }: {
     partie: EtatPartie;
+    /** Bébés sur 1 000 nés du même sexe dans la décennie qui ont reçu ce prénom. */
+    frequence?: number | null;
     /** Révélation du titre ; les lignes de l'origine apparaissent ensuite une à une. */
     msParCaractere?: number;
     onretour: () => void;
@@ -20,6 +23,10 @@
   } = $props();
 
   const origine = $derived(partie.personnage.origine);
+  const decennie = $derived(Math.floor(origine.anneeNaissance / 10) * 10);
+  /** « 52 », ou « 2,3 » sous 10 (virgule décimale). */
+  const frequenceTexte = (n: number): string =>
+    n >= 10 ? String(Math.round(n)) : n.toFixed(1).replace('.', ',');
 
   // Lignes dans l'ordre du tirage (règles, section 3).
   const lignes = $derived([
@@ -64,7 +71,13 @@
     <section class="droite">
       <div class="prenom">
         <p>TON PRENOM : <span class="valeur">{minitel(partie.personnage.prenom)}</span></p>
-        <p class="discret">[N] BEBES SUR 100 NES EN {origine.anneeNaissance} PORTENT CE PRENOM.</p>
+        {#if frequence !== null}
+          <p class="discret">
+            {frequenceTexte(frequence)}
+            {origine.sexe === 'femme' ? 'FILLES' : 'GARCONS'} SUR 1 000 NES DANS LES ANNEES
+            {decennie} ONT RECU CE PRENOM.
+          </p>
+        {/if}
       </div>
       <p class="discret">TES TRAITS RESTENT CACHES.<br />TU LES DECOUVRIRAS EN VIVANT.</p>
     </section>

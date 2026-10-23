@@ -213,6 +213,19 @@ export function tirerPrenom(graine: string, origine: Origine, tables: Tables): s
   return tirerPondere(sousGenerateur(graine, 0, 'naissance.prenom'), ligne.distribution);
 }
 
+/**
+ * Fréquence du prénom parmi les bébés du même sexe nés dans la même décennie, pour
+ * 1 000 naissances (table prenoms) ; null si le prénom n'y figure pas.
+ */
+export function frequencePrenom(prenom: string, origine: Origine, tables: Tables): number | null {
+  const ligne = chercherLigne(
+    tables.prenoms,
+    { sexe: origine.sexe, periode: periodeDe(origine.anneeNaissance) },
+    ['periode', 'sexe'],
+  );
+  return ligne.distribution[prenom] ?? null;
+}
+
 export interface Naissance {
   origine: Origine;
   traits: Traits;

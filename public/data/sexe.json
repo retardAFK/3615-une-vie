@@ -1,14 +1,14 @@
 {
   "table": "sexe",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
-  "url": null,
-  "aCalibrer": true,
+  "source": "Insee, fichier des prénoms (état civil) : naissances de 1950 à 2010 par sexe, tous prénoms confondus (effectifs arrondis à 5 près par prénom).",
+  "url": "https://www.insee.fr/fr/statistiques/8595130",
+  "aCalibrer": false,
   "lignes": [
     {
       "conditions": {},
       "distribution": {
-        "homme": 0.51,
-        "femme": 0.49
+        "homme": 0.5125,
+        "femme": 0.4875
       }
     }
   ]

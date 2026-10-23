@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   ETAPES_NAISSANCE,
+  frequencePrenom,
   naitre,
   tirerOrigineBrute,
   type OrigineBrute,
@@ -125,5 +126,17 @@ describe('naissance', () => {
       );
       expect(Object.keys(ligne.distribution)).toContain(prenom);
     }
+  });
+
+  it('donne la frequence du prenom tire, pour 1 000 naissances de la decennie', () => {
+    for (let i = 0; i < 50; i++) {
+      const { origine, prenom } = naitre(`frequence-${i}`, TABLES);
+      const frequence = frequencePrenom(prenom, origine, TABLES);
+      expect(frequence).not.toBeNull();
+      expect(frequence!).toBeGreaterThan(0);
+      expect(frequence!).toBeLessThan(1000);
+    }
+    const { origine } = naitre('frequence', TABLES);
+    expect(frequencePrenom('Inexistant', origine, TABLES)).toBeNull();
   });
 });

@@ -70,6 +70,8 @@ interface ConfigSante {
   pcs: ReadonlyMap<string, number>;
   /** Probabilités de décès par âge (table mortalite), par sexe puis année calendaire. */
   mortalite: Readonly<Record<Sexe, Map<number, readonly number[]>>>;
+  /** Correction des causes modélisées par âge (table correctionMortalite), par sexe puis année. */
+  correction: Readonly<Record<Sexe, Map<number, readonly number[]>>>;
   /** Multiplicateur de mortalité par produit et état d'addiction actif (absent : 1). */
   addictions: Readonly<Record<Produit, Partial<Record<EtatAddiction, number>>>>;
 }
@@ -106,7 +108,8 @@ function construire(tables: Tables): ConfigSante {
     }
   }
   const mortalite = { femme: new Map(), homme: new Map() };
-  return { tables, parametres, vieillissement, maladies, pcs, addictions, mortalite };
+  const correction = { femme: new Map(), homme: new Map() };
+  return { tables, parametres, vieillissement, maladies, pcs, addictions, mortalite, correction };
 }
 
 const configurations = new WeakMap<Tables, ConfigSante>();
@@ -262,17 +265,38 @@ export function probabiliteDecesTable(
 
 /**
  * Mortalité de l'année pour ce personnage : la table, corrigée par la formule des
- * cotes (PCS à l'âge adulte, addictions actives, maladies actives, santé physique).
+ * cotes (correction des causes modélisées, PCS à l'âge adulte, addictions actives,
+ * maladies actives, santé physique).
  */
+/**
+ * Correction de la table pour le joueur (multiplicateur des cotes, par âge) : la table
+ * compte déjà les décès que le jeu modélise lui-même (maladies, addictions, événements
+ * mortels). Calibrée par simulation (data/scripts/calibrer.ts) pour que la mortalité
+ * simulée retrouve la table.
+ */
+function correctionMortalite(config: ConfigSante, age: number, sexe: Sexe, annee: number): number {
+  const parAnnee = config.correction[sexe];
+  let parAge = parAnnee.get(annee);
+  if (!parAge) {
+    parAge = chercherLigne(config.tables.correctionMortalite, { sexe, periode: periodeDe(annee) }, [
+      'periode',
+      'sexe',
+    ]).parAnnee;
+    parAnnee.set(annee, parAge);
+  }
+  return parAge[Math.min(age, parAge.length - 1)] ?? 1;
+}
+
 export function probabiliteDecesPersonnage(
   personnage: Personnage,
   annee: number,
   tables: Tables,
 ): number {
-  const q = probabiliteDecesTable(personnage.age, personnage.origine.sexe, annee, tables);
+  const { sexe } = personnage.origine;
+  const q = probabiliteDecesTable(personnage.age, sexe, annee, tables);
   const config = configuration(tables);
   const { parametres } = config;
-  let m = 1;
+  let m = correctionMortalite(config, personnage.age, sexe, annee);
   if (personnage.age >= parametres.ageAdulteMortalite) {
     m *= config.pcs.get(personnage.etats.travail.pcs ?? 'sans_emploi') ?? 1;
   }

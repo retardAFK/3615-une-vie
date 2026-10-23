@@ -131,9 +131,13 @@ describe('jeux : mises et profil', () => {
   it('les mises nettes des gains entrent dans le bilan', () => {
     const etat = joueur('usage_regulier');
     const sansAide = { versees: {}, nonDemandees: [], total: 0 };
-    const sans = bilanAnnuel(etat, sansAide, DONNEES).personnage.finances.epargne;
-    const avec = bilanAnnuel(etat, sansAide, DONNEES, 300).personnage.finances.epargne;
-    expect(sans - avec).toBe(300);
+    // Patrimoine net : la dépense est prise sur l'épargne, puis empruntée.
+    const net = (depenses: number): number => {
+      const { epargne, dettes } = bilanAnnuel(etat, sansAide, DONNEES, depenses).personnage
+        .finances;
+      return epargne - dettes;
+    };
+    expect(net(0) - net(300)).toBe(300);
   });
 
   it('les choix fixent le jeu, le budget, la chasse et l interdiction', () => {

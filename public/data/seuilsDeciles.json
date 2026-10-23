@@ -1,21 +1,21 @@
 {
   "table": "seuilsDeciles",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les seuils de deciles de revenu disponible de l'INSEE (Filosofi, ERFS). Seuils en multiples du salaire de reference de la periode.",
-  "url": null,
-  "aCalibrer": true,
+  "source": "Insee-DGI, enquêtes Revenus fiscaux et sociaux (ERFS) : seuils des déciles de niveau de vie, rapportés au salaire net annuel moyen à temps complet de la même année (séries longues sur les salaires, TC01) ; moyenne des années communes (1996-2021). Seuils en multiples du salaire de référence de la période.",
+  "url": "https://www.insee.fr/fr/statistiques/2416808",
+  "aCalibrer": false,
   "lignes": [
     {
       "conditions": {},
       "valeurs": {
-        "d1": 0.35,
-        "d2": 0.5,
-        "d3": 0.62,
-        "d4": 0.72,
-        "d5": 0.82,
-        "d6": 0.95,
-        "d7": 1.1,
-        "d8": 1.3,
-        "d9": 1.7
+        "d1": 0.418,
+        "d2": 0.523,
+        "d3": 0.61,
+        "d4": 0.689,
+        "d5": 0.771,
+        "d6": 0.862,
+        "d7": 0.973,
+        "d8": 1.13,
+        "d9": 1.43
       }
     }
   ]

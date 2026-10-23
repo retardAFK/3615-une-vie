@@ -1,0 +1,25 @@
+# Sources des données brutes
+
+Fichiers téléchargés tels quels, le 23 octobre 2026. Les scripts de `data/scripts/` les lisent et produisent les tables de `public/data/` (`npm run data`).
+
+| Fichier                                               | Source                                                                                                                                          | Adresse                                                    | Tables produites                    |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ----------------------------------- |
+| `insee/3_Quotients_mortalite.xlsx`                    | Insee, tableau DEC3 « Quotients de mortalité par sexe et âge », séries depuis 1946 (France métropolitaine) et 1994 (France)                     | https://www.insee.fr/fr/statistiques/8999019               | `mortalite`                         |
+| `insee/1_Naissances_tnat.xlsx`                        | Insee, tableau NAIS1 « Naissances et taux de natalité »                                                                                         | https://www.insee.fr/fr/statistiques/8999017               | `anneeNaissance`                    |
+| `insee/2_Taux_fecondite_femmes.xlsx`                  | Insee, tableau NAIS2 « Taux de fécondité des femmes par âge détaillé »                                                                          | https://www.insee.fr/fr/statistiques/8999017               | `fecondite`                         |
+| `insee/prenoms-2025-nat_csv.zip`                      | Insee, fichier des prénoms (état civil), édition 2025, fichier national                                                                         | https://www.insee.fr/fr/statistiques/8595130               | `prenoms`, `sexe`                   |
+| `insee/reve-niv-vie-decile-individu.xlsx`             | Insee-DGI, ERFS : distribution des niveaux de vie (déciles), 1996-2024, euros 2024 constants                                                    | https://www.insee.fr/fr/statistiques/2416808               | `seuilsDeciles`                     |
+| `insee/reve-niv-vie-indic-inegalite.xlsx`             | Insee, niveau de vie et indicateurs d'inégalités, 1975-2024                                                                                     | https://www.insee.fr/fr/statistiques/2491918               | (réserve : seuils avant 1996)       |
+| `insee/salaires/TC01.csv`                             | Insee, séries longues sur les salaires dans le secteur privé (base Tous salariés), tableau TC01 : salaire net annuel moyen à temps complet      | https://www.insee.fr/fr/statistiques/8668548               | `salaireReference`, `seuilsDeciles` |
+| `insee/salaires/EQTP01.csv`                           | Même publication, tableau EQTP01 : salaire net annuel moyen en équivalent temps plein, depuis 1996                                              | https://www.insee.fr/fr/statistiques/8668548               | (réserve)                           |
+| `insee/salaires/metadonnees_IR_salaires_SL_23_PR.csv` | Même publication : dictionnaire des variables                                                                                                   | https://www.insee.fr/fr/statistiques/8668548               | —                                   |
+| `insee/serie-011813530.xml`                           | Insee, BDM, série 011813530 « Coefficient de transformation de l'euro ou du franc d'une année » (convertisseur franc-euro, base 2025), API SDMX | https://bdm.insee.fr/series/sdmx/data/SERIES_BDM/011813530 | euros constants 2025                |
+| `insee/serie-000067677.xml`                           | Insee, BDM, série 000067677 « Naissances vivantes, France métropolitaine », API SDMX                                                            | https://bdm.insee.fr/series/sdmx/data/SERIES_BDM/000067677 | (contrôle)                          |
+| `insee/serie-001641590.xml`                           | Insee, BDM, série 001641590 « Naissances vivantes, France », API SDMX                                                                           | https://bdm.insee.fr/series/sdmx/data/SERIES_BDM/001641590 | (contrôle)                          |
+
+## Tables calibrées par simulation
+
+`data/scripts/calibrer.ts` joue des vies en AUTO avec le moteur et ajuste deux réglages :
+
+- `correctionMortalite` : le jeu ajoute ses propres causes de décès (maladies, addictions, santé, événements mortels) à une table qui les compte déjà ; la correction ramène les décès simulés, par sexe, décennie et tranche d'âge, à ceux qu'attend la table Insee.
+- `parametresFamille.facteurFecondite` : la fécondité réelle vaut pour toutes les femmes, le jeu ne l'applique qu'aux couples ; le facteur ramène les naissances simulées à celles qu'auraient les mêmes femmes avec les taux réels.

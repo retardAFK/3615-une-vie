@@ -1,0 +1,1018 @@
+COD_VAR;LIB_VAR;COD_MOD;LIB_MOD1
+AGE;Âge;E;Ensemble
+AGE;Âge;A1;Moins de 26 ans
+AGE;Âge;A2;De 26 à 30 ans
+AGE;Âge;A3;De 31 à 40 ans
+AGE;Âge;A4;De 41 à 50 ans
+AGE;Âge;A5;De 51 à 60 ans
+AGE;Âge;A6;Plus de 60 ans
+ANNEE1;Année;1996;1996
+ANNEE1;Année;1997;1997
+ANNEE1;Année;1998;1998
+ANNEE1;Année;1999;1999
+ANNEE1;Année;2000;2000
+ANNEE1;Année;2001;2001
+ANNEE1;Année;2002;2002
+ANNEE1;Année;2003;2003
+ANNEE1;Année;2004;2004
+ANNEE1;Année;2005;2005
+ANNEE1;Année;2006;2006
+ANNEE1;Année;2007;2007
+ANNEE1;Année;2008;2008
+ANNEE1;Année;2009;2009
+ANNEE1;Année;2010;2010
+ANNEE1;Année;2011;2011
+ANNEE1;Année;2012;2012
+ANNEE1;Année;2013;2013
+ANNEE1;Année;2014;2014
+ANNEE1;Année;2015;2015
+ANNEE1;Année;2016;2016
+ANNEE1;Année;2017;2017
+ANNEE1;Année;2018;2018
+ANNEE1;Année;2019;2019
+ANNEE1;Année;2020;2020
+ANNEE1;Année;2021;2021
+ANNEE10;Année;1950;1950
+ANNEE10;Année;1951;1951
+ANNEE10;Année;1952;1952
+ANNEE10;Année;1953;1953
+ANNEE10;Année;1954;1954
+ANNEE10;Année;1955;1955
+ANNEE10;Année;1956;1956
+ANNEE10;Année;1957;1957
+ANNEE10;Année;1958;1958
+ANNEE10;Année;1959;1959
+ANNEE10;Année;1960;1960
+ANNEE10;Année;1961;1961
+ANNEE10;Année;1962;1962
+ANNEE10;Année;1963;1963
+ANNEE10;Année;1964;1964
+ANNEE10;Année;1965;1965
+ANNEE10;Année;1966;1966
+ANNEE10;Année;1967;1967
+ANNEE10;Année;1968;1968
+ANNEE10;Année;1969;1969
+ANNEE10;Année;1970;1970
+ANNEE10;Année;1971;1971
+ANNEE10;Année;1972;1972
+ANNEE10;Année;1973;1973
+ANNEE10;Année;1974;1974
+ANNEE10;Année;1975;1975
+ANNEE10;Année;1976;1976
+ANNEE10;Année;1977;1977
+ANNEE10;Année;1978;1978
+ANNEE10;Année;1979;1979
+ANNEE10;Année;1980;1980
+ANNEE10;Année;1981;1981
+ANNEE10;Année;1982;1982
+ANNEE10;Année;1983;1983
+ANNEE10;Année;1984;1984
+ANNEE10;Année;1985;1985
+ANNEE10;Année;1986;1986
+ANNEE10;Année;1987;1987
+ANNEE10;Année;1988;1988
+ANNEE10;Année;1989;1989
+ANNEE10;Année;1990;1990
+ANNEE10;Année;1991;1991
+ANNEE10;Année;1992;1992
+ANNEE10;Année;1993;1993
+ANNEE10;Année;1994;1994
+ANNEE10;Année;1995;1995
+ANNEE10;Année;1996;1996
+ANNEE10;Année;1997;1997
+ANNEE10;Année;1998;1998
+ANNEE10;Année;1999;1999
+ANNEE10;Année;2000;2000
+ANNEE10;Année;2001;2001
+ANNEE10;Année;2002;2002
+ANNEE10;Année;2003;2003
+ANNEE10;Année;2004;2004
+ANNEE10;Année;2005;2005
+ANNEE10;Année;2006;2006
+ANNEE10;Année;2007;2007
+ANNEE10;Année;2008;2008
+ANNEE10;Année;2009;2009
+ANNEE10;Année;2010;2010
+ANNEE10;Année;2011;2011
+ANNEE10;Année;2012;2012
+ANNEE10;Année;2013;2013
+ANNEE10;Année;2014;2014
+ANNEE10;Année;2015;2015
+ANNEE10;Année;2016;2016
+ANNEE10;Année;2017;2017
+ANNEE10;Année;2018;2018
+ANNEE10;Année;2019;2019
+ANNEE10;Année;2020;2020
+ANNEE10;Année;2021;2021
+ANNEE11;Année;1950;1950
+ANNEE11;Année;1951;1951
+ANNEE11;Année;1952;1952
+ANNEE11;Année;1953;1953
+ANNEE11;Année;1954;1954
+ANNEE11;Année;1955;1955
+ANNEE11;Année;1956;1956
+ANNEE11;Année;1957;1957
+ANNEE11;Année;1958;1958
+ANNEE11;Année;1959;1959
+ANNEE11;Année;1960;1960
+ANNEE11;Année;1961;1961
+ANNEE11;Année;1962;1962
+ANNEE11;Année;1963;1963
+ANNEE11;Année;1964;1964
+ANNEE11;Année;1965;1965
+ANNEE11;Année;1966;1966
+ANNEE11;Année;1967;1967
+ANNEE11;Année;1968;1968
+ANNEE11;Année;1969;1969
+ANNEE11;Année;1970;1970
+ANNEE11;Année;1971;1971
+ANNEE11;Année;1972;1972
+ANNEE11;Année;1973;1973
+ANNEE11;Année;1974;1974
+ANNEE11;Année;1975;1975
+ANNEE11;Année;1976;1976
+ANNEE11;Année;1977;1977
+ANNEE11;Année;1978;1978
+ANNEE11;Année;1979;1979
+ANNEE11;Année;1980;1980
+ANNEE11;Année;1981;1981
+ANNEE11;Année;1982;1982
+ANNEE11;Année;1983;1983
+ANNEE11;Année;1984;1984
+ANNEE11;Année;1985;1985
+ANNEE11;Année;1986;1986
+ANNEE11;Année;1987;1987
+ANNEE11;Année;1988;1988
+ANNEE11;Année;1989;1989
+ANNEE11;Année;1990;1990
+ANNEE11;Année;1991;1991
+ANNEE11;Année;1992;1992
+ANNEE11;Année;1993;1993
+ANNEE11;Année;1994;1994
+ANNEE11;Année;1995;1995
+ANNEE11;Année;1996;1996
+ANNEE11;Année;1997;1997
+ANNEE11;Année;1998;1998
+ANNEE11;Année;1999;1999
+ANNEE11;Année;2000;2000
+ANNEE11;Année;2001;2001
+ANNEE11;Année;2002;2002
+ANNEE11;Année;2003;2003
+ANNEE11;Année;2004;2004
+ANNEE11;Année;2005;2005
+ANNEE11;Année;2006;2006
+ANNEE11;Année;2007;2007
+ANNEE11;Année;2008;2008
+ANNEE11;Année;2009;2009
+ANNEE11;Année;2010;2010
+ANNEE11;Année;2011;2011
+ANNEE11;Année;2012;2012
+ANNEE11;Année;2013;2013
+ANNEE11;Année;2014;2014
+ANNEE11;Année;2015;2015
+ANNEE11;Année;2016;2016
+ANNEE11;Année;2017;2017
+ANNEE11;Année;2018;2018
+ANNEE11;Année;2019;2019
+ANNEE11;Année;2020;2020
+ANNEE11;Année;2021;2021
+ANNEE11;Année;2022;2022
+ANNEE12;Année;2000;2000
+ANNEE12;Année;2001;2001
+ANNEE12;Année;2002;2002
+ANNEE12;Année;2003;2003
+ANNEE12;Année;2004;2004
+ANNEE12;Année;2005;2005
+ANNEE12;Année;2006;2006
+ANNEE12;Année;2007;2007
+ANNEE12;Année;2008;2008
+ANNEE12;Année;2009;2009
+ANNEE12;Année;2010;2010
+ANNEE12;Année;2011;2011
+ANNEE12;Année;2012;2012
+ANNEE12;Année;2013;2013
+ANNEE12;Année;2014;2014
+ANNEE12;Année;2015;2015
+ANNEE12;Année;2016;2016
+ANNEE12;Année;2017;2017
+ANNEE12;Année;2018;2018
+ANNEE12;Année;2019;2019
+ANNEE12;Année;2020;2020
+ANNEE12;Année;2021;2021
+ANNEE12;Année;2022;2022
+ANNEE13;Année;1951;1951
+ANNEE13;Année;1952;1952
+ANNEE13;Année;1953;1953
+ANNEE13;Année;1954;1954
+ANNEE13;Année;1955;1955
+ANNEE13;Année;1956;1956
+ANNEE13;Année;1957;1957
+ANNEE13;Année;1958;1958
+ANNEE13;Année;1959;1959
+ANNEE13;Année;1960;1960
+ANNEE13;Année;1961;1961
+ANNEE13;Année;1962;1962
+ANNEE13;Année;1963;1963
+ANNEE13;Année;1964;1964
+ANNEE13;Année;1965;1965
+ANNEE13;Année;1966;1966
+ANNEE13;Année;1967;1967
+ANNEE13;Année;1968;1968
+ANNEE13;Année;1969;1969
+ANNEE13;Année;1970;1970
+ANNEE13;Année;1971;1971
+ANNEE13;Année;1972;1972
+ANNEE13;Année;1973;1973
+ANNEE13;Année;1974;1974
+ANNEE13;Année;1975;1975
+ANNEE13;Année;1976;1976
+ANNEE13;Année;1977;1977
+ANNEE13;Année;1978;1978
+ANNEE13;Année;1979;1979
+ANNEE13;Année;1980;1980
+ANNEE13;Année;1981;1981
+ANNEE13;Année;1982;1982
+ANNEE13;Année;1983;1983
+ANNEE13;Année;1984;1984
+ANNEE13;Année;1985;1985
+ANNEE13;Année;1986;1986
+ANNEE13;Année;1987;1987
+ANNEE13;Année;1988;1988
+ANNEE13;Année;1989;1989
+ANNEE13;Année;1990;1990
+ANNEE13;Année;1991;1991
+ANNEE13;Année;1992;1992
+ANNEE13;Année;1993;1993
+ANNEE13;Année;1994;1994
+ANNEE13;Année;1995;1995
+ANNEE13;Année;1996;1996
+ANNEE13;Année;1997;1997
+ANNEE13;Année;1998;1998
+ANNEE13;Année;1999;1999
+ANNEE13;Année;2000;2000
+ANNEE13;Année;2001;2001
+ANNEE13;Année;2002;2002
+ANNEE13;Année;2003;2003
+ANNEE13;Année;2004;2004
+ANNEE13;Année;2005;2005
+ANNEE14;Année;1951;1951
+ANNEE14;Année;1952;1952
+ANNEE14;Année;1953;1953
+ANNEE14;Année;1954;1954
+ANNEE14;Année;1955;1955
+ANNEE14;Année;1956;1956
+ANNEE14;Année;1957;1957
+ANNEE14;Année;1958;1958
+ANNEE14;Année;1959;1959
+ANNEE14;Année;1960;1960
+ANNEE14;Année;1961;1961
+ANNEE14;Année;1962;1962
+ANNEE14;Année;1963;1963
+ANNEE14;Année;1964;1964
+ANNEE14;Année;1965;1965
+ANNEE14;Année;1966;1966
+ANNEE14;Année;1967;1967
+ANNEE14;Année;1968;1968
+ANNEE14;Année;1969;1969
+ANNEE14;Année;1970;1970
+ANNEE14;Année;1971;1971
+ANNEE14;Année;1972;1972
+ANNEE14;Année;1973;1973
+ANNEE14;Année;1974;1974
+ANNEE14;Année;1975;1975
+ANNEE14;Année;1976;1976
+ANNEE14;Année;1977;1977
+ANNEE14;Année;1978;1978
+ANNEE14;Année;1979;1979
+ANNEE14;Année;1980;1980
+ANNEE14;Année;1981;1981
+ANNEE14;Année;1982;1982
+ANNEE14;Année;1983;1983
+ANNEE14;Année;1984;1984
+ANNEE14;Année;1985;1985
+ANNEE14;Année;1986;1986
+ANNEE14;Année;1987;1987
+ANNEE14;Année;1988;1988
+ANNEE14;Année;1989;1989
+ANNEE14;Année;1990;1990
+ANNEE14;Année;1991;1991
+ANNEE14;Année;1992;1992
+ANNEE14;Année;1993;1993
+ANNEE14;Année;1994;1994
+ANNEE14;Année;1995;1995
+ANNEE14;Année;1996;1996
+ANNEE14;Année;1997;1997
+ANNEE14;Année;1998;1998
+ANNEE14;Année;1999;1999
+ANNEE14;Année;2000;2000
+ANNEE14;Année;2001;2001
+ANNEE14;Année;2002;2002
+ANNEE14;Année;2003;2003
+ANNEE14;Année;2004;2004
+ANNEE14;Année;2005;2005
+ANNEE14;Année;2006;2006
+ANNEE14;Année;2007;2007
+ANNEE14;Année;2008;2008
+ANNEE14;Année;2009;2009
+ANNEE14;Année;2010;2010
+ANNEE14;Année;2011;2011
+ANNEE14;Année;2012;2012
+ANNEE14;Année;2013;2013
+ANNEE14;Année;2014;2014
+ANNEE14;Année;2015;2015
+ANNEE14;Année;2016;2016
+ANNEE14;Année;2017;2017
+ANNEE14;Année;2018;2018
+ANNEE14;Année;2019;2019
+ANNEE14;Année;2020;2020
+ANNEE14;Année;2021;2021
+ANNEE14;Année;2022;2022
+ANNEE15;Année;2000;2000
+ANNEE15;Année;2001;2001
+ANNEE15;Année;2002;2002
+ANNEE15;Année;2003;2003
+ANNEE15;Année;2004;2004
+ANNEE15;Année;2005;2005
+ANNEE15;Année;2006;2006
+ANNEE15;Année;2007;2007
+ANNEE15;Année;2008;2008
+ANNEE15;Année;2009;2009
+ANNEE15;Année;2010;2010
+ANNEE15;Année;2011;2011
+ANNEE15;Année;2012;2012
+ANNEE15;Année;2013;2013
+ANNEE15;Année;2014;2014
+ANNEE15;Année;2015;2015
+ANNEE15;Année;2016;2016
+ANNEE15;Année;2017;2017
+ANNEE15;Année;2018;2018
+ANNEE15;Année;2019;2019
+ANNEE15;Année;2020;2020
+ANNEE15;Année;2021;2021
+ANNEE15;Année;2022;2022
+ANNEE16;Année;1950;1950
+ANNEE16;Année;1951;1951
+ANNEE16;Année;1952;1952
+ANNEE16;Année;1953;1953
+ANNEE16;Année;1954;1954
+ANNEE16;Année;1955;1955
+ANNEE16;Année;1956;1956
+ANNEE16;Année;1957;1957
+ANNEE16;Année;1958;1958
+ANNEE16;Année;1959;1959
+ANNEE16;Année;1960;1960
+ANNEE16;Année;1961;1961
+ANNEE16;Année;1962;1962
+ANNEE16;Année;1963;1963
+ANNEE16;Année;1964;1964
+ANNEE16;Année;1965;1965
+ANNEE16;Année;1966;1966
+ANNEE16;Année;1967;1967
+ANNEE16;Année;1968;1968
+ANNEE16;Année;1969;1969
+ANNEE16;Année;1970;1970
+ANNEE16;Année;1971;1971
+ANNEE16;Année;1972;1972
+ANNEE16;Année;1973;1973
+ANNEE16;Année;1974;1974
+ANNEE16;Année;1975;1975
+ANNEE16;Année;1976;1976
+ANNEE16;Année;1977;1977
+ANNEE16;Année;1978;1978
+ANNEE16;Année;1979;1979
+ANNEE16;Année;1980;1980
+ANNEE16;Année;1981;1981
+ANNEE16;Année;1982;1982
+ANNEE16;Année;1983;1983
+ANNEE16;Année;1984;1984
+ANNEE16;Année;1985;1985
+ANNEE16;Année;1986;1986
+ANNEE16;Année;1987;1987
+ANNEE16;Année;1988;1988
+ANNEE16;Année;1989;1989
+ANNEE16;Année;1990;1990
+ANNEE16;Année;1991;1991
+ANNEE16;Année;1992;1992
+ANNEE16;Année;1993;1993
+ANNEE16;Année;1994;1994
+ANNEE16;Année;1995;1995
+ANNEE16;Année;1996;1996
+ANNEE16;Année;1997;1997
+ANNEE16;Année;1998;1998
+ANNEE16;Année;1999;1999
+ANNEE16;Année;2000;2000
+ANNEE16;Année;2001;2001
+ANNEE16;Année;2002;2002
+ANNEE16;Année;2003;2003
+ANNEE16;Année;2004;2004
+ANNEE16;Année;2005;2005
+ANNEE2;Année;1951;1951
+ANNEE2;Année;1952;1952
+ANNEE2;Année;1953;1953
+ANNEE2;Année;1954;1954
+ANNEE2;Année;1955;1955
+ANNEE2;Année;1956;1956
+ANNEE2;Année;1957;1957
+ANNEE2;Année;1958;1958
+ANNEE2;Année;1959;1959
+ANNEE2;Année;1960;1960
+ANNEE2;Année;1961;1961
+ANNEE2;Année;1962;1962
+ANNEE2;Année;1963;1963
+ANNEE2;Année;1964;1964
+ANNEE2;Année;1965;1965
+ANNEE2;Année;1966;1966
+ANNEE2;Année;1967;1967
+ANNEE2;Année;1968;1968
+ANNEE2;Année;1969;1969
+ANNEE2;Année;1970;1970
+ANNEE2;Année;1971;1971
+ANNEE2;Année;1972;1972
+ANNEE2;Année;1973;1973
+ANNEE2;Année;1974;1974
+ANNEE2;Année;1975;1975
+ANNEE2;Année;1976;1976
+ANNEE2;Année;1977;1977
+ANNEE2;Année;1978;1978
+ANNEE2;Année;1979;1979
+ANNEE2;Année;1980;1980
+ANNEE2;Année;1981;1981
+ANNEE2;Année;1982;1982
+ANNEE2;Année;1983;1983
+ANNEE2;Année;1984;1984
+ANNEE2;Année;1985;1985
+ANNEE2;Année;1986;1986
+ANNEE2;Année;1987;1987
+ANNEE2;Année;1988;1988
+ANNEE2;Année;1989;1989
+ANNEE2;Année;1990;1990
+ANNEE2;Année;1991;1991
+ANNEE2;Année;1992;1992
+ANNEE2;Année;1993;1993
+ANNEE2;Année;1994;1994
+ANNEE2;Année;1995;1995
+ANNEE2;Année;1996;1996
+ANNEE2;Année;1997;1997
+ANNEE2;Année;1998;1998
+ANNEE2;Année;1999;1999
+ANNEE2;Année;2000;2000
+ANNEE2;Année;2001;2001
+ANNEE2;Année;2002;2002
+ANNEE2;Année;2003;2003
+ANNEE2;Année;2004;2004
+ANNEE2;Année;2005;2005
+ANNEE2;Année;2006;2006
+ANNEE2;Année;2007;2007
+ANNEE2;Année;2008;2008
+ANNEE2;Année;2009;2009
+ANNEE2;Année;2010;2010
+ANNEE2;Année;2011;2011
+ANNEE2;Année;2012;2012
+ANNEE2;Année;2013;2013
+ANNEE2;Année;2014;2014
+ANNEE2;Année;2015;2015
+ANNEE2;Année;2016;2016
+ANNEE2;Année;2017;2017
+ANNEE2;Année;2018;2018
+ANNEE2;Année;2019;2019
+ANNEE2;Année;2020;2020
+ANNEE2;Année;2021;2021
+ANNEE3;Année;1950;1950
+ANNEE3;Année;1951;1951
+ANNEE3;Année;1952;1952
+ANNEE3;Année;1953;1953
+ANNEE3;Année;1954;1954
+ANNEE3;Année;1955;1955
+ANNEE3;Année;1956;1956
+ANNEE3;Année;1957;1957
+ANNEE3;Année;1958;1958
+ANNEE3;Année;1959;1959
+ANNEE3;Année;1960;1960
+ANNEE3;Année;1961;1961
+ANNEE3;Année;1962;1962
+ANNEE3;Année;1963;1963
+ANNEE3;Année;1964;1964
+ANNEE3;Année;1965;1965
+ANNEE3;Année;1966;1966
+ANNEE3;Année;1967;1967
+ANNEE3;Année;1968;1968
+ANNEE3;Année;1969;1969
+ANNEE3;Année;1970;1970
+ANNEE3;Année;1971;1971
+ANNEE3;Année;1972;1972
+ANNEE3;Année;1973;1973
+ANNEE3;Année;1974;1974
+ANNEE3;Année;1975;1975
+ANNEE3;Année;1976;1976
+ANNEE3;Année;1977;1977
+ANNEE3;Année;1978;1978
+ANNEE3;Année;1979;1979
+ANNEE3;Année;1980;1980
+ANNEE3;Année;1981;1981
+ANNEE3;Année;1982;1982
+ANNEE4;Année;1984;1984
+ANNEE4;Année;1985;1985
+ANNEE4;Année;1986;1986
+ANNEE4;Année;1987;1987
+ANNEE4;Année;1988;1988
+ANNEE4;Année;1989;1989
+ANNEE4;Année;1990;1990
+ANNEE4;Année;1991;1991
+ANNEE4;Année;1992;1992
+ANNEE4;Année;1993;1993
+ANNEE4;Année;1994;1994
+ANNEE4;Année;1995;1995
+ANNEE4;Année;1996;1996
+ANNEE4;Année;1997;1997
+ANNEE4;Année;1998;1998
+ANNEE4;Année;1999;1999
+ANNEE4;Année;2000;2000
+ANNEE4;Année;2001;2001
+ANNEE4;Année;2002;2002
+ANNEE4;Année;2003;2003
+ANNEE4;Année;2004;2004
+ANNEE4;Année;2005;2005
+ANNEE4;Année;2006;2006
+ANNEE4;Année;2007;2007
+ANNEE4;Année;2008;2008
+ANNEE4;Année;2009;2009
+ANNEE4;Année;2010;2010
+ANNEE4;Année;2011;2011
+ANNEE4;Année;2012;2012
+ANNEE4;Année;2013;2013
+ANNEE4;Année;2014;2014
+ANNEE4;Année;2015;2015
+ANNEE4;Année;2016;2016
+ANNEE4;Année;2017;2017
+ANNEE4;Année;2018;2018
+ANNEE4;Année;2019;2019
+ANNEE4;Année;2020;2020
+ANNEE4;Année;2021;2021
+ANNEE5;Année;1962;1962
+ANNEE5;Année;1963;1963
+ANNEE5;Année;1964;1964
+ANNEE5;Année;1965;1965
+ANNEE5;Année;1966;1966
+ANNEE5;Année;1967;1967
+ANNEE5;Année;1968;1968
+ANNEE5;Année;1969;1969
+ANNEE5;Année;1970;1970
+ANNEE5;Année;1971;1971
+ANNEE5;Année;1972;1972
+ANNEE5;Année;1973;1973
+ANNEE5;Année;1974;1974
+ANNEE5;Année;1975;1975
+ANNEE5;Année;1976;1976
+ANNEE5;Année;1977;1977
+ANNEE5;Année;1978;1978
+ANNEE5;Année;1979;1979
+ANNEE5;Année;1980;1980
+ANNEE5;Année;1981;1981
+ANNEE5;Année;1982;1982
+ANNEE5;Année;1983;1983
+ANNEE5;Année;1984;1984
+ANNEE5;Année;1985;1985
+ANNEE5;Année;1986;1986
+ANNEE5;Année;1987;1987
+ANNEE5;Année;1988;1988
+ANNEE5;Année;1989;1989
+ANNEE5;Année;1990;1990
+ANNEE5;Année;1991;1991
+ANNEE5;Année;1992;1992
+ANNEE5;Année;1993;1993
+ANNEE5;Année;1994;1994
+ANNEE5;Année;1995;1995
+ANNEE5;Année;1996;1996
+ANNEE5;Année;1997;1997
+ANNEE5;Année;1998;1998
+ANNEE5;Année;1999;1999
+ANNEE5;Année;2000;2000
+ANNEE5;Année;2001;2001
+ANNEE5;Année;2002;2002
+ANNEE5;Année;2003;2003
+ANNEE5;Année;2004;2004
+ANNEE5;Année;2005;2005
+ANNEE5;Année;2006;2006
+ANNEE5;Année;2007;2007
+ANNEE5;Année;2008;2008
+ANNEE5;Année;2009;2009
+ANNEE5;Année;2010;2010
+ANNEE5;Année;2011;2011
+ANNEE5;Année;2012;2012
+ANNEE5;Année;2013;2013
+ANNEE5;Année;2014;2014
+ANNEE5;Année;2015;2015
+ANNEE5;Année;2016;2016
+ANNEE5;Année;2017;2017
+ANNEE5;Année;2018;2018
+ANNEE5;Année;2019;2019
+ANNEE5;Année;2020;2020
+ANNEE5;Année;2021;2021
+ANNEE6;Année;1962;1962
+ANNEE6;Année;1963;1963
+ANNEE6;Année;1964;1964
+ANNEE6;Année;1965;1965
+ANNEE6;Année;1966;1966
+ANNEE6;Année;1967;1967
+ANNEE6;Année;1968;1968
+ANNEE6;Année;1969;1969
+ANNEE6;Année;1970;1970
+ANNEE6;Année;1971;1971
+ANNEE6;Année;1972;1972
+ANNEE6;Année;1973;1973
+ANNEE6;Année;1974;1974
+ANNEE6;Année;1975;1975
+ANNEE6;Année;1976;1976
+ANNEE6;Année;1977;1977
+ANNEE6;Année;1978;1978
+ANNEE6;Année;1979;1979
+ANNEE6;Année;1980;1980
+ANNEE6;Année;1981;1981
+ANNEE6;Année;1982;1982
+ANNEE6;Année;1983;1983
+ANNEE6;Année;1984;1984
+ANNEE6;Année;1985;1985
+ANNEE6;Année;1986;1986
+ANNEE6;Année;1987;1987
+ANNEE6;Année;1988;1988
+ANNEE6;Année;1989;1989
+ANNEE6;Année;1990;1990
+ANNEE6;Année;1991;1991
+ANNEE6;Année;1992;1992
+ANNEE7;Année;1976;1976
+ANNEE7;Année;1977;1977
+ANNEE7;Année;1978;1978
+ANNEE7;Année;1979;1979
+ANNEE7;Année;1980;1980
+ANNEE7;Année;1981;1981
+ANNEE7;Année;1982;1982
+ANNEE7;Année;1983;1983
+ANNEE7;Année;1984;1984
+ANNEE7;Année;1985;1985
+ANNEE7;Année;1986;1986
+ANNEE7;Année;1987;1987
+ANNEE7;Année;1988;1988
+ANNEE7;Année;1989;1989
+ANNEE7;Année;1990;1990
+ANNEE7;Année;1991;1991
+ANNEE7;Année;1992;1992
+ANNEE8;Année;1976;1976
+ANNEE8;Année;1977;1977
+ANNEE8;Année;1978;1978
+ANNEE8;Année;1979;1979
+ANNEE8;Année;1980;1980
+ANNEE8;Année;1981;1981
+ANNEE8;Année;1982;1982
+ANNEE8;Année;1983;1983
+ANNEE8;Année;1984;1984
+ANNEE8;Année;1985;1985
+ANNEE8;Année;1986;1986
+ANNEE8;Année;1987;1987
+ANNEE8;Année;1988;1988
+ANNEE8;Année;1989;1989
+ANNEE8;Année;1990;1990
+ANNEE8;Année;1991;1991
+ANNEE8;Année;1992;1992
+ANNEE8;Année;1993;1993
+ANNEE8;Année;1994;1994
+ANNEE8;Année;1995;1995
+ANNEE8;Année;1996;1996
+ANNEE8;Année;1997;1997
+ANNEE8;Année;1998;1998
+ANNEE8;Année;1999;1999
+ANNEE8;Année;2000;2000
+ANNEE8;Année;2001;2001
+ANNEE8;Année;2002;2002
+ANNEE8;Année;2003;2003
+ANNEE8;Année;2004;2004
+ANNEE8;Année;2005;2005
+ANNEE8;Année;2006;2006
+ANNEE8;Année;2007;2007
+ANNEE8;Année;2008;2008
+ANNEE8;Année;2009;2009
+ANNEE8;Année;2010;2010
+ANNEE8;Année;2011;2011
+ANNEE8;Année;2012;2012
+ANNEE8;Année;2013;2013
+ANNEE8;Année;2014;2014
+ANNEE8;Année;2015;2015
+ANNEE8;Année;2016;2016
+ANNEE8;Année;2017;2017
+ANNEE8;Année;2018;2018
+ANNEE8;Année;2019;2019
+ANNEE8;Année;2020;2020
+ANNEE8;Année;2021;2021
+ANNEE9;Année;1966;1966
+ANNEE9;Année;1967;1967
+ANNEE9;Année;1968;1968
+ANNEE9;Année;1969;1969
+ANNEE9;Année;1970;1970
+ANNEE9;Année;1971;1971
+ANNEE9;Année;1972;1972
+ANNEE9;Année;1973;1973
+ANNEE9;Année;1974;1974
+ANNEE9;Année;1975;1975
+ANNEE9;Année;1976;1976
+ANNEE9;Année;1977;1977
+ANNEE9;Année;1978;1978
+ANNEE9;Année;1979;1979
+ANNEE9;Année;1980;1980
+ANNEE9;Année;1981;1981
+ANNEE9;Année;1982;1982
+ANNEE9;Année;1983;1983
+ANNEE9;Année;1984;1984
+ANNEE9;Année;1985;1985
+ANNEE9;Année;1986;1986
+ANNEE9;Année;1987;1987
+ANNEE9;Année;1988;1988
+ANNEE9;Année;1989;1989
+ANNEE9;Année;1990;1990
+ANNEE9;Année;1991;1991
+ANNEE9;Année;1992;1992
+ANNEE9;Année;1993;1993
+ANNEE9;Année;1994;1994
+ANNEE9;Année;1995;1995
+ANNEE9;Année;1996;1996
+ANNEE9;Année;1997;1997
+ANNEE9;Année;1998;1998
+ANNEE9;Année;1999;1999
+ANNEE9;Année;2000;2000
+ANNEE9;Année;2001;2001
+ANNEE9;Année;2002;2002
+ANNEE9;Année;2003;2003
+ANNEE9;Année;2004;2004
+ANNEE9;Année;2005;2005
+ANNEE9;Année;2006;2006
+ANNEE9;Année;2007;2007
+ANNEE9;Année;2008;2008
+ANNEE9;Année;2009;2009
+ANNEE9;Année;2010;2010
+ANNEE9;Année;2011;2011
+ANNEE9;Année;2012;2012
+ANNEE9;Année;2013;2013
+ANNEE9;Année;2014;2014
+ANNEE9;Année;2015;2015
+ANNEE9;Année;2016;2016
+ANNEE9;Année;2017;2017
+ANNEE9;Année;2018;2018
+ANNEE9;Année;2019;2019
+ANNEE9;Année;2020;2020
+ANNEE9;Année;2021;2021
+COT_PAT;Cotisations employeurs;SS1;Sécurité Sociale : Maladie, maternité, invalidité, décès (<= 1 plafond)
+COT_PAT;Cotisations employeurs;SS2;Sécurité Sociale : Maladie, maternité, invalidité, décès (> 1 plafond)
+COT_PAT;Cotisations employeurs;SS3;Sécurité Sociale : Vieillesse (<= 1 plafond)
+COT_PAT;Cotisations employeurs;SS4;Sécurité Sociale : Vieillesse  (> 1 plafond)
+COT_PAT;Cotisations employeurs;SS5;Sécurité Sociale : Allocations familiales (<= 1 plafond)
+COT_PAT;Cotisations employeurs;SS6;Sécurité Sociale : Allocations familiales  (> 1 plafond)
+COT_PAT;Cotisations employeurs;SS7;Total Sécurité Sociale hors taux accidents du travail (<=1 plafond)
+COT_PAT;Cotisations employeurs;SS8;Total Sécurité Sociale hors taux accidents du travail (> 1plafond)
+COT_PAT;Cotisations employeurs;CSA;Contribution solidarité autonomie (sur la totalité du salaire)
+COT_PAT;Cotisations employeurs;RET1;Retraite complémentaire : Non-cadres et cadres (<= 1 plafond)
+COT_PAT;Cotisations employeurs;RET2;Retraite complémentaire : Non-cadres (de 1 à 3 plafonds)
+COT_PAT;Cotisations employeurs;RET3;Retraite complémentaire : Cadres (de 1 à 4 plafonds)
+COT_PAT;Cotisations employeurs;RET4;Retraite complémentaire : Cadres (de 4 à 8 plafonds)
+COT_PAT;Cotisations employeurs;AGFF1;AGFF : Non-cadres et cadres (<= 1 plafond)
+COT_PAT;Cotisations employeurs;AGFF2;AGFF : Non-cadres (de 1 à 3 plafonds)
+COT_PAT;Cotisations employeurs;AGFF3;AGFF : Cadres (de 1 à 4 plafonds)
+COT_PAT;Cotisations employeurs;AGFF4;AGFF : Cadres (de 4 à 8 plafonds)
+COT_PAT;Cotisations employeurs;CET;Contribution Exceptionnelle Temporaire (CET) : cadres (<= 8 plafonds)
+COT_PAT;Cotisations employeurs;RET5;Retraite complémentaire, fusion des régimes Agirc et Arrco : Taux appelé pour cadres et non-cadres (<= 1 plafond)
+COT_PAT;Cotisations employeurs;RET6;Retraite complémentaire, fusion des régimes Agirc et Arrco : Taux appelé pour cadres et non-cadres (de 1 à 8 plafonds)
+COT_PAT;Cotisations employeurs;RET7;Retraite complémentaire, fusion des régimes Agirc et Arrco : Contribution d'équilibre général (<= 1 plafond)
+COT_PAT;Cotisations employeurs;RET8;Retraite complémentaire, fusion des régimes Agirc et Arrco : Contribution d'équilibre général (de 1 à 8 plafonds)
+COT_PAT;Cotisations employeurs;RET9;Retraite complémentaire, fusion des régimes Agirc et Arrco : Contribution d'équilibre technique (<= 8 plafonds)
+COT_PAT;Cotisations employeurs;ASS1;Assurance Chômage (<=1 plafond)
+COT_PAT;Cotisations employeurs;ASS2;Assurance Chômage (de 1 à 4 plafonds)
+COT_PAT;Cotisations employeurs;FDG;Fonds de garantie (institué en 1973) (<= 4 plafonds)
+COT_PAT;Cotisations employeurs;CSTR;Construction (sur la totalité du salaire)
+COT_PAT;Cotisations employeurs;FNAL1;Fonds National d'Aide au Logement (<=1 plafond)
+COT_PAT;Cotisations employeurs;FNAL2;Fonds National d'Aide au Logement (> 1 plafond)
+COT_PAT;Cotisations employeurs;APPR;Taxe  d'apprentissage (créée en 1925) + contribution additionnelle (2004-2013) (sur la totalité du salaire)
+COT_PAT;Cotisations employeurs;FPRO;Formation professionnelle (sur la totalité du salaire)
+COT_PAT;Cotisations employeurs;APEC1;APEC (Cadres) (<= 1 plafond)
+COT_PAT;Cotisations employeurs;APEC2;APEC (Cadres) (de 1 à 4 plafonds)
+COT_PAT;Cotisations employeurs;DECES;Prévoyance assurance-décès (cadres) (<= 1 plafond)
+COT_PAT;Cotisations employeurs;PENIB;Cotisation pénibilité (sur la totalité du salaire)
+COT_PAT;Cotisations employeurs;DIAL;Contribution au dialogue social (sur la totalité du salaire)
+COT_SAL;Cotisations salariales;SS1;Sécurité Sociale : Maladie, maternité, invalidité, décès (<= 1 plafond)
+COT_SAL;Cotisations salariales;SS2;Sécurité Sociale : Maladie, maternité, invalidité, décès (> 1 plafond)
+COT_SAL;Cotisations salariales;SS3;Sécurité Sociale : Vieillesse (<= 1 plafond)
+COT_SAL;Cotisations salariales;SS4;Sécurité Sociale : Vieillesse  (> 1 plafond)
+COT_SAL;Cotisations salariales;SS5;Sécurité Sociale : Veuvage (<= 1 plafond)
+COT_SAL;Cotisations salariales;SS6;Sécurité Sociale : Veuvage (> 1 plafond)
+COT_SAL;Cotisations salariales;SS7;Total Sécurité Sociale (<= 1 plafond)
+COT_SAL;Cotisations salariales;SS8;Total Sécurité Sociale (> 1 plafond)
+COT_SAL;Cotisations salariales;RET1;Retraite complémentaire : Non-cadres et cadres (<= 1 plafond)
+COT_SAL;Cotisations salariales;RET2;Retraite complémentaire : Non-cadres (de 1 à 3 plafonds)
+COT_SAL;Cotisations salariales;RET3;Retraite complémentaire : Cadres (de 1 à 4 plafonds)
+COT_SAL;Cotisations salariales;RET4;Retraite complémentaire : Cadres (de 4 à 8 plafonds)
+COT_SAL;Cotisations salariales;AGFF1;AGFF : Non-cadres et cadres (<= 1 plafond)
+COT_SAL;Cotisations salariales;AGFF2;AGFF : Non-cadres (de 1 à 3 plafonds)
+COT_SAL;Cotisations salariales;AGFF3;AGFF : Cadres (de 1 à 4 plafonds)
+COT_SAL;Cotisations salariales;AGFF4;AGFF : Cadres (de 4 à 8 plafonds)
+COT_SAL;Cotisations salariales;CET;Contribution Exceptionnelle Temporaire (CET) : cadres (<= 8 plafonds)
+COT_SAL;Cotisations salariales;RET5;Retraite complémentaire, fusion des régimes Agirc et Arrco : Taux appelé pour cadres et non-cadres (<= 1 plafond)
+COT_SAL;Cotisations salariales;RET6;Retraite complémentaire, fusion des régimes Agirc et Arrco : Taux appelé pour cadres et non-cadres (de 1 à 8 plafonds)
+COT_SAL;Cotisations salariales;RET7;Retraite complémentaire, fusion des régimes Agirc et Arrco : Contribution d'équilibre général (<= 1 plafond)
+COT_SAL;Cotisations salariales;RET8;Retraite complémentaire, fusion des régimes Agirc et Arrco : Contribution d'équilibre général (de 1 à 8 plafonds)
+COT_SAL;Cotisations salariales;RET9;Retraite complémentaire, fusion des régimes Agirc et Arrco : Contribution d'équilibre technique (<= 8 plafonds)
+COT_SAL;Cotisations salariales;ASS1;Assedic (chômage et ASF) (<= 1 plafond)
+COT_SAL;Cotisations salariales;ASS2;Assedic (chômage et ASF) (de 1 à 4 plafonds)
+COT_SAL;Cotisations salariales;APEC1;APEC (Cadres) (<= 1 plafond)
+COT_SAL;Cotisations salariales;APEC2;APEC (Cadres) (de 1 à 4 plafonds)
+COT_SAL;Cotisations salariales;CSG1;CSG et CRDS (<= 4 plafonds)
+COT_SAL;Cotisations salariales;CSG2;CSG et CRDS (> 4 plafonds)
+CSP;Catégorie socioprofessionnelle;CSP1;Cadres supérieurs
+CSP;Catégorie socioprofessionnelle;CSP2;Cadres moyens
+CSP;Catégorie socioprofessionnelle;CSP3;Employés
+CSP;Catégorie socioprofessionnelle;CSP4;Ouvriers
+CSP;Catégorie socioprofessionnelle;CSP5;dont contremaîtres
+CSP;Catégorie socioprofessionnelle;CSP6;Personnel de service et autre
+DIST;Distribution des coûts salariaux;COUT_SMIC;Coût d'un salarié au Smic
+DIST;Distribution des coûts salariaux;COUT_D1;Coût d'un salarié dont le salaire est égal au 1er décile (D1)
+DIST;Distribution des coûts salariaux;COUT_D5;Coût d'un salarié dont le salaire est égal à la médiane (D5)
+DIST;Distribution des coûts salariaux;COUT_D9;Coût d'un salarié dont le salaire est égal au 9e décile (D9)
+DIST;Distribution des coûts salariaux;CT9_CT1;Rapport 9e décile / 1er décile (D9/D1)
+DIST;Distribution des coûts salariaux;CT9_CT5;Rapport 9e décile / médiane (D9/D5)
+DIST;Distribution des coûts salariaux;CT5_CT1;Rapport médiane / 1er décile (D5/D1)
+DISTRIB;Indicateurs de dispersion;MOYENNE;Salaire net annuel moyen
+DISTRIB;Indicateurs de dispersion;D1;1er décile (D1)
+DISTRIB;Indicateurs de dispersion;Q1;1er quartile (Q1)
+DISTRIB;Indicateurs de dispersion;D5;Médiane (D5)
+DISTRIB;Indicateurs de dispersion;Q3;3e quartile (Q3)
+DISTRIB;Indicateurs de dispersion;D9;9e décile (D9)
+DISTRIB;Indicateurs de dispersion;C95;95e centile (C95)
+DISTRIB;Indicateurs de dispersion;C99;99e centile (C99)
+DISTRIB;Indicateurs de dispersion;ECART1;D9/D1
+DISTRIB;Indicateurs de dispersion;ECART2;D9/D5
+DISTRIB;Indicateurs de dispersion;ECART3;D5/D1
+EVOL_CONSTANT;Évolutions en euros constants;SHBO;Salaire horaire de base des ouvriers (SHBO) brut
+EVOL_CONSTANT;Évolutions en euros constants;SMB;Salaire mensuel de base (SMB)
+EVOL_CONSTANT;Évolutions en euros constants;SMICB39;Smic brut mensuel (pour 40 puis 39 heures)
+EVOL_CONSTANT;Évolutions en euros constants;SMICB35;Smic brut mensuel (pour 35 heures)
+EVOL_CONSTANT;Évolutions en euros constants;SMICN39;Smic net mensuel (pour 40 puis 39 heures)
+EVOL_CONSTANT;Évolutions en euros constants;SMICN35;Smic net mensuel (pour 35 heures)
+EVOL_CONSTANT;Évolutions en euros constants;PLFB;Plafond brut
+EVOL_CONSTANT;Évolutions en euros constants;PLFN;Plafond net
+EVOL_CONSTANT;Évolutions en euros constants;SNAM_TC;Salaire net moyen des salariés à temps complet
+EVOL_COURANT;Évolutions en euros courants;SHBO;Salaire horaire de base des ouvriers (SHBO) brut
+EVOL_COURANT;Évolutions en euros courants;SMB;Salaire mensuel de base (SMB)
+EVOL_COURANT;Évolutions en euros courants;SMICB39;Smic brut mensuel (pour 40 puis 39 heures)
+EVOL_COURANT;Évolutions en euros courants;SMICB35;Smic brut mensuel (pour 35 heures)
+EVOL_COURANT;Évolutions en euros courants;SMICN39;Smic net mensuel (pour 40 puis 39 heures)
+EVOL_COURANT;Évolutions en euros courants;SMICN35;Smic net mensuel (pour 35 heures)
+EVOL_COURANT;Évolutions en euros courants;PLFB;Plafond brut
+EVOL_COURANT;Évolutions en euros courants;PLFN;Plafond net
+EVOL_COURANT;Évolutions en euros courants;SNAM_TC;Salaire net moyen des salariés à temps complet
+EVOL_COURANT;Évolutions en euros courants;IPC;Prix
+INDICATEUR1;Montant;SALAIRE;Montant en euros
+INDICATEUR2;Indice;INFLATION;Indice base 100 en 1951
+IND_CONSTANT_35H;Indices en euros constants;SHBO;Salaire horaire de base des ouvriers (SHBO) brut
+IND_CONSTANT_35H;Indices en euros constants;SMICBM;Smic brut mensuel
+IND_CONSTANT_35H;Indices en euros constants;SMICNM;Smic net mensuel
+IND_CONSTANT_35H;Indices en euros constants;PLFB;Plafond brut
+IND_CONSTANT_35H;Indices en euros constants;PLFN;Plafond net
+IND_CONSTANT_35H;Indices en euros constants;SNAM_TC;Salaire net moyen des salariés à temps complet
+IND_CONSTANT_35H;Indices en euros constants;SNAM_EQTP;Salaire net moyen en équivalent temps plein (EQTP)
+IND_CONSTANT_39H;Indices en euros constants;SHBO;Salaire horaire de base des ouvriers (SHBO) brut
+IND_CONSTANT_39H;Indices en euros constants;SMICBM;Smic brut mensuel
+IND_CONSTANT_39H;Indices en euros constants;SMICNM;Smic net mensuel
+IND_CONSTANT_39H;Indices en euros constants;PLFB;Plafond brut
+IND_CONSTANT_39H;Indices en euros constants;PLFN;Plafond net
+IND_CONSTANT_39H;Indices en euros constants;SNAM_TC;Salaire net moyen des salariés à temps complet
+IND_COURANT_35H;Indices en euros courants;SHBO;Salaire horaire de base des ouvriers (SHBO) brut
+IND_COURANT_35H;Indices en euros courants;SMICBM;Smic brut mensuel
+IND_COURANT_35H;Indices en euros courants;SMICNM;Smic net mensuel
+IND_COURANT_35H;Indices en euros courants;PLFB;Plafond brut
+IND_COURANT_35H;Indices en euros courants;PLFN;Plafond net
+IND_COURANT_35H;Indices en euros courants;SNAM_TC;Salaire net moyen des salariés à temps complet
+IND_COURANT_35H;Indices en euros courants;SNAM_EQTP;Salaire net moyen en équivalent temps plein (EQTP)
+IND_COURANT_35H;Indices en euros courants;IPC;Prix
+IND_COURANT_39H;Indices en euros courants;SHBO;Salaire horaire de base des ouvriers (SHBO) brut
+IND_COURANT_39H;Indices en euros courants;SMICBM;Smic brut mensuel
+IND_COURANT_39H;Indices en euros courants;SMICNM;Smic net mensuel
+IND_COURANT_39H;Indices en euros courants;PLFB;Plafond brut
+IND_COURANT_39H;Indices en euros courants;PLFN;Plafond net
+IND_COURANT_39H;Indices en euros courants;SNAM_TC;Salaire net moyen des salariés à temps complet
+IND_COURANT_39H;Indices en euros courants;IPC;Prix
+IND_GLOBAL;Indicateurs;SALAIRE;Salaire en euros courants
+IND_GLOBAL;Indicateurs;EVO;Évolution annuelle (en %)
+IND_GLOBAL;Indicateurs;PRIX;Évolution de l’indice des prix y compris tabac (en %)
+IND_GLOBAL;Indicateurs;EVO_CST;Évolution en euros constants (en %)
+IND_GLOBAL;Indicateurs;INDICE;Indice base 100 en 1996 (en euros constants)
+IND_GLOBAL2;Indicateurs;SALAIRE;Salaire en euros courants
+IND_GLOBAL2;Indicateurs;EVO;Évolution annuelle (en %)
+IND_GLOBAL2;Indicateurs;PRIX;Évolution de l’indice des prix y compris tabac (en %)
+IND_GLOBAL2;Indicateurs;EVO_CST;Évolution en euros constants (en %)
+IND_GLOBAL2;Indicateurs;INDICE;Indice base 100 en 1951 (en euros constants)
+NAP1;Secteur d’activité (NAP);S1;Énergie
+NAP1;Secteur d’activité (NAP);S2;Industrie y compris construction
+NAP1;Secteur d’activité (NAP);S3;Transports et télécommunications
+NAP1;Secteur d’activité (NAP);S4;Commerce
+NAP1;Secteur d’activité (NAP);S5;Services
+NAP2;Secteur d’activité détaillé (NAP);S1;Industries agroalimentaires
+NAP2;Secteur d’activité détaillé (NAP);S2;Industries de biens intermédiaires
+NAP2;Secteur d’activité détaillé (NAP);S3;Industries de biens d'équipement
+NAP2;Secteur d’activité détaillé (NAP);S4;Industrie textile, cuir, bois
+NAP2;Secteur d’activité détaillé (NAP);S5;Pharmacie, parachimie
+NAP2;Secteur d’activité détaillé (NAP);S6;Presse, édition
+NAP2;Secteur d’activité détaillé (NAP);S7;Bâtiment Travaux Publics
+NAP2;Secteur d’activité détaillé (NAP);S8;Commerce de gros
+NAP2;Secteur d’activité détaillé (NAP);S9;Commerce de détail
+NAP2;Secteur d’activité détaillé (NAP);S10;Réparation commerce automobile
+NAP2;Secteur d’activité détaillé (NAP);S11;Hôtels cafés restaurants
+NAP2;Secteur d’activité détaillé (NAP);S12;Transports et télécommunications
+NAP2;Secteur d’activité détaillé (NAP);S13;Services marchands aux entreprises
+NAP2;Secteur d’activité détaillé (NAP);S14;Services marchands aux particuliers
+NAP2;Secteur d’activité détaillé (NAP);S15;Banques et assurances
+NAP2;Secteur d’activité détaillé (NAP);S16;Services non marchands
+PCS;Catégorie socioprofessionnelle;E;Ensemble
+PCS;Catégorie socioprofessionnelle;PCS1;Cadres y compris chefs d’entreprise
+PCS;Catégorie socioprofessionnelle;PCS2;Professions intermédiaires
+PCS;Catégorie socioprofessionnelle;PCS3;Employés
+PCS;Catégorie socioprofessionnelle;PCS4;Ouvriers
+PLF;Plafond et taux de cotisations sous plafond;PLFB;Plafond mensuel brut (en euros)
+PLF;Plafond et taux de cotisations sous plafond;PLFN;Plafond mensuel net de prélèvements (en euros)
+PLF;Plafond et taux de cotisations sous plafond;COUT_PLF;Coût pour l'employeur quand salaire brut = 1 plafond (en euros)
+PLF;Plafond et taux de cotisations sous plafond;COT_SAL;Taux de cotisations salariales (y.c. CSG) pour salaires <= 1 plafond
+PLF;Plafond et taux de cotisations sous plafond;COT_PAT;Taux de cotisations employeurs pour salaires <= 1 plafond
+PLF;Plafond et taux de cotisations sous plafond;COT_SMIC39;Taux de cotisations employeurs pour salaire = smic, pour une entreprise aux 39h
+PLF;Plafond et taux de cotisations sous plafond;COT_SMIC35;Taux de cotisations employeurs pour salaire = smic, pour une entreprise aux 35h
+PRELEV;Niveau de salaire et taux de prélèvement;SMICN;Smic net
+PRELEV;Niveau de salaire et taux de prélèvement;PLFN;Plafond net
+PRELEV;Niveau de salaire et taux de prélèvement;S2PLFN;Salaire net pour brut = 2 plafonds
+PRELEV;Niveau de salaire et taux de prélèvement;COUT_SMIC;Coût d'un salarié au smic
+PRELEV;Niveau de salaire et taux de prélèvement;COUT_PLF;Coût employeur pour brut = 1 plafond
+PRELEV;Niveau de salaire et taux de prélèvement;COUT_2PLF;Coût employeur pour brut = 2 plafonds
+PRELEV;Niveau de salaire et taux de prélèvement;PRELEV_SMIC;Taux de prélèvement sur salaire = smic
+PRELEV;Niveau de salaire et taux de prélèvement;PRELEV_PLF;Taux de prélèvement sur salaire = 1 plafond
+PRELEV;Niveau de salaire et taux de prélèvement;PRELEV_2PLF;Taux de prélèvement sur salaire = 2 plafonds
+REGION;Région de résidence;E;Ensemble
+REGION;Région de résidence;R84;Auvergne-Rhône-Alpes
+REGION;Région de résidence;R27;Bourgogne-Franche-Comté
+REGION;Région de résidence;R53;Bretagne
+REGION;Région de résidence;R24;Centre-Val de Loire
+REGION;Région de résidence;R94;Corse
+REGION;Région de résidence;R44;Grand Est
+REGION;Région de résidence;R32;Hauts-de-France
+REGION;Région de résidence;R11;Île-de-France
+REGION;Région de résidence;R28;Normandie
+REGION;Région de résidence;R75;Nouvelle-Aquitaine
+REGION;Région de résidence;R76;Occitanie
+REGION;Région de résidence;R52;Pays de la Loire
+REGION;Région de résidence;R93;Provence-Alpes-Côte d'Azur
+REGION;Région de résidence;R1;Guadeloupe
+REGION;Région de résidence;R2;Martinique
+REGION;Région de résidence;R3;Guyane
+REGION;Région de résidence;R4;La Réunion
+SECTEUR1;Secteur d'activité;E;Ensemble
+SECTEUR1;Secteur d'activité;S1;Industrie
+SECTEUR1;Secteur d'activité;S2;Construction
+SECTEUR1;Secteur d'activité;S3;Commerce
+SECTEUR1;Secteur d'activité;S4;Services
+SECTEUR2;Secteur d’activité en A17;E;Ensemble
+SECTEUR2;Secteur d’activité en A17;DE;Énergie, eau, déchets
+SECTEUR2;Secteur d’activité en A17;C1;Industries agro-alimentaires
+SECTEUR2;Secteur d’activité en A17;C2;Cokéfaction et raffinage
+SECTEUR2;Secteur d’activité en A17;C3;Biens d'équipement
+SECTEUR2;Secteur d’activité en A17;C4;Matériels de transport
+SECTEUR2;Secteur d’activité en A17;C5;Autres branches industrielles
+SECTEUR2;Secteur d’activité en A17;FZ;Construction
+SECTEUR2;Secteur d’activité en A17;GZ;Commerce
+SECTEUR2;Secteur d’activité en A17;HZ;Transport
+SECTEUR2;Secteur d’activité en A17;IZ;Hébergement-restauration
+SECTEUR2;Secteur d’activité en A17;JZ;Information-communication
+SECTEUR2;Secteur d’activité en A17;KZ;Services financiers
+SECTEUR2;Secteur d’activité en A17;LZ;Services immobiliers
+SECTEUR2;Secteur d’activité en A17;MN;Services aux entreprises
+SECTEUR2;Secteur d’activité en A17;OQ;Services non marchands
+SECTEUR2;Secteur d’activité en A17;RU;Services aux ménages
+SEXE;Sexe;E;Ensemble
+SEXE;Sexe;H;Hommes
+SEXE;Sexe;F;Femmes
+SMIC;Salaire minimum;DUREE;Durée légale mensuelle (en heures)
+SMIC;Salaire minimum;SMICBH;Salaire minimum brut horaire
+SMIC;Salaire minimum;SMICBM;Salaire minimum brut mensuel
+SMIC;Salaire minimum;SMICBA;Salaire minimum brut annuel
+SMIC;Salaire minimum;SMICNH;Salaire minimum horaire net de prélèvements
+SMIC;Salaire minimum;SMICNM;Salaire minimum mensuel net de prélèvements
+SMIC;Salaire minimum;SMICNA;Salaire minimum annuel net de prélèvements
+SMIC;Salaire minimum;COUT_SMICM;Coût mensuel d'un salarié au Smic
+SMIC;Salaire minimum;COUT_SMICA;Coût annuel d'un salarié au Smic
+TAILLE;Taille d’établissement;E;Ensemble
+TAILLE;Taille d’établissement;T1;Moins de 10 salariés
+TAILLE;Taille d’établissement;T2;De 10 à 49 salariés
+TAILLE;Taille d’établissement;T3;De 50 à 199 salariés
+TAILLE;Taille d’établissement;T4;De 200 à 499 salariés
+TAILLE;Taille d’établissement;T5;De 500 à 999 salariés
+TAILLE;Taille d’établissement;T6;Plus de 1000 salariés
+TX_COT;Taux de cotisations sociales;INF1NC;Sur la partie du salaire <= 1 plafond (non-cadres)
+TX_COT;Taux de cotisations sociales;INF1C;Sur la partie du salaire <= 1 plafond (cadres)
+TX_COT;Taux de cotisations sociales;DE1A3NC;Sur la partie du salaire comprise entre 1 et 3 plafonds (non-cadres)
+TX_COT;Taux de cotisations sociales;DE1A3C;Sur la partie du salaire comprise entre 1 et 3 plafonds (cadres)
+TX_COT;Taux de cotisations sociales;DE3A4NC;Sur la partie du salaire comprise entre 3 et 4 plafonds (non-cadres)
+TX_COT;Taux de cotisations sociales;DE3A4C;Sur la partie du salaire comprise entre 3 et 4 plafonds (cadres)
+TX_COT;Taux de cotisations sociales;DE4A8NC;Sur la partie du salaire comprise entre 4 et 8 plafonds (non-cadres)
+TX_COT;Taux de cotisations sociales;DE4A8C;Sur la partie du salaire comprise entre 4 et 8 plafonds (cadres)
+TX_COT;Taux de cotisations sociales;SUP8NC;Sur la partie du salaire > à 8 plafonds (non-cadres)
+TX_COT;Taux de cotisations sociales;SUP8C;Sur la partie du salaire > à 8 plafonds (cadres)
