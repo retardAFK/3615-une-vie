@@ -1,0 +1,358 @@
+{
+  "module": "mouvements",
+  "source": "Participation aux grands mouvements sociaux dates de contenu/contexte/mouvements.json. Probabilites de travail, a calibrer.",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "id": "mvt_ev_mai_68",
+      "module": "mouvements",
+      "age": [14, 70],
+      "pBase": 0.35,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "participer",
+          "libelle": "PARTICIPER",
+          "cout": {
+            "jauges": {
+              "santePhysique": -1
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "police"
+              },
+              "m": 1.5,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.6
+            },
+            {
+              "trait": "ambition",
+              "k": -0.2
+            }
+          ],
+          "journal": "TU MANIFESTES."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER A L'ECART",
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.6
+            }
+          ],
+          "journal": "TU RESTES A L'ECART."
+        }
+      ],
+      "unique": true,
+      "gravite": 1,
+      "tags": ["mouvement"],
+      "textes": [
+        "MAI 68 : GREVES ET MANIFESTATIONS PARTOUT. TU Y VAS ?",
+        "{annee} : LES USINES ET LES FACS SONT OCCUPEES. A TOI DE CHOISIR."
+      ],
+      "annees": [1968, 1968]
+    },
+    {
+      "id": "mvt_ev_greves_1995",
+      "module": "mouvements",
+      "age": [16, 75],
+      "pBase": 0.35,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "participer",
+          "libelle": "PARTICIPER",
+          "cout": {
+            "jauges": {
+              "santePhysique": -1
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "police"
+              },
+              "m": 1.5,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.6
+            },
+            {
+              "trait": "ambition",
+              "k": -0.2
+            }
+          ],
+          "journal": "TU MANIFESTES."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER A L'ECART",
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.6
+            }
+          ],
+          "journal": "TU RESTES A L'ECART."
+        }
+      ],
+      "unique": true,
+      "gravite": 1,
+      "tags": ["mouvement"],
+      "textes": [
+        "DECEMBRE 1995 : PLUS DE TRAINS, PLUS DE METROS. LES CORTEGES DEFILENT. TU Y VAS ?",
+        "{annee} : GREVES CONTRE LE PLAN JUPPE. A TOI DE CHOISIR."
+      ],
+      "annees": [1995, 1995]
+    },
+    {
+      "id": "mvt_ev_cpe",
+      "module": "mouvements",
+      "age": [15, 26],
+      "requiert": {
+        "scolarite": ["lycee", "superieur"]
+      },
+      "pBase": 0.35,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "participer",
+          "libelle": "PARTICIPER",
+          "cout": {
+            "jauges": {
+              "santePhysique": -1
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "police"
+              },
+              "m": 1.5,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.6
+            },
+            {
+              "trait": "ambition",
+              "k": -0.2
+            }
+          ],
+          "journal": "TU MANIFESTES."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER A L'ECART",
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.6
+            }
+          ],
+          "journal": "TU RESTES A L'ECART."
+        }
+      ],
+      "unique": true,
+      "gravite": 1,
+      "tags": ["mouvement"],
+      "textes": [
+        "LYCEES ET FACS BLOQUES CONTRE LE CPE. TU REJOINS LE MOUVEMENT ?",
+        "{annee} : ASSEMBLEE GENERALE CONTRE LE CONTRAT PREMIERE EMBAUCHE. A TOI DE CHOISIR."
+      ],
+      "annees": [2006, 2006]
+    },
+    {
+      "id": "mvt_ev_retraites_2010",
+      "module": "mouvements",
+      "age": [16, 75],
+      "pBase": 0.35,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "participer",
+          "libelle": "PARTICIPER",
+          "cout": {
+            "jauges": {
+              "santePhysique": -1
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "police"
+              },
+              "m": 1.5,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.6
+            },
+            {
+              "trait": "ambition",
+              "k": -0.2
+            }
+          ],
+          "journal": "TU MANIFESTES."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER A L'ECART",
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.6
+            }
+          ],
+          "journal": "TU RESTES A L'ECART."
+        }
+      ],
+      "unique": true,
+      "gravite": 1,
+      "tags": ["mouvement"],
+      "textes": [
+        "RETRAITE A 62 ANS : LES SYNDICATS APPELLENT A MANIFESTER. TU Y VAS ?",
+        "{annee} : JOURNEE DE MOBILISATION CONTRE LA REFORME DES RETRAITES. A TOI DE CHOISIR."
+      ],
+      "annees": [2010, 2010]
+    },
+    {
+      "id": "mvt_ev_gilets_jaunes",
+      "module": "mouvements",
+      "age": [18, 90],
+      "pBase": 0.35,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "participer",
+          "libelle": "PARTICIPER",
+          "cout": {
+            "jauges": {
+              "santePhysique": -1
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "police"
+              },
+              "m": 1.5,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.6
+            },
+            {
+              "trait": "ambition",
+              "k": -0.2
+            }
+          ],
+          "journal": "TU MANIFESTES."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER A L'ECART",
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.6
+            }
+          ],
+          "journal": "TU RESTES A L'ECART."
+        }
+      ],
+      "unique": true,
+      "gravite": 1,
+      "tags": ["mouvement"],
+      "textes": [
+        "LES GILETS JAUNES OCCUPENT LE ROND-POINT PRES DE CHEZ TOI. TU LES REJOINS ?",
+        "{annee} : CHAQUE SAMEDI, DES MANIFESTATIONS. A TOI DE CHOISIR."
+      ],
+      "annees": [2018, 2019]
+    },
+    {
+      "id": "mvt_ev_retraites_2023",
+      "module": "mouvements",
+      "age": [16, 80],
+      "pBase": 0.35,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "participer",
+          "libelle": "PARTICIPER",
+          "cout": {
+            "jauges": {
+              "santePhysique": -1
+            }
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "police"
+              },
+              "m": 1.5,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.6
+            },
+            {
+              "trait": "ambition",
+              "k": -0.2
+            }
+          ],
+          "journal": "TU MANIFESTES."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER A L'ECART",
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.6
+            }
+          ],
+          "journal": "TU RESTES A L'ECART."
+        }
+      ],
+      "unique": true,
+      "gravite": 1,
+      "tags": ["mouvement"],
+      "textes": [
+        "RETRAITE A 64 ANS : GREVES ET MANIFESTATIONS. TU Y VAS ?",
+        "{annee} : NOUVELLE JOURNEE DE MOBILISATION. A TOI DE CHOISIR."
+      ],
+      "annees": [2023, 2023]
+    }
+  ]
+}

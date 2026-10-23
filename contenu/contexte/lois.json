@@ -1,0 +1,286 @@
+{
+  "source": "Lois et textes reglementaires francais, cites par leur numero et leur date (Journal officiel). Regles du jeu, section 12.",
+  "entrees": [
+    {
+      "id": "loi_berthoin",
+      "type": "loi",
+      "debut": 1959,
+      "fin": 1959,
+      "portee": "france",
+      "titre": "ECOLE OBLIGATOIRE JUSQU'A 16 ANS",
+      "texte": "LA REFORME BERTHOIN PROLONGE LA SCOLARITE OBLIGATOIRE A 16 ANS POUR LES ENFANTS NES A PARTIR DE 1953.",
+      "source": "Ordonnance n° 59-45 du 6 janvier 1959 portant prolongation de la scolarite obligatoire."
+    },
+    {
+      "id": "loi_femmes_mariees",
+      "type": "loi",
+      "debut": 1965,
+      "fin": 1965,
+      "portee": "france",
+      "titre": "LES FEMMES MARIEES LIBRES DE TRAVAILLER",
+      "texte": "UNE FEMME MARIEE PEUT DESORMAIS EXERCER UN METIER ET OUVRIR UN COMPTE EN BANQUE SANS L'ACCORD DE SON MARI.",
+      "source": "Loi n° 65-570 du 13 juillet 1965 portant reforme des regimes matrimoniaux."
+    },
+    {
+      "id": "loi_neuwirth",
+      "type": "loi",
+      "debut": 1967,
+      "fin": 1967,
+      "portee": "france",
+      "titre": "LA CONTRACEPTION AUTORISEE",
+      "texte": "LA LOI NEUWIRTH AUTORISE LA CONTRACEPTION.",
+      "source": "Loi n° 67-1176 du 28 decembre 1967 relative a la regulation des naissances (loi Neuwirth)."
+    },
+    {
+      "id": "loi_stupefiants",
+      "type": "loi",
+      "debut": 1971,
+      "fin": 1971,
+      "portee": "france",
+      "titre": "LOI SUR LES STUPEFIANTS",
+      "texte": "L'USAGE DE STUPEFIANTS DEVIENT UN DELIT.",
+      "source": "Loi n° 70-1320 du 31 decembre 1970 relative aux mesures sanitaires de lutte contre la toxicomanie."
+    },
+    {
+      "id": "loi_majorite",
+      "type": "loi",
+      "debut": 1974,
+      "fin": 1974,
+      "portee": "france",
+      "titre": "MAJORITE A 18 ANS",
+      "texte": "L'AGE DE LA MAJORITE PASSE DE 21 A 18 ANS.",
+      "source": "Loi n° 74-631 du 5 juillet 1974 fixant a dix-huit ans l'age de la majorite."
+    },
+    {
+      "id": "loi_veil",
+      "type": "loi",
+      "debut": 1975,
+      "fin": 1975,
+      "portee": "france",
+      "titre": "LOI VEIL : L'IVG DEPENALISEE",
+      "texte": "L'INTERRUPTION VOLONTAIRE DE GROSSESSE EST AUTORISEE.",
+      "source": "Loi n° 75-17 du 17 janvier 1975 relative a l'interruption volontaire de la grossesse (loi Veil)."
+    },
+    {
+      "id": "loi_divorce",
+      "type": "loi",
+      "debut": 1975,
+      "fin": 1975,
+      "portee": "france",
+      "titre": "DIVORCE PAR CONSENTEMENT MUTUEL",
+      "texte": "LES COUPLES PEUVENT DESORMAIS DIVORCER D'UN COMMUN ACCORD.",
+      "source": "Loi n° 75-617 du 11 juillet 1975 portant reforme du divorce."
+    },
+    {
+      "id": "loi_haby",
+      "type": "loi",
+      "debut": 1975,
+      "fin": 1975,
+      "portee": "france",
+      "titre": "COLLEGE UNIQUE",
+      "texte": "TOUS LES ELEVES ENTRENT DANS LE MEME COLLEGE APRES LE PRIMAIRE.",
+      "source": "Loi n° 75-620 du 11 juillet 1975 relative a l'education (loi Haby)."
+    },
+    {
+      "id": "loi_peine_de_mort",
+      "type": "loi",
+      "debut": 1981,
+      "fin": 1981,
+      "portee": "france",
+      "titre": "ABOLITION DE LA PEINE DE MORT",
+      "texte": "LA FRANCE ABOLIT LA PEINE DE MORT.",
+      "source": "Loi n° 81-908 du 9 octobre 1981 portant abolition de la peine de mort."
+    },
+    {
+      "id": "loi_retraite_60",
+      "type": "loi",
+      "debut": 1982,
+      "fin": 1982,
+      "portee": "france",
+      "titre": "RETRAITE A 60 ANS",
+      "texte": "L'AGE DE LA RETRAITE PASSE A 60 ANS. LA SEMAINE DE TRAVAIL PASSE A 39 HEURES, AVEC UNE CINQUIEME SEMAINE DE CONGES PAYES.",
+      "source": "Ordonnance n° 82-270 du 26 mars 1982 ; ordonnance n° 82-41 du 16 janvier 1982 (39 heures et cinquieme semaine de conges)."
+    },
+    {
+      "id": "loi_bac_pro",
+      "type": "loi",
+      "debut": 1987,
+      "fin": 2130,
+      "portee": "france",
+      "titre": "PREMIERS BACS PROFESSIONNELS",
+      "texte": "CREE EN 1985, LE BAC PROFESSIONNEL EST DELIVRE POUR LA PREMIERE FOIS.",
+      "source": "Decret n° 85-1267 du 27 novembre 1985 portant creation du baccalaureat professionnel ; premiere session en 1987.",
+      "regles": { "bacPro": true }
+    },
+    {
+      "id": "loi_rmi",
+      "type": "loi",
+      "debut": 1988,
+      "fin": 1988,
+      "portee": "france",
+      "titre": "CREATION DU RMI",
+      "texte": "LE REVENU MINIMUM D'INSERTION EST CREE POUR LES PERSONNES SANS RESSOURCES.",
+      "source": "Loi n° 88-1088 du 1er decembre 1988 relative au revenu minimum d'insertion."
+    },
+    {
+      "id": "loi_evin",
+      "type": "loi",
+      "debut": 1991,
+      "fin": 1991,
+      "portee": "france",
+      "titre": "LOI EVIN",
+      "texte": "LA PUBLICITE POUR LE TABAC ET L'ALCOOL EST STRICTEMENT ENCADREE.",
+      "source": "Loi n° 91-32 du 10 janvier 1991 relative a la lutte contre le tabagisme et l'alcoolisme (loi Evin)."
+    },
+    {
+      "id": "loi_balladur",
+      "type": "loi",
+      "debut": 1993,
+      "fin": 1993,
+      "portee": "france",
+      "titre": "REFORME DES RETRAITES DU PRIVE",
+      "texte": "LA PENSION DU PRIVE SE CALCULE SUR LES 25 MEILLEURES ANNEES, AVEC 40 ANS DE COTISATION.",
+      "source": "Loi n° 93-936 du 22 juillet 1993 relative aux pensions de retraite et decret n° 93-1022 du 27 aout 1993 (reforme Balladur)."
+    },
+    {
+      "id": "loi_service_national",
+      "type": "loi",
+      "debut": 1997,
+      "fin": 1997,
+      "portee": "france",
+      "titre": "FIN DU SERVICE MILITAIRE OBLIGATOIRE",
+      "texte": "LE SERVICE NATIONAL EST SUSPENDU POUR LES JEUNES NES APRES 1978.",
+      "source": "Loi n° 97-1019 du 28 octobre 1997 portant reforme du service national."
+    },
+    {
+      "id": "loi_pacs",
+      "type": "loi",
+      "debut": 1999,
+      "fin": 1999,
+      "portee": "france",
+      "titre": "CREATION DU PACS",
+      "texte": "LE PACTE CIVIL DE SOLIDARITE OFFRE UN CADRE AUX COUPLES NON MARIES.",
+      "source": "Loi n° 99-944 du 15 novembre 1999 relative au pacte civil de solidarite."
+    },
+    {
+      "id": "loi_cmu",
+      "type": "loi",
+      "debut": 2000,
+      "fin": 2000,
+      "portee": "france",
+      "titre": "COUVERTURE MALADIE UNIVERSELLE",
+      "texte": "LA CMU OUVRE L'ASSURANCE MALADIE A TOUS LES RESIDENTS.",
+      "source": "Loi n° 99-641 du 27 juillet 1999 portant creation d'une couverture maladie universelle, en vigueur au 1er janvier 2000."
+    },
+    {
+      "id": "loi_35_heures",
+      "type": "loi",
+      "debut": 2000,
+      "fin": 2000,
+      "portee": "france",
+      "titre": "LES 35 HEURES",
+      "texte": "LA DUREE LEGALE DU TRAVAIL PASSE A 35 HEURES PAR SEMAINE.",
+      "source": "Loi n° 98-461 du 13 juin 1998 et loi n° 2000-37 du 19 janvier 2000 relatives a la reduction du temps de travail (lois Aubry)."
+    },
+    {
+      "id": "loi_euro",
+      "type": "loi",
+      "debut": 2002,
+      "fin": 2002,
+      "portee": "france",
+      "titre": "L'EURO DANS LES PORTE-MONNAIE",
+      "texte": "LES PIECES ET BILLETS EN EUROS REMPLACENT LE FRANC.",
+      "source": "Reglement (CE) n° 974/98 du Conseil du 3 mai 1998 concernant l'introduction de l'euro ; mise en circulation le 1er janvier 2002."
+    },
+    {
+      "id": "loi_fillon",
+      "type": "loi",
+      "debut": 2003,
+      "fin": 2003,
+      "portee": "france",
+      "titre": "REFORME FILLON DES RETRAITES",
+      "texte": "LA DUREE DE COTISATION AUGMENTE ; UN DEPART ANTICIPE EST OUVERT AUX CARRIERES LONGUES.",
+      "source": "Loi n° 2003-775 du 21 aout 2003 portant reforme des retraites (reforme Fillon)."
+    },
+    {
+      "id": "loi_tabac_lieux_publics",
+      "type": "loi",
+      "debut": 2007,
+      "fin": 2007,
+      "portee": "france",
+      "titre": "INTERDICTION DE FUMER DANS LES LIEUX PUBLICS",
+      "texte": "FUMER EST INTERDIT DANS LES LIEUX PUBLICS, PUIS DANS LES CAFES ET RESTAURANTS DES 2008.",
+      "source": "Decret n° 2006-1386 du 15 novembre 2006 fixant les conditions d'application de l'interdiction de fumer dans les lieux affectes a un usage collectif."
+    },
+    {
+      "id": "loi_rsa",
+      "type": "loi",
+      "debut": 2009,
+      "fin": 2009,
+      "portee": "france",
+      "titre": "LE RSA REMPLACE LE RMI",
+      "texte": "LE REVENU DE SOLIDARITE ACTIVE REMPLACE LE RMI ET COMPLETE LES PETITS SALAIRES.",
+      "source": "Loi n° 2008-1249 du 1er decembre 2008 generalisant le revenu de solidarite active, en vigueur le 1er juin 2009."
+    },
+    {
+      "id": "loi_jeux_en_ligne",
+      "type": "loi",
+      "debut": 2010,
+      "fin": 2010,
+      "portee": "france",
+      "titre": "OUVERTURE DES PARIS EN LIGNE",
+      "texte": "LES PARIS SPORTIFS ET LE POKER EN LIGNE DEVIENNENT LEGAUX.",
+      "source": "Loi n° 2010-476 du 12 mai 2010 relative a l'ouverture a la concurrence et a la regulation du secteur des jeux d'argent et de hasard en ligne."
+    },
+    {
+      "id": "loi_woerth",
+      "type": "loi",
+      "debut": 2010,
+      "fin": 2010,
+      "portee": "france",
+      "titre": "RETRAITE A 62 ANS",
+      "texte": "L'AGE LEGAL DE DEPART EST PORTE PROGRESSIVEMENT DE 60 A 62 ANS.",
+      "source": "Loi n° 2010-1330 du 9 novembre 2010 portant reforme des retraites (reforme Woerth)."
+    },
+    {
+      "id": "loi_mariage_pour_tous",
+      "type": "loi",
+      "debut": 2013,
+      "fin": 2013,
+      "portee": "france",
+      "titre": "LE MARIAGE OUVERT A TOUS LES COUPLES",
+      "texte": "LES COUPLES DE MEME SEXE PEUVENT DESORMAIS SE MARIER.",
+      "source": "Loi n° 2013-404 du 17 mai 2013 ouvrant le mariage aux couples de personnes de meme sexe."
+    },
+    {
+      "id": "loi_prime_activite",
+      "type": "loi",
+      "debut": 2016,
+      "fin": 2016,
+      "portee": "france",
+      "titre": "CREATION DE LA PRIME D'ACTIVITE",
+      "texte": "LA PRIME D'ACTIVITE REMPLACE LE RSA ACTIVITE ET LA PRIME POUR L'EMPLOI.",
+      "source": "Loi n° 2015-994 du 17 aout 2015 relative au dialogue social et a l'emploi, en vigueur au 1er janvier 2016."
+    },
+    {
+      "id": "loi_borne",
+      "type": "loi",
+      "debut": 2023,
+      "fin": 2023,
+      "portee": "france",
+      "titre": "RETRAITE A 64 ANS",
+      "texte": "L'AGE LEGAL DE DEPART EST PORTE PROGRESSIVEMENT A 64 ANS.",
+      "source": "Loi n° 2023-270 du 14 avril 2023 de financement rectificative de la securite sociale pour 2023 (reforme Borne)."
+    },
+    {
+      "id": "loi_suspension_retraites",
+      "type": "loi",
+      "debut": 2026,
+      "fin": 2026,
+      "portee": "france",
+      "titre": "SUSPENSION DE LA REFORME DES RETRAITES",
+      "texte": "LE RELEVEMENT DE L'AGE LEGAL EST SUSPENDU POUR LES GENERATIONS 1964 A 1968.",
+      "source": "Loi de financement de la securite sociale pour 2026 (suspension partielle de la reforme de 2023). Regles du jeu, section 12."
+    }
+  ]
+}

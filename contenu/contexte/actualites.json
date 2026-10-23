@@ -1,0 +1,215 @@
+{
+  "source": "Grands evenements francais et internationaux, dates et sources indiques pour chaque entree.",
+  "entrees": [
+    {
+      "id": "act_guerre_algerie",
+      "type": "actualite",
+      "debut": 1954,
+      "fin": 1962,
+      "portee": "france",
+      "titre": "GUERRE D'ALGERIE",
+      "texte": "DES CENTAINES DE MILLIERS DE JEUNES APPELES PARTENT EN ALGERIE.",
+      "source": "Guerre d'Algerie, 1er novembre 1954 - accords d'Evian du 18 mars 1962."
+    },
+    {
+      "id": "act_cinquieme_republique",
+      "type": "actualite",
+      "debut": 1958,
+      "fin": 1958,
+      "portee": "france",
+      "titre": "NAISSANCE DE LA VE REPUBLIQUE",
+      "texte": "UNE NOUVELLE CONSTITUTION EST ADOPTEE PAR REFERENDUM.",
+      "source": "Constitution du 4 octobre 1958, adoptee par le referendum du 28 septembre 1958."
+    },
+    {
+      "id": "act_independance_algerie",
+      "type": "actualite",
+      "debut": 1962,
+      "fin": 1962,
+      "portee": "france",
+      "titre": "FIN DE LA GUERRE D'ALGERIE",
+      "texte": "LES ACCORDS D'EVIAN OUVRENT LA VOIE A L'INDEPENDANCE DE L'ALGERIE.",
+      "source": "Accords d'Evian du 18 mars 1962 ; independance de l'Algerie le 5 juillet 1962."
+    },
+    {
+      "id": "act_apollo_11",
+      "type": "actualite",
+      "debut": 1969,
+      "fin": 1969,
+      "portee": "monde",
+      "titre": "UN HOMME SUR LA LUNE",
+      "texte": "NEIL ARMSTRONG POSE LE PIED SUR LA LUNE. TOUT LE MONDE REGARDE LA TELE.",
+      "source": "NASA, mission Apollo 11, 20 juillet 1969."
+    },
+    {
+      "id": "act_loto",
+      "type": "actualite",
+      "debut": 1976,
+      "fin": 1976,
+      "portee": "france",
+      "titre": "PREMIER TIRAGE DU LOTO",
+      "texte": "LE LOTO NATIONAL FAIT SON PREMIER TIRAGE.",
+      "source": "Loterie nationale, premier tirage du Loto le 19 mai 1976. Regles du jeu, section 12."
+    },
+    {
+      "id": "act_alternance_1981",
+      "type": "actualite",
+      "debut": 1981,
+      "fin": 1981,
+      "portee": "france",
+      "titre": "ALTERNANCE POLITIQUE",
+      "texte": "FRANCOIS MITTERRAND EST ELU PRESIDENT DE LA REPUBLIQUE.",
+      "source": "Conseil constitutionnel, resultats de l'election presidentielle du 10 mai 1981."
+    },
+    {
+      "id": "act_tchernobyl",
+      "type": "actualite",
+      "debut": 1986,
+      "fin": 1986,
+      "portee": "monde",
+      "titre": "CATASTROPHE DE TCHERNOBYL",
+      "texte": "UN REACTEUR NUCLEAIRE EXPLOSE EN UKRAINE SOVIETIQUE.",
+      "source": "AIEA, accident de la centrale de Tchernobyl, 26 avril 1986."
+    },
+    {
+      "id": "act_mur_berlin",
+      "type": "actualite",
+      "debut": 1989,
+      "fin": 1989,
+      "portee": "monde",
+      "titre": "CHUTE DU MUR DE BERLIN",
+      "texte": "LE MUR TOMBE. L'EUROPE DE L'EST S'OUVRE.",
+      "source": "Ouverture du mur de Berlin le 9 novembre 1989."
+    },
+    {
+      "id": "act_banco",
+      "type": "actualite",
+      "debut": 1990,
+      "fin": 1990,
+      "portee": "france",
+      "titre": "PREMIER JEU A GRATTER",
+      "texte": "LE BANCO ARRIVE DANS LES BUREAUX DE TABAC.",
+      "source": "Francaise des jeux, lancement du Banco en 1990. Regles du jeu, section 12."
+    },
+    {
+      "id": "act_maastricht",
+      "type": "actualite",
+      "debut": 1992,
+      "fin": 1992,
+      "portee": "france",
+      "titre": "OUI A MAASTRICHT",
+      "texte": "LES FRANCAIS APPROUVENT DE JUSTESSE LE TRAITE SUR L'UNION EUROPEENNE.",
+      "source": "Referendum du 20 septembre 1992 sur le traite de Maastricht."
+    },
+    {
+      "id": "act_tunnel_manche",
+      "type": "actualite",
+      "debut": 1994,
+      "fin": 1994,
+      "portee": "france",
+      "titre": "OUVERTURE DU TUNNEL SOUS LA MANCHE",
+      "texte": "LA FRANCE ET LE ROYAUME-UNI SONT RELIES PAR LE RAIL.",
+      "source": "Inauguration du tunnel sous la Manche le 6 mai 1994."
+    },
+    {
+      "id": "act_coupe_monde_1998",
+      "type": "actualite",
+      "debut": 1998,
+      "fin": 1998,
+      "portee": "france",
+      "titre": "LA FRANCE CHAMPIONNE DU MONDE",
+      "texte": "LES BLEUS GAGNENT LA COUPE DU MONDE AU STADE DE FRANCE. FOULE SUR LES CHAMPS-ELYSEES.",
+      "source": "FIFA, finale de la Coupe du monde du 12 juillet 1998."
+    },
+    {
+      "id": "act_11_septembre",
+      "type": "actualite",
+      "debut": 2001,
+      "fin": 2001,
+      "portee": "monde",
+      "titre": "ATTENTATS DU 11 SEPTEMBRE",
+      "texte": "DES ATTENTATS FRAPPENT NEW YORK ET WASHINGTON.",
+      "source": "Attentats du 11 septembre 2001 aux Etats-Unis."
+    },
+    {
+      "id": "act_canicule_2003",
+      "type": "actualite",
+      "debut": 2003,
+      "fin": 2003,
+      "portee": "france",
+      "titre": "CANICULE",
+      "texte": "LA CHALEUR D'AOUT FAIT DES MILLIERS DE MORTS PARMI LES PERSONNES AGEES.",
+      "source": "INSERM, surmortalite liee a la canicule d'aout 2003. Regles du jeu, section 12."
+    },
+    {
+      "id": "act_euromillions",
+      "type": "actualite",
+      "debut": 2004,
+      "fin": 2004,
+      "portee": "france",
+      "titre": "LANCEMENT D'EUROMILLIONS",
+      "texte": "UNE LOTERIE COMMUNE A PLUSIEURS PAYS EUROPEENS EST LANCEE.",
+      "source": "FDJ United, lancement d'EuroMillions en fevrier 2004. Regles du jeu, section 12."
+    },
+    {
+      "id": "act_referendum_2005",
+      "type": "actualite",
+      "debut": 2005,
+      "fin": 2005,
+      "portee": "france",
+      "titre": "NON A LA CONSTITUTION EUROPEENNE",
+      "texte": "LES FRANCAIS REJETTENT LE TRAITE CONSTITUTIONNEL EUROPEEN.",
+      "source": "Referendum du 29 mai 2005 sur le traite etablissant une constitution pour l'Europe."
+    },
+    {
+      "id": "act_attentats_2015",
+      "type": "actualite",
+      "debut": 2015,
+      "fin": 2015,
+      "portee": "france",
+      "titre": "ATTENTATS A PARIS",
+      "texte": "LA FRANCE EST FRAPPEE PAR DES ATTENTATS EN JANVIER ET EN NOVEMBRE. LE PAYS EST EN DEUIL.",
+      "source": "Attentats des 7-9 janvier 2015 et du 13 novembre 2015 ; decret n° 2015-1475 du 14 novembre 2015 (etat d'urgence)."
+    },
+    {
+      "id": "act_coupe_monde_2018",
+      "type": "actualite",
+      "debut": 2018,
+      "fin": 2018,
+      "portee": "france",
+      "titre": "DEUXIEME ETOILE",
+      "texte": "LA FRANCE GAGNE UNE NOUVELLE FOIS LA COUPE DU MONDE.",
+      "source": "FIFA, finale de la Coupe du monde du 15 juillet 2018."
+    },
+    {
+      "id": "act_notre_dame",
+      "type": "actualite",
+      "debut": 2019,
+      "fin": 2019,
+      "portee": "france",
+      "titre": "INCENDIE DE NOTRE-DAME",
+      "texte": "LA FLECHE DE NOTRE-DAME DE PARIS S'EFFONDRE DANS LES FLAMMES.",
+      "source": "Incendie de la cathedrale Notre-Dame de Paris, 15 avril 2019."
+    },
+    {
+      "id": "act_ukraine",
+      "type": "actualite",
+      "debut": 2022,
+      "fin": 2022,
+      "portee": "monde",
+      "titre": "GUERRE EN UKRAINE",
+      "texte": "LA RUSSIE ENVAHIT L'UKRAINE. LA GUERRE REVIENT EN EUROPE.",
+      "source": "Invasion de l'Ukraine par la Russie, 24 fevrier 2022."
+    },
+    {
+      "id": "act_jeux_paris",
+      "type": "actualite",
+      "debut": 2024,
+      "fin": 2024,
+      "portee": "france",
+      "titre": "JEUX OLYMPIQUES DE PARIS",
+      "texte": "PARIS ACCUEILLE LES JEUX OLYMPIQUES ET PARALYMPIQUES.",
+      "source": "Comite international olympique, Jeux de la XXXIIIe Olympiade, Paris, 26 juillet - 11 aout 2024."
+    }
+  ]
+}

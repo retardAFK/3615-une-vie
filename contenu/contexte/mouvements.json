@@ -1,0 +1,65 @@
+{
+  "source": "Grands mouvements sociaux francais. Le choix d'y participer est propose par les evenements de contenu/evenements/mouvements.json.",
+  "entrees": [
+    {
+      "id": "mvt_mai_68",
+      "type": "mouvement",
+      "debut": 1968,
+      "fin": 1968,
+      "portee": "france",
+      "titre": "MAI 68",
+      "texte": "ETUDIANTS ET OUVRIERS DANS LA RUE. LA FRANCE EST EN GREVE. LES ACCORDS DE GRENELLE RELEVENT LES BAS SALAIRES.",
+      "source": "Evenements de mai-juin 1968 ; protocole d'accord de Grenelle du 27 mai 1968."
+    },
+    {
+      "id": "mvt_greves_1995",
+      "type": "mouvement",
+      "debut": 1995,
+      "fin": 1995,
+      "portee": "france",
+      "titre": "GREVES DE DECEMBRE 1995",
+      "texte": "LES TRANSPORTS S'ARRETENT CONTRE LA REFORME DE LA SECURITE SOCIALE ET DES RETRAITES.",
+      "source": "Mouvement social de novembre-decembre 1995 contre le plan Juppe."
+    },
+    {
+      "id": "mvt_cpe",
+      "type": "mouvement",
+      "debut": 2006,
+      "fin": 2006,
+      "portee": "france",
+      "titre": "MOUVEMENT CONTRE LE CPE",
+      "texte": "LYCEENS ET ETUDIANTS MANIFESTENT CONTRE LE CONTRAT PREMIERE EMBAUCHE, FINALEMENT RETIRE.",
+      "source": "Loi n° 2006-457 du 21 avril 2006 sur l'acces des jeunes a la vie active, qui remplace le contrat premiere embauche."
+    },
+    {
+      "id": "mvt_retraites_2010",
+      "type": "mouvement",
+      "debut": 2010,
+      "fin": 2010,
+      "portee": "france",
+      "titre": "MANIFESTATIONS CONTRE LA RETRAITE A 62 ANS",
+      "texte": "DES MILLIONS DE MANIFESTANTS CONTRE LA REFORME DES RETRAITES.",
+      "source": "Journees de mobilisation intersyndicale de septembre-octobre 2010 contre la reforme Woerth."
+    },
+    {
+      "id": "mvt_gilets_jaunes",
+      "type": "mouvement",
+      "debut": 2018,
+      "fin": 2019,
+      "portee": "france",
+      "titre": "GILETS JAUNES",
+      "texte": "PARTI D'UNE HAUSSE DES TAXES SUR LE CARBURANT, LE MOUVEMENT OCCUPE LES RONDS-POINTS CHAQUE SAMEDI.",
+      "source": "Mouvement des gilets jaunes, a partir du 17 novembre 2018."
+    },
+    {
+      "id": "mvt_retraites_2023",
+      "type": "mouvement",
+      "debut": 2023,
+      "fin": 2023,
+      "portee": "france",
+      "titre": "MOBILISATION CONTRE LA RETRAITE A 64 ANS",
+      "texte": "GREVES ET MANIFESTATIONS CONTRE LA REFORME BORNE.",
+      "source": "Journees de mobilisation intersyndicale de janvier a juin 2023 contre la reforme des retraites."
+    }
+  ]
+}

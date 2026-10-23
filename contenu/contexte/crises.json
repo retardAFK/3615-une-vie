@@ -1,0 +1,126 @@
+{
+  "source": "Periodes economiques et sanitaires de la France, d'apres la chronologie de la section 12 des regles. Les effets chiffres sont des valeurs de travail, a calibrer.",
+  "entrees": [
+    {
+      "id": "crise_trente_glorieuses",
+      "type": "crise",
+      "debut": 1950,
+      "fin": 1973,
+      "portee": "france",
+      "titre": "LES TRENTE GLORIEUSES",
+      "texte": "CROISSANCE FORTE ET PLEIN EMPLOI : LE CHOMAGE EST TRES BAS.",
+      "source": "Jean Fourastie, Les Trente Glorieuses ou la revolution invisible de 1946 a 1975, Fayard, 1979 ; INSEE, series longues du chomage.",
+      "multiplicateurs": { "emploi_chomage": 0.4, "licenciement": 0.6 },
+      "aCalibrer": true
+    },
+    {
+      "id": "crise_choc_petrolier_1973",
+      "type": "crise",
+      "debut": 1974,
+      "fin": 1976,
+      "portee": "monde",
+      "titre": "PREMIER CHOC PETROLIER",
+      "texte": "LE PRIX DU PETROLE QUADRUPLE. LA CROISSANCE S'ARRETE, LE CHOMAGE MONTE.",
+      "source": "Embargo de l'OPEP d'octobre 1973 ; INSEE, series longues du chomage.",
+      "multiplicateurs": { "emploi_chomage": 1.3, "licenciement": 1.4 },
+      "aCalibrer": true
+    },
+    {
+      "id": "crise_choc_petrolier_1979",
+      "type": "crise",
+      "debut": 1980,
+      "fin": 1982,
+      "portee": "monde",
+      "titre": "DEUXIEME CHOC PETROLIER",
+      "texte": "NOUVELLE FLAMBEE DU PETROLE APRES LA REVOLUTION IRANIENNE. LES USINES FERMENT.",
+      "source": "Revolution iranienne de 1979 et hausse des prix du petrole ; INSEE, series longues du chomage.",
+      "multiplicateurs": { "emploi_chomage": 1.3, "licenciement": 1.4 },
+      "aCalibrer": true
+    },
+    {
+      "id": "crise_chomage_de_masse",
+      "type": "crise",
+      "debut": 1983,
+      "fin": 1997,
+      "portee": "france",
+      "titre": "CHOMAGE DE MASSE",
+      "texte": "LE CHOMAGE S'INSTALLE DURABLEMENT AU-DESSUS DE [N] %.",
+      "source": "INSEE, taux de chomage au sens du BIT, series longues.",
+      "multiplicateurs": { "emploi_chomage": 1.3 },
+      "aCalibrer": true
+    },
+    {
+      "id": "crise_desindustrialisation",
+      "type": "crise",
+      "debut": 1978,
+      "fin": 1995,
+      "portee": "france",
+      "titre": "DESINDUSTRIALISATION",
+      "texte": "MINES, SIDERURGIE, TEXTILE : LES OUVRIERS PERDENT LEUR EMPLOI PAR MILLIERS.",
+      "source": "Plans de restructuration de la siderurgie (1978, 1984) et fermeture des mines ; INSEE, emploi industriel.",
+      "profil": { "pcs": ["ouvrier"] },
+      "multiplicateurs": { "licenciement": 1.6 },
+      "aCalibrer": true
+    },
+    {
+      "id": "crise_regions_industrielles",
+      "type": "crise",
+      "debut": 1978,
+      "fin": 1995,
+      "portee": "france",
+      "titre": "BASSINS INDUSTRIELS EN CRISE",
+      "texte": "DANS LE NORD ET EN LORRAINE, DES VILLES ENTIERES PERDENT LEURS USINES.",
+      "source": "Restructurations des bassins miniers et siderurgiques du Nord-Pas-de-Calais et de Lorraine ; INSEE, emploi regional.",
+      "profil": { "region": ["hauts_de_france", "grand_est"] },
+      "multiplicateurs": { "emploi_chomage": 1.3 },
+      "aCalibrer": true
+    },
+    {
+      "id": "crise_recession_1993",
+      "type": "crise",
+      "debut": 1993,
+      "fin": 1993,
+      "portee": "france",
+      "titre": "RECESSION DE 1993",
+      "texte": "L'ECONOMIE RECULE ; LES PLANS SOCIAUX SE MULTIPLIENT.",
+      "source": "INSEE, comptes nationaux : recul du PIB en 1993.",
+      "multiplicateurs": { "licenciement": 1.3 },
+      "aCalibrer": true
+    },
+    {
+      "id": "crise_financiere_2008",
+      "type": "crise",
+      "debut": 2008,
+      "fin": 2012,
+      "portee": "monde",
+      "titre": "CRISE FINANCIERE",
+      "texte": "APRES LA FAILLITE DE LEHMAN BROTHERS, LA CRISE GAGNE L'EUROPE. LES LICENCIEMENTS AUGMENTENT.",
+      "source": "Faillite de Lehman Brothers le 15 septembre 2008 ; INSEE, taux de chomage 2008-2012.",
+      "multiplicateurs": { "emploi_chomage": 1.3, "licenciement": 1.5 },
+      "aCalibrer": true
+    },
+    {
+      "id": "crise_covid",
+      "type": "crise",
+      "debut": 2020,
+      "fin": 2021,
+      "portee": "monde",
+      "titre": "PANDEMIE DE COVID-19",
+      "texte": "CONFINEMENT A PARTIR DU 17 MARS 2020. CHOMAGE PARTIEL, ECOLES FERMEES, PROCHES ISOLES.",
+      "source": "Decret n° 2020-260 du 16 mars 2020 portant reglementation des deplacements dans le cadre de la lutte contre la propagation du virus covid-19.",
+      "multiplicateurs": { "deuil": 1.3, "licenciement": 1.2 },
+      "aCalibrer": true
+    },
+    {
+      "id": "crise_inflation_2022",
+      "type": "crise",
+      "debut": 2022,
+      "fin": 2023,
+      "portee": "france",
+      "titre": "FORTE INFLATION",
+      "texte": "LES PRIX DE L'ENERGIE ET DE L'ALIMENTATION S'ENVOLENT. LES FINS DE MOIS SE COMPLIQUENT.",
+      "source": "INSEE, indice des prix a la consommation 2022-2023.",
+      "aCalibrer": true
+    }
+  ]
+}
