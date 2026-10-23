@@ -1,5 +1,5 @@
 {
-  "petiteEnfance": "{debut} A {fin} ANS : ENFANCE {lieu}.",
+  "petiteEnfance": "{ages} : ENFANCE {lieu}.",
   "argentAide": "TU TOUCHES {aide}.",
   "argentNonRecours": "DROIT NON DEMANDE : {aide}.",
   "argentTendu": "TES CREDITS PESENT SUR TON BUDGET.",

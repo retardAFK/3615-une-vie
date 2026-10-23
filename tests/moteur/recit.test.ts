@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { creerPartie } from '../../src/moteur/boucle';
-import { rediger, remplir, valeursRecit, variablesDe } from '../../src/moteur/recit';
+import {
+  rediger,
+  remplir,
+  resumerPetiteEnfance,
+  valeursRecit,
+  variablesDe,
+} from '../../src/moteur/recit';
 import { DONNEES, evenement } from './donnees';
 
 const valeurs = {
@@ -21,6 +27,15 @@ describe('recit', () => {
 
   it('refuse une variable inconnue', () => {
     expect(() => remplir('{inconnue}', valeurs)).toThrow('Variable de texte inconnue');
+  });
+
+  it('ecrit la periode d un resume, sans « 0 A 0 ANS » pour une seule annee', () => {
+    const etat = creerPartie('resume', DONNEES);
+    const { libelles } = DONNEES;
+    expect(resumerPetiteEnfance(etat, 0, 0, libelles)).toMatch(/^0 AN : ENFANCE /);
+    expect(resumerPetiteEnfance(etat, 3, 3, libelles)).toMatch(/^3 ANS : ENFANCE /);
+    expect(resumerPetiteEnfance(etat, 0, 5, libelles)).toMatch(/^0 A 5 ANS : ENFANCE /);
+    expect(resumerPetiteEnfance(etat, 0, 1, libelles)).toMatch(/^0 A 1 AN : ENFANCE /);
   });
 
   it('liste les variables d un modele', () => {

@@ -17,8 +17,11 @@ export const VARIABLES_TEXTE = [
   'lieu',
   'e',
 ] as const;
-/** Variables en plus pour les résumés de plusieurs années : âges de début et de fin. */
-export const VARIABLES_RESUME = ['debut', 'fin'] as const;
+/**
+ * Variables en plus pour les résumés de plusieurs années : âges de début et de fin, et
+ * la période écrite (« 0 A 5 ANS », ou « 3 ANS » pour une seule année).
+ */
+export const VARIABLES_RESUME = ['debut', 'fin', 'ages'] as const;
 /** Variable des récits d'argent : nom de l'aide, tel que la loi en vigueur la nomme. */
 export const VARIABLES_ARGENT = ['aide'] as const;
 /** Variable des récits d'addiction : nom du produit (libelles.produits). */
@@ -109,10 +112,12 @@ export function resumerPetiteEnfance(
   fin: number,
   libelles: Libelles,
 ): string {
-  const modele = libelles.recits?.petiteEnfance ?? '{debut} A {fin} ANS : ENFANCE {lieu}.';
+  const modele = libelles.recits?.petiteEnfance ?? '{ages} : ENFANCE {lieu}.';
+  const unite = (age: number): string => (age > 1 ? 'ANS' : 'AN');
   return remplir(modele, {
     ...valeursRecit(etat, libelles),
     debut: String(debut),
     fin: String(fin),
+    ages: debut === fin ? `${debut} ${unite(debut)}` : `${debut} A ${fin} ${unite(fin)}`,
   });
 }
