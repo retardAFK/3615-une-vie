@@ -1,6 +1,6 @@
 {
   "table": "depensesVie",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8). Hors logement (table loyers).",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8). Hors logement (table loyers). Niveau ajusté par simulation : part des ménages endettés pour la consommation (Insee, enquêtes Patrimoine et SRCV, 27.8 % en 2019).",
   "url": null,
   "aCalibrer": true,
   "lignes": [
@@ -9,196 +9,196 @@
         "territoire": "grande_metropole",
         "statut": "emploi"
       },
-      "valeur": 0.6
+      "valeur": 0.375
     },
     {
       "conditions": {
         "territoire": "grande_metropole",
         "statut": "chomage"
       },
-      "valeur": 0.42
+      "valeur": 0.262
     },
     {
       "conditions": {
         "territoire": "grande_metropole",
         "statut": "inactif"
       },
-      "valeur": 0.21
+      "valeur": 0.131
     },
     {
       "conditions": {
         "territoire": "grande_metropole",
         "statut": "retraite"
       },
-      "valeur": 0.45
+      "valeur": 0.281
     },
     {
       "conditions": {
         "territoire": "ville_moyenne",
         "statut": "emploi"
       },
-      "valeur": 0.51
+      "valeur": 0.318
     },
     {
       "conditions": {
         "territoire": "ville_moyenne",
         "statut": "chomage"
       },
-      "valeur": 0.357
+      "valeur": 0.223
     },
     {
       "conditions": {
         "territoire": "ville_moyenne",
         "statut": "inactif"
       },
-      "valeur": 0.1785
+      "valeur": 0.112
     },
     {
       "conditions": {
         "territoire": "ville_moyenne",
         "statut": "retraite"
       },
-      "valeur": 0.3825
+      "valeur": 0.239
     },
     {
       "conditions": {
         "territoire": "periurbain",
         "statut": "emploi"
       },
-      "valeur": 0.54
+      "valeur": 0.337
     },
     {
       "conditions": {
         "territoire": "periurbain",
         "statut": "chomage"
       },
-      "valeur": 0.378
+      "valeur": 0.236
     },
     {
       "conditions": {
         "territoire": "periurbain",
         "statut": "inactif"
       },
-      "valeur": 0.189
+      "valeur": 0.118
     },
     {
       "conditions": {
         "territoire": "periurbain",
         "statut": "retraite"
       },
-      "valeur": 0.405
+      "valeur": 0.253
     },
     {
       "conditions": {
         "territoire": "rural",
         "statut": "emploi"
       },
-      "valeur": 0.465
+      "valeur": 0.291
     },
     {
       "conditions": {
         "territoire": "rural",
         "statut": "chomage"
       },
-      "valeur": 0.3255
+      "valeur": 0.203
     },
     {
       "conditions": {
         "territoire": "rural",
         "statut": "inactif"
       },
-      "valeur": 0.1628
+      "valeur": 0.101
     },
     {
       "conditions": {
         "territoire": "rural",
         "statut": "retraite"
       },
-      "valeur": 0.3488
+      "valeur": 0.218
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "emploi"
       },
-      "valeur": 0.51
+      "valeur": 0.318
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "chomage"
       },
-      "valeur": 0.357
+      "valeur": 0.223
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "inactif"
       },
-      "valeur": 0.1785
+      "valeur": 0.112
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "retraite"
       },
-      "valeur": 0.3825
+      "valeur": 0.239
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "emploi"
       },
-      "valeur": 0.54
+      "valeur": 0.337
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "chomage"
       },
-      "valeur": 0.378
+      "valeur": 0.236
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "inactif"
       },
-      "valeur": 0.189
+      "valeur": 0.118
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "retraite"
       },
-      "valeur": 0.405
+      "valeur": 0.253
     },
     {
       "conditions": {
         "statut": "emploi"
       },
-      "valeur": 0.54
+      "valeur": 0.337
     },
     {
       "conditions": {
         "statut": "chomage"
       },
-      "valeur": 0.378
+      "valeur": 0.236
     },
     {
       "conditions": {
         "statut": "inactif"
       },
-      "valeur": 0.189
+      "valeur": 0.118
     },
     {
       "conditions": {
         "statut": "retraite"
       },
-      "valeur": 0.405
+      "valeur": 0.253
     },
     {
       "conditions": {},
-      "valeur": 0.54
+      "valeur": 0.337
     }
   ]
 }

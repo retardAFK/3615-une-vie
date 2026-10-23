@@ -12,7 +12,10 @@
 // - échelles des loyers privés et HLM : taux d'effort médians des locataires du secteur
 //   libre et du secteur social (Insee, enquête SRCV, début 2024) ;
 // - échelle des héritages : part des héritages venant de la mère inférieurs à 30 000 €
-//   de 2015 (Insee, enquête Patrimoine 2014-2015).
+//   de 2015 (Insee, enquête Patrimoine 2014-2015) ;
+// - partRevenuDepensee : taux d'épargne des ménages 2000-2018 (Insee, comptes nationaux) ;
+// - échelle du plancher de dépense de vie : part des ménages endettés pour la
+//   consommation en 2015-2019 (Insee, enquêtes Patrimoine et SRCV).
 // Construit par Vite (SSR) comme le banc d'essai, puis exécuté par Node depuis la racine.
 
 import { writeFileSync } from 'node:fs';
@@ -97,6 +100,19 @@ const coefficients = lireSerieSdmx(join(BRUT, 'insee', 'serie-011813530.xml')) a
 >;
 const SEUIL_HERITAGE = (30_000 * coefficients.get(2025)!) / coefficients.get(2015)!;
 
+const epargne = lireClasseur(join(BRUT, 'insee', 'epargne-T20F122.xlsx')).get('Figure 4')!;
+const ANNEES_EPARGNE: readonly [number, number] = [2000, 2018];
+const tauxEpargne = epargne
+  .filter((l) => typeof l[0] === 'number' && l[0] >= ANNEES_EPARGNE[0] && l[0] <= ANNEES_EPARGNE[1])
+  .map((l) => nombre(l[1]) / 100);
+const TAUX_EPARGNE = tauxEpargne.reduce((a, b) => a + b, 0) / tauxEpargne.length;
+const endettement = lireClasseur(join(BRUT, 'insee', 'endettement-RPM2021-F29.xlsx')).get(
+  'Figure 1',
+)!;
+const PART_CREDIT_CONSO =
+  nombre(endettement.find((l) => String(l[0] ?? '').startsWith('Consommation'))![4]) / 100;
+const ANNEES_DETTES: readonly [number, number] = [2015, 2019];
+
 const tranches = Math.floor(AGE_MAXIMAL / LARGEUR_TRANCHE) + 1;
 const periodeCalibree = (annee: number): string => {
   const p = periodeDe(annee);
@@ -134,6 +150,7 @@ function tableCorrection(correction: Correction, source: string): Table<LigneCou
 }
 
 const famille0 = tablesInitiales.parametresFamille.lignes[0]!.valeurs;
+const argent0 = tablesInitiales.parametresArgent.lignes[0]!.valeurs;
 
 /** Réglages ajustés ; les échelles multiplient les tables de départ. */
 interface Reglages {
@@ -143,6 +160,8 @@ interface Reglages {
   echelleLoyerPrive: number;
   echelleLoyerHlm: number;
   echelleHeritage: number;
+  partRevenuDepensee: number;
+  echelleDepenseVie: number;
 }
 
 function appliquer(r: Reglages): Tables {
@@ -178,6 +197,22 @@ function appliquer(r: Reglages): Tables {
       ...heritage,
       lignes: heritage.lignes.map((l) => ({ ...l, valeur: l.valeur * r.echelleHeritage })),
     },
+    parametresArgent: {
+      ...tablesInitiales.parametresArgent,
+      lignes: [
+        {
+          conditions: {},
+          valeurs: { ...argent0, partRevenuDepensee: r.partRevenuDepensee },
+        },
+      ],
+    },
+    depensesVie: {
+      ...tablesInitiales.depensesVie,
+      lignes: tablesInitiales.depensesVie.lignes.map((l) => ({
+        ...l,
+        valeur: l.valeur * r.echelleDepenseVie,
+      })),
+    },
   };
 }
 
@@ -193,6 +228,8 @@ interface Mesure {
   effortLibre: number;
   effortSocial: number;
   partHeritagesSous: number;
+  tauxEpargne: number;
+  partEndettes: number;
 }
 
 const mediane = (v: number[]): number => {
@@ -212,6 +249,10 @@ function mesurer(tables: Tables): Mesure {
   const efforts = { libre: [] as number[], social: [] as number[] };
   let heritagesSous = 0;
   let heritagesTotal = 0;
+  let epargneTotale = 0;
+  let ressourcesTotales = 0;
+  let adultes = 0;
+  let endettes = 0;
   for (let i = 0; i < VIES; i++) {
     let etat = creerPartie(`calibrage-${i}`, donnees);
     const { sexe } = etat.personnage.origine;
@@ -251,12 +292,25 @@ function mesurer(tables: Tables): Mesure {
         naissancesObservees +=
           p.etats.famille.enfants.length - avant.personnage.etats.famille.enfants.length;
       }
+      let heritage = 0;
       if (avant.personnage.etats.famille.parentsVivants && !p.etats.famille.parentsVivants) {
-        const montant = montantHeritage(avant.personnage, annee, tables);
-        if (montant > 0) {
+        heritage = montantHeritage(avant.personnage, annee, tables);
+        if (heritage > 0) {
           heritagesTotal++;
-          if (montant < SEUIL_HERITAGE) heritagesSous++;
+          if (heritage < SEUIL_HERITAGE) heritagesSous++;
         }
+      }
+      // Épargne de l'année : variation du patrimoine net, héritage déduit.
+      if (annee >= ANNEES_EPARGNE[0] && annee <= ANNEES_EPARGNE[1] && estAutonome(p)) {
+        const net = (f: typeof p.finances): number =>
+          f.epargne - f.dettes + f.patrimoine - f.creditImmobilier;
+        const aidesAnnee = Object.values(p.finances.aides).reduce((s2, m) => s2 + (m ?? 0), 0);
+        epargneTotale += net(p.finances) - net(avant.personnage.finances) - heritage;
+        ressourcesTotales += p.finances.revenuAnnuel + aidesAnnee;
+      }
+      if (annee >= ANNEES_DETTES[0] && annee <= ANNEES_DETTES[1] && estAutonome(p) && p.age >= 25) {
+        adultes++;
+        if (p.finances.dettes > 0) endettes++;
       }
       const statut = p.etats.logement;
       if (
@@ -289,6 +343,8 @@ function mesurer(tables: Tables): Mesure {
     effortLibre: mediane(efforts.libre),
     effortSocial: mediane(efforts.social),
     partHeritagesSous: heritagesSous / Math.max(1, heritagesTotal),
+    tauxEpargne: epargneTotale / Math.max(1, ressourcesTotales),
+    partEndettes: endettes / Math.max(1, adultes),
   };
 }
 
@@ -302,7 +358,9 @@ function decrire(m: Mesure, prefixe: string): void {
       `HLM ${(s.social / s.personnes).toFixed(3)} (${(a.social / s.personnes).toFixed(3)}), ` +
       `prive ${(s.libre / s.personnes).toFixed(3)} (${(a.libre / s.personnes).toFixed(3)}) ; ` +
       `effort prive ${m.effortLibre.toFixed(3)} (${EFFORT_LIBRE}), HLM ${m.effortSocial.toFixed(3)} (${EFFORT_SOCIAL}) ; ` +
-      `heritages < 30 000 EUR 2015 ${m.partHeritagesSous.toFixed(3)} (${PART_SOUS_30000.toFixed(3)})`,
+      `heritages < 30 000 EUR 2015 ${m.partHeritagesSous.toFixed(3)} (${PART_SOUS_30000.toFixed(3)}) ; ` +
+      `epargne ${m.tauxEpargne.toFixed(3)} (${TAUX_EPARGNE.toFixed(3)}), ` +
+      `endettes ${m.partEndettes.toFixed(3)} (${PART_CREDIT_CONSO})`,
   );
 }
 
@@ -317,6 +375,8 @@ let reglages: Reglages = {
   echelleLoyerPrive: 1,
   echelleLoyerHlm: 1,
   echelleHeritage: 1,
+  partRevenuDepensee: argent0.partRevenuDepensee!,
+  echelleDepenseVie: 1,
 };
 for (let iteration = 1; iteration <= ITERATIONS; iteration++) {
   const m = mesurer(appliquer(reglages));
@@ -352,10 +412,14 @@ for (let iteration = 1; iteration <= ITERATIONS; iteration++) {
     echelleLoyerPrive: ajuster(reglages.echelleLoyerPrive, EFFORT_LIBRE / m.effortLibre),
     echelleLoyerHlm: ajuster(reglages.echelleLoyerHlm, EFFORT_SOCIAL / m.effortSocial),
     // Héritages trop souvent petits : on les augmente (et inversement).
-    echelleHeritage: ajuster(
-      reglages.echelleHeritage,
-      Math.pow(m.partHeritagesSous / PART_SOUS_30000, 2),
+    echelleHeritage: ajuster(reglages.echelleHeritage, m.partHeritagesSous / PART_SOUS_30000),
+    // Épargne trop faible : on dépense une moindre part du revenu au-delà du plancher.
+    partRevenuDepensee: Math.min(
+      0.98,
+      Math.max(0.2, reglages.partRevenuDepensee * ((1 - TAUX_EPARGNE) / (1 - m.tauxEpargne))),
     ),
+    // Trop d'endettés : le plancher de dépense de vie baisse.
+    echelleDepenseVie: ajuster(reglages.echelleDepenseVie, PART_CREDIT_CONSO / m.partEndettes, 0.5),
   };
 }
 
@@ -402,6 +466,20 @@ ecrire('parametresFamille', {
       },
     },
   ],
+});
+ecrire('parametresArgent', {
+  ...tables.parametresArgent,
+  lignes: [
+    {
+      conditions: {},
+      valeurs: { ...argent0, partRevenuDepensee: arrondi(reglages.partRevenuDepensee) },
+    },
+  ],
+});
+ecrire('depensesVie', {
+  ...tables.depensesVie,
+  source: `${tables.depensesVie.source.replace(/ Niveau ajusté par simulation.*$/, '')} Niveau ajusté par simulation : part des ménages endettés pour la consommation (Insee, enquêtes Patrimoine et SRCV, ${(PART_CREDIT_CONSO * 100).toFixed(1)} % en 2019).`,
+  lignes: tables.depensesVie.lignes.map((l) => ({ ...l, valeur: arrondi(l.valeur) })),
 });
 const notes = {
   loyers: ` Niveau ajusté par simulation sur les taux d'effort médians des locataires (Insee, enquête SRCV début 2024 : secteur libre ${EFFORT_LIBRE * 100} %, secteur social ${EFFORT_SOCIAL * 100} %).`,

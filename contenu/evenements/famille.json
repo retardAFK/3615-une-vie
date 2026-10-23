@@ -340,7 +340,7 @@
       "requiert": {
         "achatPossible": ["oui"]
       },
-      "pBase": 0.35,
+      "pBase": 0.5,
       "aCalibrer": true,
       "effets": {},
       "choix": [
@@ -372,7 +372,7 @@
           "journal": "TU RESTES LOCATAIRE."
         }
       ],
-      "cooldown": 5,
+      "cooldown": 3,
       "gravite": 1,
       "tags": ["logement", "achat"],
       "textes": [

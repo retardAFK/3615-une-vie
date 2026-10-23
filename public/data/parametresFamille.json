@@ -41,7 +41,7 @@
         "mEmploiDepart": 2,
         "multipleLoyerAcces": 3,
         "plafondHlm": 0.8,
-        "pHlm": 0.0663,
+        "pHlm": 0.0952,
         "pSortieHlm": 0.05,
         "pSortiePrecaire": 0.3,
         "perteSantePrecaire": 3,
@@ -51,7 +51,7 @@
         "tauxCredit": 0.04,
         "multipleRevenuAchat": 5,
         "ageAchatMax": 60,
-        "facteurFecondite": 2.88,
+        "facteurFecondite": 2.84,
         "partPrixMinimum": 0.5,
         "partLoyerMinimum": 0.6
       }
