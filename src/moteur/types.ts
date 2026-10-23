@@ -207,6 +207,16 @@ export const LOGEMENTS = [
 ] as const;
 export type Logement = (typeof LOGEMENTS)[number];
 
+/** Maladies suivies par le module santé (règles, section 10). */
+export const MALADIES = [
+  'chronique',
+  'cancer',
+  'cardiovasculaire',
+  'depression',
+  'demence',
+] as const;
+export type Maladie = (typeof MALADIES)[number];
+
 export const PRODUITS = [
   'tabac',
   'alcool',
@@ -349,8 +359,8 @@ export interface Etats {
   couple: Couple;
   logement: Logement;
   addictions: Record<Produit, EtatAddiction>;
-  /** Identifiants des pathologies actives. */
-  maladies: string[];
+  /** Maladies actives. */
+  maladies: readonly Maladie[];
   education: Education;
   travail: Travail;
   justice: Justice;
@@ -387,6 +397,8 @@ export const CHAMPS_ETATS_CONDITIONS = [
   ...PRODUITS,
   'pertesJeu',
   'budgetJeu',
+  // Chaque maladie : « oui » si elle est active, « non » sinon.
+  ...MALADIES,
 ] as const;
 export type ChampCondition = keyof Origine | (typeof CHAMPS_ETATS_CONDITIONS)[number];
 
@@ -463,6 +475,8 @@ export interface Effets {
   justice?: 'garde_a_vue' | 'condamnation';
   /** Dossier de surendettement recevable : un plan d'apurement commence. */
   surendettement?: true;
+  /** Maladie qui commence (règles, section 10). */
+  maladie?: Maladie;
 }
 
 export interface Evenement {
@@ -564,7 +578,15 @@ export interface Donnees {
  * « actualite » : entrée du contexte historique qui commence cette année-là.
  */
 export type TypeEntree =
-  'naissance' | 'deces' | 'evenement' | 'resume' | 'actualite' | 'argent' | 'jeu' | 'addiction';
+  | 'naissance'
+  | 'deces'
+  | 'evenement'
+  | 'resume'
+  | 'actualite'
+  | 'argent'
+  | 'jeu'
+  | 'addiction'
+  | 'sante';
 
 export interface EntreeJournal {
   annee: number;
@@ -776,4 +798,9 @@ export interface Tables {
   parametresAddictions: TableValeurs;
   jeuxArgent: TableJeux;
   budgetsJeu: TableValeur;
+  // Santé
+  vieillissement: Table<LigneCourbe>;
+  maladies: TableValeurs;
+  mortaliteFacteurs: TableValeur;
+  parametresSante: TableValeurs;
 }

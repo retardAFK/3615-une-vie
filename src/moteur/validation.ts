@@ -4,6 +4,7 @@
 import { AGE_MAXIMAL } from './constantes';
 import { TAGS_ADDICTIONS } from './modules/addictions';
 import { TAGS_AIDES } from './modules/aides';
+import { TAGS_SANTE } from './modules/sante';
 import { TAGS_EDUCATION } from './modules/education';
 import { TAGS_EMPLOI } from './modules/emploi';
 import { VARIABLES_TEXTE, minitel, variablesDe } from './recit';
@@ -14,6 +15,7 @@ import {
   EMPLOIS,
   JAUGES_MODIFIABLES,
   JEUX,
+  MALADIES,
   LOGEMENTS,
   NOMS_TRAITS,
   REGLES_CONNUES,
@@ -45,6 +47,7 @@ const TAGS_MODULES: readonly string[] = [
   ...TAGS_EMPLOI,
   ...TAGS_AIDES,
   ...TAGS_ADDICTIONS,
+  ...TAGS_SANTE,
 ];
 const JAUGES = [...JAUGES_MODIFIABLES, 'bienEtre'];
 const ETATS: Record<string, readonly string[]> = {
@@ -335,6 +338,12 @@ export function validerEvenements(
         !['garde_a_vue', 'condamnation'].includes(effets.justice as string)
       ) {
         erreurs.push(`${lieu} : justice doit valoir garde_a_vue ou condamnation`);
+      }
+      if (
+        effets.maladie !== undefined &&
+        !(MALADIES as readonly unknown[]).includes(effets.maladie)
+      ) {
+        erreurs.push(`${lieu} : maladie inconnue ${String(effets.maladie)}`);
       }
       if (effets.surendettement !== undefined && effets.surendettement !== true) {
         erreurs.push(`${lieu} : surendettement doit valoir true`);

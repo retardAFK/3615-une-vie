@@ -23,11 +23,14 @@ export const VARIABLES_RESUME = ['debut', 'fin'] as const;
 export const VARIABLES_ARGENT = ['aide'] as const;
 /** Variable des récits d'addiction : nom du produit (libelles.produits). */
 export const VARIABLES_ADDICTION = ['produit'] as const;
+/** Variable des récits de santé : nom de la maladie (libelles.maladies). */
+export const VARIABLES_SANTE = ['maladie'] as const;
 export type VariableTexte =
   | (typeof VARIABLES_TEXTE)[number]
   | (typeof VARIABLES_RESUME)[number]
   | (typeof VARIABLES_ARGENT)[number]
-  | (typeof VARIABLES_ADDICTION)[number];
+  | (typeof VARIABLES_ADDICTION)[number]
+  | (typeof VARIABLES_SANTE)[number];
 
 const MOTIF_VARIABLE = /\{([^{}]*)\}/g;
 

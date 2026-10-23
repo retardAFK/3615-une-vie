@@ -1,13 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import {
-  creerPartie,
-  deriverJauges,
-  fermerAnnee,
-  jouerAnneeAuto,
-  ouvrirAnnee,
-  probabiliteDeces,
-} from '../../src/moteur/boucle';
+import { creerPartie, fermerAnnee, jouerAnneeAuto, ouvrirAnnee } from '../../src/moteur/boucle';
 import { AGE_MAXIMAL, JAUGES_INITIALES } from '../../src/moteur/constantes';
+import { probabiliteDecesTable, vieillirJauges } from '../../src/moteur/modules/sante';
 import type { Donnees, EtatPartie, OptionsPartie } from '../../src/moteur/types';
 import { DONNEES, TABLES_IMMORTELS, donneesAvec } from './donnees';
 import { TABLES } from './tables';
@@ -149,23 +143,35 @@ describe('boucle', () => {
     ]);
   });
 
-  it('fait deriver les jauges avec l age, de facon deterministe et bornee', () => {
+  it('fait vieillir les jauges avec l age, de facon deterministe et bornee', () => {
     const depart = {
       santePhysique: 70,
-      santeMentale: 70,
+      santeMentale: 60,
       bienEtre: 70,
       liens: 70,
       competences: 70,
     };
-    expect(deriverJauges(depart, 20).santePhysique).toBe(70);
-    expect(deriverJauges(depart, 50).santePhysique).toBeLessThan(70);
-    expect(deriverJauges(depart, 50)).toEqual(deriverJauges(depart, 50));
+    const traits = { ...creerPartie('traits', DONNEES).personnage.traits, resilience: 50 };
+    const vieillir = (jauges: typeof depart, age: number) =>
+      vieillirJauges(jauges, age, traits, TABLES);
+    expect(vieillir(depart, 20).santePhysique).toBe(70);
+    expect(vieillir(depart, 50).santePhysique).toBeLessThan(70);
+    expect(vieillir(depart, 50)).toEqual(vieillir(depart, 50));
     const usees = { ...depart, santePhysique: 0.5, liens: 0.1 };
-    const apres = deriverJauges(usees, 90);
+    const apres = vieillir(usees, 90);
     expect(apres.santePhysique).toBe(0);
     expect(apres.liens).toBe(0);
     const { santePhysique, santeMentale, liens, competences } = apres;
     expect(apres.bienEtre).toBeCloseTo((santePhysique + santeMentale + liens + competences) / 4);
+  });
+
+  it('le moral remonte vers sa cible, plus vite avec de la resilience', () => {
+    const bas = { santePhysique: 70, santeMentale: 20, bienEtre: 50, liens: 70, competences: 70 };
+    const traits = creerPartie('moral', DONNEES).personnage.traits;
+    const remontee = (resilience: number): number =>
+      vieillirJauges(bas, 30, { ...traits, resilience }, TABLES).santeMentale - 20;
+    expect(remontee(20)).toBeGreaterThan(0);
+    expect(remontee(80)).toBeGreaterThan(remontee(20));
   });
 
   it('garde les jauges dans [0, 100] au fil d une vie longue', () => {
@@ -184,7 +190,7 @@ describe('boucle', () => {
   });
 
   it('borne la probabilite de deces par la formule des cotes', () => {
-    const q = probabiliteDeces(40, 'homme', 1990, TABLES);
+    const q = probabiliteDecesTable(40, 'homme', 1990, TABLES);
     expect(q).toBeGreaterThan(0);
     expect(q).toBeLessThan(1);
   });

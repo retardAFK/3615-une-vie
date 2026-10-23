@@ -1,0 +1,22 @@
+{
+  "table": "parametresSante",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE, DREES et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {},
+      "valeurs": {
+        "cibleMoral": 65,
+        "tauxRetourMoral": 0.1,
+        "kResilienceRetour": 0.8,
+        "ageAdulteMortalite": 30,
+        "kSantePhysiqueMortalite": -0.4,
+        "centreSantePhysique": 15,
+        "mRuralSoins": 0.85,
+        "mModesteSoins": 0.85,
+        "decileModeste": 3
+      }
+    }
+  ]
+}

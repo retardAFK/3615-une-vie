@@ -1,0 +1,99 @@
+{
+  "table": "mortaliteFacteurs",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE, DREES et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "pcs": "cadre"
+      },
+      "valeur": 0.8
+    },
+    {
+      "conditions": {
+        "pcs": "intermediaire"
+      },
+      "valeur": 0.9
+    },
+    {
+      "conditions": {
+        "pcs": "employe"
+      },
+      "valeur": 1
+    },
+    {
+      "conditions": {
+        "pcs": "ouvrier"
+      },
+      "valeur": 1.15
+    },
+    {
+      "conditions": {
+        "pcs": "artisan_commercant"
+      },
+      "valeur": 0.95
+    },
+    {
+      "conditions": {
+        "pcs": "agriculteur"
+      },
+      "valeur": 1
+    },
+    {
+      "conditions": {
+        "pcs": "sans_emploi"
+      },
+      "valeur": 1.2
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "etat": "usage_regulier"
+      },
+      "valeur": 1.25
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "etat": "dependance"
+      },
+      "valeur": 1.5
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "etat": "usage_regulier"
+      },
+      "valeur": 1.1
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "etat": "dependance"
+      },
+      "valeur": 1.7
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "etat": "dependance"
+      },
+      "valeur": 1.1
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "etat": "usage_regulier"
+      },
+      "valeur": 1.5
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "etat": "dependance"
+      },
+      "valeur": 2.2
+    }
+  ]
+}

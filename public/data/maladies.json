@@ -1,0 +1,68 @@
+{
+  "table": "maladies",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE, DREES et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "maladie": "chronique"
+      },
+      "valeurs": {
+        "santePhysique": -1.5,
+        "cout": 400,
+        "mortalite": 1.2,
+        "guerison": 0
+      }
+    },
+    {
+      "conditions": {
+        "maladie": "cancer"
+      },
+      "valeurs": {
+        "santePhysique": -8,
+        "santeMentale": -6,
+        "cout": 1000,
+        "mortalite": 3,
+        "guerison": 0.35
+      }
+    },
+    {
+      "conditions": {
+        "maladie": "cardiovasculaire"
+      },
+      "valeurs": {
+        "santePhysique": -4,
+        "santeMentale": -2,
+        "cout": 600,
+        "mortalite": 1.8,
+        "guerison": 0.1
+      }
+    },
+    {
+      "conditions": {
+        "maladie": "depression"
+      },
+      "valeurs": {
+        "santeMentale": -8,
+        "liens": -3,
+        "cout": 300,
+        "mortalite": 1.1,
+        "guerison": 0.35
+      }
+    },
+    {
+      "conditions": {
+        "maladie": "demence"
+      },
+      "valeurs": {
+        "santePhysique": -3,
+        "santeMentale": -2,
+        "liens": -5,
+        "cout": 3000,
+        "mortalite": 2,
+        "guerison": 0
+      }
+    }
+  ]
+}

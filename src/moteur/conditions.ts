@@ -36,6 +36,12 @@ export function valeurChamp(personnage: Personnage, champ: ChampCondition): stri
       return etats.jeu.pertesElevees ? 'elevees' : 'normales';
     case 'budgetJeu':
       return etats.jeu.budget;
+    case 'chronique':
+    case 'cancer':
+    case 'cardiovasculaire':
+    case 'depression':
+    case 'demence':
+      return etats.maladies.includes(champ) ? 'oui' : 'non';
     default:
       return String(personnage.origine[champ]);
   }
