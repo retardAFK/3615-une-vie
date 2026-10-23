@@ -5,6 +5,7 @@ import { calculerAides } from '../../src/moteur/modules/aides';
 import { bilanAnnuel } from '../../src/moteur/modules/argent';
 import {
   acheterLogement,
+  demenager,
   depensesFamille,
   enfantsACharge,
   evoluerFamille,
@@ -22,7 +23,9 @@ import type {
   ModificateurTemporaire,
   Origine,
 } from '../../src/moteur/types';
-import { DONNEES, evenement } from './donnees';
+import { estEligible, evenementParId, probabiliteEvenement } from '../../src/moteur/evenements';
+import { valeurChamp } from '../../src/moteur/conditions';
+import { DONNEES, donneesAvec, evenement } from './donnees';
 import { TABLES } from './tables';
 
 interface Situation {
@@ -397,6 +400,75 @@ describe('famille', () => {
     // Le train de vie s'ajuste au loyer : il reste plus qu'avec une dépense imprévue.
     expect(commeCharges.epargne - commeCharges.dettes).toBeGreaterThan(
       commeDepenses.epargne - commeDepenses.dettes,
+    );
+  });
+
+  describe('mobilite', () => {
+    it('demenage dans une autre region, et le lieu de vie suit', () => {
+      for (let i = 0; i < 50; i++) {
+        const avant = adulte({ logement: 'hlm' }, `m${i}`);
+        const apres = demenager(avant, DONNEES, 'test').personnage;
+        expect(apres.etats.residence.region).not.toBe(avant.personnage.etats.residence.region);
+        expect(apres.etats.logement).toBe('locataire_prive');
+        // L'origine ne change pas ; les conditions suivent le lieu de vie.
+        expect(apres.origine).toBe(avant.personnage.origine);
+        expect(valeurChamp(apres, 'region')).toBe(apres.etats.residence.region);
+      }
+    });
+
+    it('recalcule les probabilites fixes apres un demenagement', () => {
+      const donnees = donneesAvec([
+        evenement('rural', {
+          pBase: 0.1,
+          modificateurs: [{ si: { territoire: ['rural'] }, m: 5 }],
+        }),
+      ]);
+      const ville = adulte({}, 'cache');
+      const enVille: EtatPartie = {
+        ...ville,
+        personnage: {
+          ...ville.personnage,
+          etats: {
+            ...ville.personnage.etats,
+            residence: { region: 'bretagne', territoire: 'grande_metropole' },
+          },
+        },
+      };
+      const aLaCampagne: EtatPartie = {
+        ...enVille,
+        personnage: {
+          ...enVille.personnage,
+          etats: {
+            ...enVille.personnage.etats,
+            residence: { region: 'bretagne', territoire: 'rural' },
+          },
+        },
+      };
+      const rural = evenementParId(donnees.evenements, 'rural');
+      const p1 = probabiliteEvenement(rural, enVille, donnees);
+      expect(probabiliteEvenement(rural, aLaCampagne, donnees)).toBeGreaterThan(p1);
+    });
+
+    it('propose de demenager pour un emploi, sauf aux proprietaires', () => {
+      const offre = evenementParId(DONNEES.evenements, 'fam_mobilite_emploi');
+      expect(estEligible(offre, adulte({ age: 30 }), DONNEES)).toBe(true);
+      expect(estEligible(offre, adulte({ age: 30, logement: 'proprietaire' }), DONNEES)).toBe(
+        false,
+      );
+    });
+  });
+
+  it('ralentit l acces au logement apres un refus de location discriminatoire', () => {
+    const refus = { ...evenementParId(DONNEES.evenements, 'fam_refus_location'), pBase: 1 };
+    const donnees = donneesAvec([refus]);
+    const ouverte = ouvrirAnnee(adulte({ age: 25, logement: 'chez_parents' }), donnees);
+    const fermee = fermerAnnee(
+      ouverte.etat,
+      [{ evenementId: refus.id, choixId: 'ailleurs' }],
+      donnees,
+    );
+    expect(fermee.etat.modificateursActifs).toContainEqual(
+      expect.objectContaining({ cible: { tag: 'depart_parents' }, m: 0.6, debut: 26, fin: 27 }),
     );
   });
 });

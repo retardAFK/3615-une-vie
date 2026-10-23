@@ -6,7 +6,7 @@
 import { multiplicateurTrait, probabiliteParProduit } from '../cotes';
 import { aUneAddictionActive, produitTag } from '../evenements';
 import { remplir } from '../recit';
-import { hachageIdentifiant, tirageHache } from '../rng';
+import { hachageIdentifiant, sousGenerateur, tirageHache, tirerPondere } from '../rng';
 import { chercherLigne, parametre, periodeDe, valeurDe } from '../tables';
 import type {
   Couple,
@@ -18,7 +18,9 @@ import type {
   Logement,
   ModificateurTemporaire,
   Personnage,
+  Region,
   Tables,
+  Territoire,
 } from '../types';
 import { appliquerMontant, estAutonome } from './argent';
 import { regleEnVigueur } from './contexte';
@@ -212,7 +214,7 @@ export function enfantsACharge(personnage: Personnage, tables: Tables): number {
 /** Loyer annuel (ou charges d'un propriétaire) pour ce logement, avant partage. */
 function loyer(personnage: Personnage, logement: Logement, annee: number, tables: Tables): number {
   const config = configuration(tables);
-  const { territoire } = personnage.origine;
+  const { territoire } = personnage.etats.residence;
   let parLogement = config.loyers.get(territoire);
   if (!parLogement) {
     parLogement = new Map();
@@ -248,7 +250,7 @@ export function depensesFamille(personnage: Personnage, annee: number, tables: T
 /** Prix d'un logement sur le territoire du personnage, cette année. */
 function prixLogement(personnage: Personnage, annee: number, tables: Tables): number {
   const config = configuration(tables);
-  const { territoire } = personnage.origine;
+  const { territoire } = personnage.etats.residence;
   let multiple = config.prix.get(territoire);
   if (multiple === undefined) {
     multiple = valeurDe(tables.prixLogement, { territoire }, ['territoire']);
@@ -329,6 +331,52 @@ function recit(
     age: etat.personnage.age,
     type: 'famille',
     texte: remplir(modele, variables),
+  };
+}
+
+/**
+ * Déménagement dans une autre région (choix du joueur, souvent pour un emploi) : région
+ * et territoire tirés dans la table mobilite, la région quittée exclue. Le logement suit :
+ * on quitte ses parents ou son HLM pour une location ; un propriétaire garde son bien
+ * (l'événement ne lui est pas proposé).
+ */
+export function demenager(etat: EtatPartie, donnees: Donnees, idTirage: string): EtatPartie {
+  const { personnage } = etat;
+  const { tables } = donnees;
+  const g = sousGenerateur(etat.graine, personnage.age, `${idTirage}.demenager`);
+  const regions = {
+    ...chercherLigne(tables.mobilite, { cible: 'region' }, []).distribution,
+  } as Record<Region, number>;
+  delete regions[personnage.etats.residence.region];
+  const region = tirerPondere(g, regions);
+  const territoire = tirerPondere(
+    g,
+    chercherLigne(tables.mobilite, { cible: 'territoire' }, []).distribution as Record<
+      Territoire,
+      number
+    >,
+  );
+  const { logement } = personnage.etats;
+  const nouveauLogement: Logement =
+    logement === 'chez_parents' || logement === 'hlm' ? 'locataire_prive' : logement;
+  const modele = donnees.libelles.recits?.mobiliteDemenagement;
+  const journal: EntreeJournal | null = modele
+    ? {
+        annee: etat.annee,
+        age: personnage.age,
+        type: 'famille',
+        texte: remplir(modele, {
+          region: donnees.libelles.region?.[region] ?? region.toUpperCase(),
+        }),
+      }
+    : null;
+  return {
+    ...etat,
+    personnage: {
+      ...personnage,
+      etats: { ...personnage.etats, residence: { region, territoire }, logement: nouveauLogement },
+    },
+    historique: journal ? [...etat.historique, journal] : etat.historique,
   };
 }
 

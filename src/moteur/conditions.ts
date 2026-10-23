@@ -23,6 +23,11 @@ export function valeurChamp(personnage: Personnage, champ: ChampCondition): stri
           : 'aucun';
     case 'logement':
       return etats.logement;
+    // Région et territoire : le lieu de vie actuel (celui de l'origine avant un déménagement).
+    case 'region':
+      return etats.residence.region;
+    case 'territoire':
+      return etats.residence.territoire;
     case 'couple':
       return etats.couple;
     case 'enfants':

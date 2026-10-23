@@ -1,0 +1,40 @@
+{
+  "table": "mobilite",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE sur les migrations residentielles entre regions. Destinations des adultes qui demenagent pour l'emploi : region (metropole) puis territoire.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "cible": "region"
+      },
+      "distribution": {
+        "ile_de_france": 0.22,
+        "auvergne_rhone_alpes": 0.14,
+        "occitanie": 0.11,
+        "nouvelle_aquitaine": 0.1,
+        "provence_alpes_cote_d_azur": 0.08,
+        "pays_de_la_loire": 0.07,
+        "bretagne": 0.06,
+        "grand_est": 0.05,
+        "hauts_de_france": 0.05,
+        "normandie": 0.035,
+        "bourgogne_franche_comte": 0.03,
+        "centre_val_de_loire": 0.03,
+        "corse": 0.005
+      }
+    },
+    {
+      "conditions": {
+        "cible": "territoire"
+      },
+      "distribution": {
+        "grande_metropole": 0.45,
+        "ville_moyenne": 0.25,
+        "periurbain": 0.18,
+        "rural": 0.08,
+        "quartier_prioritaire": 0.04
+      }
+    }
+  ]
+}

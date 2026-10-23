@@ -177,7 +177,7 @@ export function evoluerSante(
     liens += effets.liens;
     if (effets.guerison > 0) {
       let m = produitTag(etat, effets.tag, personnage.age + 1, donnees);
-      if (personnage.origine.territoire === 'rural') m *= parametres.mRuralSoins;
+      if (personnage.etats.residence.territoire === 'rural') m *= parametres.mRuralSoins;
       if (personnage.origine.decileRevenuFoyer <= parametres.decileModeste) {
         m *= parametres.mModesteSoins;
       }

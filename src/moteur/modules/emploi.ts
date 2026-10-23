@@ -90,7 +90,7 @@ export function salaireAnnuel(personnage: Personnage, annee: number, tables: Tab
     valeurDe(tables.salaireReference, { periode: periodeDe(annee) }, ['periode']) *
     valeurDe(tables.coefficientPcs, { pcs: travail.pcs ?? 'employe' }, ['pcs']) *
     valeurDe(tables.coefficientDiplome, { diplome: education.diplome }, ['diplome']) *
-    valeurDe(tables.coefficientRegion, { region: origine.region }, ['region']);
+    valeurDe(tables.coefficientRegion, { region: personnage.etats.residence.region }, ['region']);
   const courbe = chercherLigne(tables.courbeAnciennete, {}, []).parAnnee;
   const anciennete = courbe[Math.min(travail.anciennete, courbe.length - 1)] ?? 1;
   const ecart = origine.sexe === 'femme' ? parametre(tables.parametresEmploi, 'ecartSexe') : 0;

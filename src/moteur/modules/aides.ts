@@ -122,7 +122,7 @@ export function renonce(aide: Aide, etat: EtatPartie, donnees: Donnees): boolean
   if (personnage.age < parametre(tables.parametresArgent, 'ageJeune')) {
     multiplicateurs.push(parametre(tables.parametresArgent, 'mNonRecoursJeune'));
   }
-  if (personnage.origine.territoire === 'rural') {
+  if (personnage.etats.residence.territoire === 'rural') {
     multiplicateurs.push(parametre(tables.parametresArgent, 'mNonRecoursRural'));
   }
   const base = valeurDe(tables.nonRecours, { aide }, ['aide']);

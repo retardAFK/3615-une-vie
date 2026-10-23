@@ -24,7 +24,7 @@ import { bilanAnnuel, estAutonome, ouvrirPlan } from './modules/argent';
 import { evoluerEducation } from './modules/education';
 import { nouveautesDeLAnnee } from './modules/contexte';
 import { changerEmploi, comptabiliserAnnee, evoluerEmploi } from './modules/emploi';
-import { acheterLogement, depensesFamille, evoluerFamille } from './modules/famille';
+import { acheterLogement, demenager, depensesFamille, evoluerFamille } from './modules/famille';
 import { appliquerChoixJeu, jouerAnnee } from './modules/jeux';
 import {
   commencerMaladie,
@@ -62,7 +62,7 @@ export function creerPartie(
       traits,
       jauges: { ...JAUGES_INITIALES },
       finances: { ...FINANCES_INITIALES },
-      etats: etatsInitiaux(),
+      etats: etatsInitiaux(origine),
       age: 0,
       vivant: true,
     },
@@ -175,6 +175,7 @@ export function fermerAnnee(
     if (retenu?.effets?.changerEmploi) courant = changerEmploi(courant, donnees, evenement.id);
     if (retenu?.effets) courant = appliquerChoixJeu(courant, retenu.effets);
     if (retenu?.effets?.acheterLogement) courant = acheterLogement(courant, donnees);
+    if (retenu?.effets?.demenager) courant = demenager(courant, donnees, evenement.id);
     if (evenement.effets.maladie) {
       const malade = commencerMaladie(courant.personnage, evenement.effets.maladie);
       if (malade !== courant.personnage) courant = { ...courant, personnage: malade };

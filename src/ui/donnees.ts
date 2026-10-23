@@ -81,6 +81,7 @@ export const NOMS_TABLES: readonly (keyof Tables)[] = [
   'loyers',
   'prixLogement',
   'heritage',
+  'mobilite',
 ];
 
 export type Recuperer = (

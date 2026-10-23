@@ -72,13 +72,15 @@ export function valeursRecit(
 ): Record<(typeof VARIABLES_TEXTE)[number], () => string> {
   const { personnage } = etat;
   const { origine } = personnage;
+  // Le lieu de l'enfance reste celui de l'origine ; région et territoire suivent le lieu de vie.
+  const { residence } = personnage.etats;
   return {
     lieu: () => libelles.lieu?.[origine.territoire] ?? minitel(origine.territoire),
     prenom: () => minitel(personnage.prenom),
     age: () => String(personnage.age),
     annee: () => String(etat.annee),
-    region: () => libelles.region?.[origine.region] ?? minitel(origine.region),
-    territoire: () => libelles.territoire?.[origine.territoire] ?? minitel(origine.territoire),
+    region: () => libelles.region?.[residence.region] ?? minitel(residence.region),
+    territoire: () => libelles.territoire?.[residence.territoire] ?? minitel(residence.territoire),
     e: () => (origine.sexe === 'femme' ? 'E' : ''),
   };
 }

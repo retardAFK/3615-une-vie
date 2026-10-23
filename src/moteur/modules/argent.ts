@@ -76,7 +76,7 @@ export function depenseVie(
   const reference = valeurDe(tables.salaireReference, { periode: periodeDe(annee) }, ['periode']);
   const coefficient = valeurDe(
     tables.depensesVie,
-    { territoire: personnage.origine.territoire, statut: statut(personnage.etats.emploi) },
+    { territoire: personnage.etats.residence.territoire, statut: statut(personnage.etats.emploi) },
     ['territoire', 'statut'],
   );
   const plancher = coefficient * reference;

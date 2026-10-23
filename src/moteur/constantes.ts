@@ -1,6 +1,6 @@
 // Paramètres de jeu (choix de conception, pas des statistiques réelles).
 
-import type { DiplomeJoueur, Etats, Finances, Jauges } from './types';
+import type { DiplomeJoueur, Etats, Finances, Jauges, Residence } from './types';
 
 /** Âge auquel toute vie se termine. */
 export const AGE_MAXIMAL = 110;
@@ -59,7 +59,8 @@ export const FINANCES_INITIALES: Readonly<Finances> = {
   annuiteImmobilier: 0,
 };
 
-export function etatsInitiaux(): Etats {
+/** États à la naissance ; le lieu de vie est celui de l'origine. */
+export function etatsInitiaux(residence: Residence): Etats {
   return {
     scolarite: 'non_scolarise',
     emploi: 'inactif',
@@ -110,5 +111,6 @@ export function etatsInitiaux(): Etats {
       pertesElevees: false,
     },
     famille: { enfants: [], parentsVivants: true, achatPossible: false },
+    residence: { region: residence.region, territoire: residence.territoire },
   };
 }
