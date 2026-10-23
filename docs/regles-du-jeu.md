@@ -487,6 +487,8 @@ Source : Assurance retraite et textes de loi cités. Le jeu fait partir le perso
 
 Après 2026, le jeu tire un futur plausible (croissance, crise, stabilité) au lieu d'inventer des événements précis.
 
+**Dans le jeu** : chaque entrée de cette chronologie est une entrée de `contenu/contexte/`, datée et sourcée, de quatre types : actualité (française ou internationale, bandeau FLASH INFO), crise (qui module les modules selon le profil : par exemple la désindustrialisation pèse sur les licenciements des ouvriers), loi (qui change une règle à sa date d'entrée en vigueur : par exemple le bac professionnel n'existe qu'à partir de 1987) et mouvement social (avec un choix de participation). Les effets chiffrés sont `aCalibrer`.
+
 **Événements aléatoires de la vie**
 
 Répartis en trois familles, chacune avec sa probabilité conditionnelle (section 4) :

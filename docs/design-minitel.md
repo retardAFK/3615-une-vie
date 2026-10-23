@@ -81,7 +81,7 @@ dupliquer les composants.
 | --- | --- |
 | **Accueil** (sommaire) | titre UNE VIE EN FRANCE, 3 lignes d'accroche, menu 1 NOUVELLE VIE / 2 REPRENDRE / 3 VIES PASSEES, champ graine, champ année de naissance (« VIDE = HASARD », bornes de la table des naissances ; Entrée dans l'un ou l'autre champ lance la partie), mention « déconseillé aux moins de 15 ans », touches GUIDE · ENVOI |
 | **Naissance** | `TU ES NEE.`, puis l'origine révélée ligne par ligne dans l'ordre du tirage (année, sexe, région, commune, parents, revenu, logement, fratrie), encadré prénom + statistique, touches RETOUR · ENVOI COMMENCER |
-| **Tour** | barre `TOUR N`, année, identité, jauges, lignes SITUATION (scolarité ou emploi et métier), REVENU, EPARGNE, DETTES, encadré Avis, 1 à 3 choix numérotés, ligne jeux d'argent si pertinent, touches SOMMAIRE · AUTO · ENVOI |
+| **Tour** | barre `TOUR N`, bandeau FLASH INFO (étiquette jaune) quand une entrée du contexte historique commence cette année, année, identité, jauges, lignes SITUATION (scolarité ou emploi et métier), REVENU, EPARGNE, DETTES, encadré Avis, 1 à 3 choix numérotés, ligne jeux d'argent si pertinent, touches SOMMAIRE · AUTO · ENVOI |
 | **Journal** | légende, liste année / âge / événement colorée selon le type, pagination, touches RETOUR · SUITE · REPRENDRE |
 | **Connexion** | au lancement, pendant le chargement : lignes « APPEL DU 3615... », « CONNEXION AU SERVICE UNE VIE... », puis « CONNECTE. » ; passable avec ENVOI |
 | **Réglages** | depuis l'accueil (4 REGLAGES) : vitesse d'affichage (lente, normale, rapide, instantanée) et sons (non par défaut), touche RETOUR |

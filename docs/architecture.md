@@ -36,18 +36,20 @@ contenu/evenements/*.json  ─────────────────�
 │   └── data/                    tables JSON générées, versionnées
 ├── contenu/
 │   ├── evenements/              un fichier JSON par module
+│   ├── contexte/                actualités, crises, lois, mouvements datés et sourcés
 │   └── textes/                  modèles de récit et variantes
 ├── src/
 │   ├── moteur/
 │   │   ├── rng.ts               générateur à graine
 │   │   ├── cotes.ts             formule des cotes, effet des traits
 │   │   ├── tables.ts            recherche dans les tables, repli vers une table moins précise
+│   │   ├── conditions.ts        conditions sur l'origine et les états (événements, contexte)
 │   │   ├── constantes.ts        paramètres de jeu (âge maximal, valeurs initiales...)
 │   │   ├── types.ts             Personnage, Evenement, Choix...
 │   │   ├── naissance.ts         tirage de l'origine
 │   │   ├── boucle.ts            ouvrirAnnee(), fermerAnnee(), jouerAnneeAuto()
 │   │   ├── evenements.ts        sélection et application des événements
-│   │   ├── validation.ts        validation des fichiers de contenu/evenements/
+│   │   ├── validation.ts        validation de contenu/evenements/ et contenu/contexte/
 │   │   ├── modules/             education, emploi, argent, jeux, addictions,
 │   │   │                        sante, famille, contexte
 │   │   └── recit.ts             remplissage des modèles de texte
@@ -90,7 +92,7 @@ choisirAuto(etat: EtatPartie, evenement: EvenementTire, donnees: Donnees): Choix
 bilan(etat: EtatPartie): Bilan
 ```
 
-- `donnees` regroupe tout ce que le moteur reçoit en plus de l'état : `{ tables, evenements, libelles }`.
+- `donnees` regroupe tout ce que le moteur reçoit en plus de l'état : `{ tables, evenements, libelles, contexte }`.
 - Une année se joue en deux temps. `ouvrirAnnee` passe le test de mortalité puis tire les événements de l'année ; elle renvoie l'état avec `anneeEnCours`, les événements tirés (avec la probabilité finale qui a servi au tirage) et les choix proposés. `fermerAnnee` applique les choix, les effets, écrit le journal et fait vieillir le personnage.
 - `jouerAnneeAuto` enchaîne les deux avec `choisirAuto` : mode AUTO, worker et tests de performance.
 
@@ -165,7 +167,7 @@ interface Evenement {
 - Tant qu'une table n'est pas calibrée, elle contient des valeurs de travail plausibles et `"aCalibrer": true`. Le bilan peut alors afficher un avertissement discret.
 - Les règles de droit (âge légal de retraite, obligation scolaire) sont des tables à part, sourcées, avec `"aCalibrer": false`.
 - Les modules (`src/moteur/modules/`) tirent leurs issues à plusieurs valeurs (voie, orientation, transitions d'emploi) par la formule des cotes appliquée à chaque issue, puis renormalisée (`distributionCorrigee`). Les choix agissent sur ces tirages par des modificateurs visant des tags d'issue (`voie_generale`, `emploi_chomage`...). Un choix ne peut avoir un effet direct que pour accepter une opportunité déjà tirée (`effets: { changerEmploi: true }`).
-- La table `contexte` est le point d'accroche du contexte historique : des multiplicateurs par année et par tag, vide jusqu'au jalon 4c.
+- Le contexte historique vit dans `contenu/contexte/` : chaque entrée est datée (`debut`, `fin`, années calendaires), sourcée (`source` obligatoire), et de type `actualite`, `crise`, `loi` ou `mouvement`. Une crise porte des multiplicateurs par tag, éventuellement limités à un profil (`profil`, jamais sur l'origine migratoire) ; une loi peut fixer une règle à partir de son année (`regles`, par exemple `bacPro`). Les entrées qui commencent une année entrent au journal et au bandeau FLASH INFO. Les mouvements sociaux sont aussi des événements bornés à des années calendaires (`annees`), avec un choix de participation.
 - Chargement paresseux : chaque module charge ses tables quand il devient utile.
 
 ## Interface
