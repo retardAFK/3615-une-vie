@@ -1,8 +1,8 @@
 {
   "table": "territoire",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
-  "url": null,
-  "aCalibrer": true,
+  "source": "Insee, aires d'attraction des villes 2020 (composition communale au 1er janvier 2026) : grande métropole = pôle d'une aire de 700 000 habitants ou plus, ville moyenne = autre pôle ou commune de 2 000 habitants ou plus hors attraction, périurbain = commune de couronne de 2 000 habitants ou plus, rural = commune hors pôle de moins de 2 000 habitants l'année du recensement ; populations communales des recensements 1954-2023 (séries historiques, géographie 2025), interpolées au milieu de chaque décennie, zonage de 2020 pour toutes les années ; quartiers prioritaires 2024 (populations 2020) retirés de la catégorie de leur commune, à la même part pour toutes les décennies. DROM : « drom ».",
+  "url": "https://www.insee.fr/fr/information/4803954",
+  "aCalibrer": false,
   "lignes": [
     {
       "conditions": {
@@ -46,14 +46,1452 @@
     },
     {
       "conditions": {
+        "region": "ile_de_france",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "grande_metropole": 0.7741,
+        "periurbain": 0.02676,
+        "rural": 0.05751,
+        "quartier_prioritaire": 0.1416
+      }
+    },
+    {
+      "conditions": {
+        "region": "ile_de_france",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "grande_metropole": 0.7748,
+        "periurbain": 0.03705,
+        "rural": 0.04579,
+        "quartier_prioritaire": 0.1423
+      }
+    },
+    {
+      "conditions": {
+        "region": "ile_de_france",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "grande_metropole": 0.7594,
+        "periurbain": 0.05823,
+        "rural": 0.04172,
+        "quartier_prioritaire": 0.1407
+      }
+    },
+    {
+      "conditions": {
+        "region": "ile_de_france",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "grande_metropole": 0.7437,
+        "periurbain": 0.07296,
+        "rural": 0.04477,
+        "quartier_prioritaire": 0.1386
+      }
+    },
+    {
+      "conditions": {
+        "region": "ile_de_france",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "grande_metropole": 0.7331,
+        "periurbain": 0.08406,
+        "rural": 0.04555,
+        "quartier_prioritaire": 0.1373
+      }
+    },
+    {
+      "conditions": {
+        "region": "ile_de_france",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "grande_metropole": 0.7298,
+        "periurbain": 0.08873,
+        "rural": 0.04453,
+        "quartier_prioritaire": 0.1369
+      }
+    },
+    {
+      "conditions": {
+        "region": "ile_de_france",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "grande_metropole": 0.7277,
+        "periurbain": 0.09271,
+        "rural": 0.04285,
+        "quartier_prioritaire": 0.1368
+      }
+    },
+    {
+      "conditions": {
+        "region": "ile_de_france",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "grande_metropole": 0.7254,
+        "periurbain": 0.09766,
+        "rural": 0.04036,
+        "quartier_prioritaire": 0.1366
+      }
+    },
+    {
+      "conditions": {
         "region": "ile_de_france"
       },
       "distribution": {
-        "grande_metropole": 0.55,
-        "ville_moyenne": 0.07,
-        "periurbain": 0.2,
-        "rural": 0.03,
-        "quartier_prioritaire": 0.15
+        "grande_metropole": 0.7263,
+        "periurbain": 0.0951,
+        "rural": 0.04191,
+        "quartier_prioritaire": 0.1366
+      }
+    },
+    {
+      "conditions": {
+        "region": "centre_val_de_loire",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "ville_moyenne": 0.32,
+        "periurbain": 0.1045,
+        "rural": 0.5184,
+        "quartier_prioritaire": 0.05704
+      }
+    },
+    {
+      "conditions": {
+        "region": "centre_val_de_loire",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3636,
+        "periurbain": 0.1194,
+        "rural": 0.4521,
+        "quartier_prioritaire": 0.06483
+      }
+    },
+    {
+      "conditions": {
+        "region": "centre_val_de_loire",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "ville_moyenne": 0.4006,
+        "periurbain": 0.15,
+        "rural": 0.3775,
+        "quartier_prioritaire": 0.07188
+      }
+    },
+    {
+      "conditions": {
+        "region": "centre_val_de_loire",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3821,
+        "periurbain": 0.189,
+        "rural": 0.3592,
+        "quartier_prioritaire": 0.06972
+      }
+    },
+    {
+      "conditions": {
+        "region": "centre_val_de_loire",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3708,
+        "periurbain": 0.2092,
+        "rural": 0.3517,
+        "quartier_prioritaire": 0.0683
+      }
+    },
+    {
+      "conditions": {
+        "region": "centre_val_de_loire",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3577,
+        "periurbain": 0.2247,
+        "rural": 0.3511,
+        "quartier_prioritaire": 0.06647
+      }
+    },
+    {
+      "conditions": {
+        "region": "centre_val_de_loire",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3415,
+        "periurbain": 0.2426,
+        "rural": 0.3517,
+        "quartier_prioritaire": 0.06417
+      }
+    },
+    {
+      "conditions": {
+        "region": "centre_val_de_loire",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3402,
+        "periurbain": 0.2502,
+        "rural": 0.3455,
+        "quartier_prioritaire": 0.06413
+      }
+    },
+    {
+      "conditions": {
+        "region": "centre_val_de_loire"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3412,
+        "periurbain": 0.2474,
+        "rural": 0.3472,
+        "quartier_prioritaire": 0.06424
+      }
+    },
+    {
+      "conditions": {
+        "region": "bourgogne_franche_comte",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3359,
+        "periurbain": 0.07737,
+        "rural": 0.5299,
+        "quartier_prioritaire": 0.05682
+      }
+    },
+    {
+      "conditions": {
+        "region": "bourgogne_franche_comte",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3779,
+        "periurbain": 0.08571,
+        "rural": 0.4725,
+        "quartier_prioritaire": 0.06391
+      }
+    },
+    {
+      "conditions": {
+        "region": "bourgogne_franche_comte",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "ville_moyenne": 0.4047,
+        "periurbain": 0.1076,
+        "rural": 0.419,
+        "quartier_prioritaire": 0.06869
+      }
+    },
+    {
+      "conditions": {
+        "region": "bourgogne_franche_comte",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3824,
+        "periurbain": 0.1147,
+        "rural": 0.4377,
+        "quartier_prioritaire": 0.06513
+      }
+    },
+    {
+      "conditions": {
+        "region": "bourgogne_franche_comte",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "ville_moyenne": 0.367,
+        "periurbain": 0.1212,
+        "rural": 0.4491,
+        "quartier_prioritaire": 0.06268
+      }
+    },
+    {
+      "conditions": {
+        "region": "bourgogne_franche_comte",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3479,
+        "periurbain": 0.1278,
+        "rural": 0.4647,
+        "quartier_prioritaire": 0.05962
+      }
+    },
+    {
+      "conditions": {
+        "region": "bourgogne_franche_comte",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3304,
+        "periurbain": 0.1365,
+        "rural": 0.4761,
+        "quartier_prioritaire": 0.05688
+      }
+    },
+    {
+      "conditions": {
+        "region": "bourgogne_franche_comte",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3309,
+        "periurbain": 0.1367,
+        "rural": 0.4754,
+        "quartier_prioritaire": 0.05696
+      }
+    },
+    {
+      "conditions": {
+        "region": "bourgogne_franche_comte"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3297,
+        "periurbain": 0.1369,
+        "rural": 0.4767,
+        "quartier_prioritaire": 0.05675
+      }
+    },
+    {
+      "conditions": {
+        "region": "normandie",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3902,
+        "periurbain": 0.1275,
+        "rural": 0.4117,
+        "quartier_prioritaire": 0.07066
+      }
+    },
+    {
+      "conditions": {
+        "region": "normandie",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "ville_moyenne": 0.4247,
+        "periurbain": 0.1259,
+        "rural": 0.3728,
+        "quartier_prioritaire": 0.07653
+      }
+    },
+    {
+      "conditions": {
+        "region": "normandie",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "ville_moyenne": 0.444,
+        "periurbain": 0.144,
+        "rural": 0.3316,
+        "quartier_prioritaire": 0.08038
+      }
+    },
+    {
+      "conditions": {
+        "region": "normandie",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "ville_moyenne": 0.4115,
+        "periurbain": 0.1671,
+        "rural": 0.3458,
+        "quartier_prioritaire": 0.07548
+      }
+    },
+    {
+      "conditions": {
+        "region": "normandie",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3967,
+        "periurbain": 0.1822,
+        "rural": 0.3477,
+        "quartier_prioritaire": 0.07338
+      }
+    },
+    {
+      "conditions": {
+        "region": "normandie",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3798,
+        "periurbain": 0.1957,
+        "rural": 0.3536,
+        "quartier_prioritaire": 0.07087
+      }
+    },
+    {
+      "conditions": {
+        "region": "normandie",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3582,
+        "periurbain": 0.2068,
+        "rural": 0.3675,
+        "quartier_prioritaire": 0.06749
+      }
+    },
+    {
+      "conditions": {
+        "region": "normandie",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3539,
+        "periurbain": 0.2104,
+        "rural": 0.3689,
+        "quartier_prioritaire": 0.06685
+      }
+    },
+    {
+      "conditions": {
+        "region": "normandie"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3527,
+        "periurbain": 0.2101,
+        "rural": 0.3706,
+        "quartier_prioritaire": 0.06663
+      }
+    },
+    {
+      "conditions": {
+        "region": "hauts_de_france",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "grande_metropole": 0.1184,
+        "ville_moyenne": 0.265,
+        "periurbain": 0.189,
+        "rural": 0.3017,
+        "quartier_prioritaire": 0.1259
+      }
+    },
+    {
+      "conditions": {
+        "region": "hauts_de_france",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "grande_metropole": 0.1221,
+        "ville_moyenne": 0.2759,
+        "periurbain": 0.2007,
+        "rural": 0.2704,
+        "quartier_prioritaire": 0.1309
+      }
+    },
+    {
+      "conditions": {
+        "region": "hauts_de_france",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "grande_metropole": 0.1264,
+        "ville_moyenne": 0.2803,
+        "periurbain": 0.2107,
+        "rural": 0.2482,
+        "quartier_prioritaire": 0.1343
+      }
+    },
+    {
+      "conditions": {
+        "region": "hauts_de_france",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "grande_metropole": 0.1233,
+        "ville_moyenne": 0.2674,
+        "periurbain": 0.2253,
+        "rural": 0.2532,
+        "quartier_prioritaire": 0.1308
+      }
+    },
+    {
+      "conditions": {
+        "region": "hauts_de_france",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "grande_metropole": 0.1228,
+        "ville_moyenne": 0.2585,
+        "periurbain": 0.2363,
+        "rural": 0.2534,
+        "quartier_prioritaire": 0.129
+      }
+    },
+    {
+      "conditions": {
+        "region": "hauts_de_france",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "grande_metropole": 0.1237,
+        "ville_moyenne": 0.2515,
+        "periurbain": 0.2398,
+        "rural": 0.2572,
+        "quartier_prioritaire": 0.1277
+      }
+    },
+    {
+      "conditions": {
+        "region": "hauts_de_france",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "grande_metropole": 0.1247,
+        "ville_moyenne": 0.2414,
+        "periurbain": 0.2443,
+        "rural": 0.2638,
+        "quartier_prioritaire": 0.1258
+      }
+    },
+    {
+      "conditions": {
+        "region": "hauts_de_france",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "grande_metropole": 0.1284,
+        "ville_moyenne": 0.2355,
+        "periurbain": 0.2462,
+        "rural": 0.2643,
+        "quartier_prioritaire": 0.1256
+      }
+    },
+    {
+      "conditions": {
+        "region": "hauts_de_france"
+      },
+      "distribution": {
+        "grande_metropole": 0.127,
+        "ville_moyenne": 0.2368,
+        "periurbain": 0.2473,
+        "rural": 0.2633,
+        "quartier_prioritaire": 0.1256
+      }
+    },
+    {
+      "conditions": {
+        "region": "grand_est",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "grande_metropole": 0.06176,
+        "ville_moyenne": 0.3124,
+        "periurbain": 0.1552,
+        "rural": 0.3963,
+        "quartier_prioritaire": 0.07434
+      }
+    },
+    {
+      "conditions": {
+        "region": "grand_est",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "grande_metropole": 0.06653,
+        "ville_moyenne": 0.3288,
+        "periurbain": 0.1742,
+        "rural": 0.3516,
+        "quartier_prioritaire": 0.07889
+      }
+    },
+    {
+      "conditions": {
+        "region": "grand_est",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "grande_metropole": 0.06803,
+        "ville_moyenne": 0.3411,
+        "periurbain": 0.1858,
+        "rural": 0.3232,
+        "quartier_prioritaire": 0.08175
+      }
+    },
+    {
+      "conditions": {
+        "region": "grand_est",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "grande_metropole": 0.06704,
+        "ville_moyenne": 0.3275,
+        "periurbain": 0.1924,
+        "rural": 0.3338,
+        "quartier_prioritaire": 0.07925
+      }
+    },
+    {
+      "conditions": {
+        "region": "grand_est",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "grande_metropole": 0.06789,
+        "ville_moyenne": 0.3191,
+        "periurbain": 0.1986,
+        "rural": 0.3363,
+        "quartier_prioritaire": 0.07812
+      }
+    },
+    {
+      "conditions": {
+        "region": "grand_est",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "grande_metropole": 0.06873,
+        "ville_moyenne": 0.308,
+        "periurbain": 0.2089,
+        "rural": 0.3378,
+        "quartier_prioritaire": 0.07661
+      }
+    },
+    {
+      "conditions": {
+        "region": "grand_est",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "grande_metropole": 0.06965,
+        "ville_moyenne": 0.2967,
+        "periurbain": 0.2182,
+        "rural": 0.3403,
+        "quartier_prioritaire": 0.07507
+      }
+    },
+    {
+      "conditions": {
+        "region": "grand_est",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "grande_metropole": 0.07381,
+        "ville_moyenne": 0.2919,
+        "periurbain": 0.2237,
+        "rural": 0.3353,
+        "quartier_prioritaire": 0.07534
+      }
+    },
+    {
+      "conditions": {
+        "region": "grand_est"
+      },
+      "distribution": {
+        "grande_metropole": 0.07263,
+        "ville_moyenne": 0.2933,
+        "periurbain": 0.2213,
+        "rural": 0.3375,
+        "quartier_prioritaire": 0.07525
+      }
+    },
+    {
+      "conditions": {
+        "region": "pays_de_la_loire",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "grande_metropole": 0.1032,
+        "ville_moyenne": 0.3226,
+        "periurbain": 0.183,
+        "rural": 0.3518,
+        "quartier_prioritaire": 0.03941
+      }
+    },
+    {
+      "conditions": {
+        "region": "pays_de_la_loire",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "grande_metropole": 0.1145,
+        "ville_moyenne": 0.3453,
+        "periurbain": 0.1864,
+        "rural": 0.3112,
+        "quartier_prioritaire": 0.04264
+      }
+    },
+    {
+      "conditions": {
+        "region": "pays_de_la_loire",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "grande_metropole": 0.122,
+        "ville_moyenne": 0.3591,
+        "periurbain": 0.2136,
+        "rural": 0.2605,
+        "quartier_prioritaire": 0.04478
+      }
+    },
+    {
+      "conditions": {
+        "region": "pays_de_la_loire",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "grande_metropole": 0.1119,
+        "ville_moyenne": 0.3459,
+        "periurbain": 0.2667,
+        "rural": 0.2328,
+        "quartier_prioritaire": 0.04269
+      }
+    },
+    {
+      "conditions": {
+        "region": "pays_de_la_loire",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "grande_metropole": 0.1133,
+        "ville_moyenne": 0.3368,
+        "periurbain": 0.2922,
+        "rural": 0.2155,
+        "quartier_prioritaire": 0.04222
+      }
+    },
+    {
+      "conditions": {
+        "region": "pays_de_la_loire",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "grande_metropole": 0.112,
+        "ville_moyenne": 0.3254,
+        "periurbain": 0.3249,
+        "rural": 0.1964,
+        "quartier_prioritaire": 0.04127
+      }
+    },
+    {
+      "conditions": {
+        "region": "pays_de_la_loire",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "grande_metropole": 0.1112,
+        "ville_moyenne": 0.3111,
+        "periurbain": 0.3599,
+        "rural": 0.1776,
+        "quartier_prioritaire": 0.04015
+      }
+    },
+    {
+      "conditions": {
+        "region": "pays_de_la_loire",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "grande_metropole": 0.1152,
+        "ville_moyenne": 0.3085,
+        "periurbain": 0.3718,
+        "rural": 0.1641,
+        "quartier_prioritaire": 0.04047
+      }
+    },
+    {
+      "conditions": {
+        "region": "pays_de_la_loire"
+      },
+      "distribution": {
+        "grande_metropole": 0.1145,
+        "ville_moyenne": 0.3078,
+        "periurbain": 0.3676,
+        "rural": 0.1697,
+        "quartier_prioritaire": 0.04032
+      }
+    },
+    {
+      "conditions": {
+        "region": "bretagne",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "grande_metropole": 0.05107,
+        "ville_moyenne": 0.3318,
+        "periurbain": 0.2382,
+        "rural": 0.3513,
+        "quartier_prioritaire": 0.02754
+      }
+    },
+    {
+      "conditions": {
+        "region": "bretagne",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "grande_metropole": 0.06444,
+        "ville_moyenne": 0.3453,
+        "periurbain": 0.2298,
+        "rural": 0.3303,
+        "quartier_prioritaire": 0.03021
+      }
+    },
+    {
+      "conditions": {
+        "region": "bretagne",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "grande_metropole": 0.07318,
+        "ville_moyenne": 0.3496,
+        "periurbain": 0.2517,
+        "rural": 0.2938,
+        "quartier_prioritaire": 0.03174
+      }
+    },
+    {
+      "conditions": {
+        "region": "bretagne",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "grande_metropole": 0.07112,
+        "ville_moyenne": 0.3237,
+        "periurbain": 0.3079,
+        "rural": 0.2673,
+        "quartier_prioritaire": 0.03001
+      }
+    },
+    {
+      "conditions": {
+        "region": "bretagne",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "grande_metropole": 0.07245,
+        "ville_moyenne": 0.3098,
+        "periurbain": 0.335,
+        "rural": 0.2533,
+        "quartier_prioritaire": 0.02943
+      }
+    },
+    {
+      "conditions": {
+        "region": "bretagne",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "grande_metropole": 0.07135,
+        "ville_moyenne": 0.2999,
+        "periurbain": 0.3608,
+        "rural": 0.2392,
+        "quartier_prioritaire": 0.02873
+      }
+    },
+    {
+      "conditions": {
+        "region": "bretagne",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "grande_metropole": 0.07056,
+        "ville_moyenne": 0.2844,
+        "periurbain": 0.3978,
+        "rural": 0.2195,
+        "quartier_prioritaire": 0.02776
+      }
+    },
+    {
+      "conditions": {
+        "region": "bretagne",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "grande_metropole": 0.07218,
+        "ville_moyenne": 0.2804,
+        "periurbain": 0.4154,
+        "rural": 0.2043,
+        "quartier_prioritaire": 0.02779
+      }
+    },
+    {
+      "conditions": {
+        "region": "bretagne"
+      },
+      "distribution": {
+        "grande_metropole": 0.07115,
+        "ville_moyenne": 0.2811,
+        "periurbain": 0.4101,
+        "rural": 0.21,
+        "quartier_prioritaire": 0.02768
+      }
+    },
+    {
+      "conditions": {
+        "region": "nouvelle_aquitaine",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "grande_metropole": 0.09461,
+        "ville_moyenne": 0.2796,
+        "periurbain": 0.09147,
+        "rural": 0.4977,
+        "quartier_prioritaire": 0.03666
+      }
+    },
+    {
+      "conditions": {
+        "region": "nouvelle_aquitaine",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "grande_metropole": 0.0998,
+        "ville_moyenne": 0.3042,
+        "periurbain": 0.1031,
+        "rural": 0.4533,
+        "quartier_prioritaire": 0.03958
+      }
+    },
+    {
+      "conditions": {
+        "region": "nouvelle_aquitaine",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "grande_metropole": 0.1045,
+        "ville_moyenne": 0.3215,
+        "periurbain": 0.1283,
+        "rural": 0.4039,
+        "quartier_prioritaire": 0.04182
+      }
+    },
+    {
+      "conditions": {
+        "region": "nouvelle_aquitaine",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "grande_metropole": 0.102,
+        "ville_moyenne": 0.3031,
+        "periurbain": 0.169,
+        "rural": 0.3859,
+        "quartier_prioritaire": 0.04003
+      }
+    },
+    {
+      "conditions": {
+        "region": "nouvelle_aquitaine",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "grande_metropole": 0.1047,
+        "ville_moyenne": 0.2895,
+        "periurbain": 0.1915,
+        "rural": 0.3752,
+        "quartier_prioritaire": 0.03915
+      }
+    },
+    {
+      "conditions": {
+        "region": "nouvelle_aquitaine",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "grande_metropole": 0.1061,
+        "ville_moyenne": 0.2802,
+        "periurbain": 0.2146,
+        "rural": 0.3605,
+        "quartier_prioritaire": 0.03855
+      }
+    },
+    {
+      "conditions": {
+        "region": "nouvelle_aquitaine",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "grande_metropole": 0.1088,
+        "ville_moyenne": 0.263,
+        "periurbain": 0.246,
+        "rural": 0.3448,
+        "quartier_prioritaire": 0.03737
+      }
+    },
+    {
+      "conditions": {
+        "region": "nouvelle_aquitaine",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "grande_metropole": 0.1152,
+        "ville_moyenne": 0.2586,
+        "periurbain": 0.2612,
+        "rural": 0.3273,
+        "quartier_prioritaire": 0.03771
+      }
+    },
+    {
+      "conditions": {
+        "region": "nouvelle_aquitaine"
+      },
+      "distribution": {
+        "grande_metropole": 0.1128,
+        "ville_moyenne": 0.258,
+        "periurbain": 0.2577,
+        "rural": 0.3341,
+        "quartier_prioritaire": 0.03738
+      }
+    },
+    {
+      "conditions": {
+        "region": "occitanie",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "grande_metropole": 0.1039,
+        "ville_moyenne": 0.2619,
+        "periurbain": 0.1029,
+        "rural": 0.4668,
+        "quartier_prioritaire": 0.06444
+      }
+    },
+    {
+      "conditions": {
+        "region": "occitanie",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "grande_metropole": 0.1276,
+        "ville_moyenne": 0.277,
+        "periurbain": 0.1147,
+        "rural": 0.4101,
+        "quartier_prioritaire": 0.07063
+      }
+    },
+    {
+      "conditions": {
+        "region": "occitanie",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "grande_metropole": 0.1499,
+        "ville_moyenne": 0.2813,
+        "periurbain": 0.1332,
+        "rural": 0.3608,
+        "quartier_prioritaire": 0.07476
+      }
+    },
+    {
+      "conditions": {
+        "region": "occitanie",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "grande_metropole": 0.1467,
+        "ville_moyenne": 0.2611,
+        "periurbain": 0.1839,
+        "rural": 0.3368,
+        "quartier_prioritaire": 0.07153
+      }
+    },
+    {
+      "conditions": {
+        "region": "occitanie",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "grande_metropole": 0.1522,
+        "ville_moyenne": 0.2413,
+        "periurbain": 0.223,
+        "rural": 0.3142,
+        "quartier_prioritaire": 0.06933
+      }
+    },
+    {
+      "conditions": {
+        "region": "occitanie",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "grande_metropole": 0.1574,
+        "ville_moyenne": 0.2255,
+        "periurbain": 0.2553,
+        "rural": 0.294,
+        "quartier_prioritaire": 0.06772
+      }
+    },
+    {
+      "conditions": {
+        "region": "occitanie",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "grande_metropole": 0.16,
+        "ville_moyenne": 0.2109,
+        "periurbain": 0.2852,
+        "rural": 0.278,
+        "quartier_prioritaire": 0.06593
+      }
+    },
+    {
+      "conditions": {
+        "region": "occitanie",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "grande_metropole": 0.168,
+        "ville_moyenne": 0.2035,
+        "periurbain": 0.3017,
+        "rural": 0.2608,
+        "quartier_prioritaire": 0.06594
+      }
+    },
+    {
+      "conditions": {
+        "region": "occitanie"
+      },
+      "distribution": {
+        "grande_metropole": 0.1658,
+        "ville_moyenne": 0.2048,
+        "periurbain": 0.2969,
+        "rural": 0.2667,
+        "quartier_prioritaire": 0.0658
+      }
+    },
+    {
+      "conditions": {
+        "region": "auvergne_rhone_alpes",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "grande_metropole": 0.171,
+        "ville_moyenne": 0.2478,
+        "periurbain": 0.1381,
+        "rural": 0.3925,
+        "quartier_prioritaire": 0.0506
+      }
+    },
+    {
+      "conditions": {
+        "region": "auvergne_rhone_alpes",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "grande_metropole": 0.2,
+        "ville_moyenne": 0.2586,
+        "periurbain": 0.151,
+        "rural": 0.3346,
+        "quartier_prioritaire": 0.05582
+      }
+    },
+    {
+      "conditions": {
+        "region": "auvergne_rhone_alpes",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "grande_metropole": 0.212,
+        "ville_moyenne": 0.2624,
+        "periurbain": 0.1795,
+        "rural": 0.2875,
+        "quartier_prioritaire": 0.05864
+      }
+    },
+    {
+      "conditions": {
+        "region": "auvergne_rhone_alpes",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "grande_metropole": 0.1977,
+        "ville_moyenne": 0.2446,
+        "periurbain": 0.2206,
+        "rural": 0.2807,
+        "quartier_prioritaire": 0.05636
+      }
+    },
+    {
+      "conditions": {
+        "region": "auvergne_rhone_alpes",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "grande_metropole": 0.1912,
+        "ville_moyenne": 0.232,
+        "periurbain": 0.2471,
+        "rural": 0.2746,
+        "quartier_prioritaire": 0.05513
+      }
+    },
+    {
+      "conditions": {
+        "region": "auvergne_rhone_alpes",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "grande_metropole": 0.1867,
+        "ville_moyenne": 0.222,
+        "periurbain": 0.2653,
+        "rural": 0.2718,
+        "quartier_prioritaire": 0.05416
+      }
+    },
+    {
+      "conditions": {
+        "region": "auvergne_rhone_alpes",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "grande_metropole": 0.1873,
+        "ville_moyenne": 0.2121,
+        "periurbain": 0.2877,
+        "rural": 0.259,
+        "quartier_prioritaire": 0.05398
+      }
+    },
+    {
+      "conditions": {
+        "region": "auvergne_rhone_alpes",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "grande_metropole": 0.1865,
+        "ville_moyenne": 0.2084,
+        "periurbain": 0.3051,
+        "rural": 0.246,
+        "quartier_prioritaire": 0.05405
+      }
+    },
+    {
+      "conditions": {
+        "region": "auvergne_rhone_alpes"
+      },
+      "distribution": {
+        "grande_metropole": 0.1874,
+        "ville_moyenne": 0.2099,
+        "periurbain": 0.2976,
+        "rural": 0.251,
+        "quartier_prioritaire": 0.05409
+      }
+    },
+    {
+      "conditions": {
+        "region": "provence_alpes_cote_d_azur",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "grande_metropole": 0.3138,
+        "ville_moyenne": 0.3527,
+        "periurbain": 0.1291,
+        "rural": 0.148,
+        "quartier_prioritaire": 0.05636
+      }
+    },
+    {
+      "conditions": {
+        "region": "provence_alpes_cote_d_azur",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "grande_metropole": 0.3175,
+        "ville_moyenne": 0.3609,
+        "periurbain": 0.147,
+        "rural": 0.1166,
+        "quartier_prioritaire": 0.05802
+      }
+    },
+    {
+      "conditions": {
+        "region": "provence_alpes_cote_d_azur",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "grande_metropole": 0.3031,
+        "ville_moyenne": 0.3675,
+        "periurbain": 0.1794,
+        "rural": 0.09068,
+        "quartier_prioritaire": 0.05942
+      }
+    },
+    {
+      "conditions": {
+        "region": "provence_alpes_cote_d_azur",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "grande_metropole": 0.2649,
+        "ville_moyenne": 0.3606,
+        "periurbain": 0.2342,
+        "rural": 0.08112,
+        "quartier_prioritaire": 0.05917
+      }
+    },
+    {
+      "conditions": {
+        "region": "provence_alpes_cote_d_azur",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "grande_metropole": 0.238,
+        "ville_moyenne": 0.3546,
+        "periurbain": 0.2736,
+        "rural": 0.0749,
+        "quartier_prioritaire": 0.05888
+      }
+    },
+    {
+      "conditions": {
+        "region": "provence_alpes_cote_d_azur",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "grande_metropole": 0.2299,
+        "ville_moyenne": 0.3492,
+        "periurbain": 0.294,
+        "rural": 0.06819,
+        "quartier_prioritaire": 0.05861
+      }
+    },
+    {
+      "conditions": {
+        "region": "provence_alpes_cote_d_azur",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "grande_metropole": 0.2262,
+        "ville_moyenne": 0.3429,
+        "periurbain": 0.3052,
+        "rural": 0.06751,
+        "quartier_prioritaire": 0.05808
+      }
+    },
+    {
+      "conditions": {
+        "region": "provence_alpes_cote_d_azur",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "grande_metropole": 0.2234,
+        "ville_moyenne": 0.3418,
+        "periurbain": 0.3135,
+        "rural": 0.06322,
+        "quartier_prioritaire": 0.05811
+      }
+    },
+    {
+      "conditions": {
+        "region": "provence_alpes_cote_d_azur"
+      },
+      "distribution": {
+        "grande_metropole": 0.2251,
+        "ville_moyenne": 0.3412,
+        "periurbain": 0.3103,
+        "rural": 0.06541,
+        "quartier_prioritaire": 0.05799
+      }
+    },
+    {
+      "conditions": {
+        "region": "corse",
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "ville_moyenne": 0.3858,
+        "rural": 0.5706,
+        "quartier_prioritaire": 0.04362
+      }
+    },
+    {
+      "conditions": {
+        "region": "corse",
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "ville_moyenne": 0.4476,
+        "rural": 0.5017,
+        "quartier_prioritaire": 0.05061
+      }
+    },
+    {
+      "conditions": {
+        "region": "corse",
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "ville_moyenne": 0.503,
+        "periurbain": 0.04136,
+        "rural": 0.3988,
+        "quartier_prioritaire": 0.05686
+      }
+    },
+    {
+      "conditions": {
+        "region": "corse",
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "ville_moyenne": 0.5016,
+        "periurbain": 0.08146,
+        "rural": 0.3602,
+        "quartier_prioritaire": 0.05671
+      }
+    },
+    {
+      "conditions": {
+        "region": "corse",
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "ville_moyenne": 0.4758,
+        "periurbain": 0.1268,
+        "rural": 0.3437,
+        "quartier_prioritaire": 0.05379
+      }
+    },
+    {
+      "conditions": {
+        "region": "corse",
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "ville_moyenne": 0.4638,
+        "periurbain": 0.1529,
+        "rural": 0.3309,
+        "quartier_prioritaire": 0.05244
+      }
+    },
+    {
+      "conditions": {
+        "region": "corse",
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "ville_moyenne": 0.4495,
+        "periurbain": 0.1851,
+        "rural": 0.3145,
+        "quartier_prioritaire": 0.05082
+      }
+    },
+    {
+      "conditions": {
+        "region": "corse",
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "ville_moyenne": 0.4564,
+        "periurbain": 0.2236,
+        "rural": 0.2684,
+        "quartier_prioritaire": 0.0516
       }
     },
     {
@@ -61,19 +1499,20 @@
         "region": "corse"
       },
       "distribution": {
-        "ville_moyenne": 0.4,
-        "periurbain": 0.15,
-        "rural": 0.45
+        "ville_moyenne": 0.4615,
+        "periurbain": 0.2052,
+        "rural": 0.2811,
+        "quartier_prioritaire": 0.05217
       }
     },
     {
       "conditions": {},
       "distribution": {
-        "grande_metropole": 0.25,
-        "ville_moyenne": 0.22,
-        "periurbain": 0.22,
-        "rural": 0.23,
-        "quartier_prioritaire": 0.08
+        "grande_metropole": 0.2312,
+        "ville_moyenne": 0.2226,
+        "periurbain": 0.2417,
+        "rural": 0.2277,
+        "quartier_prioritaire": 0.07678
       }
     }
   ]

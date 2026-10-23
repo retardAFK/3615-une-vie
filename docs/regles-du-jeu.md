@@ -90,7 +90,7 @@ L'origine se tire dans un ordre fixe, chaque tirage étant conditionné par les 
 
 1. **anneeNaissance** : pondérée par le nombre de naissances de chaque année (INSEE, état civil). Le joueur peut aussi l'imposer à l'accueil, dans les bornes de la table ; les tirages suivants restent alors conditionnés par cette année, et la partie garde ce choix pour être rejouée à l'identique.
 2. **sexe** : environ 51 % de garçons à la naissance.
-3. **region**, puis **territoire** : pondérés par la population de l'année tirée.
+3. **region** (naissances de la décennie), puis **territoire** | region, annee : pondérés par la population de l'année tirée.
 4. **pcsParents** | annee, territoire : la part des agriculteurs et des ouvriers baisse avec les années, celle des cadres augmente.
 5. **diplomeParents** | pcsParents, annee.
 6. **decileRevenuFoyer** | pcsParents, diplomeParents, territoire.

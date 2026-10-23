@@ -72,6 +72,13 @@ describe('naissance', () => {
     }
   });
 
+  it('tire le territoire selon la region et la decennie de naissance', () => {
+    const etape = ETAPES_NAISSANCE.find((e) => e.champ === 'territoire')!;
+    const brute = { anneeNaissance: '1955', region: 'bretagne' } as OrigineBrute;
+    expect(etape.conditions(brute)).toEqual({ region: 'bretagne', periode: '1950-1959' });
+    expect(etape.ordreRepli).toEqual(['periode', 'region']);
+  });
+
   // Pour chaque étape, la fréquence observée de chaque valeur doit être proche
   // de la probabilité attendue, moyennée sur les conditions de chaque naissance.
   it.each(ETAPES_NAISSANCE.map((e) => [e.champ, e] as const))(

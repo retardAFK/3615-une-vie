@@ -64,8 +64,8 @@ export const ETAPES_NAISSANCE: readonly EtapeNaissance[] = [
   {
     champ: 'territoire',
     table: 'territoire',
-    conditions: (b) => ({ region: b.region! }),
-    ordreRepli: ['region'],
+    conditions: (b) => ({ region: b.region!, periode: periode(b) }),
+    ordreRepli: ['periode', 'region'],
   },
   {
     champ: 'pcsParents',
