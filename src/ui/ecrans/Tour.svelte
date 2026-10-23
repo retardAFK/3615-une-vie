@@ -37,6 +37,7 @@
     onauto,
     onsommaire,
     onconfirmer,
+    onjournal,
   }: {
     partie: EtatPartie;
     /** Avis affiché (événement de l'année ouverte), ou null. */
@@ -63,6 +64,7 @@
     onauto: () => void;
     onsommaire: () => void;
     onconfirmer: (quitter: boolean) => void;
+    onjournal: () => void;
   } = $props();
 
   const personnage = $derived(partie.personnage);
@@ -288,6 +290,7 @@
 <div class="touches">
   <Touche libelle="SOMMAIRE" raccourci="S" onclick={onsommaire} />
   <Touche libelle={auto ? 'PAUSE' : 'AUTO'} raccourci="A" onclick={onauto} />
+  <Touche libelle="JOURNAL" raccourci="J" onclick={onjournal} />
   <Touche
     libelle="ENVOI"
     raccourci="ENTREE"

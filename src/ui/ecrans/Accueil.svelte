@@ -3,20 +3,30 @@
   import BoutonNumerote from '../composants/BoutonNumerote.svelte';
   import ChampGraine from '../composants/ChampGraine.svelte';
   import Touche from '../composants/Touche.svelte';
+  import { minitel } from '../texte';
 
   let {
     graine = $bindable(''),
     annee = $bindable(''),
     erreurGraine,
     erreurAnnee,
+    enCours = null,
+    nombreVies = 0,
     onnouvellevie,
+    onreprendre,
+    onvies,
     onreglages,
   }: {
     graine?: string;
     annee?: string;
     erreurGraine: string | null;
     erreurAnnee: string | null;
+    /** Partie sauvegardée, à reprendre : prénom et âge. */
+    enCours?: { prenom: string; age: number } | null;
+    nombreVies?: number;
     onnouvellevie: () => void;
+    onreprendre: () => void;
+    onvies: () => void;
     onreglages: () => void;
   } = $props();
 
@@ -42,8 +52,22 @@
     <section class="droite">
       <nav class="menu" aria-label="Menu">
         <BoutonNumerote numero={1} libelle="NOUVELLE VIE" onclick={onnouvellevie} />
-        <BoutonNumerote numero={2} libelle="REPRENDRE" desactive mention="BIENTOT" />
-        <BoutonNumerote numero={3} libelle="VIES PASSEES" desactive mention="BIENTOT" />
+        {#if enCours}
+          <BoutonNumerote
+            numero={2}
+            libelle="REPRENDRE {minitel(enCours.prenom)} · {enCours.age} ANS"
+            onclick={onreprendre}
+          />
+        {:else}
+          <BoutonNumerote numero={2} libelle="REPRENDRE" desactive mention="AUCUNE PARTIE" />
+        {/if}
+        <BoutonNumerote
+          numero={3}
+          libelle="VIES PASSEES"
+          desactive={nombreVies === 0}
+          mention={nombreVies > 0 ? String(nombreVies) : undefined}
+          onclick={onvies}
+        />
         <BoutonNumerote numero={4} libelle="REGLAGES" onclick={onreglages} />
       </nav>
       <!-- Entrée dans l'un ou l'autre champ lance NOUVELLE VIE. -->

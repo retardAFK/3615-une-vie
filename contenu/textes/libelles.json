@@ -186,5 +186,14 @@
     "hlm": "HLM",
     "proprietaire": "PROPRIETAIRE",
     "precaire": "SANS LOGEMENT STABLE"
+  },
+  "diplome": {
+    "aucun": "SANS DIPLOME",
+    "cap_bep": "CAP-BEP",
+    "bac_pro": "BAC PRO",
+    "bac_techno": "BAC TECHNO",
+    "bac_general": "BAC GENERAL",
+    "bac_2_3": "BAC+2 OU 3",
+    "bac_5": "BAC+5"
   }
 }
