@@ -123,7 +123,8 @@ export function soutenuParSaFamille(personnage: Personnage, tables: Tables): boo
 }
 
 /**
- * Bilan de l'année : revenus et aides, moins la dépense de vie et les remboursements.
+ * Bilan de l'année : revenus et aides, moins la dépense de vie, les autres dépenses
+ * (addictions, mises de jeu nettes des gains) et les remboursements.
  * Un solde positif va à l'épargne ; un solde négatif est pris sur l'épargne, puis
  * couvert par la famille (soutien familial), sinon emprunté (découvert, crédit à la
  * consommation) jusqu'au plafond de crédit ; au-delà, ou pendant un plan d'apurement,
@@ -135,14 +136,22 @@ export function bilanAnnuel(
   etat: EtatPartie,
   aides: AidesDeLAnnee,
   donnees: Donnees,
+  depenses = 0,
 ): ResultatBilan {
   const { personnage, annee } = etat;
-  if (!estAutonome(personnage)) return { personnage, journal: [] };
+  if (!estAutonome(personnage)) {
+    // Avant l'autonomie, seules les dépenses passées (mises de jeu) touchent les finances.
+    if (depenses === 0) return { personnage, journal: [] };
+    return {
+      personnage: { ...personnage, finances: appliquerMontant(personnage.finances, -depenses) },
+      journal: [],
+    };
+  }
   const { tables, contexte } = donnees;
   const reglage = (nom: string): number => parametre(tables.parametresArgent, nom);
   const avant = personnage.finances;
   const ressources = avant.revenuAnnuel + aides.total;
-  const disponible = ressources - depenseVie(personnage, annee, tables, ressources);
+  const disponible = ressources - depenseVie(personnage, annee, tables, ressources) - depenses;
   const enPlan = avant.planApurement > 0;
 
   // Intérêts, puis remboursement de l'année : contractuel, ou selon la capacité pendant un plan.

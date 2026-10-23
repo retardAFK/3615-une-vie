@@ -3,25 +3,107 @@
 import { AGE_MAXIMAL } from './constantes';
 import { multiplicateurTrait, probabiliteFinale, probabiliteParProduit } from './cotes';
 import { appliquerMontant } from './modules/argent';
-import { remplitConditions } from './conditions';
+import { remplitConditions, valeurChamp } from './conditions';
 import { multiplicateurContexte, regleEnVigueur, tagsDuContexte } from './modules/contexte';
 import { rediger } from './recit';
-import { hachageIdentifiant, sousGenerateur, tirage, tirageHache, tirerPondere } from './rng';
+import {
+  hachageIdentifiant,
+  hachageSuffixe,
+  sousGenerateurHache,
+  tirageHache,
+  tirerPondere,
+} from './rng';
 import { CHAMPS_ETATS_CONDITIONS } from './types';
 import type {
+  ChampCondition,
   ChoixJoueur,
   ChoixPossible,
   Donnees,
   EntreeContexte,
+  EtatAddiction,
   EtatPartie,
   Evenement,
   EvenementTire,
   JaugeModifiable,
   Jauges,
   ModificateurTemporaire,
+  Personnage,
+  Produit,
+  TableValeur,
 } from './types';
 
 export { remplitConditions };
+
+/** Une addiction est active en usage régulier ou en dépendance (règles, section 9). */
+export const ETATS_ACTIFS: ReadonlySet<EtatAddiction> = new Set(['usage_regulier', 'dependance']);
+
+const addictionsParTag = new WeakMap<object, Map<string, [Produit, number][]>>();
+
+// Dernière table indexée : la même sert à tous les appels d'une partie.
+let derniereTable: object | null = null;
+let dernierIndex = new Map<string, [Produit, number][]>();
+
+function indexAddictions(table: TableValeur): Map<string, [Produit, number][]> {
+  if (table === derniereTable) return dernierIndex;
+  let parTag = addictionsParTag.get(table);
+  if (!parTag) {
+    parTag = new Map();
+    for (const ligne of table.lignes) {
+      const { produit, tag } = ligne.conditions;
+      if (!produit || !tag) continue;
+      if (!parTag.has(tag)) parTag.set(tag, []);
+      parTag.get(tag)!.push([produit as Produit, ligne.valeur]);
+    }
+    addictionsParTag.set(table, parTag);
+  }
+  derniereTable = table;
+  dernierIndex = parTag;
+  return parTag;
+}
+
+const tagsAddictions = new WeakMap<object, ReadonlySet<string>>();
+
+/** Tags des autres modules sur lesquels pèse une addiction active (table addictionsAutresTags). */
+export function tagsDesAddictions(table: TableValeur): ReadonlySet<string> {
+  let tags = tagsAddictions.get(table);
+  if (!tags) {
+    tags = new Set(indexAddictions(table).keys());
+    tagsAddictions.set(table, tags);
+  }
+  return tags;
+}
+
+// Les mêmes addictions sont testées de nombreuses fois par an : dernier résultat gardé.
+let dernieresAddictions: Readonly<Record<Produit, EtatAddiction>> | null = null;
+let derniereActive = false;
+
+/** Au moins une addiction active (usage régulier ou dépendance). */
+export function aUneAddictionActive(addictions: Readonly<Record<Produit, EtatAddiction>>): boolean {
+  if (addictions === dernieresAddictions) return derniereActive;
+  let active = false;
+  for (const produit in addictions) {
+    if (ETATS_ACTIFS.has(addictions[produit as Produit])) active = true;
+  }
+  dernieresAddictions = addictions;
+  derniereActive = active;
+  return active;
+}
+
+/** Produit des multiplicateurs des addictions actives pour ce tag ; 1 sans addiction. */
+export function multiplicateurAddictions(
+  personnage: Personnage,
+  tag: string,
+  table: TableValeur,
+): number {
+  if (!aUneAddictionActive(personnage.etats.addictions)) return 1;
+  const liste = indexAddictions(table).get(tag);
+  if (!liste) return 1;
+  let m = 1;
+  for (const [produit, facteur] of liste) {
+    if (ETATS_ACTIFS.has(personnage.etats.addictions[produit])) m *= facteur;
+  }
+  return m;
+}
 
 /** Au plus 3 événements par an. */
 export const EVENEMENTS_PAR_AN = 3;
@@ -71,6 +153,48 @@ export function evenementsParAge(evenements: readonly Evenement[]): EvenementRan
     indexParAge.set(evenements, parAge);
   }
   return parAge;
+}
+
+/**
+ * Tranche d'âge rangée pour le tirage : les événements sans condition, et ceux qui en
+ * ont une, rangés selon la valeur acceptée de leur première condition. Chaque année,
+ * seuls les événements dont cette condition correspond sont examinés. L'ordre d'examen
+ * ne change rien : les tirages sont indépendants et les candidats triés ensuite.
+ */
+interface TrancheRangee {
+  libres: EvenementRange[];
+  gardes: { champ: ChampCondition; parValeur: Map<string, EvenementRange[]> }[];
+}
+
+const indexRange = new WeakMap<readonly Evenement[], TrancheRangee[]>();
+
+function tranchesRangees(evenements: readonly Evenement[]): TrancheRangee[] {
+  let rangees = indexRange.get(evenements);
+  if (!rangees) {
+    rangees = evenementsParAge(evenements).map((tranche) => {
+      const rangee: TrancheRangee = { libres: [], gardes: [] };
+      for (const range of tranche) {
+        const requiert = range.evenement.requiert;
+        const champ = requiert && (Object.keys(requiert)[0] as ChampCondition | undefined);
+        if (!champ) {
+          rangee.libres.push(range);
+          continue;
+        }
+        let garde = rangee.gardes.find((g) => g.champ === champ);
+        if (!garde) {
+          garde = { champ, parValeur: new Map() };
+          rangee.gardes.push(garde);
+        }
+        for (const valeur of requiert[champ]!) {
+          if (!garde.parValeur.has(valeur)) garde.parValeur.set(valeur, []);
+          garde.parValeur.get(valeur)!.push(range);
+        }
+      }
+      return rangee;
+    });
+    indexRange.set(evenements, rangees);
+  }
+  return rangees;
 }
 
 /** Retrouve un événement par son id (index mis en cache par liste). */
@@ -125,7 +249,8 @@ export function estActif(modificateur: ModificateurTemporaire, age: number): boo
 
 /**
  * Multiplicateurs visant un tag à un âge donné : modificateurs de choix actifs,
- * puis contexte historique de l'année correspondante. Sert aux tirages des modules.
+ * contexte historique de l'année correspondante, addictions actives.
+ * Sert aux tirages des modules.
  */
 export function multiplicateursTag(
   etat: EtatPartie,
@@ -140,21 +265,46 @@ export function multiplicateursTag(
   const annee = etat.annee + age - etat.personnage.age;
   const contexte = multiplicateurContexte(donnees, etat.personnage, annee, tag);
   if (contexte !== 1) resultat.push(contexte);
+  const addictions = multiplicateurAddictions(
+    etat.personnage,
+    tag,
+    donnees.tables.addictionsAutresTags,
+  );
+  if (addictions !== 1) resultat.push(addictions);
   return resultat;
 }
 
-/** Probabilité finale de l'événement cette année : pBase corrigée par la formule des cotes. */
+/**
+ * Même chose, en un seul produit et sans tableau intermédiaire : pour les tirages
+ * annuels des modules (plusieurs par produit d'addiction et par an).
+ */
+export function produitTag(etat: EtatPartie, tag: string, age: number, donnees: Donnees): number {
+  let m = 1;
+  const actifs = etat.modificateursActifs;
+  for (let i = 0; i < actifs.length; i++) {
+    const mod = actifs[i]!;
+    if ('tag' in mod.cible && mod.cible.tag === tag && estActif(mod, age)) m *= mod.m;
+  }
+  const annee = etat.annee + age - etat.personnage.age;
+  if (donnees.contexte.length > 0) {
+    m *= multiplicateurContexte(donnees, etat.personnage, annee, tag);
+  }
+  return m * multiplicateurAddictions(etat.personnage, tag, donnees.tables.addictionsAutresTags);
+}
+
 /** Ce dont dépend la probabilité d'un événement. */
 export type Dependance = 'origine' | 'traits' | 'jauges' | 'etats' | 'annee';
 
 /**
  * Dépendances de la probabilité d'un événement, déduites de ce qu'il déclare
- * (modificateurs, pBase) et du contexte historique (un tag présent dans la table
- * contexte rend l'événement dépendant de l'année). Jamais établies à la main.
+ * (modificateurs, pBase), du contexte historique (un tag présent dans la table
+ * contexte rend l'événement dépendant de l'année) et des addictions (un tag sur
+ * lequel pèse une addiction active le rend dépendant des états). Jamais établies à la main.
  */
 export function dependancesProbabilite(
   evenement: Evenement,
   contexte: readonly EntreeContexte[],
+  tagsAddictions: ReadonlySet<string> = new Set(),
 ): Set<Dependance> {
   const dependances = new Set<Dependance>();
   // pBase par table (jalon 4c et suivants) : dépendance supposée aux états.
@@ -171,23 +321,32 @@ export function dependancesProbabilite(
   }
   const visesParLeContexte = tagsDuContexte(contexte);
   if (evenement.tags.some((tag) => visesParLeContexte.has(tag))) dependances.add('annee');
+  if (evenement.tags.some((tag) => tagsAddictions.has(tag))) dependances.add('etats');
   return dependances;
 }
 
-const fixes = new WeakMap<object, WeakMap<Evenement, boolean>>();
+const fixes = new WeakMap<object, Map<Evenement, boolean>>();
+// Dernier contexte : une partie n'en change pas.
+let dernierContexteFixes: object | null = null;
+let derniersFixes = new Map<Evenement, boolean>();
 
 /**
- * Probabilité fixe pour toute une vie : ne dépend que de l'origine et des traits,
- * qui ne changent jamais. Classement mis en cache par table de contexte.
+ * Probabilité fixe pour toute une vie, hors addictions : ne dépend que de l'origine
+ * et des traits, qui ne changent jamais. Le facteur des addictions actives (tags
+ * visés par addictionsAutresTags) s'applique à part, à chaque tirage.
+ * Classement mis en cache par table de contexte.
  */
 export function aProbabiliteFixe(
   evenement: Evenement,
   contexte: readonly EntreeContexte[],
 ): boolean {
-  let parEvenement = fixes.get(contexte);
-  if (!parEvenement) {
-    parEvenement = new WeakMap();
+  let parEvenement: Map<Evenement, boolean>;
+  if (contexte === dernierContexteFixes) parEvenement = derniersFixes;
+  else {
+    parEvenement = fixes.get(contexte) ?? new Map();
     fixes.set(contexte, parEvenement);
+    dernierContexteFixes = contexte;
+    derniersFixes = parEvenement;
   }
   let fixe = parEvenement.get(evenement);
   if (fixe === undefined) {
@@ -198,11 +357,16 @@ export function aProbabiliteFixe(
   return fixe;
 }
 
-/** Probabilités fixes déjà calculées, par vie (l'origine et les traits ne changent pas). */
-const probabilitesFixes = new WeakMap<
-  object,
-  { traits: object; valeurs: Map<Evenement, number> }
->();
+/** Produits de multiplicateurs fixes déjà calculés, par vie (origine et traits constants). */
+interface CacheVie {
+  traits: object;
+  valeurs: Map<Evenement, number>;
+  probabilites: Map<Evenement, number>;
+}
+const produitsFixes = new WeakMap<object, CacheVie>();
+// Vie en cours : ses années se suivent, sans recherche dans le cache des vies.
+let derniereOrigine: object | null = null;
+let dernierCache: CacheVie | undefined;
 
 function viseParUnChoix(evenement: Evenement, etat: EtatPartie): boolean {
   const actifs = etat.modificateursActifs;
@@ -212,38 +376,83 @@ function viseParUnChoix(evenement: Evenement, etat: EtatPartie): boolean {
   return false;
 }
 
+// Tags de chaque événement visés par la table addictionsAutresTags courante.
+let tableTagsEvenements: object | null = null;
+let tagsEvenements = new Map<Evenement, readonly string[]>();
+const AUCUN_TAG: readonly string[] = [];
+
+/** Tags de l'événement sur lesquels pèsent les addictions actives (souvent aucun). */
+function tagsAddictionsDe(evenement: Evenement, donnees: Donnees): readonly string[] {
+  const table = donnees.tables.addictionsAutresTags;
+  if (table !== tableTagsEvenements) {
+    tableTagsEvenements = table;
+    tagsEvenements = new Map();
+  }
+  let tags = tagsEvenements.get(evenement);
+  if (tags === undefined) {
+    const vises = tagsDesAddictions(table);
+    const trouves = evenement.tags.filter((tag) => vises.has(tag));
+    tags = trouves.length > 0 ? trouves : AUCUN_TAG;
+    tagsEvenements.set(evenement, tags);
+  }
+  return tags;
+}
+
+/** Probabilité finale de l'événement cette année : pBase corrigée par la formule des cotes. */
 export function probabiliteEvenement(
   evenement: Evenement,
   etat: EtatPartie,
   donnees?: Donnees,
 ): number {
-  if (
-    !donnees ||
-    !aProbabiliteFixe(evenement, donnees.contexte) ||
-    viseParUnChoix(evenement, etat)
-  ) {
-    return calculerProbabilite(evenement, etat, donnees);
-  }
-  const { origine, traits } = etat.personnage;
-  let cache = probabilitesFixes.get(origine);
-  if (!cache || cache.traits !== traits) {
-    cache = { traits, valeurs: new Map() };
-    probabilitesFixes.set(origine, cache);
-  }
-  let p = cache.valeurs.get(evenement);
-  if (p === undefined) {
-    p = calculerProbabilite(evenement, etat, donnees);
-    cache.valeurs.set(evenement, p);
-  }
-  return p;
-}
-
-function calculerProbabilite(evenement: Evenement, etat: EtatPartie, donnees?: Donnees): number {
   if (typeof evenement.pBase !== 'number') {
     throw new Error(`${evenement.id} : pBase par table pas encore prise en charge`);
   }
+  if (!donnees) {
+    return probabiliteParProduit(evenement.pBase, produitMultiplicateurs(evenement, etat));
+  }
+  const tags = tagsAddictionsDe(evenement, donnees);
+  let facteur = 1;
+  for (let i = 0; i < tags.length; i++) {
+    facteur *= multiplicateurAddictions(
+      etat.personnage,
+      tags[i]!,
+      donnees.tables.addictionsAutresTags,
+    );
+  }
+  if (!aProbabiliteFixe(evenement, donnees.contexte) || viseParUnChoix(evenement, etat)) {
+    return probabiliteParProduit(
+      evenement.pBase,
+      produitMultiplicateurs(evenement, etat, donnees) * facteur,
+    );
+  }
+  // Partie fixe pour toute la vie : le produit des multiplicateurs, en cache.
+  const { origine, traits } = etat.personnage;
+  let cache = origine === derniereOrigine ? dernierCache : produitsFixes.get(origine);
+  if (!cache || cache.traits !== traits) {
+    cache = { traits, valeurs: new Map(), probabilites: new Map() };
+    produitsFixes.set(origine, cache);
+  }
+  derniereOrigine = origine;
+  dernierCache = cache;
+  if (tags.length === 0) {
+    let p = cache.probabilites.get(evenement);
+    if (p === undefined) {
+      p = probabiliteParProduit(evenement.pBase, produitMultiplicateurs(evenement, etat, donnees));
+      cache.probabilites.set(evenement, p);
+    }
+    return p;
+  }
+  let produit = cache.valeurs.get(evenement);
+  if (produit === undefined) {
+    produit = produitMultiplicateurs(evenement, etat, donnees);
+    cache.valeurs.set(evenement, produit);
+  }
+  return probabiliteParProduit(evenement.pBase, produit * facteur);
+}
+
+/** Produit des multiplicateurs de l'événement, hors addictions (appelé ~20 fois par an). */
+function produitMultiplicateurs(evenement: Evenement, etat: EtatPartie, donnees?: Donnees): number {
   const { personnage } = etat;
-  // Produit des multiplicateurs, calculé au fil de l'eau (appelé ~20 fois par an).
   let produit = 1;
   const modificateurs = evenement.modificateurs;
   if (modificateurs) {
@@ -264,7 +473,7 @@ function calculerProbabilite(evenement: Evenement, etat: EtatPartie, donnees?: D
       produit *= multiplicateurContexte(donnees, personnage, etat.annee, tag);
     }
   }
-  return probabiliteParProduit(evenement.pBase, produit);
+  return produit;
 }
 
 function tire(
@@ -297,23 +506,31 @@ export function tirerEvenements(
   donnees: Donnees,
 ): { retenus: EvenementTire[]; reportes: string[] } {
   const { graine, personnage } = etat;
-  const tranche = evenementsParAge(donnees.evenements)[personnage.age] ?? [];
+  const rangee = tranchesRangees(donnees.evenements)[personnage.age];
+  if (!rangee) return { retenus: [], reportes: [] };
   const reportes = etat.reportes;
-  // La plupart des années, rien n'est tiré : aucune allocation dans ce cas.
-  let candidats: { tire: EvenementTire; rang: number }[] | null = null;
-  for (let i = 0; i < tranche.length; i++) {
-    const { evenement, rang, identifiant } = tranche[i]!;
-    if (!estEligibleAgeCompris(evenement, rang, etat, donnees)) continue;
-    if (reportes.length > 0 && reportes.includes(evenement.id)) {
-      (candidats ??= []).push({ tire: tire(evenement, etat, donnees, 1, true), rang });
-      continue;
+  const candidats: { tire: EvenementTire; rang: number }[] = [];
+  const examiner = (liste: readonly EvenementRange[]): void => {
+    for (let i = 0; i < liste.length; i++) {
+      const { evenement, rang, identifiant } = liste[i]!;
+      if (!estEligibleAgeCompris(evenement, rang, etat, donnees)) continue;
+      if (reportes.length > 0 && reportes.includes(evenement.id)) {
+        candidats.push({ tire: tire(evenement, etat, donnees, 1, true), rang });
+        continue;
+      }
+      const p = probabiliteEvenement(evenement, etat, donnees);
+      if (tirageHache(graine, personnage.age, identifiant) < p) {
+        candidats.push({ tire: tire(evenement, etat, donnees, p, false), rang });
+      }
     }
-    const p = probabiliteEvenement(evenement, etat, donnees);
-    if (tirageHache(graine, personnage.age, identifiant) < p) {
-      (candidats ??= []).push({ tire: tire(evenement, etat, donnees, p, false), rang });
-    }
+  };
+  examiner(rangee.libres);
+  for (let i = 0; i < rangee.gardes.length; i++) {
+    const { champ, parValeur } = rangee.gardes[i]!;
+    const liste = parValeur.get(valeurChamp(personnage, champ));
+    if (liste) examiner(liste);
   }
-  if (candidats === null) return { retenus: [], reportes: [] };
+  if (candidats.length === 0) return { retenus: [], reportes: [] };
   candidats.sort((a, b) => b.tire.gravite - a.tire.gravite || a.rang - b.rang);
   return {
     retenus: candidats.slice(0, EVENEMENTS_PAR_AN).map((c) => c.tire),
@@ -373,7 +590,7 @@ export function appliquerEvenement(
   let travail = personnage.etats.travail;
   if (evenement.effets.revenu) {
     const [min, max] = evenement.effets.revenu;
-    const g = sousGenerateur(etat.graine, age, `${evenement.id}.revenu`);
+    const g = sousGenerateurHache(etat.graine, age, hachageSuffixe(evenement.id, 'revenu'));
     travail = { ...travail, progression: travail.progression * (min + (max - min) * g()) };
   }
 
@@ -423,7 +640,8 @@ export function provoqueDeces(etat: EtatPartie, evenement: Evenement): boolean {
   const p = evenement.effets.deces;
   if (p === undefined || p <= 0) return false;
   return (
-    tirage(etat.graine, etat.personnage.age, `${evenement.id}.deces`) < probabiliteFinale(p, [])
+    tirageHache(etat.graine, etat.personnage.age, hachageSuffixe(evenement.id, 'deces')) <
+    probabiliteFinale(p, [])
   );
 }
 
@@ -443,6 +661,10 @@ export function choisirAuto(
       1,
     );
   }
-  const g = sousGenerateur(etat.graine, etat.personnage.age, `${evenement.id}.auto`);
+  const g = sousGenerateurHache(
+    etat.graine,
+    etat.personnage.age,
+    hachageSuffixe(evenement.id, 'auto'),
+  );
   return { evenementId: evenement.id, choixId: tirerPondere(g, poids) };
 }

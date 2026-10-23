@@ -61,6 +61,7 @@ export function multiplicateurContexte(
   annee: number,
   tag: string,
 ): number {
+  if (!tagsDuContexte(donnees.contexte).has(tag)) return 1;
   let m = 1;
   for (const entree of contexteActif(donnees.contexte, annee)) {
     const facteur = entree.multiplicateurs?.[tag];
@@ -74,12 +75,18 @@ export function multiplicateurContexte(
 /** Tags visés par au moins une entrée du contexte (dépendance à l'année). */
 const tagsVises = new WeakMap<readonly EntreeContexte[], Set<string>>();
 
+let dernierContexte: readonly EntreeContexte[] | null = null;
+let derniersTags: ReadonlySet<string> = new Set();
+
 export function tagsDuContexte(contexte: readonly EntreeContexte[]): ReadonlySet<string> {
+  if (contexte === dernierContexte) return derniersTags;
   let tags = tagsVises.get(contexte);
   if (!tags) {
     tags = new Set(contexte.flatMap((e) => Object.keys(e.multiplicateurs ?? {})));
     tagsVises.set(contexte, tags);
   }
+  dernierContexte = contexte;
+  derniersTags = tags;
   return tags;
 }
 

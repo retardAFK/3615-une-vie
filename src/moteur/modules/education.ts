@@ -12,7 +12,7 @@ import {
 import { distributionCorrigee, multiplicateurTrait, probabiliteFinale } from '../cotes';
 import { multiplicateursTag } from '../evenements';
 import { regleEnVigueur } from './contexte';
-import { sousGenerateur, tirage, tirerPondere } from '../rng';
+import { hachageSuffixe, sousGenerateur, tirageHache, tirerPondere } from '../rng';
 import { chercherLigne, periodeDe, valeurDe } from '../tables';
 import type {
   DiplomeJoueur,
@@ -77,7 +77,7 @@ interface Tirage {
 
 function tirer(t: Tirage, id: string, pBase: number, multiplicateurs: number[]): boolean {
   return (
-    tirage(t.etat.graine, t.etat.personnage.age, `education.${id}`) <
+    tirageHache(t.etat.graine, t.etat.personnage.age, hachageSuffixe('education', id)) <
     probabiliteFinale(pBase, multiplicateurs)
   );
 }

@@ -1,0 +1,36 @@
+{
+  "table": "budgetsJeu",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les enquetes OFDT et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "budget": "aucun"
+      },
+      "valeur": 0
+    },
+    {
+      "conditions": {
+        "budget": "petit"
+      },
+      "valeur": 150
+    },
+    {
+      "conditions": {
+        "budget": "moyen"
+      },
+      "valeur": 600
+    },
+    {
+      "conditions": {
+        "budget": "gros"
+      },
+      "valeur": 2500
+    },
+    {
+      "conditions": {},
+      "valeur": 0
+    }
+  ]
+}

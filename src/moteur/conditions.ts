@@ -4,7 +4,7 @@
 import type { ChampCondition, ConditionsPersonnage, Personnage } from './types';
 
 /** Valeur d'un champ de condition : origine, ou états du joueur. */
-function valeurChamp(personnage: Personnage, champ: ChampCondition): string {
+export function valeurChamp(personnage: Personnage, champ: ChampCondition): string {
   const { etats } = personnage;
   switch (champ) {
     case 'emploi':
@@ -25,18 +25,38 @@ function valeurChamp(personnage: Personnage, champ: ChampCondition): string {
       return etats.logement;
     case 'endettement':
       return personnage.finances.endettement;
+    case 'tabac':
+    case 'alcool':
+    case 'cannabis':
+    case 'autres_drogues':
+    case 'jeux_argent':
+    case 'ecrans':
+      return etats.addictions[champ];
+    case 'pertesJeu':
+      return etats.jeu.pertesElevees ? 'elevees' : 'normales';
+    case 'budgetJeu':
+      return etats.jeu.budget;
     default:
       return String(personnage.origine[champ]);
   }
 }
 
+// Les mêmes conditions sont testées chaque année : chacune est compilée une fois en
+// une liste (champ, valeurs acceptées), sans parcourir l'objet à chaque appel.
+const compilees = new WeakMap<ConditionsPersonnage, [ChampCondition, readonly string[]][]>();
+
 export function remplitConditions(
   personnage: Personnage,
   conditions: ConditionsPersonnage,
 ): boolean {
-  for (const champ in conditions) {
-    const valeurs = conditions[champ as ChampCondition]!;
-    if (!valeurs.includes(valeurChamp(personnage, champ as ChampCondition))) return false;
+  let liste = compilees.get(conditions);
+  if (!liste) {
+    liste = Object.entries(conditions) as [ChampCondition, readonly string[]][];
+    compilees.set(conditions, liste);
+  }
+  for (let i = 0; i < liste.length; i++) {
+    const [champ, valeurs] = liste[i]!;
+    if (!valeurs.includes(valeurChamp(personnage, champ))) return false;
   }
   return true;
 }

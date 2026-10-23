@@ -3,7 +3,13 @@
 
 import { distributionCorrigee } from '../cotes';
 import { multiplicateursTag } from '../evenements';
-import { normaleBornee, sousGenerateur, tirerPondere } from '../rng';
+import {
+  hachageSuffixe,
+  normaleBornee,
+  sousGenerateur,
+  sousGenerateurHache,
+  tirerPondere,
+} from '../rng';
 import { chercherLigne, parametre, periodeDe, valeurDe } from '../tables';
 import type {
   DiplomeJoueur,
@@ -169,7 +175,11 @@ export function nouvelEmploi(
   tables: Tables,
   idTirage: string,
 ): Personnage {
-  const g = sousGenerateur(etat.graine, etat.personnage.age, `emploi.${idTirage}`);
+  const g = sousGenerateurHache(
+    etat.graine,
+    etat.personnage.age,
+    hachageSuffixe('emploi', idTirage),
+  );
   const { distribution } = chercherLigne(tables.quotite, { sexe: personnage.origine.sexe }, [
     'sexe',
   ]);

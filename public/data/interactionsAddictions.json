@@ -1,0 +1,61 @@
+{
+  "table": "interactionsAddictions",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les enquetes OFDT et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "produit": "alcool",
+        "autre": "jeux_argent"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "autre": "alcool"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "autre": "cannabis"
+      },
+      "valeur": 2.5
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "autre": "tabac"
+      },
+      "valeur": 2.5
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "autre": "autres_drogues"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "autre": "alcool"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "autre": "cannabis"
+      },
+      "valeur": 2.5
+    },
+    {
+      "conditions": {},
+      "valeur": 1.3
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 // Remplissage des modèles de texte : variante choisie par sous-générateur,
 // puis variables remplacées. Les textes restent au format Minitel.
 
-import { entier, sousGenerateur } from './rng';
+import { entier, hachageSuffixe, sousGenerateurHache } from './rng';
 import type { EtatPartie, Evenement, Libelles } from './types';
 
 /**
@@ -21,10 +21,13 @@ export const VARIABLES_TEXTE = [
 export const VARIABLES_RESUME = ['debut', 'fin'] as const;
 /** Variable des récits d'argent : nom de l'aide, tel que la loi en vigueur la nomme. */
 export const VARIABLES_ARGENT = ['aide'] as const;
+/** Variable des récits d'addiction : nom du produit (libelles.produits). */
+export const VARIABLES_ADDICTION = ['produit'] as const;
 export type VariableTexte =
   | (typeof VARIABLES_TEXTE)[number]
   | (typeof VARIABLES_RESUME)[number]
-  | (typeof VARIABLES_ARGENT)[number];
+  | (typeof VARIABLES_ARGENT)[number]
+  | (typeof VARIABLES_ADDICTION)[number];
 
 const MOTIF_VARIABLE = /\{([^{}]*)\}/g;
 
@@ -76,7 +79,11 @@ export function valeursRecit(
 
 /** Texte d'un événement pour l'année en cours : une variante tirée, puis remplie. */
 export function rediger(evenement: Evenement, etat: EtatPartie, libelles: Libelles): string {
-  const g = sousGenerateur(etat.graine, etat.personnage.age, `${evenement.id}.texte`);
+  const g = sousGenerateurHache(
+    etat.graine,
+    etat.personnage.age,
+    hachageSuffixe(evenement.id, 'texte'),
+  );
   const modele = evenement.textes[entier(g, 0, evenement.textes.length - 1)]!;
   if (!modele.includes('{')) return modele;
   const valeurs = valeursRecit(etat, libelles);

@@ -1,0 +1,233 @@
+{
+  "table": "effetsAddictions",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les enquetes OFDT et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "produit": "tabac",
+        "etat": "usage_occasionnel"
+      },
+      "valeurs": {
+        "cout": 300
+      }
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "etat": "usage_regulier"
+      },
+      "valeurs": {
+        "santePhysique": -2,
+        "cout": 1500
+      }
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "etat": "dependance"
+      },
+      "valeurs": {
+        "santePhysique": -3,
+        "santeMentale": -1,
+        "cout": 2500
+      }
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "etat": "sevrage"
+      },
+      "valeurs": {
+        "santeMentale": -3
+      }
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "etat": "usage_occasionnel"
+      },
+      "valeurs": {
+        "cout": 300
+      }
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "etat": "usage_regulier"
+      },
+      "valeurs": {
+        "santePhysique": -1,
+        "santeMentale": -1,
+        "cout": 1200
+      }
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "etat": "dependance"
+      },
+      "valeurs": {
+        "santePhysique": -4,
+        "santeMentale": -3,
+        "liens": -3,
+        "cout": 2500
+      }
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "etat": "sevrage"
+      },
+      "valeurs": {
+        "santeMentale": -3
+      }
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "etat": "usage_occasionnel"
+      },
+      "valeurs": {
+        "cout": 300
+      }
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "etat": "usage_regulier"
+      },
+      "valeurs": {
+        "santeMentale": -2,
+        "competences": -2,
+        "cout": 1200
+      }
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "etat": "dependance"
+      },
+      "valeurs": {
+        "santeMentale": -3,
+        "competences": -3,
+        "liens": -2,
+        "cout": 2000
+      }
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "etat": "sevrage"
+      },
+      "valeurs": {
+        "santeMentale": -2
+      }
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "etat": "usage_occasionnel"
+      },
+      "valeurs": {
+        "santePhysique": -2,
+        "santeMentale": -2,
+        "cout": 1000
+      }
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "etat": "usage_regulier"
+      },
+      "valeurs": {
+        "santePhysique": -4,
+        "santeMentale": -4,
+        "liens": -3,
+        "cout": 5000
+      }
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "etat": "dependance"
+      },
+      "valeurs": {
+        "santePhysique": -6,
+        "santeMentale": -6,
+        "liens": -5,
+        "cout": 9000
+      }
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "etat": "sevrage"
+      },
+      "valeurs": {
+        "santePhysique": -1,
+        "santeMentale": -4
+      }
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "etat": "usage_regulier"
+      },
+      "valeurs": {
+        "santeMentale": -1
+      }
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "etat": "dependance"
+      },
+      "valeurs": {
+        "santeMentale": -4,
+        "liens": -3
+      }
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "etat": "sevrage"
+      },
+      "valeurs": {
+        "santeMentale": -2
+      }
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "etat": "usage_regulier"
+      },
+      "valeurs": {
+        "liens": -1,
+        "competences": -1
+      }
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "etat": "dependance"
+      },
+      "valeurs": {
+        "santePhysique": -1,
+        "santeMentale": -2,
+        "liens": -3,
+        "competences": -3
+      }
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "etat": "sevrage"
+      },
+      "valeurs": {
+        "santeMentale": -1
+      }
+    }
+  ]
+}

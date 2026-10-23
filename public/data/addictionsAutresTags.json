@@ -1,0 +1,92 @@
+{
+  "table": "addictionsAutresTags",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les enquetes OFDT et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "produit": "alcool",
+        "tag": "emploi_chomage"
+      },
+      "valeur": 1.6
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "tag": "accident"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "tag": "violence"
+      },
+      "valeur": 1.5
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "tag": "emploi_chomage"
+      },
+      "valeur": 2.5
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "tag": "accident"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "tag": "police"
+      },
+      "valeur": 3
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "tag": "delinquance"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "tag": "police"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "tag": "decrochage"
+      },
+      "valeur": 1.8
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "tag": "decrochage"
+      },
+      "valeur": 1.4
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "tag": "dettes"
+      },
+      "valeur": 1.5
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "tag": "emploi_chomage"
+      },
+      "valeur": 1.3
+    }
+  ]
+}

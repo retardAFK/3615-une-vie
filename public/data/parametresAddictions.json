@@ -1,0 +1,32 @@
+{
+  "table": "parametresAddictions",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les enquetes OFDT et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {},
+      "valeurs": {
+        "kImpulsivite": 0.8,
+        "kVulnerabiliteGenetique": 0.8,
+        "kSanteMentale": -0.6,
+        "kSociabilite": 0.5,
+        "mChomage": 1.5,
+        "kLiensJeu": -0.5,
+        "mDettesJeu": 1.5,
+        "mInterdictionJeu": 0.4,
+        "mHorsAge": 0.3,
+        "decroissanceRechute": 0.6,
+        "mMiseRegulier": 2,
+        "mMiseDependance": 5,
+        "mMiseChasse": 2,
+        "seuilChasse": 0.1,
+        "multipleGrosGain": 5,
+        "mGrosGain": 3,
+        "dureeGrosGain": 3,
+        "decroissanceInitiation": 0.85,
+        "decroissanceEscalade": 0.78
+      }
+    }
+  ]
+}

@@ -86,6 +86,37 @@ export function sousGenerateur(graine: string, age: number, idTirage: string): G
   return sfc32(h1 >>> 0, h2 >>> 0, h3 >>> 0, h4 >>> 0);
 }
 
+/** Même sous-générateur, avec le hachage de l'identifiant déjà calculé. */
+export function sousGenerateurHache(
+  graine: string,
+  age: number,
+  identifiant: readonly number[],
+): Generateur {
+  preparerPrefixe(graine, age);
+  melangerIdentifiant(identifiant);
+  return sfc32(h1 >>> 0, h2 >>> 0, h3 >>> 0, h4 >>> 0);
+}
+
+const parEvenement = new Map<string, Record<string, readonly number[]>>();
+
+/**
+ * Hachage de « id.suffixe » (texte, auto, deces, revenu...), gardé par identifiant
+ * d'événement : évite de construire et de hacher la chaîne à chaque événement tiré.
+ */
+export function hachageSuffixe(id: string, suffixe: string): readonly number[] {
+  let suffixes = parEvenement.get(id);
+  if (!suffixes) {
+    suffixes = {};
+    parEvenement.set(id, suffixes);
+  }
+  let hache = suffixes[suffixe];
+  if (!hache) {
+    hache = hachageIdentifiant(`${id}.${suffixe}`);
+    suffixes[suffixe] = hache;
+  }
+  return hache;
+}
+
 /**
  * Graine du tirage (graine, age, idTirage), dans h1..h4 : l'état du hachage de
  * « graine|age| » (commun aux tirages de l'année, gardé en cache) est combiné au
@@ -213,4 +244,36 @@ export function normaleBornee(
     if (valeur >= min && valeur <= max) return valeur;
   }
   return Math.min(max, Math.max(min, moyenne));
+}
+
+/**
+ * Nombre de succès sur n essais de probabilité p (loi binomiale). Succès rares
+ * (p < 0,05, moyenne < 20) : approximation de Poisson ; sinon exacte jusqu'à 100
+ * essais, puis loi normale arrondie, bornée à [0, n]. Sert aux mises de jeu.
+ */
+export function binomiale(g: Generateur, n: number, p: number): number {
+  if (n <= 0 || p <= 0) return 0;
+  if (p >= 1) return n;
+  const moyenne = n * p;
+  if (n <= 100 && p >= 0.05) {
+    let succes = 0;
+    for (let i = 0; i < n; i++) if (g() < p) succes++;
+    return succes;
+  }
+  if (moyenne < 20) {
+    const u = g();
+    let k = 0;
+    let terme = Math.exp(-moyenne);
+    let cumul = terme;
+    while (u > cumul && k < n) {
+      k++;
+      terme *= moyenne / k;
+      cumul += terme;
+    }
+    return k;
+  }
+  const u1 = 1 - g();
+  const u2 = g();
+  const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+  return Math.min(n, Math.max(0, Math.round(moyenne + Math.sqrt(moyenne * (1 - p)) * z)));
 }

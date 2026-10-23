@@ -1,0 +1,380 @@
+{
+  "table": "expositionAddictions",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les enquetes OFDT et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "produit": "tabac",
+        "periode": "1950-1959"
+      },
+      "valeur": 0.35
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "periode": "1960-1969"
+      },
+      "valeur": 0.35
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "periode": "1970-1979"
+      },
+      "valeur": 0.35
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "periode": "1980-1989"
+      },
+      "valeur": 0.3
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "periode": "1990-1999"
+      },
+      "valeur": 0.28
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "periode": "2000-2009"
+      },
+      "valeur": 0.22
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "periode": "2010-2019"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "periode": "2020-2029"
+      },
+      "valeur": 0.1
+    },
+    {
+      "conditions": {
+        "produit": "tabac"
+      },
+      "valeur": 0.1
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "periode": "1950-1959"
+      },
+      "valeur": 0.4
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "periode": "1960-1969"
+      },
+      "valeur": 0.4
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "periode": "1970-1979"
+      },
+      "valeur": 0.4
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "periode": "1980-1989"
+      },
+      "valeur": 0.4
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "periode": "1990-1999"
+      },
+      "valeur": 0.4
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "periode": "2000-2009"
+      },
+      "valeur": 0.4
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "periode": "2010-2019"
+      },
+      "valeur": 0.35
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "periode": "2020-2029"
+      },
+      "valeur": 0.35
+    },
+    {
+      "conditions": {
+        "produit": "alcool"
+      },
+      "valeur": 0.35
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "periode": "1950-1959"
+      },
+      "valeur": 0.005
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "periode": "1960-1969"
+      },
+      "valeur": 0.02
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "periode": "1970-1979"
+      },
+      "valeur": 0.06
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "periode": "1980-1989"
+      },
+      "valeur": 0.08
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "periode": "1990-1999"
+      },
+      "valeur": 0.12
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "periode": "2000-2009"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "periode": "2010-2019"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "periode": "2020-2029"
+      },
+      "valeur": 0.13
+    },
+    {
+      "conditions": {
+        "produit": "cannabis"
+      },
+      "valeur": 0.13
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "periode": "1950-1959"
+      },
+      "valeur": 0.0007
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "periode": "1960-1969"
+      },
+      "valeur": 0.0017
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "periode": "1970-1979"
+      },
+      "valeur": 0.005
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "periode": "1980-1989"
+      },
+      "valeur": 0.0067
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "periode": "1990-1999"
+      },
+      "valeur": 0.0067
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "periode": "2000-2009"
+      },
+      "valeur": 0.01
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "periode": "2010-2019"
+      },
+      "valeur": 0.01
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "periode": "2020-2029"
+      },
+      "valeur": 0.01
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues"
+      },
+      "valeur": 0.01
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "periode": "1950-1959"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "periode": "1960-1969"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "periode": "1970-1979"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "periode": "1980-1989"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "periode": "1990-1999"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "periode": "2000-2009"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "periode": "2010-2019"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "periode": "2020-2029"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent"
+      },
+      "valeur": 0.15
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "periode": "1950-1959"
+      },
+      "valeur": 0
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "periode": "1960-1969"
+      },
+      "valeur": 0
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "periode": "1970-1979"
+      },
+      "valeur": 0.02
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "periode": "1980-1989"
+      },
+      "valeur": 0.1
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "periode": "1990-1999"
+      },
+      "valeur": 0.2
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "periode": "2000-2009"
+      },
+      "valeur": 0.3
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "periode": "2010-2019"
+      },
+      "valeur": 0.4
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "periode": "2020-2029"
+      },
+      "valeur": 0.45
+    },
+    {
+      "conditions": {
+        "produit": "ecrans"
+      },
+      "valeur": 0.45
+    }
+  ]
+}

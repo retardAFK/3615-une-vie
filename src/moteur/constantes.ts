@@ -88,6 +88,25 @@ export function etatsInitiaux(): Etats {
       ageRetraite: null,
     },
     justice: { gardesAVue: 0, condamnations: 0, casier: false },
+    debutEtatAddiction: {
+      tabac: 0,
+      alcool: 0,
+      cannabis: 0,
+      autres_drogues: 0,
+      jeux_argent: 0,
+      ecrans: 0,
+    },
+    jeu: {
+      jeu: null,
+      budget: 'aucun',
+      totalMise: 0,
+      totalRecupere: 0,
+      miseAnnee: 0,
+      gainAnnee: 0,
+      chasse: false,
+      interdiction: false,
+      pertesElevees: false,
+    },
   };
 }
 

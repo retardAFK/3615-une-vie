@@ -1,0 +1,199 @@
+{
+  "table": "jeuxArgent",
+  "source": "Loto : jackpot 1 chance sur 19 068 840 ; EuroMillions : jackpot 1 chance sur 139 838 160 (FDJ). Paris sportifs en ligne : retour aux joueurs plafonne a 85 % des mises (ANJ). Autres rangs, gains, prix et jeux : valeurs de travail a calibrer (jalon 8).",
+  "url": "https://www.fdj.fr/mag/questions/article-chances-gagner-jeux-de-loterie",
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "jeu": "loto"
+      },
+      "prix": 2.2,
+      "bloqueParInterdiction": false,
+      "rangs": [
+        {
+          "probabilite": 5.244157484146912e-8,
+          "gain": 2000000
+        },
+        {
+          "probabilite": 4.719741735732221e-7,
+          "gain": 100000
+        },
+        {
+          "probabilite": 0.000011537085962827509,
+          "gain": 1000
+        },
+        {
+          "probabilite": 0.00010383137784238397,
+          "gain": 800
+        },
+        {
+          "probabilite": 0.000496031746031746,
+          "gain": 100
+        },
+        {
+          "probabilite": 0.004464285714285714,
+          "gain": 30
+        },
+        {
+          "probabilite": 0.006944444444444444,
+          "gain": 10
+        },
+        {
+          "probabilite": 0.05319148936170213,
+          "gain": 4.8
+        },
+        {
+          "probabilite": 0.08620689655172414,
+          "gain": 2.2
+        }
+      ]
+    },
+    {
+      "conditions": {
+        "jeu": "euromillions"
+      },
+      "prix": 2.5,
+      "bloqueParInterdiction": false,
+      "rangs": [
+        {
+          "probabilite": 7.1511238420185165e-9,
+          "gain": 17000000
+        },
+        {
+          "probabilite": 1.4302247684037032e-7,
+          "gain": 300000
+        },
+        {
+          "probabilite": 3.218005383723007e-7,
+          "gain": 30000
+        },
+        {
+          "probabilite": 0.0000016090026918615035,
+          "gain": 3000
+        },
+        {
+          "probabilite": 0.000032180209171359616,
+          "gain": 150
+        },
+        {
+          "probabilite": 0.00007079646017699115,
+          "gain": 100
+        },
+        {
+          "probabilite": 0.00007240605314604301,
+          "gain": 60
+        },
+        {
+          "probabilite": 0.0010152284263959391,
+          "gain": 20
+        },
+        {
+          "probabilite": 0.00141643059490085,
+          "gain": 15
+        },
+        {
+          "probabilite": 0.0031847133757961785,
+          "gain": 12
+        },
+        {
+          "probabilite": 0.005319148936170213,
+          "gain": 9
+        },
+        {
+          "probabilite": 0.02040816326530612,
+          "gain": 10
+        },
+        {
+          "probabilite": 0.045454545454545456,
+          "gain": 8
+        }
+      ]
+    },
+    {
+      "conditions": {
+        "jeu": "grattage"
+      },
+      "prix": 2,
+      "bloqueParInterdiction": false,
+      "rangs": [
+        {
+          "probabilite": 5e-7,
+          "gain": 50000
+        },
+        {
+          "probabilite": 0.0001,
+          "gain": 1000
+        },
+        {
+          "probabilite": 0.002,
+          "gain": 50
+        },
+        {
+          "probabilite": 0.02,
+          "gain": 10
+        },
+        {
+          "probabilite": 0.1,
+          "gain": 4
+        },
+        {
+          "probabilite": 0.25,
+          "gain": 2
+        }
+      ]
+    },
+    {
+      "conditions": {
+        "jeu": "paris_sportifs"
+      },
+      "prix": 10,
+      "bloqueParInterdiction": true,
+      "rangs": [
+        {
+          "probabilite": 0.33599999999999997,
+          "gain": 25
+        }
+      ]
+    },
+    {
+      "conditions": {
+        "jeu": "hippique"
+      },
+      "prix": 2,
+      "bloqueParInterdiction": false,
+      "rangs": [
+        {
+          "probabilite": 0.0925,
+          "gain": 16
+        }
+      ]
+    },
+    {
+      "conditions": {
+        "jeu": "poker"
+      },
+      "prix": 10,
+      "bloqueParInterdiction": true,
+      "rangs": [
+        {
+          "probabilite": 0.44999999999999996,
+          "gain": 20
+        }
+      ]
+    },
+    {
+      "conditions": {
+        "jeu": "casino"
+      },
+      "prix": 5,
+      "bloqueParInterdiction": true,
+      "rangs": [
+        {
+          "probabilite": 0.4864864864864865,
+          "gain": 10
+        }
+      ]
+    }
+  ]
+}

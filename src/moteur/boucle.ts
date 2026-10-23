@@ -20,11 +20,13 @@ import {
   provoqueDeces,
   tirerEvenements,
 } from './evenements';
+import { depensesAddictions, evoluerAddictions } from './modules/addictions';
 import { calculerAides } from './modules/aides';
-import { bilanAnnuel, ouvrirPlan } from './modules/argent';
+import { bilanAnnuel, estAutonome, ouvrirPlan } from './modules/argent';
 import { evoluerEducation } from './modules/education';
 import { nouveautesDeLAnnee } from './modules/contexte';
 import { changerEmploi, comptabiliserAnnee, evoluerEmploi } from './modules/emploi';
+import { appliquerChoixJeu, jouerAnnee } from './modules/jeux';
 import { naitre } from './naissance';
 import { resumerPetiteEnfance } from './recit';
 import { tirage } from './rng';
@@ -117,14 +119,19 @@ export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuv
   if (!etatRecu.personnage.vivant) throw new Error('La partie est terminee');
   if (etatRecu.anneeEnCours) throw new Error('Une annee est deja ouverte');
 
-  // Étape 1 : revenus de l'année (salaire, indemnités, pension), aides, puis bilan d'argent.
+  // Étape 1 : revenus de l'année (salaire, indemnités, pension), jeu, aides, puis bilan
+  // d'argent avec les dépenses des addictions et les mises nettes des gains.
   const { tables } = donnees;
   const comptes: EtatPartie = {
     ...etatRecu,
     personnage: comptabiliserAnnee(etatRecu.personnage, etatRecu.annee, tables),
   };
-  const bilan = bilanAnnuel(comptes, calculerAides(comptes, donnees), donnees);
-  const etat: EtatPartie = { ...comptes, personnage: bilan.personnage };
+  const jeu = jouerAnnee(comptes, donnees);
+  const joueur = jeu.etat.personnage;
+  const depenses =
+    (estAutonome(joueur) ? depensesAddictions(joueur, tables) : 0) + jeu.mise - jeu.gain;
+  const bilan = bilanAnnuel(jeu.etat, calculerAides(jeu.etat, donnees), donnees, depenses);
+  const etat: EtatPartie = { ...jeu.etat, personnage: bilan.personnage };
   const { personnage } = etat;
 
   const meurt =
@@ -132,7 +139,7 @@ export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuv
     tirage(etat.graine, personnage.age, 'mortalite') <
       probabiliteDeces(personnage.age, personnage.origine.sexe, etat.annee, donnees.tables);
   if (meurt) {
-    const { etat: final, journal } = deces(etat, 'mortalite', bilan.journal);
+    const { etat: final, journal } = deces(etat, 'mortalite', [...bilan.journal, ...jeu.journal]);
     return { etat: final, evenements: [], choixProposes: [], journal };
   }
 
@@ -149,6 +156,7 @@ export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuv
     }),
   );
   if (bilan.journal.length > 0) actualites.push(...bilan.journal);
+  if (jeu.journal.length > 0) actualites.push(...jeu.journal);
   return {
     etat: {
       ...etat,
@@ -182,6 +190,7 @@ export function fermerAnnee(
     courant = appliquerEvenement(courant, evenement, retenu, rangDe(donnees.evenements, evenement));
     // Opportunité acceptée (offre extérieure) : seule exception aux choix sans résultat direct.
     if (retenu?.effets?.changerEmploi) courant = changerEmploi(courant, donnees, evenement.id);
+    if (retenu?.effets) courant = appliquerChoixJeu(courant, retenu.effets);
     if (evenement.effets.surendettement) {
       const { personnage } = courant;
       courant = {
@@ -203,6 +212,10 @@ export function fermerAnnee(
   // Étape 5 : éducation, puis emploi (entrée sur le marché, transitions, retraite).
   const eduque = evoluerEducation(courant, donnees);
   courant = { ...courant, personnage: evoluerEmploi(courant, eduque, emploiAvant, donnees) };
+  // Étape 6 : addictions (exposition, escalade, sevrage, rechute) et leurs effets.
+  const addictions = evoluerAddictions(courant, donnees);
+  courant = addictions.etat;
+  if (addictions.journal.length > 0) journal.push(...addictions.journal);
 
   const { personnage } = courant;
   const age = personnage.age + 1;

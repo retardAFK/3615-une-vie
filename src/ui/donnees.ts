@@ -61,6 +61,15 @@ export const NOMS_TABLES: readonly (keyof Tables)[] = [
   'parametresArgent',
   'baremesAides',
   'nonRecours',
+  'transitionsAddictions',
+  'expositionAddictions',
+  'sexeAddictions',
+  'effetsAddictions',
+  'interactionsAddictions',
+  'addictionsAutresTags',
+  'parametresAddictions',
+  'jeuxArgent',
+  'budgetsJeu',
 ];
 
 export type Recuperer = (

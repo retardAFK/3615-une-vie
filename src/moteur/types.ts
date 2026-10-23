@@ -218,14 +218,49 @@ export const PRODUITS = [
 export type Produit = (typeof PRODUITS)[number];
 
 /** Chaîne commune à toutes les addictions, jeux d'argent compris (règles, section 9). */
-export type EtatAddiction =
-  | 'jamais_expose'
-  | 'expose'
-  | 'usage_occasionnel'
-  | 'usage_regulier'
-  | 'dependance'
-  | 'sevrage'
-  | 'abstinent';
+export const ETATS_ADDICTION = [
+  'jamais_expose',
+  'expose',
+  'usage_occasionnel',
+  'usage_regulier',
+  'dependance',
+  'sevrage',
+  'abstinent',
+] as const;
+export type EtatAddiction = (typeof ETATS_ADDICTION)[number];
+
+// --- Jeux d'argent (règles, section 8) ---
+
+export const JEUX = [
+  'loto',
+  'euromillions',
+  'grattage',
+  'paris_sportifs',
+  'hippique',
+  'poker',
+  'casino',
+] as const;
+export type NomJeu = (typeof JEUX)[number];
+
+export const BUDGETS_JEU = ['aucun', 'petit', 'moyen', 'gros'] as const;
+export type BudgetJeu = (typeof BUDGETS_JEU)[number];
+
+export interface EtatJeu {
+  /** Jeu pratiqué ; null tant que le personnage n'en a pas choisi. */
+  jeu: NomJeu | null;
+  budget: BudgetJeu;
+  /** Totaux de toute la vie, toujours visibles (garde-fou, règles section 13). */
+  totalMise: number;
+  totalRecupere: number;
+  miseAnnee: number;
+  gainAnnee: number;
+  /** « Se refaire » : la mise de l'année suivante est doublée. */
+  chasse: boolean;
+  /** Interdiction volontaire de jeux : ni jeux en ligne, ni casino. */
+  interdiction: boolean;
+  /** Pertes de l'année au-delà du seuil de chasse aux pertes. */
+  pertesElevees: boolean;
+}
 
 // --- Éducation et travail du joueur (règles, sections 5 et 6) ---
 
@@ -319,6 +354,9 @@ export interface Etats {
   education: Education;
   travail: Travail;
   justice: Justice;
+  /** Âge où commence l'état courant de chaque addiction (risques décroissants avec les années). */
+  debutEtatAddiction: Record<Produit, number>;
+  jeu: EtatJeu;
 }
 
 // --- Personnage et partie ---
@@ -345,6 +383,10 @@ export const CHAMPS_ETATS_CONDITIONS = [
   'justice',
   'logement',
   'endettement',
+  // État de chaque addiction (chaîne commune), et pertes de jeu de l'année.
+  ...PRODUITS,
+  'pertesJeu',
+  'budgetJeu',
 ] as const;
 export type ChampCondition = keyof Origine | (typeof CHAMPS_ETATS_CONDITIONS)[number];
 
@@ -379,6 +421,19 @@ export interface Affinite {
   k: number;
 }
 
+/**
+ * Effets directs d'un choix : actes du joueur, pas des résultats (règles, section 4).
+ * Accepter une opportunité tirée par le hasard ; choisir un jeu et un budget,
+ * se refaire, s'inscrire à l'interdiction volontaire de jeux (règles, section 8).
+ */
+export interface EffetsChoix {
+  changerEmploi?: boolean;
+  jeu?: NomJeu;
+  budget?: BudgetJeu;
+  chasse?: true;
+  interdiction?: true;
+}
+
 export interface ChoixPossible {
   id: string;
   libelle: string;
@@ -392,7 +447,7 @@ export interface ChoixPossible {
    * Accepter une opportunité déjà tirée par le hasard : seule exception
    * à la règle des choix sans résultat direct (règles, section 4).
    */
-  effets?: { changerEmploi?: boolean };
+  effets?: EffetsChoix;
 }
 
 export interface Effets {
@@ -508,7 +563,8 @@ export interface Donnees {
  * « resume » : années sans événement de la petite enfance, en une ligne ;
  * « actualite » : entrée du contexte historique qui commence cette année-là.
  */
-export type TypeEntree = 'naissance' | 'deces' | 'evenement' | 'resume' | 'actualite' | 'argent';
+export type TypeEntree =
+  'naissance' | 'deces' | 'evenement' | 'resume' | 'actualite' | 'argent' | 'jeu' | 'addiction';
 
 export interface EntreeJournal {
   annee: number;
@@ -522,6 +578,9 @@ export interface EntreeJournal {
   cause?: string;
   /** Actualité : id de l'entrée du contexte historique. */
   contexteId?: string;
+  /** Jeu : totaux de la vie misés et récupérés (l'interface les met en forme). */
+  totalMise?: number;
+  totalRecupere?: number;
 }
 
 export interface ModificateurTemporaire {
@@ -643,6 +702,22 @@ export interface LigneValeurs {
 }
 export type TableValeurs = Table<LigneValeurs>;
 
+/** Un rang de gain d'un jeu : probabilité par mise unitaire et gain en euros. */
+export interface RangJeu {
+  probabilite: number;
+  gain: number;
+}
+
+/** Règles mathématiques d'un jeu d'argent : prix d'une mise et rangs de gain. */
+export interface LigneJeu {
+  conditions: Conditions;
+  prix: number;
+  rangs: readonly RangJeu[];
+  /** Bloqué par l'interdiction volontaire de jeux (en ligne, casino). */
+  bloqueParInterdiction: boolean;
+}
+export type TableJeux = Table<LigneJeu>;
+
 /** Une valeur par année écoulée (courbe d'ancienneté). */
 export interface LigneCourbe {
   conditions: Conditions;
@@ -691,4 +766,14 @@ export interface Tables {
   parametresArgent: TableValeurs;
   baremesAides: TableValeurs;
   nonRecours: TableValeur;
+  // Addictions et jeux d'argent
+  transitionsAddictions: TableValeurs;
+  expositionAddictions: TableValeur;
+  sexeAddictions: TableValeur;
+  effetsAddictions: TableValeurs;
+  interactionsAddictions: TableValeur;
+  addictionsAutresTags: TableValeur;
+  parametresAddictions: TableValeurs;
+  jeuxArgent: TableJeux;
+  budgetsJeu: TableValeur;
 }

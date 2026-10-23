@@ -2,15 +2,18 @@
 // sans lever d'exception, pour toutes les signaler d'un coup.
 
 import { AGE_MAXIMAL } from './constantes';
+import { TAGS_ADDICTIONS } from './modules/addictions';
 import { TAGS_AIDES } from './modules/aides';
 import { TAGS_EDUCATION } from './modules/education';
 import { TAGS_EMPLOI } from './modules/emploi';
 import { VARIABLES_TEXTE, minitel, variablesDe } from './recit';
 import {
+  BUDGETS_JEU,
   CHAMPS_ETATS_CONDITIONS,
   COUPLES,
   EMPLOIS,
   JAUGES_MODIFIABLES,
+  JEUX,
   LOGEMENTS,
   NOMS_TRAITS,
   REGLES_CONNUES,
@@ -37,7 +40,12 @@ const CHAMPS_ORIGINE = [
   ...CHAMPS_ETATS_CONDITIONS,
 ];
 /** Tags d'issue des modules : cibles possibles des modificateurs de choix. */
-const TAGS_MODULES: readonly string[] = [...TAGS_EDUCATION, ...TAGS_EMPLOI, ...TAGS_AIDES];
+const TAGS_MODULES: readonly string[] = [
+  ...TAGS_EDUCATION,
+  ...TAGS_EMPLOI,
+  ...TAGS_AIDES,
+  ...TAGS_ADDICTIONS,
+];
 const JAUGES = [...JAUGES_MODIFIABLES, 'bienEtre'];
 const ETATS: Record<string, readonly string[]> = {
   scolarite: SCOLARITES,
@@ -187,12 +195,24 @@ export function validerEvenements(
         });
     }
     if (choix.effets !== undefined) {
-      // Seule exception aux choix sans résultat direct : accepter une opportunité.
-      const valide =
-        estObjet(choix.effets) &&
-        Object.keys(choix.effets).every((cle) => cle === 'changerEmploi') &&
-        choix.effets.changerEmploi === true;
-      if (!valide) erreurs.push(`${lieu} : effets de choix limites a { changerEmploi: true }`);
+      // Effets directs : accepter une opportunité, ou un acte du joueur sur son jeu
+      // (choisir un jeu et un budget, se refaire, s'inscrire à l'interdiction volontaire).
+      const effets = choix.effets;
+      if (!estObjet(effets) || Object.keys(effets).length === 0) {
+        erreurs.push(`${lieu} : effets de choix invalides`);
+      } else {
+        for (const [cle, valeur] of Object.entries(effets)) {
+          const valide =
+            cle === 'changerEmploi' || cle === 'chasse' || cle === 'interdiction'
+              ? valeur === true
+              : cle === 'jeu'
+                ? (JEUX as readonly unknown[]).includes(valeur)
+                : cle === 'budget'
+                  ? (BUDGETS_JEU as readonly unknown[]).includes(valeur)
+                  : false;
+          if (!valide) erreurs.push(`${lieu} : effet de choix ${cle} invalide`);
+        }
+      }
     }
     if (choix.affinites !== undefined) {
       if (!Array.isArray(choix.affinites)) erreurs.push(`${lieu} : affinites invalides`);

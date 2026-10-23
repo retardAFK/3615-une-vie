@@ -1,0 +1,54 @@
+{
+  "table": "sexeAddictions",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les enquetes OFDT et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "produit": "tabac",
+        "sexe": "homme"
+      },
+      "valeur": 1.2
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "sexe": "homme"
+      },
+      "valeur": 1.2
+    },
+    {
+      "conditions": {
+        "produit": "cannabis",
+        "sexe": "homme"
+      },
+      "valeur": 1.4
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "sexe": "homme"
+      },
+      "valeur": 1.5
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "sexe": "homme"
+      },
+      "valeur": 1.6
+    },
+    {
+      "conditions": {
+        "produit": "ecrans",
+        "sexe": "homme"
+      },
+      "valeur": 1.2
+    },
+    {
+      "conditions": {},
+      "valeur": 1
+    }
+  ]
+}

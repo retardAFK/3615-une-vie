@@ -1,0 +1,98 @@
+{
+  "table": "transitionsAddictions",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les enquetes OFDT et Sante publique France.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "produit": "tabac"
+      },
+      "valeurs": {
+        "ageMin": 12,
+        "ageMax": 18,
+        "initiation": 0.15,
+        "escalade": 0.25,
+        "dependance": 0.07,
+        "arret": 0.02,
+        "rechuteSevrage": 0.5,
+        "rechuteAbstinent": 0.15
+      }
+    },
+    {
+      "conditions": {
+        "produit": "alcool"
+      },
+      "valeurs": {
+        "ageMin": 14,
+        "ageMax": 20,
+        "initiation": 0.5,
+        "escalade": 0.05,
+        "dependance": 0.03,
+        "arret": 0.02,
+        "rechuteSevrage": 0.45,
+        "rechuteAbstinent": 0.12
+      }
+    },
+    {
+      "conditions": {
+        "produit": "cannabis"
+      },
+      "valeurs": {
+        "ageMin": 14,
+        "ageMax": 20,
+        "initiation": 0.06,
+        "escalade": 0.04,
+        "dependance": 0.012,
+        "arret": 0.05,
+        "rechuteSevrage": 0.35,
+        "rechuteAbstinent": 0.1
+      }
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues"
+      },
+      "valeurs": {
+        "ageMin": 16,
+        "ageMax": 30,
+        "initiation": 0.03,
+        "escalade": 0.08,
+        "dependance": 0.06,
+        "arret": 0.02,
+        "rechuteSevrage": 0.5,
+        "rechuteAbstinent": 0.15
+      }
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent"
+      },
+      "valeurs": {
+        "ageMin": 18,
+        "ageMax": 99,
+        "initiation": 0.003,
+        "escalade": 0.03,
+        "dependance": 0.012,
+        "arret": 0.03,
+        "rechuteSevrage": 0.4,
+        "rechuteAbstinent": 0.12
+      }
+    },
+    {
+      "conditions": {
+        "produit": "ecrans"
+      },
+      "valeurs": {
+        "ageMin": 8,
+        "ageMax": 25,
+        "initiation": 0.3,
+        "escalade": 0.08,
+        "dependance": 0.025,
+        "arret": 0.05,
+        "rechuteSevrage": 0.3,
+        "rechuteAbstinent": 0.1
+      }
+    }
+  ]
+}
