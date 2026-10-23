@@ -17,6 +17,22 @@ describe('contenu/evenements', () => {
       [],
     );
   });
+
+  it('garde tous les champs declares apres validation (annees, ressources...)', () => {
+    const valides = validerEvenements(fichiers, { ressources: Object.keys(ressources) }).evenements;
+    const bruts = fichiers.flatMap(
+      (f) => (f.contenu as { evenements: Record<string, unknown>[] }).evenements,
+    );
+    expect(bruts.some((e) => 'annees' in e)).toBe(true);
+    expect(bruts.some((e) => 'ressources' in e)).toBe(true);
+    for (const brut of bruts) {
+      const valide = valides.find((e) => e.id === brut.id)!;
+      const declares = Object.fromEntries(
+        Object.entries(valide).filter(([, valeur]) => valeur !== undefined),
+      );
+      expect(declares, String(brut.id)).toEqual(brut);
+    }
+  });
 });
 
 describe('contenu/contexte', () => {

@@ -83,6 +83,8 @@ function normaliser(e: Evenement): Evenement {
     gravite: e.gravite,
     tags: e.tags,
     textes: e.textes,
+    ressources: e.ressources,
+    annees: e.annees,
   };
 }
 
