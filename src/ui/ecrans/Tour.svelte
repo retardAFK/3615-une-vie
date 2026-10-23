@@ -76,7 +76,7 @@
     return libelle('endettement', finances.endettement);
   });
   /**
-   * Nouvelles du tour : addictions et santé de l'année écoulée (écrites à sa fermeture), puis
+   * Nouvelles du tour : addictions, santé et famille de l'année écoulée (écrites à sa fermeture), puis
    * argent de l'année (aides, dettes, écrites à son ouverture).
    */
   const nouvelles = $derived.by(() => {
@@ -87,7 +87,7 @@
       if (entree.annee < partie.annee - 1) break;
       const recente =
         (entree.type === 'argent' && entree.annee === partie.annee) ||
-        ((entree.type === 'addiction' || entree.type === 'sante') &&
+        ((entree.type === 'addiction' || entree.type === 'sante' || entree.type === 'famille') &&
           entree.annee === partie.annee - 1);
       if (recente) lignes.unshift(entree);
     }
@@ -109,6 +109,13 @@
     if (scolarite !== 'sortie') return libelle('scolarite', scolarite);
     const metier = travail.pcs && estSalarie(emploi) ? ` · ${libelle('pcs', travail.pcs)}` : '';
     return `${libelle('emploi', emploi)}${metier}`;
+  });
+  /** Couple et enfants, dès que la vie affective commence. */
+  const foyer = $derived.by(() => {
+    const { couple, famille } = personnage.etats;
+    const n = famille.enfants.length;
+    const enfants = n === 0 ? '' : ` · ${n} ENFANT${n > 1 ? 'S' : ''}`;
+    return `${libelle('couple', couple)}${enfants}`;
   });
   const ageTexte = $derived(`${personnage.age} ${personnage.age > 1 ? 'ANS' : 'AN'}`);
   const titreAvis = $derived(minitel((avis?.tags[0] ?? 'quotidien').replaceAll('_', ' ')));
@@ -166,6 +173,12 @@
       </div>
       <div class="pile-serree">
         <LigneValeur libelle="SITUATION" valeur={situation} />
+        {#if personnage.age >= 16}
+          <LigneValeur libelle="FOYER" valeur={foyer} />
+        {/if}
+        {#if personnage.age >= 18}
+          <LigneValeur libelle="LOGEMENT" valeur={libelle('logement', personnage.etats.logement)} />
+        {/if}
         <LigneValeur libelle="REVENU" valeur="{montant(finances.revenuAnnuel, partie.annee)}/AN" />
         <LigneValeur
           libelle="EPARGNE"
@@ -180,6 +193,13 @@
           valeur={montant(finances.dettes, partie.annee)}
           ton="valeur"
         />
+        {#if finances.creditImmobilier > 0}
+          <LigneValeur
+            libelle="CREDIT IMMO"
+            valeur={montant(finances.creditImmobilier, partie.annee)}
+            ton="valeur"
+          />
+        {/if}
         {#if finances.endettement !== 'sain'}
           <LigneValeur libelle="ENDETTEMENT" valeur={endettement} ton="valeur" />
         {/if}
