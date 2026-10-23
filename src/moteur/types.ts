@@ -358,6 +358,16 @@ export interface Justice {
 /** Niveau judiciaire, pour les conditions : « aucun », « garde_a_vue » ou « casier ». */
 export const NIVEAUX_JUSTICE = ['aucun', 'garde_a_vue', 'casier'] as const;
 
+/**
+ * Lieu de vie actuel : celui de l'origine jusqu'à un déménagement (règles, section 11).
+ * Les conditions sur region et territoire, les salaires, les loyers et l'accès aux soins
+ * le suivent ; l'origine reste celle de la naissance.
+ */
+export interface Residence {
+  region: Region;
+  territoire: Territoire;
+}
+
 /** Famille du joueur (règles, section 11). */
 export interface Famille {
   /** Âge du joueur à la naissance de chacun de ses enfants. */
@@ -383,6 +393,7 @@ export interface Etats {
   debutEtatAddiction: Record<Produit, number>;
   jeu: EtatJeu;
   famille: Famille;
+  residence: Residence;
 }
 
 // --- Personnage et partie ---
@@ -466,6 +477,8 @@ export interface EffetsChoix {
   interdiction?: true;
   /** Acheter son logement à crédit, quand l'achat est possible (règles, section 7). */
   acheterLogement?: true;
+  /** Déménager dans une autre région (règles, section 11). */
+  demenager?: true;
 }
 
 export interface ChoixPossible {
@@ -499,6 +512,11 @@ export interface Effets {
   surendettement?: true;
   /** Maladie qui commence (règles, section 10). */
   maladie?: Maladie;
+  /**
+   * Modificateurs posés par l'événement lui-même pour les années suivantes, comme ceux
+   * d'un choix : par exemple un refus de location qui ralentit l'accès au logement.
+   */
+  modificateurs?: readonly ModificateurChoix[];
 }
 
 export interface Evenement {
@@ -836,4 +854,5 @@ export interface Tables {
   loyers: TableValeur;
   prixLogement: TableValeur;
   heritage: TableValeur;
+  mobilite: TableDistribution;
 }

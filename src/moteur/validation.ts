@@ -170,6 +170,22 @@ export function validerEvenements(
     if (!estNombre(valeur.k)) erreurs.push(`${lieu} : k invalide`);
   };
 
+  /** Modificateurs posés pour les années suivantes (par un choix, ou par l'événement). */
+  const verifierModificateursPoses = (lieu: string, liste: unknown): void => {
+    if (liste === undefined) return;
+    if (!Array.isArray(liste)) return void erreurs.push(`${lieu} : modificateurs invalides`);
+    liste.forEach((mod: unknown, i) => {
+      const ici = `${lieu} > modificateur ${i + 1}`;
+      if (!estObjet(mod)) return void erreurs.push(`${ici} : invalide`);
+      if (!estNombre(mod.m) || mod.m <= 0) erreurs.push(`${ici} : m doit etre positif`);
+      if (mod.duree !== undefined && (!estEntier(mod.duree) || mod.duree < 1)) {
+        erreurs.push(`${ici} : duree invalide`);
+      }
+      if (!estObjet(mod.cible)) erreurs.push(`${ici} : cible absente`);
+      else cibles.push({ lieu: ici, cible: mod.cible });
+    });
+  };
+
   const verifierChoix = (lieu: string, choix: unknown): void => {
     if (!estObjet(choix)) return void erreurs.push(`${lieu} : choix invalide`);
     if (!estTexte(choix.id) || !MOTIF_ID.test(choix.id)) erreurs.push(`${lieu} : id invalide`);
@@ -185,24 +201,11 @@ export function validerEvenements(
         }
       }
     }
-    if (choix.modificateurs !== undefined) {
-      if (!Array.isArray(choix.modificateurs)) erreurs.push(`${lieu} : modificateurs invalides`);
-      else
-        choix.modificateurs.forEach((mod: unknown, i) => {
-          const ici = `${lieu} > modificateur ${i + 1}`;
-          if (!estObjet(mod)) return void erreurs.push(`${ici} : invalide`);
-          if (!estNombre(mod.m) || mod.m <= 0) erreurs.push(`${ici} : m doit etre positif`);
-          if (mod.duree !== undefined && (!estEntier(mod.duree) || mod.duree < 1)) {
-            erreurs.push(`${ici} : duree invalide`);
-          }
-          if (!estObjet(mod.cible)) erreurs.push(`${ici} : cible absente`);
-          else cibles.push({ lieu: ici, cible: mod.cible });
-        });
-    }
+    verifierModificateursPoses(lieu, choix.modificateurs);
     if (choix.effets !== undefined) {
       // Effets directs : accepter une opportunité, ou un acte du joueur sur son jeu
       // (choisir un jeu et un budget, se refaire, s'inscrire à l'interdiction volontaire,
-      // acheter son logement quand l'achat est possible).
+      // acheter son logement quand l'achat est possible, déménager).
       const effets = choix.effets;
       if (!estObjet(effets) || Object.keys(effets).length === 0) {
         erreurs.push(`${lieu} : effets de choix invalides`);
@@ -212,7 +215,8 @@ export function validerEvenements(
             cle === 'changerEmploi' ||
             cle === 'chasse' ||
             cle === 'interdiction' ||
-            cle === 'acheterLogement'
+            cle === 'acheterLogement' ||
+            cle === 'demenager'
               ? valeur === true
               : cle === 'jeu'
                 ? (JEUX as readonly unknown[]).includes(valeur)
@@ -351,6 +355,7 @@ export function validerEvenements(
       ) {
         erreurs.push(`${lieu} : maladie inconnue ${String(effets.maladie)}`);
       }
+      verifierModificateursPoses(`${lieu} > effets`, effets.modificateurs);
       if (effets.surendettement !== undefined && effets.surendettement !== true) {
         erreurs.push(`${lieu} : surendettement doit valoir true`);
       }

@@ -357,9 +357,14 @@ export function aProbabiliteFixe(
   return fixe;
 }
 
-/** Produits de multiplicateurs fixes déjà calculés, par vie (origine et traits constants). */
+/**
+ * Produits de multiplicateurs fixes déjà calculés, par vie (origine et traits constants).
+ * Les conditions sur region et territoire suivent le lieu de vie : un déménagement
+ * (nouvel objet residence) refait le cache.
+ */
 interface CacheVie {
   traits: object;
+  residence: object;
   valeurs: Map<Evenement, number>;
   probabilites: Map<Evenement, number>;
 }
@@ -427,9 +432,10 @@ export function probabiliteEvenement(
   }
   // Partie fixe pour toute la vie : le produit des multiplicateurs, en cache.
   const { origine, traits } = etat.personnage;
+  const { residence } = etat.personnage.etats;
   let cache = origine === derniereOrigine ? dernierCache : produitsFixes.get(origine);
-  if (!cache || cache.traits !== traits) {
-    cache = { traits, valeurs: new Map(), probabilites: new Map() };
+  if (!cache || cache.traits !== traits || cache.residence !== residence) {
+    cache = { traits, residence, valeurs: new Map(), probabilites: new Map() };
     produitsFixes.set(origine, cache);
   }
   derniereOrigine = origine;
@@ -595,12 +601,19 @@ export function appliquerEvenement(
   }
 
   // Seuls les objets qui changent sont copiés (un événement s'applique ~40 fois par vie).
-  const nouveaux: ModificateurTemporaire[] = (choix?.modificateurs ?? []).map((mod) => ({
-    cible: mod.cible,
-    m: mod.m,
-    debut: age + 1,
-    fin: mod.duree === undefined ? null : age + mod.duree,
-  }));
+  // Modificateurs posés par l'événement lui-même, puis par le choix.
+  const nouveaux: ModificateurTemporaire[] = [];
+  for (const liste of [evenement.effets.modificateurs, choix?.modificateurs]) {
+    if (!liste) continue;
+    for (const mod of liste) {
+      nouveaux.push({
+        cible: mod.cible,
+        m: mod.m,
+        debut: age + 1,
+        fin: mod.duree === undefined ? null : age + mod.duree,
+      });
+    }
+  }
 
   let { justice } = personnage.etats;
   if (evenement.effets.justice === 'garde_a_vue') {
