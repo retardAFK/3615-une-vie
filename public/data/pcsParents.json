@@ -1,7 +1,7 @@
 {
   "table": "pcsParents",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
-  "url": null,
+  "source": "Insee, recensements de la population 1968-2022, actifs de 25 à 54 ans selon la catégorie socioprofessionnelle (en emploi ; les chômeurs ayant déjà travaillé forment « sans emploi »), feuilles départementales sommées, interpolées au milieu de chaque décennie (avant 1968 : 1968). Écarts entre territoires : rapports provisoires (à calibrer).",
+  "url": "https://www.insee.fr/fr/statistiques/1893185",
   "aCalibrer": true,
   "lignes": [
     {
@@ -9,58 +9,13 @@
         "periode": "1950-1959"
       },
       "distribution": {
-        "agriculteur": 0.14,
-        "ouvrier": 0.36,
-        "employe": 0.16,
-        "intermediaire": 0.1,
-        "cadre": 0.05,
-        "artisan_commercant": 0.12,
-        "sans_emploi": 0.07
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1950-1959",
-        "territoire": "rural"
-      },
-      "distribution": {
-        "agriculteur": 0.3347,
-        "ouvrier": 0.2869,
-        "employe": 0.1275,
-        "intermediaire": 0.0797,
-        "cadre": 0.0199,
-        "artisan_commercant": 0.0956,
-        "sans_emploi": 0.0558
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1950-1959",
-        "territoire": "grande_metropole"
-      },
-      "distribution": {
-        "agriculteur": 0.0153,
-        "ouvrier": 0.3939,
-        "employe": 0.1751,
-        "intermediaire": 0.1094,
-        "cadre": 0.0985,
-        "artisan_commercant": 0.1313,
-        "sans_emploi": 0.0766
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1950-1959",
-        "territoire": "quartier_prioritaire"
-      },
-      "distribution": {
-        "agriculteur": 0.0063,
-        "ouvrier": 0.4516,
-        "employe": 0.1434,
-        "intermediaire": 0.0896,
-        "cadre": 0.0134,
-        "artisan_commercant": 0.1075,
-        "sans_emploi": 0.1882
+        "sans_emploi": 0.01628,
+        "agriculteur": 0.1116,
+        "artisan_commercant": 0.1016,
+        "cadre": 0.06316,
+        "intermediaire": 0.1405,
+        "employe": 0.2023,
+        "ouvrier": 0.3646
       }
     },
     {
@@ -68,58 +23,13 @@
         "periode": "1960-1969"
       },
       "distribution": {
-        "agriculteur": 0.11,
-        "ouvrier": 0.35,
-        "employe": 0.19,
-        "intermediaire": 0.12,
-        "cadre": 0.07,
-        "artisan_commercant": 0.1,
-        "sans_emploi": 0.06
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1960-1969",
-        "territoire": "rural"
-      },
-      "distribution": {
-        "agriculteur": 0.2785,
-        "ouvrier": 0.2954,
-        "employe": 0.1603,
-        "intermediaire": 0.1013,
-        "cadre": 0.0295,
-        "artisan_commercant": 0.0844,
-        "sans_emploi": 0.0506
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1960-1969",
-        "territoire": "grande_metropole"
-      },
-      "distribution": {
-        "agriculteur": 0.0115,
-        "ouvrier": 0.3657,
-        "employe": 0.1985,
-        "intermediaire": 0.1254,
-        "cadre": 0.1317,
-        "artisan_commercant": 0.1045,
-        "sans_emploi": 0.0627
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1960-1969",
-        "territoire": "quartier_prioritaire"
-      },
-      "distribution": {
-        "agriculteur": 0.005,
-        "ouvrier": 0.4428,
-        "employe": 0.1717,
-        "intermediaire": 0.1085,
-        "cadre": 0.019,
-        "artisan_commercant": 0.0904,
-        "sans_emploi": 0.1627
+        "sans_emploi": 0.01628,
+        "agriculteur": 0.1116,
+        "artisan_commercant": 0.1016,
+        "cadre": 0.06316,
+        "intermediaire": 0.1405,
+        "employe": 0.2023,
+        "ouvrier": 0.3646
       }
     },
     {
@@ -127,58 +37,13 @@
         "periode": "1970-1979"
       },
       "distribution": {
-        "agriculteur": 0.07,
-        "ouvrier": 0.33,
-        "employe": 0.22,
-        "intermediaire": 0.15,
-        "cadre": 0.09,
-        "artisan_commercant": 0.08,
-        "sans_emploi": 0.06
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1970-1979",
-        "territoire": "rural"
-      },
-      "distribution": {
-        "agriculteur": 0.1918,
-        "ouvrier": 0.3014,
-        "employe": 0.2009,
-        "intermediaire": 0.137,
-        "cadre": 0.0411,
-        "artisan_commercant": 0.0731,
-        "sans_emploi": 0.0548
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1970-1979",
-        "territoire": "grande_metropole"
-      },
-      "distribution": {
-        "agriculteur": 0.0069,
-        "ouvrier": 0.3271,
-        "employe": 0.218,
-        "intermediaire": 0.1487,
-        "cadre": 0.1606,
-        "artisan_commercant": 0.0793,
-        "sans_emploi": 0.0595
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1970-1979",
-        "territoire": "quartier_prioritaire"
-      },
-      "distribution": {
-        "agriculteur": 0.0031,
-        "ouvrier": 0.4116,
-        "employe": 0.196,
-        "intermediaire": 0.1336,
-        "cadre": 0.0241,
-        "artisan_commercant": 0.0713,
-        "sans_emploi": 0.1604
+        "sans_emploi": 0.026,
+        "agriculteur": 0.07859,
+        "artisan_commercant": 0.08392,
+        "cadre": 0.08231,
+        "intermediaire": 0.1657,
+        "employe": 0.2258,
+        "ouvrier": 0.3377
       }
     },
     {
@@ -186,58 +51,13 @@
         "periode": "1980-1989"
       },
       "distribution": {
-        "agriculteur": 0.05,
-        "ouvrier": 0.3,
-        "employe": 0.25,
-        "intermediaire": 0.17,
-        "cadre": 0.11,
-        "artisan_commercant": 0.07,
-        "sans_emploi": 0.05
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1980-1989",
-        "territoire": "rural"
-      },
-      "distribution": {
-        "agriculteur": 0.1435,
-        "ouvrier": 0.2871,
-        "employe": 0.2392,
-        "intermediaire": 0.1627,
-        "cadre": 0.0526,
-        "artisan_commercant": 0.067,
-        "sans_emploi": 0.0478
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1980-1989",
-        "territoire": "grande_metropole"
-      },
-      "distribution": {
-        "agriculteur": 0.0048,
-        "ouvrier": 0.2876,
-        "employe": 0.2397,
-        "intermediaire": 0.163,
-        "cadre": 0.1898,
-        "artisan_commercant": 0.0671,
-        "sans_emploi": 0.0479
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1980-1989",
-        "territoire": "quartier_prioritaire"
-      },
-      "distribution": {
-        "agriculteur": 0.0023,
-        "ouvrier": 0.3834,
-        "employe": 0.2282,
-        "intermediaire": 0.1552,
-        "cadre": 0.0301,
-        "artisan_commercant": 0.0639,
-        "sans_emploi": 0.1369
+        "sans_emploi": 0.07087,
+        "agriculteur": 0.04749,
+        "artisan_commercant": 0.07882,
+        "cadre": 0.1036,
+        "intermediaire": 0.1897,
+        "employe": 0.2291,
+        "ouvrier": 0.2804
       }
     },
     {
@@ -245,58 +65,13 @@
         "periode": "1990-1999"
       },
       "distribution": {
-        "agriculteur": 0.03,
-        "ouvrier": 0.27,
-        "employe": 0.27,
-        "intermediaire": 0.19,
-        "cadre": 0.13,
-        "artisan_commercant": 0.06,
-        "sans_emploi": 0.05
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1990-1999",
-        "territoire": "rural"
-      },
-      "distribution": {
-        "agriculteur": 0.0905,
-        "ouvrier": 0.2714,
-        "employe": 0.2714,
-        "intermediaire": 0.191,
-        "cadre": 0.0653,
-        "artisan_commercant": 0.0603,
-        "sans_emploi": 0.0503
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1990-1999",
-        "territoire": "grande_metropole"
-      },
-      "distribution": {
-        "agriculteur": 0.0028,
-        "ouvrier": 0.2507,
-        "employe": 0.2507,
-        "intermediaire": 0.1764,
-        "cadre": 0.2173,
-        "artisan_commercant": 0.0557,
-        "sans_emploi": 0.0464
-      }
-    },
-    {
-      "conditions": {
-        "periode": "1990-1999",
-        "territoire": "quartier_prioritaire"
-      },
-      "distribution": {
-        "agriculteur": 0.0014,
-        "ouvrier": 0.3473,
-        "employe": 0.248,
-        "intermediaire": 0.1746,
-        "cadre": 0.0358,
-        "artisan_commercant": 0.0551,
-        "sans_emploi": 0.1378
+        "sans_emploi": 0.1037,
+        "agriculteur": 0.02815,
+        "artisan_commercant": 0.06449,
+        "cadre": 0.1193,
+        "intermediaire": 0.2057,
+        "employe": 0.2436,
+        "ouvrier": 0.2351
       }
     },
     {
@@ -304,58 +79,13 @@
         "periode": "2000-2009"
       },
       "distribution": {
-        "agriculteur": 0.02,
-        "ouvrier": 0.24,
-        "employe": 0.28,
-        "intermediaire": 0.2,
-        "cadre": 0.16,
-        "artisan_commercant": 0.06,
-        "sans_emploi": 0.04
-      }
-    },
-    {
-      "conditions": {
-        "periode": "2000-2009",
-        "territoire": "rural"
-      },
-      "distribution": {
-        "agriculteur": 0.0625,
-        "ouvrier": 0.25,
-        "employe": 0.2917,
-        "intermediaire": 0.2083,
-        "cadre": 0.0833,
-        "artisan_commercant": 0.0625,
-        "sans_emploi": 0.0417
-      }
-    },
-    {
-      "conditions": {
-        "periode": "2000-2009",
-        "territoire": "grande_metropole"
-      },
-      "distribution": {
-        "agriculteur": 0.0018,
-        "ouvrier": 0.2162,
-        "employe": 0.2523,
-        "intermediaire": 0.1802,
-        "cadre": 0.2595,
-        "artisan_commercant": 0.0541,
-        "sans_emploi": 0.036
-      }
-    },
-    {
-      "conditions": {
-        "periode": "2000-2009",
-        "territoire": "quartier_prioritaire"
-      },
-      "distribution": {
-        "agriculteur": 0.001,
-        "ouvrier": 0.3215,
-        "employe": 0.2679,
-        "intermediaire": 0.1914,
-        "cadre": 0.0459,
-        "artisan_commercant": 0.0574,
-        "sans_emploi": 0.1148
+        "sans_emploi": 0.1006,
+        "agriculteur": 0.01908,
+        "artisan_commercant": 0.05356,
+        "cadre": 0.1409,
+        "intermediaire": 0.2287,
+        "employe": 0.2514,
+        "ouvrier": 0.2058
       }
     },
     {
@@ -363,13 +93,297 @@
         "periode": "2010-2019"
       },
       "distribution": {
-        "agriculteur": 0.0149,
-        "ouvrier": 0.2189,
-        "employe": 0.2786,
-        "intermediaire": 0.209,
-        "cadre": 0.1791,
-        "artisan_commercant": 0.0597,
-        "sans_emploi": 0.0398
+        "sans_emploi": 0.1152,
+        "agriculteur": 0.01287,
+        "artisan_commercant": 0.05717,
+        "cadre": 0.1627,
+        "intermediaire": 0.2375,
+        "employe": 0.2385,
+        "ouvrier": 0.1761
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "sans_emploi": 0.09348,
+        "agriculteur": 0.01039,
+        "artisan_commercant": 0.06124,
+        "cadre": 0.1951,
+        "intermediaire": 0.2483,
+        "employe": 0.2228,
+        "ouvrier": 0.1687
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1950-1959",
+        "territoire": "rural"
+      },
+      "distribution": {
+        "sans_emploi": 0.01367,
+        "agriculteur": 0.281,
+        "artisan_commercant": 0.08524,
+        "cadre": 0.02647,
+        "intermediaire": 0.1179,
+        "employe": 0.1698,
+        "ouvrier": 0.3059
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1950-1959",
+        "territoire": "grande_metropole"
+      },
+      "distribution": {
+        "sans_emploi": 0.01714,
+        "agriculteur": 0.01173,
+        "artisan_commercant": 0.1069,
+        "cadre": 0.1197,
+        "intermediaire": 0.1478,
+        "employe": 0.213,
+        "ouvrier": 0.3837
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1950-1959",
+        "territoire": "quartier_prioritaire"
+      },
+      "distribution": {
+        "sans_emploi": 0.04751,
+        "agriculteur": 0.005451,
+        "artisan_commercant": 0.09879,
+        "cadre": 0.01837,
+        "intermediaire": 0.1366,
+        "employe": 0.1968,
+        "ouvrier": 0.4965
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1960-1969",
+        "territoire": "rural"
+      },
+      "distribution": {
+        "sans_emploi": 0.01365,
+        "agriculteur": 0.281,
+        "artisan_commercant": 0.08527,
+        "cadre": 0.02647,
+        "intermediaire": 0.1179,
+        "employe": 0.1697,
+        "ouvrier": 0.306
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1960-1969",
+        "territoire": "grande_metropole"
+      },
+      "distribution": {
+        "sans_emploi": 0.01714,
+        "agriculteur": 0.01175,
+        "artisan_commercant": 0.1069,
+        "cadre": 0.1197,
+        "intermediaire": 0.1479,
+        "employe": 0.2129,
+        "ouvrier": 0.3837
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1960-1969",
+        "territoire": "quartier_prioritaire"
+      },
+      "distribution": {
+        "sans_emploi": 0.0475,
+        "agriculteur": 0.005458,
+        "artisan_commercant": 0.09883,
+        "cadre": 0.01845,
+        "intermediaire": 0.1367,
+        "employe": 0.1967,
+        "ouvrier": 0.4964
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1970-1979",
+        "territoire": "rural"
+      },
+      "distribution": {
+        "sans_emploi": 0.0233,
+        "agriculteur": 0.2113,
+        "artisan_commercant": 0.07523,
+        "cadre": 0.03688,
+        "intermediaire": 0.1485,
+        "employe": 0.2023,
+        "ouvrier": 0.3025
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1970-1979",
+        "territoire": "grande_metropole"
+      },
+      "distribution": {
+        "sans_emploi": 0.02614,
+        "agriculteur": 0.007854,
+        "artisan_commercant": 0.08434,
+        "cadre": 0.1489,
+        "intermediaire": 0.1665,
+        "employe": 0.2268,
+        "ouvrier": 0.3395
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1970-1979",
+        "territoire": "quartier_prioritaire"
+      },
+      "distribution": {
+        "sans_emploi": 0.07396,
+        "agriculteur": 0.003703,
+        "artisan_commercant": 0.07959,
+        "cadre": 0.02345,
+        "intermediaire": 0.157,
+        "employe": 0.2141,
+        "ouvrier": 0.4482
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1980-1989",
+        "territoire": "rural"
+      },
+      "distribution": {
+        "sans_emploi": 0.06788,
+        "agriculteur": 0.1366,
+        "artisan_commercant": 0.07558,
+        "cadre": 0.04963,
+        "intermediaire": 0.1819,
+        "employe": 0.2196,
+        "ouvrier": 0.2688
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1980-1989",
+        "territoire": "grande_metropole"
+      },
+      "distribution": {
+        "sans_emploi": 0.06809,
+        "agriculteur": 0.004572,
+        "artisan_commercant": 0.07577,
+        "cadre": 0.1793,
+        "intermediaire": 0.1824,
+        "employe": 0.2203,
+        "ouvrier": 0.2696
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1980-1989",
+        "territoire": "quartier_prioritaire"
+      },
+      "distribution": {
+        "sans_emploi": 0.1871,
+        "agriculteur": 0.002106,
+        "artisan_commercant": 0.06937,
+        "cadre": 0.02733,
+        "intermediaire": 0.167,
+        "employe": 0.2016,
+        "ouvrier": 0.3455
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1990-1999",
+        "territoire": "rural"
+      },
+      "distribution": {
+        "sans_emploi": 0.1041,
+        "agriculteur": 0.08475,
+        "artisan_commercant": 0.06469,
+        "cadre": 0.05981,
+        "intermediaire": 0.2064,
+        "employe": 0.2443,
+        "ouvrier": 0.2359
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1990-1999",
+        "territoire": "grande_metropole"
+      },
+      "distribution": {
+        "sans_emploi": 0.09685,
+        "agriculteur": 0.002644,
+        "artisan_commercant": 0.06025,
+        "cadre": 0.2007,
+        "intermediaire": 0.1922,
+        "employe": 0.2277,
+        "ouvrier": 0.2197
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1990-1999",
+        "territoire": "quartier_prioritaire"
+      },
+      "distribution": {
+        "sans_emploi": 0.2612,
+        "agriculteur": 0.0012,
+        "artisan_commercant": 0.05412,
+        "cadre": 0.03002,
+        "intermediaire": 0.1727,
+        "employe": 0.2045,
+        "ouvrier": 0.2763
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2000-2009",
+        "territoire": "rural"
+      },
+      "distribution": {
+        "sans_emploi": 0.104,
+        "agriculteur": 0.05914,
+        "artisan_commercant": 0.05534,
+        "cadre": 0.07277,
+        "intermediaire": 0.2363,
+        "employe": 0.2599,
+        "ouvrier": 0.2126
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2000-2009",
+        "territoire": "grande_metropole"
+      },
+      "distribution": {
+        "sans_emploi": 0.09173,
+        "agriculteur": 0.00174,
+        "artisan_commercant": 0.04893,
+        "cadre": 0.2315,
+        "intermediaire": 0.2088,
+        "employe": 0.2295,
+        "ouvrier": 0.1878
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2000-2009",
+        "territoire": "quartier_prioritaire"
+      },
+      "distribution": {
+        "sans_emploi": 0.2586,
+        "agriculteur": 0.0008545,
+        "artisan_commercant": 0.0459,
+        "cadre": 0.03621,
+        "intermediaire": 0.196,
+        "employe": 0.2155,
+        "ouvrier": 0.2469
       }
     },
     {
@@ -378,13 +392,13 @@
         "territoire": "rural"
       },
       "distribution": {
-        "agriculteur": 0.0476,
-        "ouvrier": 0.2328,
-        "employe": 0.2963,
-        "intermediaire": 0.2222,
-        "cadre": 0.0952,
-        "artisan_commercant": 0.0635,
-        "sans_emploi": 0.0423
+        "sans_emploi": 0.1219,
+        "agriculteur": 0.04094,
+        "artisan_commercant": 0.06055,
+        "cadre": 0.08611,
+        "intermediaire": 0.2514,
+        "employe": 0.2526,
+        "ouvrier": 0.1865
       }
     },
     {
@@ -393,13 +407,13 @@
         "territoire": "grande_metropole"
       },
       "distribution": {
-        "agriculteur": 0.0013,
-        "ouvrier": 0.1937,
-        "employe": 0.2466,
-        "intermediaire": 0.1849,
-        "cadre": 0.2853,
-        "artisan_commercant": 0.0528,
-        "sans_emploi": 0.0352
+        "sans_emploi": 0.1029,
+        "agriculteur": 0.001134,
+        "artisan_commercant": 0.05108,
+        "cadre": 0.2619,
+        "intermediaire": 0.2123,
+        "employe": 0.2133,
+        "ouvrier": 0.1574
       }
     },
     {
@@ -408,25 +422,70 @@
         "territoire": "quartier_prioritaire"
       },
       "distribution": {
-        "agriculteur": 0.0007,
-        "ouvrier": 0.2982,
-        "employe": 0.2711,
-        "intermediaire": 0.2033,
-        "cadre": 0.0523,
-        "artisan_commercant": 0.0581,
-        "sans_emploi": 0.1162
+        "sans_emploi": 0.2942,
+        "agriculteur": 0.0005289,
+        "artisan_commercant": 0.04867,
+        "cadre": 0.04156,
+        "intermediaire": 0.2021,
+        "employe": 0.203,
+        "ouvrier": 0.2099
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2020-2029",
+        "territoire": "rural"
+      },
+      "distribution": {
+        "sans_emploi": 0.1012,
+        "agriculteur": 0.03381,
+        "artisan_commercant": 0.06635,
+        "cadre": 0.1056,
+        "intermediaire": 0.2688,
+        "employe": 0.2414,
+        "ouvrier": 0.1828
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2020-2029",
+        "territoire": "grande_metropole"
+      },
+      "distribution": {
+        "sans_emploi": 0.08148,
+        "agriculteur": 0.0008934,
+        "artisan_commercant": 0.05338,
+        "cadre": 0.3062,
+        "intermediaire": 0.2165,
+        "employe": 0.1944,
+        "ouvrier": 0.1471
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2020-2029",
+        "territoire": "quartier_prioritaire"
+      },
+      "distribution": {
+        "sans_emploi": 0.2531,
+        "agriculteur": 0.0004527,
+        "artisan_commercant": 0.05528,
+        "cadre": 0.05284,
+        "intermediaire": 0.224,
+        "employe": 0.2011,
+        "ouvrier": 0.2132
       }
     },
     {
       "conditions": {},
       "distribution": {
-        "agriculteur": 0.05,
-        "ouvrier": 0.3,
-        "employe": 0.25,
-        "intermediaire": 0.17,
-        "cadre": 0.11,
-        "artisan_commercant": 0.07,
-        "sans_emploi": 0.05
+        "sans_emploi": 0.09348,
+        "agriculteur": 0.01039,
+        "artisan_commercant": 0.06124,
+        "cadre": 0.1951,
+        "intermediaire": 0.2483,
+        "employe": 0.2228,
+        "ouvrier": 0.1687
       }
     }
   ]

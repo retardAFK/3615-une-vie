@@ -69,6 +69,10 @@ export type StructureFamiliale = (typeof STRUCTURES_FAMILIALES)[number];
 /** 0 à 5 ; 5 signifie « 5 et plus ». */
 export const FRATRIES = ['0', '1', '2', '3', '4', '5'] as const;
 
+/**
+ * Le joueur naît en France : premiere_generation = deux parents nés à l'étranger,
+ * deuxieme_generation = un seul (Insee, lieu de naissance des parents).
+ */
 export const ORIGINES_MIGRATOIRES = [
   'aucune',
   'premiere_generation',

@@ -9,196 +9,196 @@
         "territoire": "grande_metropole",
         "statut": "emploi"
       },
-      "valeur": 0.375
+      "valeur": 0.362
     },
     {
       "conditions": {
         "territoire": "grande_metropole",
         "statut": "chomage"
       },
-      "valeur": 0.262
+      "valeur": 0.253
     },
     {
       "conditions": {
         "territoire": "grande_metropole",
         "statut": "inactif"
       },
-      "valeur": 0.131
+      "valeur": 0.126
     },
     {
       "conditions": {
         "territoire": "grande_metropole",
         "statut": "retraite"
+      },
+      "valeur": 0.271
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "statut": "emploi"
+      },
+      "valeur": 0.307
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "statut": "chomage"
+      },
+      "valeur": 0.215
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "statut": "inactif"
+      },
+      "valeur": 0.108
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "statut": "retraite"
+      },
+      "valeur": 0.23
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "statut": "emploi"
+      },
+      "valeur": 0.326
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "statut": "chomage"
+      },
+      "valeur": 0.227
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "statut": "inactif"
+      },
+      "valeur": 0.114
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "statut": "retraite"
+      },
+      "valeur": 0.244
+    },
+    {
+      "conditions": {
+        "territoire": "rural",
+        "statut": "emploi"
       },
       "valeur": 0.281
     },
     {
       "conditions": {
-        "territoire": "ville_moyenne",
-        "statut": "emploi"
-      },
-      "valeur": 0.318
-    },
-    {
-      "conditions": {
-        "territoire": "ville_moyenne",
-        "statut": "chomage"
-      },
-      "valeur": 0.223
-    },
-    {
-      "conditions": {
-        "territoire": "ville_moyenne",
-        "statut": "inactif"
-      },
-      "valeur": 0.112
-    },
-    {
-      "conditions": {
-        "territoire": "ville_moyenne",
-        "statut": "retraite"
-      },
-      "valeur": 0.239
-    },
-    {
-      "conditions": {
-        "territoire": "periurbain",
-        "statut": "emploi"
-      },
-      "valeur": 0.337
-    },
-    {
-      "conditions": {
-        "territoire": "periurbain",
-        "statut": "chomage"
-      },
-      "valeur": 0.236
-    },
-    {
-      "conditions": {
-        "territoire": "periurbain",
-        "statut": "inactif"
-      },
-      "valeur": 0.118
-    },
-    {
-      "conditions": {
-        "territoire": "periurbain",
-        "statut": "retraite"
-      },
-      "valeur": 0.253
-    },
-    {
-      "conditions": {
-        "territoire": "rural",
-        "statut": "emploi"
-      },
-      "valeur": 0.291
-    },
-    {
-      "conditions": {
         "territoire": "rural",
         "statut": "chomage"
       },
-      "valeur": 0.203
+      "valeur": 0.196
     },
     {
       "conditions": {
         "territoire": "rural",
         "statut": "inactif"
       },
-      "valeur": 0.101
+      "valeur": 0.0975
     },
     {
       "conditions": {
         "territoire": "rural",
         "statut": "retraite"
       },
-      "valeur": 0.218
+      "valeur": 0.21
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "emploi"
       },
-      "valeur": 0.318
+      "valeur": 0.307
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "chomage"
       },
-      "valeur": 0.223
+      "valeur": 0.215
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "inactif"
       },
-      "valeur": 0.112
+      "valeur": 0.108
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "retraite"
       },
-      "valeur": 0.239
+      "valeur": 0.23
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "emploi"
       },
-      "valeur": 0.337
+      "valeur": 0.326
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "chomage"
       },
-      "valeur": 0.236
+      "valeur": 0.227
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "inactif"
       },
-      "valeur": 0.118
+      "valeur": 0.114
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "retraite"
       },
-      "valeur": 0.253
+      "valeur": 0.244
     },
     {
       "conditions": {
         "statut": "emploi"
       },
-      "valeur": 0.337
+      "valeur": 0.326
     },
     {
       "conditions": {
         "statut": "chomage"
       },
-      "valeur": 0.236
+      "valeur": 0.227
     },
     {
       "conditions": {
         "statut": "inactif"
       },
-      "valeur": 0.118
+      "valeur": 0.114
     },
     {
       "conditions": {
         "statut": "retraite"
       },
-      "valeur": 0.253
+      "valeur": 0.244
     },
     {
       "conditions": {},
-      "valeur": 0.337
+      "valeur": 0.326
     }
   ]
 }

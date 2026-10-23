@@ -51,7 +51,7 @@ Un personnage se décrit en quatre blocs : l'origine (figée), les traits (quasi
 | logementFamilial | propriétaire, locataire privé, HLM, précaire |
 | structureFamiliale | couple, monoparentale, recomposée, placement ASE |
 | fratrie | 0 à 5+ |
-| origineMigratoire | aucune, 1re génération, 2e génération |
+| origineMigratoire | aucune, deux parents nés à l'étranger, un parent né à l'étranger (le joueur naît toujours en France) |
 | santeNaissance | normale, prématurité, handicap |
 
 **Traits (0 à 100, tirés à la naissance, dérive lente)**
@@ -467,7 +467,7 @@ Déménager vers une autre région est un choix : il change la grille de salaire
 - Logement : le départ de chez les parents est tiré à partir de 18 ans, plus fréquent pour qui travaille, et forcé par la vie commune, la fin d'un placement ou le décès des parents. La destination dépend des revenus : location si le revenu atteint trois fois le loyer, sinon HLM sous plafond de ressources (file d'attente tirée, accélérée par une demande), sinon on reste, ou, si le départ est forcé, sans logement stable. Sans logement stable : santé physique en baisse et risque de chômage accru chaque année, jusqu'à en sortir.
 - Violences conjugales : événement rare à partir de 15 ans, sans détail, avec le 3919 ; partir rend la séparation presque certaine.
 - Mobilité : une offre d'emploi dans une autre région (plus fréquente pour les diplômés du supérieur et les chômeurs) propose de déménager ; accepter coûte des liens, donne un CDI et tire une région (hors celle quittée) et un territoire dans `mobilite`. Le lieu de vie (`residence`) remplace alors l'origine pour la grille de salaire, les loyers, la dépense de vie, l'accès aux soins, le non-recours et les conditions sur la région ou le territoire. On quitte ses parents ou son HLM pour une location ; un propriétaire ne se voit pas proposer de partir.
-- Discrimination au logement : un refus de location, plus fréquent pour les personnes immigrées ou enfants d'immigrés (discrimination mesurée par les testings), coûte du moral et ralentit pendant deux ans le départ de chez les parents et l'accès au HLM. Le Défenseur des droits est proposé. C'est le seul usage de l'origine migratoire dans ce module (section 14).
+- Discrimination au logement : un refus de location, plus fréquent pour les enfants d'un ou deux parents nés à l'étranger (discrimination mesurée par les testings), coûte du moral et ralentit pendant deux ans le départ de chez les parents et l'accès au HLM. Le Défenseur des droits est proposé. C'est le seul usage de l'origine migratoire dans ce module (section 14).
 - Les enfants ne sont pas encore des personnages secondaires (réussite selon la situation du joueur) : ils viendront avec le bilan (jalon 7).
 - Toutes les probabilités sont des valeurs de travail `aCalibrer` (INED, INSEE au jalon 8).
 

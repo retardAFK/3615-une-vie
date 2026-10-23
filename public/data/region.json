@@ -1,30 +1,230 @@
 {
   "table": "region",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
-  "url": null,
-  "aCalibrer": true,
+  "source": "Insee, BDM, naissances domiciliées par région (depuis 1975) et par département d'outre-mer (depuis 1994, Mayotte depuis 2014), API SDMX, somme de la décennie. Avant ses premières données, un DROM suit la métropole au rapport de ses six premières années ; Mayotte compte depuis 2011. Les décennies 1950 et 1960 reprennent la décennie 1970.",
+  "url": "https://bdm.insee.fr/series/sdmx/data/NAISSANCES-FECONDITE/A...NAISS-DOM.R11+R24+R27+R28+R32+R44+R52+R53+R75+R76+R84+R93+R94+D971+D972+D973+D974+D976+FM....",
+  "aCalibrer": false,
   "lignes": [
+    {
+      "conditions": {
+        "periode": "1950-1959"
+      },
+      "distribution": {
+        "ile_de_france": 0.1926,
+        "centre_val_de_loire": 0.03777,
+        "bourgogne_franche_comte": 0.04791,
+        "normandie": 0.05723,
+        "hauts_de_france": 0.1168,
+        "grand_est": 0.09719,
+        "pays_de_la_loire": 0.05785,
+        "bretagne": 0.04788,
+        "nouvelle_aquitaine": 0.07537,
+        "occitanie": 0.05947,
+        "auvergne_rhone_alpes": 0.1097,
+        "provence_alpes_cote_d_azur": 0.05761,
+        "corse": 0.003222,
+        "guadeloupe": 0.008375,
+        "martinique": 0.007502,
+        "guyane": 0.005874,
+        "la_reunion": 0.01763,
+        "mayotte": 0
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1960-1969"
+      },
+      "distribution": {
+        "ile_de_france": 0.1926,
+        "centre_val_de_loire": 0.03777,
+        "bourgogne_franche_comte": 0.04791,
+        "normandie": 0.05723,
+        "hauts_de_france": 0.1168,
+        "grand_est": 0.09719,
+        "pays_de_la_loire": 0.05785,
+        "bretagne": 0.04788,
+        "nouvelle_aquitaine": 0.07537,
+        "occitanie": 0.05947,
+        "auvergne_rhone_alpes": 0.1097,
+        "provence_alpes_cote_d_azur": 0.05761,
+        "corse": 0.003222,
+        "guadeloupe": 0.008375,
+        "martinique": 0.007502,
+        "guyane": 0.005874,
+        "la_reunion": 0.01763,
+        "mayotte": 0
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1970-1979"
+      },
+      "distribution": {
+        "ile_de_france": 0.1926,
+        "centre_val_de_loire": 0.03777,
+        "bourgogne_franche_comte": 0.04791,
+        "normandie": 0.05723,
+        "hauts_de_france": 0.1168,
+        "grand_est": 0.09719,
+        "pays_de_la_loire": 0.05785,
+        "bretagne": 0.04788,
+        "nouvelle_aquitaine": 0.07537,
+        "occitanie": 0.05947,
+        "auvergne_rhone_alpes": 0.1097,
+        "provence_alpes_cote_d_azur": 0.05761,
+        "corse": 0.003222,
+        "guadeloupe": 0.008375,
+        "martinique": 0.007502,
+        "guyane": 0.005874,
+        "la_reunion": 0.01763,
+        "mayotte": 0
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1980-1989"
+      },
+      "distribution": {
+        "ile_de_france": 0.1992,
+        "centre_val_de_loire": 0.03746,
+        "bourgogne_franche_comte": 0.04506,
+        "normandie": 0.05744,
+        "hauts_de_france": 0.1148,
+        "grand_est": 0.09493,
+        "pays_de_la_loire": 0.05362,
+        "bretagne": 0.04574,
+        "nouvelle_aquitaine": 0.07257,
+        "occitanie": 0.06239,
+        "auvergne_rhone_alpes": 0.1096,
+        "provence_alpes_cote_d_azur": 0.06417,
+        "corse": 0.003613,
+        "guadeloupe": 0.008375,
+        "martinique": 0.007502,
+        "guyane": 0.005874,
+        "la_reunion": 0.01763,
+        "mayotte": 0
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1990-1999"
+      },
+      "distribution": {
+        "ile_de_france": 0.2153,
+        "centre_val_de_loire": 0.03722,
+        "bourgogne_franche_comte": 0.04176,
+        "normandie": 0.05389,
+        "hauts_de_france": 0.1058,
+        "grand_est": 0.08839,
+        "pays_de_la_loire": 0.05123,
+        "bretagne": 0.04384,
+        "nouvelle_aquitaine": 0.07067,
+        "occitanie": 0.06797,
+        "auvergne_rhone_alpes": 0.1116,
+        "provence_alpes_cote_d_azur": 0.06925,
+        "corse": 0.003682,
+        "guadeloupe": 0.008375,
+        "martinique": 0.007502,
+        "guyane": 0.005874,
+        "la_reunion": 0.01763,
+        "mayotte": 0
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2000-2009"
+      },
+      "distribution": {
+        "ile_de_france": 0.2189,
+        "centre_val_de_loire": 0.03699,
+        "bourgogne_franche_comte": 0.03988,
+        "normandie": 0.05011,
+        "hauts_de_france": 0.1004,
+        "grand_est": 0.08133,
+        "pays_de_la_loire": 0.05493,
+        "bretagne": 0.04545,
+        "nouvelle_aquitaine": 0.07256,
+        "occitanie": 0.0727,
+        "auvergne_rhone_alpes": 0.1139,
+        "provence_alpes_cote_d_azur": 0.06985,
+        "corse": 0.003484,
+        "guadeloupe": 0.007664,
+        "martinique": 0.006672,
+        "guyane": 0.007111,
+        "la_reunion": 0.01805,
+        "mayotte": 0
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2010-2019"
+      },
+      "distribution": {
+        "ile_de_france": 0.2247,
+        "centre_val_de_loire": 0.03534,
+        "bourgogne_franche_comte": 0.03678,
+        "normandie": 0.04651,
+        "hauts_de_france": 0.09461,
+        "grand_est": 0.07547,
+        "pays_de_la_loire": 0.05339,
+        "bretagne": 0.04292,
+        "nouvelle_aquitaine": 0.07167,
+        "occitanie": 0.07636,
+        "auvergne_rhone_alpes": 0.1174,
+        "provence_alpes_cote_d_azur": 0.07329,
+        "corse": 0.003683,
+        "guadeloupe": 0.00606,
+        "martinique": 0.005153,
+        "guyane": 0.008801,
+        "la_reunion": 0.01737,
+        "mayotte": 0.01054
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "ile_de_france": 0.2284,
+        "centre_val_de_loire": 0.03473,
+        "bourgogne_franche_comte": 0.0343,
+        "normandie": 0.04487,
+        "hauts_de_france": 0.08864,
+        "grand_est": 0.07108,
+        "pays_de_la_loire": 0.05403,
+        "bretagne": 0.04297,
+        "nouvelle_aquitaine": 0.07309,
+        "occitanie": 0.07817,
+        "auvergne_rhone_alpes": 0.1174,
+        "provence_alpes_cote_d_azur": 0.07529,
+        "corse": 0.003695,
+        "guadeloupe": 0.006276,
+        "martinique": 0.00518,
+        "guyane": 0.01008,
+        "la_reunion": 0.01812,
+        "mayotte": 0.01371
+      }
+    },
     {
       "conditions": {},
       "distribution": {
-        "ile_de_france": 0.1786,
-        "auvergne_rhone_alpes": 0.119,
-        "hauts_de_france": 0.0893,
-        "nouvelle_aquitaine": 0.0893,
-        "occitanie": 0.0893,
-        "grand_est": 0.0794,
-        "provence_alpes_cote_d_azur": 0.0794,
-        "pays_de_la_loire": 0.0595,
-        "bretagne": 0.0496,
-        "normandie": 0.0496,
-        "bourgogne_franche_comte": 0.0397,
-        "centre_val_de_loire": 0.0397,
-        "corse": 0.005,
-        "guadeloupe": 0.006,
-        "martinique": 0.006,
-        "guyane": 0.004,
-        "la_reunion": 0.0129,
-        "mayotte": 0.004
+        "ile_de_france": 0.2284,
+        "centre_val_de_loire": 0.03473,
+        "bourgogne_franche_comte": 0.0343,
+        "normandie": 0.04487,
+        "hauts_de_france": 0.08864,
+        "grand_est": 0.07108,
+        "pays_de_la_loire": 0.05403,
+        "bretagne": 0.04297,
+        "nouvelle_aquitaine": 0.07309,
+        "occitanie": 0.07817,
+        "auvergne_rhone_alpes": 0.1174,
+        "provence_alpes_cote_d_azur": 0.07529,
+        "corse": 0.003695,
+        "guadeloupe": 0.006276,
+        "martinique": 0.00518,
+        "guyane": 0.01008,
+        "la_reunion": 0.01812,
+        "mayotte": 0.01371
       }
     }
   ]

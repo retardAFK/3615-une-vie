@@ -1,17 +1,17 @@
 {
   "table": "origineMigratoire",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
-  "url": null,
-  "aCalibrer": true,
+  "source": "Insee, statistiques de l'état civil, T37ter « Nés vivants selon le lieu de naissance des parents », France métropolitaine, 1977-2021, somme de la décennie : premiere_generation = deux parents nés à l'étranger, deuxieme_generation = un seul (les parents nés à l'étranger comptent aussi les Français de naissance, rapatriés compris). Père inconnu (avant 1998) réparti selon le lieu de naissance de la mère. Avant 1977 : 1977-1979.",
+  "url": "https://www.insee.fr/fr/statistiques/6524900",
+  "aCalibrer": false,
   "lignes": [
     {
       "conditions": {
         "periode": "1950-1959"
       },
       "distribution": {
-        "aucune": 0.88,
-        "premiere_generation": 0.04,
-        "deuxieme_generation": 0.08
+        "aucune": 0.766,
+        "premiere_generation": 0.1192,
+        "deuxieme_generation": 0.1148
       }
     },
     {
@@ -19,9 +19,9 @@
         "periode": "1960-1969"
       },
       "distribution": {
-        "aucune": 0.86,
-        "premiere_generation": 0.05,
-        "deuxieme_generation": 0.09
+        "aucune": 0.766,
+        "premiere_generation": 0.1192,
+        "deuxieme_generation": 0.1148
       }
     },
     {
@@ -29,9 +29,9 @@
         "periode": "1970-1979"
       },
       "distribution": {
-        "aucune": 0.84,
-        "premiere_generation": 0.05,
-        "deuxieme_generation": 0.11
+        "aucune": 0.766,
+        "premiere_generation": 0.1192,
+        "deuxieme_generation": 0.1148
       }
     },
     {
@@ -39,9 +39,9 @@
         "periode": "1980-1989"
       },
       "distribution": {
-        "aucune": 0.82,
-        "premiere_generation": 0.05,
-        "deuxieme_generation": 0.13
+        "aucune": 0.7604,
+        "premiere_generation": 0.1188,
+        "deuxieme_generation": 0.1208
       }
     },
     {
@@ -49,9 +49,9 @@
         "periode": "1990-1999"
       },
       "distribution": {
-        "aucune": 0.8,
-        "premiere_generation": 0.05,
-        "deuxieme_generation": 0.15
+        "aucune": 0.7733,
+        "premiere_generation": 0.1036,
+        "deuxieme_generation": 0.1231
       }
     },
     {
@@ -59,9 +59,9 @@
         "periode": "2000-2009"
       },
       "distribution": {
-        "aucune": 0.79,
-        "premiere_generation": 0.05,
-        "deuxieme_generation": 0.16
+        "aucune": 0.75,
+        "premiere_generation": 0.1056,
+        "deuxieme_generation": 0.1444
       }
     },
     {
@@ -69,17 +69,27 @@
         "periode": "2010-2019"
       },
       "distribution": {
-        "aucune": 0.78,
-        "premiere_generation": 0.06,
-        "deuxieme_generation": 0.16
+        "aucune": 0.7079,
+        "premiere_generation": 0.1411,
+        "deuxieme_generation": 0.151
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2020-2029"
+      },
+      "distribution": {
+        "aucune": 0.6883,
+        "premiere_generation": 0.1621,
+        "deuxieme_generation": 0.1496
       }
     },
     {
       "conditions": {},
       "distribution": {
-        "aucune": 0.83,
-        "premiere_generation": 0.05,
-        "deuxieme_generation": 0.12
+        "aucune": 0.6883,
+        "premiere_generation": 0.1621,
+        "deuxieme_generation": 0.1496
       }
     }
   ]

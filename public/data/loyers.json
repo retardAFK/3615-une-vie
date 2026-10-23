@@ -9,96 +9,96 @@
         "logement": "locataire_prive",
         "territoire": "grande_metropole"
       },
-      "valeur": 0.72
+      "valeur": 0.723
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "grande_metropole"
       },
-      "valeur": 0.396
+      "valeur": 0.405
     },
     {
       "conditions": {
         "logement": "locataire_prive",
         "territoire": "ville_moyenne"
       },
-      "valeur": 0.499
+      "valeur": 0.501
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "ville_moyenne"
       },
-      "valeur": 0.274
+      "valeur": 0.281
     },
     {
       "conditions": {
         "logement": "locataire_prive",
         "territoire": "periurbain"
       },
-      "valeur": 0.499
+      "valeur": 0.501
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "periurbain"
       },
-      "valeur": 0.274
+      "valeur": 0.281
     },
     {
       "conditions": {
         "logement": "locataire_prive",
         "territoire": "rural"
       },
-      "valeur": 0.361
+      "valeur": 0.363
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "rural"
       },
-      "valeur": 0.198
+      "valeur": 0.203
     },
     {
       "conditions": {
         "logement": "locataire_prive",
         "territoire": "quartier_prioritaire"
       },
-      "valeur": 0.471
+      "valeur": 0.473
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "quartier_prioritaire"
       },
-      "valeur": 0.259
+      "valeur": 0.265
     },
     {
       "conditions": {
         "logement": "locataire_prive",
         "territoire": "drom"
       },
-      "valeur": 0.499
+      "valeur": 0.501
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "drom"
       },
-      "valeur": 0.274
+      "valeur": 0.281
     },
     {
       "conditions": {
         "logement": "locataire_prive"
       },
-      "valeur": 0.527
+      "valeur": 0.529
     },
     {
       "conditions": {
         "logement": "hlm"
       },
-      "valeur": 0.289
+      "valeur": 0.297
     },
     {
       "conditions": {
