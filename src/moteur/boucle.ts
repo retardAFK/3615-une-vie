@@ -22,6 +22,7 @@ import {
 } from './evenements';
 import { bilanAnnuel } from './modules/argent';
 import { evoluerEducation } from './modules/education';
+import { nouveautesDeLAnnee } from './modules/contexte';
 import { changerEmploi, comptabiliserAnnee, evoluerEmploi } from './modules/emploi';
 import { naitre } from './naissance';
 import { resumerPetiteEnfance } from './recit';
@@ -134,13 +135,28 @@ export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuv
   }
 
   const { retenus, reportes } = tirerEvenements(etat, donnees);
+  // Contexte historique : chaque entrée qui commence cette année entre au journal.
+  const actualites: EntreeJournal[] = nouveautesDeLAnnee(donnees.contexte, etat.annee).map(
+    (entree) => ({
+      annee: etat.annee,
+      age: personnage.age,
+      type: 'actualite',
+      texte: entree.titre,
+      contexteId: entree.id,
+    }),
+  );
   return {
-    etat: { ...etat, anneeEnCours: { evenements: retenus }, reportes },
+    etat: {
+      ...etat,
+      anneeEnCours: { evenements: retenus },
+      reportes,
+      historique: actualites.length > 0 ? [...etat.historique, ...actualites] : etat.historique,
+    },
     evenements: retenus,
     choixProposes: retenus
       .filter((e) => e.choix.length > 0)
       .map((e) => ({ evenementId: e.id, options: e.choix })),
-    journal: [],
+    journal: actualites,
   };
 }
 

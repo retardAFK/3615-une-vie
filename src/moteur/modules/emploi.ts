@@ -236,7 +236,7 @@ function transition(etat: EtatPartie, personnage: Personnage, donnees: Donnees):
     ['trancheAge', 'niveau'],
   );
   const corrigee = distributionCorrigee(distribution, (issue) => [
-    ...multiplicateursTag(etat, `emploi_${issue}`, suivant, tables),
+    ...multiplicateursTag(etat, `emploi_${issue}`, suivant, donnees),
     ...effetCasier(personnage, issue, tables),
   ]);
   const g = sousGenerateur(etat.graine, personnage.age, 'emploi.transition');

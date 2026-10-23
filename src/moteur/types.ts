@@ -403,6 +403,8 @@ export interface Evenement {
   textes: readonly string[];
   /** Ressources d'aide affichées avec l'événement (contenu/textes/ressources.json). */
   ressources?: readonly string[];
+  /** Années calendaires d'éligibilité, bornes comprises (mouvements sociaux datés). */
+  annees?: readonly [number, number];
 }
 
 export interface FichierEvenements {
@@ -414,17 +416,56 @@ export interface FichierEvenements {
 
 export type Libelles = Readonly<Record<string, Readonly<Record<string, string>>>>;
 
+// --- Contexte historique (contenu/contexte/*.json, règles section 12) ---
+
+export const TYPES_CONTEXTE = ['actualite', 'crise', 'loi', 'mouvement'] as const;
+export type TypeContexte = (typeof TYPES_CONTEXTE)[number];
+
+/** Règles qu'une loi peut fixer à sa date d'entrée en vigueur. */
+export const REGLES_CONNUES = ['bacPro'] as const;
+
+export interface EntreeContexte {
+  id: string;
+  type: TypeContexte;
+  /** Années calendaires, bornes comprises. */
+  debut: number;
+  fin: number;
+  /** France ou monde (actualités internationales). */
+  portee: 'france' | 'monde';
+  titre: string;
+  texte: string;
+  /** Source de l'entrée : texte de loi, institution... Obligatoire. */
+  source: string;
+  url?: string | null;
+  /** Qui est touché : sans profil, tout le monde. */
+  profil?: ConditionsPersonnage;
+  /** Multiplicateurs par tag pendant les années de l'entrée (aCalibrer). */
+  multiplicateurs?: Readonly<Record<string, number>>;
+  /** Règles fixées par une loi à partir de son année de début. */
+  regles?: Readonly<Record<string, boolean | number>>;
+  aCalibrer?: boolean;
+}
+
+export interface FichierContexte {
+  source: string;
+  entrees: readonly EntreeContexte[];
+}
+
 /** Tout ce que le moteur reçoit en plus de l'état. */
 export interface Donnees {
   tables: Tables;
   evenements: readonly Evenement[];
   libelles: Libelles;
+  contexte: readonly EntreeContexte[];
 }
 
 // --- Partie ---
 
-/** « resume » : années sans événement de la petite enfance, en une ligne. */
-export type TypeEntree = 'naissance' | 'deces' | 'evenement' | 'resume';
+/**
+ * « resume » : années sans événement de la petite enfance, en une ligne ;
+ * « actualite » : entrée du contexte historique qui commence cette année-là.
+ */
+export type TypeEntree = 'naissance' | 'deces' | 'evenement' | 'resume' | 'actualite';
 
 export interface EntreeJournal {
   annee: number;
@@ -436,6 +477,8 @@ export interface EntreeJournal {
   choixId?: string;
   /** Décès : « mortalite » (test annuel) ou id de l'événement mortel. */
   cause?: string;
+  /** Actualité : id de l'entrée du contexte historique. */
+  contexteId?: string;
 }
 
 export interface ModificateurTemporaire {
@@ -563,12 +606,6 @@ export interface LigneCourbe {
   parAnnee: readonly number[];
 }
 
-/** Contexte historique d'une année : multiplicateurs par tag (format complet au jalon 4c). */
-export interface LigneContexte {
-  conditions: Conditions;
-  multiplicateurs: Readonly<Record<string, number>>;
-}
-
 export interface Tables {
   anneeNaissance: TableDistribution;
   sexe: TableDistribution;
@@ -609,6 +646,4 @@ export interface Tables {
   // Argent
   depensesVie: TableValeur;
   parametresArgent: TableValeurs;
-  // Contexte historique (point d'accroche)
-  contexte: Table<LigneContexte>;
 }

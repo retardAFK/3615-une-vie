@@ -12,7 +12,10 @@ import {
   JAUGES_MODIFIABLES,
   LOGEMENTS,
   NOMS_TRAITS,
+  REGLES_CONNUES,
   SCOLARITES,
+  TYPES_CONTEXTE,
+  type EntreeContexte,
   type Evenement,
   type FichierEvenements,
 } from './types';
@@ -332,6 +335,13 @@ export function validerEvenements(
       }
     }
 
+    if (brut.annees !== undefined) {
+      const [premiere, derniere] = Array.isArray(brut.annees) ? brut.annees : [];
+      if (!estEntier(premiere) || !estEntier(derniere) || premiere > derniere) {
+        erreurs.push(`${lieu} : annees doit etre [premiere, derniere] en annees calendaires`);
+      }
+    }
+
     if (brut.cooldown !== undefined && (!estEntier(brut.cooldown) || brut.cooldown < 1)) {
       erreurs.push(`${lieu} : cooldown invalide`);
     }
@@ -370,4 +380,111 @@ export function validerEvenements(
   }
 
   return { erreurs, evenements };
+}
+
+export interface ResultatValidationContexte {
+  erreurs: string[];
+  entrees: EntreeContexte[];
+}
+
+/**
+ * Validateur des fichiers de contenu/contexte/ : chaque entrée historique est datée,
+ * sourcée, au format Minitel ; ses multiplicateurs visent des tags connus ; son profil
+ * ne teste jamais l'origine migratoire (un contexte n'est pas une discrimination mesurée).
+ */
+export function validerContexte(
+  fichiers: readonly FichierAValider[],
+  tagsConnus: ReadonlySet<string>,
+): ResultatValidationContexte {
+  const erreurs: string[] = [];
+  const entrees: EntreeContexte[] = [];
+  const ids = new Set<string>();
+  const texteMinitel = (lieu: string, texte: unknown): void => {
+    if (!estTexte(texte)) erreurs.push(`${lieu} : texte vide ou absent`);
+    else if (texte !== minitel(texte) || /\{/.test(texte)) {
+      erreurs.push(`${lieu} : texte hors format Minitel (majuscules sans accents, sans variable)`);
+    }
+  };
+
+  for (const { nom, contenu } of fichiers) {
+    if (!estObjet(contenu) || !Array.isArray(contenu.entrees)) {
+      erreurs.push(`${nom} : liste entrees absente`);
+      continue;
+    }
+    if (!estTexte(contenu.source)) erreurs.push(`${nom} : source du fichier absente`);
+    contenu.entrees.forEach((brut: unknown, rang) => {
+      if (!estObjet(brut)) return void erreurs.push(`${nom} > entree ${rang + 1} : invalide`);
+      const lieu = `${nom} > ${estTexte(brut.id) ? brut.id : `entree ${rang + 1}`}`;
+      const avant = erreurs.length;
+      if (!estTexte(brut.id) || !MOTIF_ID.test(brut.id)) erreurs.push(`${lieu} : id invalide`);
+      else if (ids.has(brut.id)) erreurs.push(`${lieu} : id en double`);
+      else ids.add(brut.id);
+      if (!(TYPES_CONTEXTE as readonly string[]).includes(brut.type as string)) {
+        erreurs.push(`${lieu} : type doit valoir ${TYPES_CONTEXTE.join(', ')}`);
+      }
+      if (!['france', 'monde'].includes(brut.portee as string)) {
+        erreurs.push(`${lieu} : portee doit valoir france ou monde`);
+      }
+      if (
+        !estEntier(brut.debut) ||
+        !estEntier(brut.fin) ||
+        brut.debut < 1940 ||
+        brut.fin > 2130 ||
+        brut.debut > brut.fin
+      ) {
+        erreurs.push(`${lieu} : debut et fin doivent etre des annees, debut <= fin`);
+      }
+      texteMinitel(`${lieu} > titre`, brut.titre);
+      texteMinitel(`${lieu} > texte`, brut.texte);
+      if (!estTexte(brut.source)) erreurs.push(`${lieu} : source absente`);
+      if (brut.url !== undefined && brut.url !== null && !/^https:\/\//.test(String(brut.url))) {
+        erreurs.push(`${lieu} : url invalide`);
+      }
+      if (brut.profil !== undefined) {
+        if (!estObjet(brut.profil)) erreurs.push(`${lieu} : profil invalide`);
+        else {
+          for (const [champ, valeurs] of Object.entries(brut.profil)) {
+            if (champ === 'origineMigratoire') {
+              erreurs.push(`${lieu} : un contexte ne teste jamais l'origine migratoire`);
+            } else if (!CHAMPS_ORIGINE.includes(champ)) {
+              erreurs.push(`${lieu} : champ de profil inconnu ${champ}`);
+            }
+            if (!Array.isArray(valeurs) || valeurs.length === 0 || !valeurs.every(estTexte)) {
+              erreurs.push(`${lieu} : valeurs de ${champ} invalides`);
+            }
+          }
+        }
+      }
+      if (brut.multiplicateurs !== undefined) {
+        if (!estObjet(brut.multiplicateurs)) erreurs.push(`${lieu} : multiplicateurs invalides`);
+        else {
+          for (const [tag, m] of Object.entries(brut.multiplicateurs)) {
+            if (!tagsConnus.has(tag)) erreurs.push(`${lieu} : tag vise inconnu ${tag}`);
+            if (!estNombre(m) || m <= 0)
+              erreurs.push(`${lieu} : multiplicateur de ${tag} invalide`);
+          }
+        }
+      }
+      if (brut.regles !== undefined) {
+        if (!estObjet(brut.regles)) erreurs.push(`${lieu} : regles invalides`);
+        else {
+          for (const [cle, valeur] of Object.entries(brut.regles)) {
+            if (!(REGLES_CONNUES as readonly string[]).includes(cle)) {
+              erreurs.push(`${lieu} : regle inconnue ${cle}`);
+            }
+            if (typeof valeur !== 'boolean' && !estNombre(valeur)) {
+              erreurs.push(`${lieu} : valeur de la regle ${cle} invalide`);
+            }
+          }
+        }
+      }
+      if (erreurs.length === avant) entrees.push(brut as unknown as EntreeContexte);
+    });
+  }
+  return { erreurs, entrees };
+}
+
+/** Tags visables par le contexte : ceux des événements et des modules. */
+export function tagsConnus(evenements: readonly Evenement[]): Set<string> {
+  return new Set([...evenements.flatMap((e) => e.tags), ...TAGS_MODULES]);
 }

@@ -3,25 +3,25 @@
 import { AGE_MAXIMAL } from './constantes';
 import { multiplicateurTrait, probabiliteFinale, probabiliteParProduit } from './cotes';
 import { appliquerMontant } from './modules/argent';
-import { multiplicateurContexte } from './modules/contexte';
+import { remplitConditions } from './conditions';
+import { multiplicateurContexte, tagsDuContexte } from './modules/contexte';
 import { rediger } from './recit';
 import { hachageIdentifiant, sousGenerateur, tirage, tirageHache, tirerPondere } from './rng';
 import { CHAMPS_ETATS_CONDITIONS } from './types';
 import type {
-  ChampCondition,
   ChoixJoueur,
   ChoixPossible,
-  ConditionsPersonnage,
   Donnees,
+  EntreeContexte,
   EtatPartie,
   Evenement,
   EvenementTire,
   JaugeModifiable,
   Jauges,
   ModificateurTemporaire,
-  Personnage,
-  Tables,
 } from './types';
+
+export { remplitConditions };
 
 /** Au plus 3 événements par an. */
 export const EVENEMENTS_PAR_AN = 3;
@@ -85,40 +85,6 @@ export function evenementParId(evenements: readonly Evenement[], id: string): Ev
   return evenement;
 }
 
-/** Valeur d'un champ de condition : origine, ou états du joueur. */
-function valeurChamp(personnage: Personnage, champ: ChampCondition): string {
-  const { etats } = personnage;
-  switch (champ) {
-    case 'emploi':
-      return etats.emploi;
-    case 'scolarite':
-      return etats.scolarite;
-    case 'diplome':
-      return etats.education.diplome;
-    case 'pcs':
-      return etats.travail.pcs ?? '';
-    case 'justice':
-      return etats.justice.casier
-        ? 'casier'
-        : etats.justice.gardesAVue > 0
-          ? 'garde_a_vue'
-          : 'aucun';
-    default:
-      return String(personnage.origine[champ]);
-  }
-}
-
-export function remplitConditions(
-  personnage: Personnage,
-  conditions: ConditionsPersonnage,
-): boolean {
-  for (const champ in conditions) {
-    const valeurs = conditions[champ as ChampCondition]!;
-    if (!valeurs.includes(valeurChamp(personnage, champ as ChampCondition))) return false;
-  }
-  return true;
-}
-
 export function estEligible(evenement: Evenement, etat: EtatPartie, donnees: Donnees): boolean {
   const { age } = etat.personnage;
   const [min, max] = evenement.age;
@@ -130,6 +96,8 @@ export function estEligible(evenement: Evenement, etat: EtatPartie, donnees: Don
 function estEligibleAgeCompris(evenement: Evenement, rang: number, etat: EtatPartie): boolean {
   const reprise = etat.cooldowns[rang];
   if (reprise !== undefined && etat.personnage.age < reprise) return false;
+  const annees = evenement.annees;
+  if (annees && (etat.annee < annees[0] || etat.annee > annees[1])) return false;
   return !evenement.requiert || remplitConditions(etat.personnage, evenement.requiert);
 }
 
@@ -152,13 +120,14 @@ export function multiplicateursTag(
   etat: EtatPartie,
   tag: string,
   age: number,
-  tables: Tables,
+  donnees: Donnees,
 ): number[] {
   const resultat: number[] = [];
   for (const mod of etat.modificateursActifs) {
     if ('tag' in mod.cible && mod.cible.tag === tag && estActif(mod, age)) resultat.push(mod.m);
   }
-  const contexte = multiplicateurContexte(tables, etat.annee + age - etat.personnage.age, tag);
+  const annee = etat.annee + age - etat.personnage.age;
+  const contexte = multiplicateurContexte(donnees, etat.personnage, annee, tag);
   if (contexte !== 1) resultat.push(contexte);
   return resultat;
 }
@@ -172,7 +141,10 @@ export type Dependance = 'origine' | 'traits' | 'jauges' | 'etats' | 'annee';
  * (modificateurs, pBase) et du contexte historique (un tag présent dans la table
  * contexte rend l'événement dépendant de l'année). Jamais établies à la main.
  */
-export function dependancesProbabilite(evenement: Evenement, tables: Tables): Set<Dependance> {
+export function dependancesProbabilite(
+  evenement: Evenement,
+  contexte: readonly EntreeContexte[],
+): Set<Dependance> {
   const dependances = new Set<Dependance>();
   // pBase par table (jalon 4c et suivants) : dépendance supposée aux états.
   if (typeof evenement.pBase !== 'number') dependances.add('etats');
@@ -186,10 +158,8 @@ export function dependancesProbabilite(evenement: Evenement, tables: Tables): Se
       }
     }
   }
-  const tags = new Set(evenement.tags);
-  for (const ligne of tables.contexte.lignes) {
-    if (Object.keys(ligne.multiplicateurs).some((tag) => tags.has(tag))) dependances.add('annee');
-  }
+  const visesParLeContexte = tagsDuContexte(contexte);
+  if (evenement.tags.some((tag) => visesParLeContexte.has(tag))) dependances.add('annee');
   return dependances;
 }
 
@@ -199,15 +169,18 @@ const fixes = new WeakMap<object, WeakMap<Evenement, boolean>>();
  * Probabilité fixe pour toute une vie : ne dépend que de l'origine et des traits,
  * qui ne changent jamais. Classement mis en cache par table de contexte.
  */
-export function aProbabiliteFixe(evenement: Evenement, tables: Tables): boolean {
-  let parEvenement = fixes.get(tables.contexte);
+export function aProbabiliteFixe(
+  evenement: Evenement,
+  contexte: readonly EntreeContexte[],
+): boolean {
+  let parEvenement = fixes.get(contexte);
   if (!parEvenement) {
     parEvenement = new WeakMap();
-    fixes.set(tables.contexte, parEvenement);
+    fixes.set(contexte, parEvenement);
   }
   let fixe = parEvenement.get(evenement);
   if (fixe === undefined) {
-    const d = dependancesProbabilite(evenement, tables);
+    const d = dependancesProbabilite(evenement, contexte);
     fixe = !d.has('jauges') && !d.has('etats') && !d.has('annee');
     parEvenement.set(evenement, fixe);
   }
@@ -231,10 +204,14 @@ function viseParUnChoix(evenement: Evenement, etat: EtatPartie): boolean {
 export function probabiliteEvenement(
   evenement: Evenement,
   etat: EtatPartie,
-  tables?: Tables,
+  donnees?: Donnees,
 ): number {
-  if (!tables || !aProbabiliteFixe(evenement, tables) || viseParUnChoix(evenement, etat)) {
-    return calculerProbabilite(evenement, etat, tables);
+  if (
+    !donnees ||
+    !aProbabiliteFixe(evenement, donnees.contexte) ||
+    viseParUnChoix(evenement, etat)
+  ) {
+    return calculerProbabilite(evenement, etat, donnees);
   }
   const { origine, traits } = etat.personnage;
   let cache = probabilitesFixes.get(origine);
@@ -244,13 +221,13 @@ export function probabiliteEvenement(
   }
   let p = cache.valeurs.get(evenement);
   if (p === undefined) {
-    p = calculerProbabilite(evenement, etat, tables);
+    p = calculerProbabilite(evenement, etat, donnees);
     cache.valeurs.set(evenement, p);
   }
   return p;
 }
 
-function calculerProbabilite(evenement: Evenement, etat: EtatPartie, tables?: Tables): number {
+function calculerProbabilite(evenement: Evenement, etat: EtatPartie, donnees?: Donnees): number {
   if (typeof evenement.pBase !== 'number') {
     throw new Error(`${evenement.id} : pBase par table pas encore prise en charge`);
   }
@@ -271,8 +248,10 @@ function calculerProbabilite(evenement: Evenement, etat: EtatPartie, tables?: Ta
     const mod = actifs[i]!;
     if (estActif(mod, personnage.age) && vise(mod, evenement)) produit *= mod.m;
   }
-  if (tables && tables.contexte.lignes.length > 0) {
-    for (const tag of evenement.tags) produit *= multiplicateurContexte(tables, etat.annee, tag);
+  if (donnees && donnees.contexte.length > 0) {
+    for (const tag of evenement.tags) {
+      produit *= multiplicateurContexte(donnees, personnage, etat.annee, tag);
+    }
   }
   return probabiliteParProduit(evenement.pBase, produit);
 }
@@ -318,7 +297,7 @@ export function tirerEvenements(
       (candidats ??= []).push({ tire: tire(evenement, etat, donnees, 1, true), rang });
       continue;
     }
-    const p = probabiliteEvenement(evenement, etat, donnees.tables);
+    const p = probabiliteEvenement(evenement, etat, donnees);
     if (tirageHache(graine, personnage.age, identifiant) < p) {
       (candidats ??= []).push({ tire: tire(evenement, etat, donnees, p, false), rang });
     }

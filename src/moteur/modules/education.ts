@@ -11,6 +11,7 @@ import {
 } from '../constantes';
 import { distributionCorrigee, multiplicateurTrait, probabiliteFinale } from '../cotes';
 import { multiplicateursTag } from '../evenements';
+import { regleEnVigueur } from './contexte';
 import { sousGenerateur, tirage, tirerPondere } from '../rng';
 import { chercherLigne, periodeDe, valeurDe } from '../tables';
 import type {
@@ -55,9 +56,6 @@ const DUREES: Readonly<Record<Exclude<Voie, 'sortie'> | Filiere, number>> = {
   master: 2,
 };
 
-/** Première année où le bac professionnel peut être obtenu (créé en 1985, trois ans). */
-const PREMIER_BAC_PRO = 1987;
-
 /** Diplôme suivant, pour une reprise d'études. */
 const DIPLOME_SUIVANT: Readonly<Record<DiplomeJoueur, DiplomeJoueur>> = {
   aucun: 'cap_bep',
@@ -85,7 +83,7 @@ function tirer(t: Tirage, id: string, pBase: number, multiplicateurs: number[]):
 }
 
 function tags(t: Tirage, tag: string): number[] {
-  return multiplicateursTag(t.etat, tag, t.suivant, t.donnees.tables);
+  return multiplicateursTag(t.etat, tag, t.suivant, t.donnees);
 }
 
 function trait(t: Tirage, nom: keyof Personnage['traits'], k: number): number {
@@ -200,14 +198,18 @@ function reussit(t: Tirage, formation: string): boolean {
 }
 
 /** Diplôme de fin de lycée, selon la voie. */
-function diplomeLycee(voie: Voie, annee: number): DiplomeJoueur {
+/**
+ * Diplôme de fin de lycée, selon la voie. Le bac professionnel n'existe qu'à partir
+ * de la loi qui le crée (contexte historique, règle « bacPro ») ; avant, un CAP ou BEP.
+ */
+function diplomeLycee(voie: Voie, annee: number, donnees: Donnees): DiplomeJoueur {
   switch (voie) {
     case 'generale':
       return 'bac_general';
     case 'technologique':
       return 'bac_techno';
     case 'professionnelle':
-      return annee >= PREMIER_BAC_PRO ? 'bac_pro' : 'cap_bep';
+      return regleEnVigueur(donnees.contexte, annee, 'bacPro') === true ? 'bac_pro' : 'cap_bep';
     default:
       return 'cap_bep';
   }
@@ -236,7 +238,7 @@ function lycee(t: Tirage, personnage: Personnage): Personnage {
   if (decroche) return sortie(personnage, ed.diplome);
   if (ed.finPalier === null || t.suivant < ed.finPalier) return personnage;
   if (reussit(t, voie)) {
-    const diplome = diplomeLycee(voie, t.etat.annee);
+    const diplome = diplomeLycee(voie, t.etat.annee, t.donnees);
     return diplome === 'cap_bep' || diplome === 'bac_pro'
       ? sortie(personnage, diplome)
       : apresBac(t, personnage, diplome);
