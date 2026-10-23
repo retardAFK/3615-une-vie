@@ -357,7 +357,7 @@ Les âges et niveaux sont des valeurs de départ pour le prototype ; les probabi
 - Chaque année, chaque produit fait un tirage selon son état : exposition (à partir de l'âge minimum du produit, selon la période, le sexe et la sociabilité), initiation, escalade, dépendance, arrêt, rechute. Tous passent par la formule des cotes.
 - Les risques d'initiation, d'escalade et de rechute décroissent avec les années passées dans l'état : on commence, on s'installe dans un usage et on rechute surtout au début.
 - Initiation : des événements de proposition (adolescence et début de l'âge adulte) ; accepter multiplie fortement les cotes de l'initiation, refuser les réduit, à l'adolescence au prix d'un peu de liens. Arrêt : un événement propose d'arrêter seul ou de se faire aider ; se faire aider divise par deux les cotes de rechute pendant le sevrage. Les ressources d'aide s'affichent avec ces événements.
-- Effets annuels et coût de chaque état dans `effetsAddictions` ; interactions entre produits dans `interactionsAddictions` ; poids d'une addiction active sur les tags des autres modules (perte d'emploi, accident, violence, police, décrochage, dettes) dans `addictionsAutresTags`. Séparation et maladies viendront avec le jalon 6.
+- Effets annuels et coût de chaque état dans `effetsAddictions` ; interactions entre produits dans `interactionsAddictions` ; poids d'une addiction active sur les tags des autres modules (perte d'emploi, accident, violence, police, décrochage, dettes, maladies) dans `addictionsAutresTags`. La séparation viendra avec le volet famille du jalon 6.
 - Autres drogues : surdose possible, sans détail, avec Drogues Info Service.
 - Toutes les probabilités sont des valeurs de travail `aCalibrer` (enquêtes OFDT et Santé publique France au jalon 8).
 
@@ -402,6 +402,16 @@ Accident de la route (jeunes conducteurs, alcool), accident domestique (enfants,
 Le territoire (désert médical), la complémentaire santé et le décile modifient la probabilité de renoncer aux soins, et donc la gravité des maladies.
 
 Le suicide n'est pas un événement du jeu. Une santé mentale très basse déclenche des événements de soutien (proche, médecin) et l'affichage de ressources d'aide (section 13).
+
+**Dans le jeu** (jalon 6)
+
+- Mortalité : la table `mortalite`, corrigée par la formule des cotes avec les multiplicateurs de `mortaliteFacteurs` (PCS à partir de l'âge adulte, addictions actives), ceux des maladies actives (`maladies`) et un terme de santé physique centré (`parametresSante`).
+- Vieillissement : dérive annuelle des jauges selon l'âge (`vieillissement`) ; le moral revient chaque année vers une cible, d'autant plus vite que la résilience est haute.
+- Maladies : chacune commence par un événement de contenu (effet `maladie`), puis ses effets annuels et son coût (`maladies`) s'appliquent tant qu'elle est active. Cancer, maladie cardiovasculaire et dépression peuvent guérir : le choix proposé au diagnostic (se soigner, attendre) multiplie les cotes de guérison ; la campagne et les revenus modestes les réduisent (accès aux soins). Maladie chronique et démence ne guérissent pas.
+- Le tabac et l'alcool pèsent sur le risque de cancer et de maladie cardiovasculaire, l'alcool, les drogues et le jeu sur celui de dépression (`addictionsAutresTags`).
+- Mode de vie : un choix environ tous les dix ans (bouger plus, mieux manger) réduit pour cinq ans les cotes de maladie chronique et cardiovasculaire.
+- Santé mentale basse : événement de soutien avec les ressources d'aide (3114).
+- La table de mortalité compte déjà les décès par maladie : jusqu'au calibrage, l'âge moyen de décès perd environ trois ans. Toutes les valeurs sont `aCalibrer` (DREES, Santé publique France, INSEE au jalon 8).
 
 ## 11. Vie affective, famille et logement
 
