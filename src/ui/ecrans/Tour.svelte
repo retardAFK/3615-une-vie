@@ -76,7 +76,7 @@
     return libelle('endettement', finances.endettement);
   });
   /**
-   * Nouvelles du tour : addictions de l'année écoulée (écrites à sa fermeture), puis
+   * Nouvelles du tour : addictions et santé de l'année écoulée (écrites à sa fermeture), puis
    * argent de l'année (aides, dettes, écrites à son ouverture).
    */
   const nouvelles = $derived.by(() => {
@@ -87,7 +87,8 @@
       if (entree.annee < partie.annee - 1) break;
       const recente =
         (entree.type === 'argent' && entree.annee === partie.annee) ||
-        (entree.type === 'addiction' && entree.annee === partie.annee - 1);
+        ((entree.type === 'addiction' || entree.type === 'sante') &&
+          entree.annee === partie.annee - 1);
       if (recente) lignes.unshift(entree);
     }
     return lignes;
@@ -188,6 +189,9 @@
             valeur={libelle('etatsAddiction', personnage.etats.addictions[produit])}
             ton="valeur"
           />
+        {/each}
+        {#each personnage.etats.maladies as maladie (maladie)}
+          <LigneValeur libelle="SANTE" valeur={libelle('maladies', maladie)} ton="valeur" />
         {/each}
         {#if jeu.totalMise > 0}
           <!-- Garde-fou : le total misé et récupéré au jeu reste toujours visible. -->
