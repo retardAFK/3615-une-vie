@@ -1,0 +1,401 @@
+{
+  "module": "sante",
+  "source": "Maladies, mode de vie et soutien (regles, section 10). Probabilites de travail, a calibrer sur les donnees DREES et Sante publique France.",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "id": "san_infection_enfance",
+      "module": "sante",
+      "age": [0, 10],
+      "pBase": 0.05,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "decileRevenuFoyer": ["1", "2", "3"]
+          },
+          "m": 1.5
+        },
+        {
+          "si": {
+            "logementFamilial": ["precaire"]
+          },
+          "m": 2
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santePhysique": -3
+        }
+      },
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["sante", "enfance", "infection"],
+      "textes": [
+        "UNE BRONCHITE TE CLOUE AU LIT DEUX SEMAINES.",
+        "{annee} : UNE FIEVRE TENACE. LE MEDECIN PASSE A LA MAISON."
+      ]
+    },
+    {
+      "id": "san_mode_de_vie",
+      "module": "sante",
+      "age": [25, 70],
+      "pBase": 0.1,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "bouger",
+          "libelle": "BOUGER PLUS, MIEUX MANGER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "maladie_chronique"
+              },
+              "m": 0.7,
+              "duree": 5
+            },
+            {
+              "cible": {
+                "tag": "maladie_cardiovasculaire"
+              },
+              "m": 0.75,
+              "duree": 5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.3
+            }
+          ],
+          "journal": "TU T'Y METS.",
+          "cout": {
+            "jauges": {
+              "santeMentale": -1
+            }
+          }
+        },
+        {
+          "id": "rien",
+          "libelle": "NE RIEN CHANGER",
+          "modificateurs": [],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU GARDES TES HABITUDES."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["sante", "mode_de_vie"],
+      "textes": [
+        "{annee} : LE MEDECIN TE CONSEILLE DE BOUGER PLUS ET DE MIEUX MANGER.",
+        "{annee} : TU TE SENS ESSOUFFLE DANS LES ESCALIERS."
+      ]
+    },
+    {
+      "id": "san_chronique",
+      "module": "sante",
+      "age": [35, 110],
+      "requiert": {
+        "chronique": ["non"]
+      },
+      "pBase": 0.012,
+      "aCalibrer": true,
+      "effets": {
+        "maladie": "chronique",
+        "jauges": {
+          "santePhysique": -4
+        }
+      },
+      "unique": true,
+      "gravite": 2,
+      "tags": ["sante", "maladie_chronique"],
+      "textes": [
+        "{annee} : DIAGNOSTIC D'UN DIABETE. TRAITEMENT A VIE.",
+        "{annee} : TON MEDECIN DECOUVRE UNE HYPERTENSION."
+      ]
+    },
+    {
+      "id": "san_cancer",
+      "module": "sante",
+      "age": [40, 110],
+      "requiert": {
+        "cancer": ["non"]
+      },
+      "pBase": 0.006,
+      "aCalibrer": true,
+      "effets": {
+        "maladie": "cancer",
+        "jauges": {
+          "santePhysique": -10,
+          "santeMentale": -8
+        }
+      },
+      "choix": [
+        {
+          "id": "consulter",
+          "libelle": "SUIVRE TOUT LE TRAITEMENT",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "guerison_cancer"
+              },
+              "m": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.3
+            }
+          ],
+          "journal": "TU CONSULTES TOT."
+        },
+        {
+          "id": "attendre",
+          "libelle": "REPOUSSER LES RENDEZ-VOUS",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "guerison_cancer"
+              },
+              "m": 0.5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU LAISSES TRAINER."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 3,
+      "tags": ["sante", "maladie_cancer"],
+      "textes": [
+        "{annee} : LE MEDECIN T'ANNONCE UN CANCER.",
+        "{annee} : UNE BIOPSIE CONFIRME UNE TUMEUR. TRAITEMENT LOURD."
+      ]
+    },
+    {
+      "id": "san_cardiovasculaire",
+      "module": "sante",
+      "age": [45, 110],
+      "requiert": {
+        "cardiovasculaire": ["non"]
+      },
+      "pBase": 0.006,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "jauge": "santeMentale",
+          "k": -0.5
+        }
+      ],
+      "effets": {
+        "maladie": "cardiovasculaire",
+        "jauges": {
+          "santePhysique": -10
+        }
+      },
+      "choix": [
+        {
+          "id": "consulter",
+          "libelle": "SUIVRE LA REEDUCATION",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "guerison_cardiovasculaire"
+              },
+              "m": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.3
+            }
+          ],
+          "journal": "TU CONSULTES TOT."
+        },
+        {
+          "id": "attendre",
+          "libelle": "REPRENDRE COMME AVANT",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "guerison_cardiovasculaire"
+              },
+              "m": 0.5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU LAISSES TRAINER."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 3,
+      "tags": ["sante", "maladie_cardiovasculaire"],
+      "textes": [
+        "{annee} : UNE DOULEUR DANS LA POITRINE. LES URGENCES, PUIS LA CARDIOLOGIE.",
+        "{annee} : UN ACCIDENT CARDIAQUE. TU T'EN SORS, AVEC UN TRAITEMENT."
+      ]
+    },
+    {
+      "id": "san_depression",
+      "module": "sante",
+      "age": [12, 110],
+      "requiert": {
+        "depression": ["non"]
+      },
+      "pBase": 0.01,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "trait": "resilience",
+          "k": -0.8
+        },
+        {
+          "jauge": "santeMentale",
+          "k": -1.5
+        }
+      ],
+      "effets": {
+        "maladie": "depression",
+        "jauges": {
+          "santeMentale": -8
+        }
+      },
+      "choix": [
+        {
+          "id": "consulter",
+          "libelle": "EN PARLER ET SE FAIRE AIDER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "guerison_depression"
+              },
+              "m": 2.5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.3
+            }
+          ],
+          "journal": "TU CONSULTES TOT."
+        },
+        {
+          "id": "attendre",
+          "libelle": "GARDER CA POUR TOI",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "guerison_depression"
+              },
+              "m": 0.5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU LAISSES TRAINER."
+        }
+      ],
+      "cooldown": 3,
+      "ressources": ["psy"],
+      "gravite": 2,
+      "tags": ["sante", "maladie_depression"],
+      "textes": [
+        "{annee} : PLUS RIEN NE TE FAIT ENVIE. LES JOURNEES SONT LONGUES.",
+        "{annee} : TU DORS MAL, TU T'ISOLES. LE MEDECIN PARLE DE DEPRESSION."
+      ]
+    },
+    {
+      "id": "san_demence",
+      "module": "sante",
+      "age": [75, 110],
+      "requiert": {
+        "demence": ["non"]
+      },
+      "pBase": 0.02,
+      "aCalibrer": true,
+      "effets": {
+        "maladie": "demence",
+        "jauges": {
+          "competences": -10
+        }
+      },
+      "unique": true,
+      "gravite": 3,
+      "tags": ["sante", "maladie_demence"],
+      "textes": [
+        "{annee} : TU OUBLIES DES NOMS, DES RENDEZ-VOUS. LE DIAGNOSTIC TOMBE.",
+        "{annee} : TES PROCHES S'INQUIETENT DE TES TROUS DE MEMOIRE."
+      ]
+    },
+    {
+      "id": "san_soutien",
+      "module": "sante",
+      "age": [12, 110],
+      "pBase": 0.01,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "jauge": "santeMentale",
+          "k": -3
+        },
+        {
+          "trait": "sociabilite",
+          "k": 0.3
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santeMentale": 4,
+          "liens": 2
+        }
+      },
+      "cooldown": 2,
+      "ressources": ["psy", "3114"],
+      "gravite": 2,
+      "tags": ["sante", "soutien"],
+      "textes": [
+        "{annee} : UN PROCHE VOIT QUE CA NE VA PAS. IL T'ECOUTE, LONGTEMPS.",
+        "{annee} : TON MEDECIN PREND LE TEMPS DE PARLER. TU N'ES PAS SEUL."
+      ]
+    }
+  ]
+}

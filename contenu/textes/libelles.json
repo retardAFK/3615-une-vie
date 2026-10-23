@@ -163,5 +163,12 @@
     "hippique": "TIERCE",
     "poker": "POKER",
     "casino": "CASINO"
+  },
+  "maladies": {
+    "chronique": "MALADIE CHRONIQUE",
+    "cancer": "CANCER",
+    "cardiovasculaire": "MALADIE CARDIAQUE",
+    "depression": "DEPRESSION",
+    "demence": "DEMENCE"
   }
 }

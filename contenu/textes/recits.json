@@ -13,5 +13,6 @@
   "addictionDependance": "{produit} : TU NE PEUX PLUS T'EN PASSER.",
   "addictionSevrage": "{produit} : TU ARRETES. LES PREMIERS MOIS SONT DURS.",
   "addictionAbstinent": "{produit} : UN AN SANS. TU TIENS BON.",
-  "addictionRechute": "{produit} : RECHUTE."
+  "addictionRechute": "{produit} : RECHUTE.",
+  "santeGuerison": "{maladie} : TU T'EN SORS. LA VIE REPREND."
 }

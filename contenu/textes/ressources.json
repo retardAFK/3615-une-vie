@@ -30,5 +30,13 @@
   "jeunes": {
     "nom": "FIL SANTE JEUNES",
     "contact": "0 800 235 236"
+  },
+  "psy": {
+    "nom": "SANTE MENTALE : PARLE A TON MEDECIN",
+    "contact": "MON SOUTIEN PSY - AMELI.FR"
+  },
+  "3114": {
+    "nom": "3114 - PREVENTION DU SUICIDE",
+    "contact": "3114"
   }
 }

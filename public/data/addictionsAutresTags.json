@@ -87,6 +87,55 @@
         "tag": "emploi_chomage"
       },
       "valeur": 1.3
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "tag": "maladie_cancer"
+      },
+      "valeur": 2.5
+    },
+    {
+      "conditions": {
+        "produit": "tabac",
+        "tag": "maladie_cardiovasculaire"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "tag": "maladie_cancer"
+      },
+      "valeur": 1.5
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "tag": "maladie_cardiovasculaire"
+      },
+      "valeur": 1.3
+    },
+    {
+      "conditions": {
+        "produit": "alcool",
+        "tag": "maladie_depression"
+      },
+      "valeur": 1.8
+    },
+    {
+      "conditions": {
+        "produit": "autres_drogues",
+        "tag": "maladie_depression"
+      },
+      "valeur": 2
+    },
+    {
+      "conditions": {
+        "produit": "jeux_argent",
+        "tag": "maladie_depression"
+      },
+      "valeur": 1.5
     }
   ]
 }
