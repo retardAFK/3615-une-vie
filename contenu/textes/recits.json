@@ -14,5 +14,20 @@
   "addictionSevrage": "{produit} : TU ARRETES. LES PREMIERS MOIS SONT DURS.",
   "addictionAbstinent": "{produit} : UN AN SANS. TU TIENS BON.",
   "addictionRechute": "{produit} : RECHUTE.",
-  "santeGuerison": "{maladie} : TU T'EN SORS. LA VIE REPREND."
+  "santeGuerison": "{maladie} : TU T'EN SORS. LA VIE REPREND.",
+  "familleRencontre": "TU RENCONTRES QUELQU'UN.",
+  "familleCohabitation": "VOUS VOUS INSTALLEZ ENSEMBLE.",
+  "familleMariage": "VOUS VOUS MARIEZ.",
+  "famillePacs": "VOUS SIGNEZ UN PACS.",
+  "familleSeparation": "VOUS VOUS SEPAREZ.",
+  "familleVeuvage": "TON CONJOINT MEURT. LE DEUIL SERA LONG.",
+  "familleNaissance": "NAISSANCE DE TON ENFANT.",
+  "familleDeuil": "TU PERDS TON DERNIER PARENT.",
+  "familleHeritage": "TU HERITES DE TES PARENTS.",
+  "logementDepart": "TU QUITTES LE DOMICILE DE TES PARENTS : {logement}.",
+  "logementHlm": "TU OBTIENS UN LOGEMENT HLM.",
+  "logementPrecaire": "TU N'AS PLUS DE LOGEMENT STABLE.",
+  "logementSortie": "TU RETROUVES UN TOIT : {logement}.",
+  "logementAchat": "TU ACHETES TON LOGEMENT, A CREDIT.",
+  "logementCreditFini": "DERNIERE ECHEANCE : TON LOGEMENT EST PAYE."
 }

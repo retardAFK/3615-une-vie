@@ -1,0 +1,500 @@
+{
+  "module": "famille",
+  "source": "Couple, enfants et logement (regles, sections 7 et 11). Probabilites de travail, a calibrer sur les donnees INED et INSEE.",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "id": "fam_sortie",
+      "module": "famille",
+      "age": [16, 60],
+      "requiert": {
+        "couple": ["celibataire", "separation", "veuvage"]
+      },
+      "pBase": 0.12,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "sortir",
+          "libelle": "SORTIR, VOIR DU MONDE",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "rencontre"
+              },
+              "m": 2.5,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.6
+            }
+          ],
+          "journal": "TU Y VAS."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER CHEZ TOI",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "rencontre"
+              },
+              "m": 0.7,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.5
+            }
+          ],
+          "journal": "TU RESTES CHEZ TOI."
+        }
+      ],
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["famille", "sortie"],
+      "textes": [
+        "{annee} : DES AMIS T'INVITENT A UNE SOIREE.",
+        "{annee} : UN MARIAGE, UNE FETE DE VILLAGE : L'OCCASION DE SORTIR."
+      ]
+    },
+    {
+      "id": "fam_projet_enfant",
+      "module": "famille",
+      "age": [20, 44],
+      "requiert": {
+        "couple": ["cohabitation", "pacs", "mariage"]
+      },
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "enfant",
+          "libelle": "AVOIR UN ENFANT",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "naissance_enfant"
+              },
+              "m": 4,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "VOUS VOUS LANCEZ."
+        },
+        {
+          "id": "attendre",
+          "libelle": "PAS MAINTENANT",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "naissance_enfant"
+              },
+              "m": 0.25,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": -0.2
+            }
+          ],
+          "journal": "VOUS ATTENDEZ."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["famille", "projet_enfant"],
+      "textes": [
+        "{annee} : VOUS PARLEZ D'AVOIR UN ENFANT.",
+        "{annee} : AUTOUR DE VOUS, LES BEBES ARRIVENT. ET VOUS ?"
+      ]
+    },
+    {
+      "id": "fam_dispute",
+      "module": "famille",
+      "age": [18, 90],
+      "requiert": {
+        "endettement": ["tendu", "critique", "surendettement"],
+        "couple": ["en_couple", "cohabitation", "pacs", "mariage"]
+      },
+      "pBase": 0.25,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "endettement": ["critique", "surendettement"]
+          },
+          "m": 2
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "parler",
+          "libelle": "EN PARLER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "separation"
+              },
+              "m": 0.7,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            },
+            {
+              "trait": "resilience",
+              "k": 0.3
+            }
+          ],
+          "journal": "VOUS VOUS EXPLIQUEZ."
+        },
+        {
+          "id": "distance",
+          "libelle": "PRENDRE TES DISTANCES",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "separation"
+              },
+              "m": 1.8,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU T'ELOIGNES."
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["famille", "dispute"],
+      "textes": [
+        "{annee} : LES DETTES PESENT. LES DISPUTES SE MULTIPLIENT A LA MAISON.",
+        "{annee} : VOUS NE VOUS PARLEZ PLUS QUE POUR LES COMPTES."
+      ]
+    },
+    {
+      "id": "fam_jeu_cache",
+      "module": "famille",
+      "age": [18, 90],
+      "requiert": {
+        "pertesJeu": ["elevees"],
+        "couple": ["en_couple", "cohabitation", "pacs", "mariage"]
+      },
+      "pBase": 0.5,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "cacher",
+          "libelle": "CACHER TES PERTES",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "separation"
+              },
+              "m": 1.6,
+              "duree": 5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU INVENTES UNE EXPLICATION."
+        },
+        {
+          "id": "dire",
+          "libelle": "TOUT LUI DIRE",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "separation"
+              },
+              "m": 1.2,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU DIS TOUT. LA DISPUTE EST RUDE.",
+          "cout": {
+            "jauges": {
+              "liens": -3
+            }
+          }
+        }
+      ],
+      "cooldown": 2,
+      "ressources": ["joueurs"],
+      "gravite": 2,
+      "tags": ["famille", "jeu_cache"],
+      "textes": [
+        "{annee} : TES PERTES AU JEU SE VOIENT SUR LE COMPTE COMMUN.",
+        "{annee} : TON CONJOINT S'INTERROGE SUR L'ARGENT QUI MANQUE."
+      ]
+    },
+    {
+      "id": "fam_violences",
+      "module": "famille",
+      "age": [15, 90],
+      "requiert": {
+        "couple": ["en_couple", "cohabitation", "pacs", "mariage"]
+      },
+      "pBase": 0.004,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -8
+        }
+      },
+      "choix": [
+        {
+          "id": "partir",
+          "libelle": "PARTIR ET DEMANDER DE L'AIDE",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "separation"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU PARS. D'AUTRES PEUVENT T'AIDER."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER POUR L'INSTANT",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "separation"
+              },
+              "m": 1.5,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": -0.3
+            }
+          ],
+          "journal": "TU RESTES, POUR L'INSTANT.",
+          "cout": {
+            "jauges": {
+              "santeMentale": -6
+            }
+          }
+        }
+      ],
+      "cooldown": 3,
+      "ressources": ["3919"],
+      "gravite": 3,
+      "tags": ["famille", "violences_conjugales"],
+      "textes": [
+        "{annee} : A LA MAISON, LA PEUR S'INSTALLE. TON CONJOINT TE MENACE ET TE RABAISSE.",
+        "{annee} : TON CONJOINT CONTROLE TES SORTIES ET TON ARGENT. TU AS PEUR."
+      ]
+    },
+    {
+      "id": "fam_achat",
+      "module": "logement",
+      "age": [25, 60],
+      "requiert": {
+        "achatPossible": ["oui"]
+      },
+      "pBase": 0.35,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "acheter",
+          "libelle": "ACHETER, A CREDIT",
+          "modificateurs": [],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU SIGNES.",
+          "effets": {
+            "acheterLogement": true
+          }
+        },
+        {
+          "id": "louer",
+          "libelle": "RESTER LOCATAIRE",
+          "modificateurs": [],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU RESTES LOCATAIRE."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["logement", "achat"],
+      "textes": [
+        "{annee} : TON EPARGNE PERMET UN APPORT. LA BANQUE EST PRETE A PRETER.",
+        "{annee} : UN LOGEMENT A VENDRE, DANS TES MOYENS."
+      ]
+    },
+    {
+      "id": "fam_demande_hlm",
+      "module": "logement",
+      "age": [18, 80],
+      "requiert": {
+        "logement": ["locataire_prive", "precaire"]
+      },
+      "pBase": 0.05,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "demander",
+          "libelle": "DEPOSER UNE DEMANDE",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "logement_hlm"
+              },
+              "m": 3,
+              "duree": 4
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU DEPOSES UN DOSSIER."
+        },
+        {
+          "id": "non",
+          "libelle": "NE PAS LE FAIRE",
+          "modificateurs": [],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU N'EN FAIS RIEN."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["logement", "demande_hlm"],
+      "textes": [
+        "{annee} : TON LOYER PESE LOURD. UN AMI TE PARLE DES HLM.",
+        "{annee} : UNE ASSISTANTE SOCIALE TE PROPOSE UNE DEMANDE DE LOGEMENT SOCIAL."
+      ]
+    },
+    {
+      "id": "fam_depart",
+      "module": "logement",
+      "age": [18, 30],
+      "requiert": {
+        "logement": ["chez_parents"]
+      },
+      "pBase": 0.2,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "partir",
+          "libelle": "PRENDRE TON INDEPENDANCE",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "depart_parents"
+              },
+              "m": 3,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.3
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU CHERCHES UN LOGEMENT."
+        },
+        {
+          "id": "rester",
+          "libelle": "RESTER ENCORE UN PEU",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "depart_parents"
+              },
+              "m": 0.4,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU RESTES ENCORE."
+        }
+      ],
+      "cooldown": 3,
+      "gravite": 1,
+      "tags": ["logement", "independance"],
+      "textes": [
+        "{annee} : TU AS ENVIE D'AVOIR TON CHEZ-TOI.",
+        "{annee} : TES PARENTS TE DEMANDENT QUAND TU COMPTES PARTIR."
+      ]
+    }
+  ]
+}

@@ -170,5 +170,21 @@
     "cardiovasculaire": "MALADIE CARDIAQUE",
     "depression": "DEPRESSION",
     "demence": "DEMENCE"
+  },
+  "couple": {
+    "celibataire": "CELIBATAIRE",
+    "en_couple": "EN COUPLE",
+    "cohabitation": "VIE COMMUNE",
+    "pacs": "PACS",
+    "mariage": "MARIAGE",
+    "separation": "SEPARATION",
+    "veuvage": "VEUVAGE"
+  },
+  "logement": {
+    "chez_parents": "CHEZ TES PARENTS",
+    "locataire_prive": "LOCATION",
+    "hlm": "HLM",
+    "proprietaire": "PROPRIETAIRE",
+    "precaire": "SANS LOGEMENT STABLE"
   }
 }

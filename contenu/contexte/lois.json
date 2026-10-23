@@ -2,6 +2,19 @@
   "source": "Lois et textes reglementaires francais, cites par leur numero et leur date (Journal officiel). Regles du jeu, section 12.",
   "entrees": [
     {
+      "id": "loi_allocations_familiales",
+      "type": "loi",
+      "debut": 1946,
+      "fin": 1946,
+      "portee": "france",
+      "titre": "LES PRESTATIONS FAMILIALES",
+      "texte": "LES FAMILLES TOUCHENT DES ALLOCATIONS A PARTIR DU DEUXIEME ENFANT.",
+      "source": "Loi n° 46-1835 du 22 aout 1946 fixant le regime des prestations familiales.",
+      "regles": {
+        "allocationsFamiliales": "LES ALLOCATIONS FAMILIALES"
+      }
+    },
+    {
       "id": "loi_minimum_vieillesse",
       "type": "loi",
       "debut": 1956,
@@ -230,7 +243,10 @@
       "portee": "france",
       "titre": "CREATION DU PACS",
       "texte": "LE PACTE CIVIL DE SOLIDARITE OFFRE UN CADRE AUX COUPLES NON MARIES.",
-      "source": "Loi n° 99-944 du 15 novembre 1999 relative au pacte civil de solidarite."
+      "source": "Loi n° 99-944 du 15 novembre 1999 relative au pacte civil de solidarite.",
+      "regles": {
+        "pacs": true
+      }
     },
     {
       "id": "loi_cmu",
