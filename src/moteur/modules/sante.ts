@@ -19,6 +19,7 @@ import {
   type Maladie,
   type Personnage,
   type Produit,
+  type Sexe,
   type Tables,
   type Traits,
 } from '../types';
@@ -67,6 +68,8 @@ interface ConfigSante {
   maladies: Readonly<Record<Maladie, EffetsMaladie>>;
   /** Multiplicateur de mortalité par PCS (adultes). */
   pcs: ReadonlyMap<string, number>;
+  /** Probabilités de décès par âge (table mortalite), par sexe puis année calendaire. */
+  mortalite: Readonly<Record<Sexe, Map<number, readonly number[]>>>;
   /** Multiplicateur de mortalité par produit et état d'addiction actif (absent : 1). */
   addictions: Readonly<Record<Produit, Partial<Record<EtatAddiction, number>>>>;
 }
@@ -102,7 +105,8 @@ function construire(tables: Tables): ConfigSante {
       addictions[c.produit as Produit][c.etat as EtatAddiction] = ligne.valeur;
     }
   }
-  return { tables, parametres, vieillissement, maladies, pcs, addictions };
+  const mortalite = { femme: new Map(), homme: new Map() };
+  return { tables, parametres, vieillissement, maladies, pcs, addictions, mortalite };
 }
 
 const configurations = new WeakMap<Tables, ConfigSante>();
@@ -238,15 +242,20 @@ export function depensesSante(personnage: Personnage, tables: Tables): number {
 /** Probabilité de décéder dans l'année d'après la table seule (âge, sexe, année). */
 export function probabiliteDecesTable(
   age: number,
-  sexe: Personnage['origine']['sexe'],
+  sexe: Sexe,
   annee: number,
   tables: Tables,
 ): number {
-  const ligne = chercherLigne(tables.mortalite, { sexe, periode: periodeDe(annee) }, [
-    'periode',
-    'sexe',
-  ]);
-  const q = ligne.qParAge[Math.min(age, ligne.qParAge.length - 1)];
+  const parAnnee = configuration(tables).mortalite[sexe];
+  let qParAge = parAnnee.get(annee);
+  if (!qParAge) {
+    qParAge = chercherLigne(tables.mortalite, { sexe, periode: periodeDe(annee) }, [
+      'periode',
+      'sexe',
+    ]).qParAge;
+    parAnnee.set(annee, qParAge);
+  }
+  const q = qParAge[Math.min(age, qParAge.length - 1)];
   if (q === undefined) throw new Error(`Table mortalite : aucune valeur pour ${age} ans`);
   return q;
 }

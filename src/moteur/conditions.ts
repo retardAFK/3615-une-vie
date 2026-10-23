@@ -23,6 +23,16 @@ export function valeurChamp(personnage: Personnage, champ: ChampCondition): stri
           : 'aucun';
     case 'logement':
       return etats.logement;
+    case 'couple':
+      return etats.couple;
+    case 'enfants':
+      return etats.famille.enfants.length === 0
+        ? 'aucun'
+        : etats.famille.enfants.length === 1
+          ? 'un'
+          : 'plusieurs';
+    case 'achatPossible':
+      return etats.famille.achatPossible ? 'oui' : 'non';
     case 'endettement':
       return personnage.finances.endettement;
     case 'tabac':

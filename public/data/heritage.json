@@ -1,0 +1,36 @@
+{
+  "table": "heritage",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE (enquete Patrimoine). Heritage en multiple du salaire de reference, pour un decile de revenu median.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "logementFamilial": "proprietaire"
+      },
+      "valeur": 3
+    },
+    {
+      "conditions": {
+        "logementFamilial": "locataire_prive"
+      },
+      "valeur": 0.5
+    },
+    {
+      "conditions": {
+        "logementFamilial": "hlm"
+      },
+      "valeur": 0.2
+    },
+    {
+      "conditions": {
+        "logementFamilial": "precaire"
+      },
+      "valeur": 0
+    },
+    {
+      "conditions": {},
+      "valeur": 0
+    }
+  ]
+}

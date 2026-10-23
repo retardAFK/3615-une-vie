@@ -4,6 +4,7 @@
 import { AGE_MAXIMAL } from './constantes';
 import { TAGS_ADDICTIONS } from './modules/addictions';
 import { TAGS_AIDES } from './modules/aides';
+import { TAGS_FAMILLE } from './modules/famille';
 import { TAGS_SANTE } from './modules/sante';
 import { TAGS_EDUCATION } from './modules/education';
 import { TAGS_EMPLOI } from './modules/emploi';
@@ -48,6 +49,7 @@ const TAGS_MODULES: readonly string[] = [
   ...TAGS_AIDES,
   ...TAGS_ADDICTIONS,
   ...TAGS_SANTE,
+  ...TAGS_FAMILLE,
 ];
 const JAUGES = [...JAUGES_MODIFIABLES, 'bienEtre'];
 const ETATS: Record<string, readonly string[]> = {
@@ -199,14 +201,18 @@ export function validerEvenements(
     }
     if (choix.effets !== undefined) {
       // Effets directs : accepter une opportunité, ou un acte du joueur sur son jeu
-      // (choisir un jeu et un budget, se refaire, s'inscrire à l'interdiction volontaire).
+      // (choisir un jeu et un budget, se refaire, s'inscrire à l'interdiction volontaire,
+      // acheter son logement quand l'achat est possible).
       const effets = choix.effets;
       if (!estObjet(effets) || Object.keys(effets).length === 0) {
         erreurs.push(`${lieu} : effets de choix invalides`);
       } else {
         for (const [cle, valeur] of Object.entries(effets)) {
           const valide =
-            cle === 'changerEmploi' || cle === 'chasse' || cle === 'interdiction'
+            cle === 'changerEmploi' ||
+            cle === 'chasse' ||
+            cle === 'interdiction' ||
+            cle === 'acheterLogement'
               ? valeur === true
               : cle === 'jeu'
                 ? (JEUX as readonly unknown[]).includes(valeur)

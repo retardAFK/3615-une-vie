@@ -55,6 +55,8 @@ export const FINANCES_INITIALES: Readonly<Finances> = {
   endettement: 'sain',
   anneesCritique: 0,
   planApurement: 0,
+  creditImmobilier: 0,
+  annuiteImmobilier: 0,
 };
 
 export function etatsInitiaux(): Etats {
@@ -107,5 +109,6 @@ export function etatsInitiaux(): Etats {
       interdiction: false,
       pertesElevees: false,
     },
+    famille: { enfants: [], parentsVivants: true, achatPossible: false },
   };
 }

@@ -1,0 +1,33 @@
+{
+  "table": "effetsEnfant",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE et INED.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "sexe": "femme"
+      },
+      "valeurs": {
+        "pTempsPartiel": 0.35,
+        "perteProgression": 0.04
+      }
+    },
+    {
+      "conditions": {
+        "sexe": "homme"
+      },
+      "valeurs": {
+        "pTempsPartiel": 0.03,
+        "perteProgression": 0
+      }
+    },
+    {
+      "conditions": {},
+      "valeurs": {
+        "pTempsPartiel": 0.1,
+        "perteProgression": 0.01
+      }
+    }
+  ]
+}

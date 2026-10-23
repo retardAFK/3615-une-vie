@@ -24,6 +24,7 @@ import { bilanAnnuel, estAutonome, ouvrirPlan } from './modules/argent';
 import { evoluerEducation } from './modules/education';
 import { nouveautesDeLAnnee } from './modules/contexte';
 import { changerEmploi, comptabiliserAnnee, evoluerEmploi } from './modules/emploi';
+import { acheterLogement, depensesFamille, evoluerFamille } from './modules/famille';
 import { appliquerChoixJeu, jouerAnnee } from './modules/jeux';
 import {
   commencerMaladie,
@@ -97,7 +98,8 @@ export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuv
   if (etatRecu.anneeEnCours) throw new Error('Une annee est deja ouverte');
 
   // Étape 1 : revenus de l'année (salaire, indemnités, pension), jeu, aides, puis bilan
-  // d'argent avec les dépenses des addictions et les mises nettes des gains.
+  // d'argent avec les charges fixes (logement, enfants, crédit immobilier), les dépenses
+  // des addictions et de santé, et les mises nettes des gains.
   const { tables } = donnees;
   const comptes: EtatPartie = {
     ...etatRecu,
@@ -105,11 +107,13 @@ export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuv
   };
   const jeu = jouerAnnee(comptes, donnees);
   const joueur = jeu.etat.personnage;
+  const autonome = estAutonome(joueur);
   const depenses =
-    (estAutonome(joueur) ? depensesAddictions(joueur, tables) + depensesSante(joueur, tables) : 0) +
+    (autonome ? depensesAddictions(joueur, tables) + depensesSante(joueur, tables) : 0) +
     jeu.mise -
     jeu.gain;
-  const bilan = bilanAnnuel(jeu.etat, calculerAides(jeu.etat, donnees), donnees, depenses);
+  const charges = autonome ? depensesFamille(joueur, comptes.annee, tables) : 0;
+  const bilan = bilanAnnuel(jeu.etat, calculerAides(jeu.etat, donnees), donnees, depenses, charges);
   const etat: EtatPartie = { ...jeu.etat, personnage: bilan.personnage };
   const { personnage } = etat;
 
@@ -170,6 +174,7 @@ export function fermerAnnee(
     // Opportunité acceptée (offre extérieure) : seule exception aux choix sans résultat direct.
     if (retenu?.effets?.changerEmploi) courant = changerEmploi(courant, donnees, evenement.id);
     if (retenu?.effets) courant = appliquerChoixJeu(courant, retenu.effets);
+    if (retenu?.effets?.acheterLogement) courant = acheterLogement(courant, donnees);
     if (evenement.effets.maladie) {
       const malade = commencerMaladie(courant.personnage, evenement.effets.maladie);
       if (malade !== courant.personnage) courant = { ...courant, personnage: malade };
@@ -203,6 +208,10 @@ export function fermerAnnee(
   const sante = evoluerSante(courant, donnees);
   courant = sante.etat;
   if (sante.journal.length > 0) journal.push(...sante.journal);
+  // Étape 7 : famille et logement (parents, couple, enfants, logement, crédit).
+  const famille = evoluerFamille(courant, donnees);
+  courant = famille.etat;
+  if (famille.journal.length > 0) journal.push(...famille.journal);
 
   const { personnage } = courant;
   const age = personnage.age + 1;

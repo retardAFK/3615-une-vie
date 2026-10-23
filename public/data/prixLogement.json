@@ -1,0 +1,48 @@
+{
+  "table": "prixLogement",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE et notaires de France. Prix d'un logement en multiple du salaire de reference de la periode.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "territoire": "grande_metropole"
+      },
+      "valeur": 9
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne"
+      },
+      "valeur": 6
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain"
+      },
+      "valeur": 7
+    },
+    {
+      "conditions": {
+        "territoire": "rural"
+      },
+      "valeur": 5
+    },
+    {
+      "conditions": {
+        "territoire": "quartier_prioritaire"
+      },
+      "valeur": 5
+    },
+    {
+      "conditions": {
+        "territoire": "drom"
+      },
+      "valeur": 7
+    },
+    {
+      "conditions": {},
+      "valeur": 7
+    }
+  ]
+}

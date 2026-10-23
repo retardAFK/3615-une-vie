@@ -25,12 +25,15 @@ export const VARIABLES_ARGENT = ['aide'] as const;
 export const VARIABLES_ADDICTION = ['produit'] as const;
 /** Variable des récits de santé : nom de la maladie (libelles.maladies). */
 export const VARIABLES_SANTE = ['maladie'] as const;
+/** Variable des récits de logement : nom du logement (libelles.logement). */
+export const VARIABLES_FAMILLE = ['logement'] as const;
 export type VariableTexte =
   | (typeof VARIABLES_TEXTE)[number]
   | (typeof VARIABLES_RESUME)[number]
   | (typeof VARIABLES_ARGENT)[number]
   | (typeof VARIABLES_ADDICTION)[number]
-  | (typeof VARIABLES_SANTE)[number];
+  | (typeof VARIABLES_SANTE)[number]
+  | (typeof VARIABLES_FAMILLE)[number];
 
 const MOTIF_VARIABLE = /\{([^{}]*)\}/g;
 

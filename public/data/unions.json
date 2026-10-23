@@ -1,0 +1,114 @@
+{
+  "table": "unions",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE et INED.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "periode": "1950-1959"
+      },
+      "valeurs": {
+        "pCohabitation": 0.05,
+        "pMariageDirect": 0.35,
+        "pMariage": 0.3,
+        "pPacs": 0,
+        "pSeparation": 0.0035
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1960-1969"
+      },
+      "valeurs": {
+        "pCohabitation": 0.08,
+        "pMariageDirect": 0.3,
+        "pMariage": 0.3,
+        "pPacs": 0,
+        "pSeparation": 0.0049
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1970-1979"
+      },
+      "valeurs": {
+        "pCohabitation": 0.2,
+        "pMariageDirect": 0.15,
+        "pMariage": 0.2,
+        "pPacs": 0,
+        "pSeparation": 0.0084
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1980-1989"
+      },
+      "valeurs": {
+        "pCohabitation": 0.3,
+        "pMariageDirect": 0.06,
+        "pMariage": 0.12,
+        "pPacs": 0,
+        "pSeparation": 0.0126
+      }
+    },
+    {
+      "conditions": {
+        "periode": "1990-1999"
+      },
+      "valeurs": {
+        "pCohabitation": 0.35,
+        "pMariageDirect": 0.04,
+        "pMariage": 0.08,
+        "pPacs": 0,
+        "pSeparation": 0.0154
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2000-2009"
+      },
+      "valeurs": {
+        "pCohabitation": 0.35,
+        "pMariageDirect": 0.03,
+        "pMariage": 0.06,
+        "pPacs": 0.06,
+        "pSeparation": 0.0175
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2010-2019"
+      },
+      "valeurs": {
+        "pCohabitation": 0.35,
+        "pMariageDirect": 0.02,
+        "pMariage": 0.05,
+        "pPacs": 0.07,
+        "pSeparation": 0.0175
+      }
+    },
+    {
+      "conditions": {
+        "periode": "2020-2029"
+      },
+      "valeurs": {
+        "pCohabitation": 0.35,
+        "pMariageDirect": 0.02,
+        "pMariage": 0.04,
+        "pPacs": 0.07,
+        "pSeparation": 0.0175
+      }
+    },
+    {
+      "conditions": {},
+      "valeurs": {
+        "pCohabitation": 0.35,
+        "pMariageDirect": 0.02,
+        "pMariage": 0.04,
+        "pPacs": 0.07,
+        "pSeparation": 0.0175
+      }
+    }
+  ]
+}

@@ -130,6 +130,7 @@ export type JaugeModifiable = (typeof JAUGES_MODIFIABLES)[number];
 
 /** Aides sociales, dans l'ordre de calcul (règles, section 7). */
 export const AIDES = [
+  'allocationsFamiliales',
   'aah',
   'minimumVieillesse',
   'minimumSocial',
@@ -158,6 +159,10 @@ export interface Finances {
   anneesCritique: number;
   /** Années restantes du plan d'apurement ; 0 sans plan (accès au crédit bloqué pendant). */
   planApurement: number;
+  /** Capital restant dû du crédit immobilier. */
+  creditImmobilier: number;
+  /** Annuité du crédit immobilier, payée chaque année tant qu'il reste du capital. */
+  annuiteImmobilier: number;
 }
 
 // --- États (variables discrètes) ---
@@ -353,6 +358,16 @@ export interface Justice {
 /** Niveau judiciaire, pour les conditions : « aucun », « garde_a_vue » ou « casier ». */
 export const NIVEAUX_JUSTICE = ['aucun', 'garde_a_vue', 'casier'] as const;
 
+/** Famille du joueur (règles, section 11). */
+export interface Famille {
+  /** Âge du joueur à la naissance de chacun de ses enfants. */
+  enfants: readonly number[];
+  /** Au moins un parent du joueur est en vie : l'héritage vient au décès du dernier. */
+  parentsVivants: boolean;
+  /** Achat immobilier à sa portée cette année (apport, revenus, pas de dettes). */
+  achatPossible: boolean;
+}
+
 export interface Etats {
   scolarite: Scolarite;
   emploi: Emploi;
@@ -367,6 +382,7 @@ export interface Etats {
   /** Âge où commence l'état courant de chaque addiction (risques décroissants avec les années). */
   debutEtatAddiction: Record<Produit, number>;
   jeu: EtatJeu;
+  famille: Famille;
 }
 
 // --- Personnage et partie ---
@@ -399,6 +415,10 @@ export const CHAMPS_ETATS_CONDITIONS = [
   'budgetJeu',
   // Chaque maladie : « oui » si elle est active, « non » sinon.
   ...MALADIES,
+  // Famille : couple, enfants (« aucun », « un », « plusieurs »), achat possible (« oui », « non »).
+  'couple',
+  'enfants',
+  'achatPossible',
 ] as const;
 export type ChampCondition = keyof Origine | (typeof CHAMPS_ETATS_CONDITIONS)[number];
 
@@ -444,6 +464,8 @@ export interface EffetsChoix {
   budget?: BudgetJeu;
   chasse?: true;
   interdiction?: true;
+  /** Acheter son logement à crédit, quand l'achat est possible (règles, section 7). */
+  acheterLogement?: true;
 }
 
 export interface ChoixPossible {
@@ -531,6 +553,8 @@ export const REGLES_CONNUES = [
   'minimumVieillesse',
   'surendettement',
   'retablissementPersonnel',
+  'allocationsFamiliales',
+  'pacs',
 ] as const;
 export type RegleConnue = (typeof REGLES_CONNUES)[number];
 /** Valeur d'une règle ; un texte nomme l'aide créée (« LE RSA »). */
@@ -586,7 +610,8 @@ export type TypeEntree =
   | 'argent'
   | 'jeu'
   | 'addiction'
-  | 'sante';
+  | 'sante'
+  | 'famille';
 
 export interface EntreeJournal {
   annee: number;
@@ -803,4 +828,12 @@ export interface Tables {
   maladies: TableValeurs;
   mortaliteFacteurs: TableValeur;
   parametresSante: TableValeurs;
+  // Famille et logement
+  courbesFamille: Table<LigneCourbe>;
+  parametresFamille: TableValeurs;
+  unions: TableValeurs;
+  effetsEnfant: TableValeurs;
+  loyers: TableValeur;
+  prixLogement: TableValeur;
+  heritage: TableValeur;
 }

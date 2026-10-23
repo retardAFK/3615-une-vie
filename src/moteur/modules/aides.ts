@@ -5,8 +5,8 @@
 
 import { probabiliteFinale } from '../cotes';
 import { multiplicateursTag } from '../evenements';
-import { tirage } from '../rng';
-import { parametre, periodeDe, valeurDe } from '../tables';
+import { hachageIdentifiant, tirageHache } from '../rng';
+import { chercherLigne, parametre, periodeDe, valeurDe } from '../tables';
 import {
   AIDES,
   type Aide,
@@ -14,19 +14,20 @@ import {
   type Emploi,
   type EtatPartie,
   type Logement,
+  type Tables,
 } from '../types';
 import { estAutonome } from './argent';
 import { regleEnVigueur } from './contexte';
+import { enfantsACharge } from './famille';
 
 /** Tag des tirages du module : un choix peut réduire le non-recours. */
 export const TAGS_AIDES = ['non_recours'] as const;
 
 const EN_ACTIVITE: readonly Emploi[] = ['cdi', 'cdd', 'interim', 'independant', 'fonctionnaire'];
 const LOCATAIRES: readonly Logement[] = ['locataire_prive', 'hlm'];
-const IDS_NON_RECOURS = Object.fromEntries(AIDES.map((a) => [a, `non_recours.${a}`])) as Record<
-  Aide,
-  string
->;
+const IDS_NON_RECOURS = Object.fromEntries(
+  AIDES.map((a) => [a, hachageIdentifiant(`non_recours.${a}`)]),
+) as Record<Aide, readonly number[]>;
 
 export interface AidesDeLAnnee {
   versees: Readonly<Partial<Record<Aide, number>>>;
@@ -35,6 +36,40 @@ export interface AidesDeLAnnee {
 }
 
 const SANS_AIDE: AidesDeLAnnee = { versees: {}, nonDemandees: [], total: 0 };
+
+/** Barème d'une aide une année donnée (le plafond n'existe que pour les aides dégressives). */
+interface Bareme {
+  montant: number;
+  plafond: number;
+}
+// Les barèmes sont relus chaque année pour chaque aide : gardés par table et par année.
+const baremes = new WeakMap<object, Map<number, Partial<Record<Aide, Bareme>>>>();
+
+function baremeDe(aide: Aide, annee: number, tables: Tables): Bareme {
+  let parAnnee = baremes.get(tables.baremesAides);
+  if (!parAnnee) {
+    parAnnee = new Map();
+    baremes.set(tables.baremesAides, parAnnee);
+  }
+  let parAide = parAnnee.get(annee);
+  if (!parAide) {
+    parAide = {};
+    parAnnee.set(annee, parAide);
+  }
+  let bareme = parAide[aide];
+  if (!bareme) {
+    const { valeurs } = chercherLigne(tables.baremesAides, { aide, periode: periodeDe(annee) }, [
+      'periode',
+      'aide',
+    ]);
+    if (valeurs.montant === undefined) {
+      throw new Error(`Table baremesAides : parametre montant absent pour ${aide}`);
+    }
+    bareme = { montant: valeurs.montant, plafond: valeurs.plafond ?? 0 };
+    parAide[aide] = bareme;
+  }
+  return bareme;
+}
 
 /**
  * Montant auquel le personnage a droit cette année, compte tenu des ressources déjà
@@ -48,14 +83,18 @@ export function droitA(aide: Aide, etat: EtatPartie, donnees: Donnees, ressource
   const { age } = personnage;
   const { emploi } = personnage.etats;
   const reglage = (nom: string): number => parametre(tables.parametresArgent, nom);
-  const bareme = (nom: 'montant' | 'plafond'): number =>
-    parametre(tables.baremesAides, nom, { aide, periode: periodeDe(annee) }, ['periode', 'aide']);
+  const bareme = (nom: 'montant' | 'plafond'): number => baremeDe(aide, annee, tables)[nom];
   const differentielle = (): number => Math.max(0, bareme('montant') - ressources);
   const degressive = (): number => {
     const plafond = bareme('plafond');
     return ressources >= plafond ? 0 : bareme('montant') * (1 - ressources / plafond);
   };
   switch (aide) {
+    case 'allocationsFamiliales': {
+      // À partir du deuxième enfant à charge, sans condition de ressources.
+      const enfants = enfantsACharge(personnage, tables);
+      return enfants >= 2 ? bareme('montant') * (enfants - 1) : 0;
+    }
     case 'aah':
       return personnage.origine.santeNaissance === 'handicap' &&
         emploi !== 'retraite' &&
@@ -88,7 +127,7 @@ export function renonce(aide: Aide, etat: EtatPartie, donnees: Donnees): boolean
   }
   const base = valeurDe(tables.nonRecours, { aide }, ['aide']);
   return (
-    tirage(etat.graine, personnage.age, IDS_NON_RECOURS[aide]) <
+    tirageHache(etat.graine, personnage.age, IDS_NON_RECOURS[aide]) <
     probabiliteFinale(base, multiplicateurs)
   );
 }

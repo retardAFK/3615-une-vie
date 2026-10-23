@@ -421,6 +421,86 @@
         "montant": 2700,
         "plafond": 16000
       }
+    },
+    {
+      "conditions": {
+        "aide": "allocationsFamiliales",
+        "periode": "1950-1959"
+      },
+      "valeurs": {
+        "montant": 900
+      }
+    },
+    {
+      "conditions": {
+        "aide": "allocationsFamiliales",
+        "periode": "1960-1969"
+      },
+      "valeurs": {
+        "montant": 1000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "allocationsFamiliales",
+        "periode": "1970-1979"
+      },
+      "valeurs": {
+        "montant": 1100
+      }
+    },
+    {
+      "conditions": {
+        "aide": "allocationsFamiliales",
+        "periode": "1980-1989"
+      },
+      "valeurs": {
+        "montant": 1300
+      }
+    },
+    {
+      "conditions": {
+        "aide": "allocationsFamiliales",
+        "periode": "1990-1999"
+      },
+      "valeurs": {
+        "montant": 1400
+      }
+    },
+    {
+      "conditions": {
+        "aide": "allocationsFamiliales",
+        "periode": "2000-2009"
+      },
+      "valeurs": {
+        "montant": 1500
+      }
+    },
+    {
+      "conditions": {
+        "aide": "allocationsFamiliales",
+        "periode": "2010-2019"
+      },
+      "valeurs": {
+        "montant": 1550
+      }
+    },
+    {
+      "conditions": {
+        "aide": "allocationsFamiliales",
+        "periode": "2020-2029"
+      },
+      "valeurs": {
+        "montant": 1600
+      }
+    },
+    {
+      "conditions": {
+        "aide": "allocationsFamiliales"
+      },
+      "valeurs": {
+        "montant": 1600
+      }
     }
   ]
 }

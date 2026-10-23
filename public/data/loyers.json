@@ -1,0 +1,126 @@
+{
+  "table": "loyers",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE (enquete Logement) et ANIL. Loyer annuel en part du salaire de reference de la periode.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "logement": "locataire_prive",
+        "territoire": "grande_metropole"
+      },
+      "valeur": 0.26
+    },
+    {
+      "conditions": {
+        "logement": "hlm",
+        "territoire": "grande_metropole"
+      },
+      "valeur": 0.14
+    },
+    {
+      "conditions": {
+        "logement": "locataire_prive",
+        "territoire": "ville_moyenne"
+      },
+      "valeur": 0.18
+    },
+    {
+      "conditions": {
+        "logement": "hlm",
+        "territoire": "ville_moyenne"
+      },
+      "valeur": 0.1
+    },
+    {
+      "conditions": {
+        "logement": "locataire_prive",
+        "territoire": "periurbain"
+      },
+      "valeur": 0.18
+    },
+    {
+      "conditions": {
+        "logement": "hlm",
+        "territoire": "periurbain"
+      },
+      "valeur": 0.1
+    },
+    {
+      "conditions": {
+        "logement": "locataire_prive",
+        "territoire": "rural"
+      },
+      "valeur": 0.13
+    },
+    {
+      "conditions": {
+        "logement": "hlm",
+        "territoire": "rural"
+      },
+      "valeur": 0.08
+    },
+    {
+      "conditions": {
+        "logement": "locataire_prive",
+        "territoire": "quartier_prioritaire"
+      },
+      "valeur": 0.17
+    },
+    {
+      "conditions": {
+        "logement": "hlm",
+        "territoire": "quartier_prioritaire"
+      },
+      "valeur": 0.09
+    },
+    {
+      "conditions": {
+        "logement": "locataire_prive",
+        "territoire": "drom"
+      },
+      "valeur": 0.18
+    },
+    {
+      "conditions": {
+        "logement": "hlm",
+        "territoire": "drom"
+      },
+      "valeur": 0.1
+    },
+    {
+      "conditions": {
+        "logement": "locataire_prive"
+      },
+      "valeur": 0.19
+    },
+    {
+      "conditions": {
+        "logement": "hlm"
+      },
+      "valeur": 0.1
+    },
+    {
+      "conditions": {
+        "logement": "proprietaire"
+      },
+      "valeur": 0.03
+    },
+    {
+      "conditions": {
+        "logement": "precaire"
+      },
+      "valeur": 0.05
+    },
+    {
+      "conditions": {
+        "logement": "chez_parents"
+      },
+      "valeur": 0
+    },
+    {
+      "conditions": {},
+      "valeur": 0
+    }
+  ]
+}

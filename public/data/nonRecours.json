@@ -6,6 +6,12 @@
   "lignes": [
     {
       "conditions": {
+        "aide": "allocationsFamiliales"
+      },
+      "valeur": 0.03
+    },
+    {
+      "conditions": {
         "aide": "aah"
       },
       "valeur": 0.1

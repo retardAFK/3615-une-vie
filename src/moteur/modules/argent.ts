@@ -1,5 +1,6 @@
 // Argent (règles, section 7) : bilan annuel, dettes et surendettement. Les aides de
-// l'année sont calculées avant, par le module aides. Immobilier et héritage : jalon 6.
+// l'année sont calculées avant, par le module aides ; le logement, les enfants, l'achat
+// immobilier et l'héritage, par le module famille.
 
 import { remplir } from '../recit';
 import { parametre, periodeDe, valeurDe } from '../tables';
@@ -123,8 +124,10 @@ export function soutenuParSaFamille(personnage: Personnage, tables: Tables): boo
 }
 
 /**
- * Bilan de l'année : revenus et aides, moins la dépense de vie, les autres dépenses
- * (addictions, mises de jeu nettes des gains) et les remboursements.
+ * Bilan de l'année : revenus et aides, moins les charges fixes (logement, enfants,
+ * crédit immobilier), la dépense de vie, les autres dépenses (addictions, santé, mises
+ * de jeu nettes des gains) et les remboursements. Les charges fixes passent d'abord :
+ * la dépense de vie se règle sur ce qui reste.
  * Un solde positif va à l'épargne ; un solde négatif est pris sur l'épargne, puis
  * couvert par la famille (soutien familial), sinon emprunté (découvert, crédit à la
  * consommation) jusqu'au plafond de crédit ; au-delà, ou pendant un plan d'apurement,
@@ -137,13 +140,17 @@ export function bilanAnnuel(
   aides: AidesDeLAnnee,
   donnees: Donnees,
   depenses = 0,
+  charges = 0,
 ): ResultatBilan {
   const { personnage, annee } = etat;
   if (!estAutonome(personnage)) {
     // Avant l'autonomie, seules les dépenses passées (mises de jeu) touchent les finances.
-    if (depenses === 0) return { personnage, journal: [] };
+    if (depenses === 0 && charges === 0) return { personnage, journal: [] };
     return {
-      personnage: { ...personnage, finances: appliquerMontant(personnage.finances, -depenses) },
+      personnage: {
+        ...personnage,
+        finances: appliquerMontant(personnage.finances, -depenses - charges),
+      },
       journal: [],
     };
   }
@@ -151,7 +158,9 @@ export function bilanAnnuel(
   const reglage = (nom: string): number => parametre(tables.parametresArgent, nom);
   const avant = personnage.finances;
   const ressources = avant.revenuAnnuel + aides.total;
-  const disponible = ressources - depenseVie(personnage, annee, tables, ressources) - depenses;
+  const apresCharges = ressources - charges;
+  const disponible =
+    apresCharges - depenseVie(personnage, annee, tables, Math.max(0, apresCharges)) - depenses;
   const enPlan = avant.planApurement > 0;
 
   // Intérêts, puis remboursement de l'année : contractuel, ou selon la capacité pendant un plan.
