@@ -56,7 +56,7 @@ contenu/evenements/*.json  ─────────────────�
 │   │   └── recit.ts             remplissage des modèles de texte
 │   ├── ui/
 │   │   ├── ecrans/              Connexion, Accueil, Reglages, Naissance, Tour,
-│   │   │                        Journal, Bilan
+│   │   │                        Journal, Bilan, Vies
 │   │   ├── composants/          BarreTitre, BoutonNumerote, Touche, Jauge,
 │   │   │                        LigneValeur, Avis, Legende, TexteMinitel, Mosaique
 │   │   ├── styles/              tokens.css, base.css
@@ -65,6 +65,9 @@ contenu/evenements/*.json  ─────────────────�
 │   │   ├── graine.ts            génération et validation des graines
 │   │   ├── donnees.ts           chargement des tables de public/data/
 │   │   ├── clavier.ts           raccourcis clavier
+│   │   ├── journal.ts           lignes et pages de l'écran Journal
+│   │   ├── partage.ts           lien de partage par graine, lecture de l'adresse
+│   │   ├── simulation.ts        client du worker de simulation
 │   │   ├── reglages.ts          vitesse d'affichage et sons (stockage du navigateur)
 │   │   ├── revelation.ts        révélation des textes caractère par caractère
 │   │   ├── pictos.ts            pictogrammes en mosaïque
@@ -72,7 +75,7 @@ contenu/evenements/*.json  ─────────────────�
 │   ├── worker/
 │   │   └── simulation.worker.ts
 │   ├── stockage/
-│   │   └── parties.ts
+│   │   └── parties.ts           partie en cours et vies passées (IndexedDB)
 │   └── main.ts
 └── tests/
     ├── moteur/
@@ -203,11 +206,11 @@ interface Evenement {
 
 ## Web Worker
 
-`src/worker/simulation.worker.ts` sert au mode automatique rapide et aux simulations en masse (bilan comparatif, équilibrage). Il importe le moteur tel quel.
+`src/worker/simulation.worker.ts` sert au mode automatique rapide et aux simulations en masse (bilan comparatif, équilibrage). Il importe le moteur tel quel. Au bilan, il reçoit l'état final et les données, et renvoie `comparer()` : l'autre naissance rejouée avec les mêmes choix, et la vie de chaque enfant, chacune avec son bilan. Sans worker, le calcul se fait sur place.
 
 ## Stockage
 
-- IndexedDB pour les parties en cours et les vies passées.
+- IndexedDB pour les parties en cours et les vies passées (30 au plus) ; en mémoire si le navigateur refuse IndexedDB. La partie en cours est sauvegardée à chaque année ouverte, tous les 10 ans en AUTO et à chaque pause ; une vie terminée rejoint les vies passées.
 - La graine et la liste des choix suffisent à reconstruire une partie : on stocke ça, pas l'état complet.
 - Partage : `?graine=7F3A21C9` dans l'URL.
 

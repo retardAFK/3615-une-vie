@@ -570,6 +570,13 @@ La partie se termine au décès par un bilan qui compare la vie jouée à la moy
 - « Même choix, autre naissance » : rejouer la même graine de choix avec une origine opposée, pour montrer l'effet du hasard de naissance.
 - Partage de la partie par sa graine.
 
+**Dans le jeu** (jalon 7)
+
+- Le bilan s'affiche à la mort : cause (événement mortel, ou maladie active la plus mortelle, sinon causes naturelles), espérance de vie de la génération (calculée sur la table de mortalité, année après année), moral moyen par décennie, décile à la naissance et décile du revenu à 60 ans (ou à la dernière année vécue avant), diplôme, métier, années de chômage, revenus de la vie, années en dépendance et coût des addictions, patrimoine transmis, jeux d'argent sur toute la vie. Les seuils de déciles sont dans `seuilsDeciles`, `aCalibrer`.
+- « Mêmes choix, autre naissance » : même graine (mêmes traits, mêmes tirages), même sexe, même année, même région ; origine sociale de l'autre bout de l'échelle (enfant de cadres diplômés du supérieur, 9e décile, propriétaires, en grande ville ; ou enfant d'ouvriers, CAP, 2e décile, HLM, en quartier populaire). Chaque événement qui revient au même âge reçoit le même choix ; les autres sont tranchés comme en AUTO. Le joueur peut ensuite vivre cette vie.
+- Enfants : chacun naît avec l'origine que lui donne la situation du joueur ce jour-là (lieu de vie, métier, diplôme, décile du revenu du foyer, logement, couple ou famille monoparentale) et vit sa vie en AUTO ; le bilan en donne une ligne. C'est la reproduction sociale vue de l'autre côté.
+- Partage : un lien avec la graine (et l'année si elle avait été imposée) ; les vies passées et la partie en cours se reconstruisent par leur graine et leurs choix.
+
 **Garde-fous**
 
 - Âge conseillé : 15 ans et plus, affiché à l'accueil.

@@ -79,13 +79,14 @@ dupliquer les composants.
 
 | Écran | Contenu |
 | --- | --- |
-| **Accueil** (sommaire) | titre UNE VIE EN FRANCE, 3 lignes d'accroche, menu 1 NOUVELLE VIE / 2 REPRENDRE / 3 VIES PASSEES, champ graine, champ année de naissance (« VIDE = HASARD », bornes de la table des naissances ; Entrée dans l'un ou l'autre champ lance la partie), mention « déconseillé aux moins de 15 ans », touches GUIDE · ENVOI |
+| **Accueil** (sommaire) | titre UNE VIE EN FRANCE, 3 lignes d'accroche, menu 1 NOUVELLE VIE / 2 REPRENDRE (prénom et âge de la partie sauvegardée) / 3 VIES PASSEES (nombre de vies), champ graine, champ année de naissance (« VIDE = HASARD », bornes de la table des naissances ; Entrée dans l'un ou l'autre champ lance la partie), mention « déconseillé aux moins de 15 ans », touches GUIDE · ENVOI |
 | **Naissance** | `TU ES NEE.`, puis l'origine révélée ligne par ligne dans l'ordre du tirage (année, sexe, région, commune, parents, revenu, logement, fratrie), encadré prénom + statistique, touches RETOUR · ENVOI COMMENCER |
-| **Tour** | barre `TOUR N`, bandeau FLASH INFO (étiquette jaune) quand une entrée du contexte historique commence cette année, année, identité, jauges, lignes SITUATION (scolarité ou emploi et métier), REVENU, EPARGNE, AIDES (si versées), DETTES, ENDETTEMENT (hors niveau sain, ou années restantes du plan), une ligne par addiction en usage régulier, en dépendance ou en sevrage (produit et état), JEU · MISE et JEU · RECUPERE (totaux de la vie, toujours visibles dès la première mise), nouvelles de l'année (aide touchée ou non demandée, dettes, changements d'addiction), encadré Avis, 1 à 3 choix numérotés, touches SOMMAIRE · AUTO · ENVOI |
-| **Journal** | légende, liste année / âge / événement colorée selon le type, pagination, touches RETOUR · SUITE · REPRENDRE |
+| **Tour** | barre `TOUR N`, bandeau FLASH INFO (étiquette jaune) quand une entrée du contexte historique commence cette année, année, identité, jauges, lignes SITUATION (scolarité ou emploi et métier), REVENU, EPARGNE, AIDES (si versées), DETTES, ENDETTEMENT (hors niveau sain, ou années restantes du plan), une ligne par addiction en usage régulier, en dépendance ou en sevrage (produit et état), JEU · MISE et JEU · RECUPERE (totaux de la vie, toujours visibles dès la première mise), nouvelles de l'année (aide touchée ou non demandée, dettes, changements d'addiction), encadré Avis, 1 à 3 choix numérotés, touches SOMMAIRE · AUTO · JOURNAL · ENVOI |
+| **Journal** | légende, liste année / âge / événement colorée selon le type (argent en jaune, jeu en magenta, choc en rouge, actualités en discret), mise et gain de chaque année de jeu, pagination ; ouvert sur les dernières années depuis le Tour, sur la première page depuis le Bilan ; touches RETOUR (page précédente) · SUITE (page suivante) · REPRENDRE |
 | **Connexion** | au lancement, pendant le chargement : lignes « APPEL DU 3615... », « CONNEXION AU SERVICE UNE VIE... », puis « CONNECTE. » ; passable avec ENVOI |
 | **Réglages** | depuis l'accueil (4 REGLAGES) : vitesse d'affichage (lente, normale, rapide, instantanée) et sons (non par défaut), touche RETOUR |
-| **Bilan** | barre `FIN DE CONNEXION`, dates et cause du décès, moral par décennie en barres mosaïque, lignes de valeur (déciles, chômage, patrimoine), encadré jeux d'argent sur toute la vie, « mêmes choix, autre naissance », touches PARTAGER · JOURNAL · REVIVRE |
+| **Bilan** | barre `FIN DE CONNEXION`, dates et cause du décès, espérance de vie de la génération, moral par décennie en barres (vert à 50 et plus, magenta en dessous), lignes de valeur (déciles à la naissance et à 60 ans, diplôme, métier, chômage, revenus de la vie, dépendance et coût des addictions s'il y en a, patrimoine transmis), encadré jeux d'argent sur toute la vie (mise, récupéré, solde), vies des enfants (une ligne chacun), « mêmes choix, autre naissance » (bouton 1 pour la vivre, lignes TOI et AUTRE), graine et mention des chiffres provisoires, touches PARTAGER · JOURNAL · REVIVRE |
+| **Vies passées** | depuis l'accueil (3 VIES PASSEES) : les 30 dernières vies, numérotées (prénom, années, âge) ; chacune rouvre son bilan ; touche RETOUR |
 
 ## Animation et sons
 
@@ -109,8 +110,10 @@ dupliquer les composants.
 | `S` | SOMMAIRE |
 | `A` | AUTO |
 | `G` | GUIDE |
+| `J` | JOURNAL (ouvrir depuis le Tour ou le Bilan, puis REPRENDRE) |
+| `P` | PARTAGER (Bilan) |
 
-À l'accueil, `4` ouvre les réglages ; dans les réglages, `1` change la vitesse et `2` les sons.
+À l'accueil, `2` reprend la partie sauvegardée, `3` ouvre les vies passées et `4` les réglages ; dans les réglages, `1` change la vitesse et `2` les sons. Dans le journal, Entrée passe à la page suivante et Échap revient à la précédente (sur la dernière ou la première page, elles referment le journal). Au bilan, `1` fait vivre l'autre naissance.
 
 Raccourcis actifs seulement quand le focus n'est pas dans un champ de saisie.
 
