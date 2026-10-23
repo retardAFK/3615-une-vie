@@ -137,5 +137,31 @@
     "tendu": "TENDU",
     "critique": "CRITIQUE",
     "surendettement": "SURENDETTEMENT"
+  },
+  "produits": {
+    "tabac": "TABAC",
+    "alcool": "ALCOOL",
+    "cannabis": "CANNABIS",
+    "autres_drogues": "AUTRES DROGUES",
+    "jeux_argent": "JEUX D'ARGENT",
+    "ecrans": "ECRANS"
+  },
+  "etatsAddiction": {
+    "jamais_expose": "JAMAIS EXPOSE",
+    "expose": "EXPOSE",
+    "usage_occasionnel": "OCCASIONNEL",
+    "usage_regulier": "REGULIER",
+    "dependance": "DEPENDANCE",
+    "sevrage": "SEVRAGE",
+    "abstinent": "ABSTINENT"
+  },
+  "jeux": {
+    "loto": "LOTO",
+    "euromillions": "EUROMILLIONS",
+    "grattage": "GRATTAGE",
+    "paris_sportifs": "PARIS SPORTIFS",
+    "hippique": "TIERCE",
+    "poker": "POKER",
+    "casino": "CASINO"
   }
 }

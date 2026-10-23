@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import ressources from '../contenu/textes/ressources.json';
+import addictionsAutresTags from '../public/data/addictionsAutresTags.json';
 import { tagsConnus, validerContexte, validerEvenements } from '../src/moteur/validation';
 
 // Tous les fichiers de contenu/evenements/, tels que l'interface les charge.
@@ -45,5 +46,16 @@ describe('contenu/contexte', () => {
     ).map(([chemin, contenu]) => ({ nom: chemin.split('/').at(-1)!, contenu }));
     expect(contexte.length).toBeGreaterThan(0);
     expect(validerContexte(contexte, tagsConnus(evenements)).erreurs).toEqual([]);
+  });
+});
+
+describe('public/data/addictionsAutresTags', () => {
+  it('ne vise que des tags connus du contenu ou des modules', () => {
+    const connus = tagsConnus(
+      validerEvenements(fichiers, { ressources: Object.keys(ressources) }).evenements,
+    );
+    for (const ligne of addictionsAutresTags.lignes) {
+      expect(connus.has(ligne.conditions.tag), ligne.conditions.tag).toBe(true);
+    }
   });
 });

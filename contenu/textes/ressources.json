@@ -10,5 +10,25 @@
   "surendettement": {
     "nom": "BANQUE DE FRANCE - SURENDETTEMENT",
     "contact": "34 14"
+  },
+  "tabac": {
+    "nom": "TABAC INFO SERVICE",
+    "contact": "39 89"
+  },
+  "alcool": {
+    "nom": "ALCOOL INFO SERVICE",
+    "contact": "0 980 980 930"
+  },
+  "drogues": {
+    "nom": "DROGUES INFO SERVICE",
+    "contact": "0 800 23 13 13"
+  },
+  "joueurs": {
+    "nom": "JOUEURS INFO SERVICE",
+    "contact": "09 74 75 13 13"
+  },
+  "jeunes": {
+    "nom": "FIL SANTE JEUNES",
+    "contact": "0 800 235 236"
   }
 }

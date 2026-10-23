@@ -1,0 +1,1310 @@
+{
+  "module": "addictions",
+  "source": "Chaine commune des addictions (regles, section 9) : propositions (initiation), decisions d'arret, surdose. Probabilites de travail, a calibrer sur les enquetes OFDT et Sante publique France.",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "id": "add_tabac_proposition_ado",
+      "module": "addictions",
+      "age": [12, 17],
+      "requiert": {
+        "tabac": ["expose"]
+      },
+      "pBase": 0.3,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "accepter",
+          "libelle": "FUMER AVEC EUX",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_tabac"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "refuser",
+          "libelle": "REFUSER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_tabac"
+              },
+              "m": 0.2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU REFUSES.",
+          "cout": {
+            "jauges": {
+              "liens": -1
+            }
+          }
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["tabac", "addiction"],
+      "textes": [
+        "A LA SORTIE DU COLLEGE, ON TE TEND UNE CIGARETTE.",
+        "{annee} : TES AMIS FUMENT. ILS T'EN PROPOSENT UNE."
+      ]
+    },
+    {
+      "id": "add_tabac_proposition_adulte",
+      "module": "addictions",
+      "age": [18, 30],
+      "requiert": {
+        "tabac": ["expose"]
+      },
+      "pBase": 0.3,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "accepter",
+          "libelle": "FUMER AVEC EUX",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_tabac"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "refuser",
+          "libelle": "REFUSER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_tabac"
+              },
+              "m": 0.2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU REFUSES."
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["tabac", "addiction"],
+      "textes": [
+        "A LA SORTIE DU COLLEGE, ON TE TEND UNE CIGARETTE.",
+        "{annee} : TES AMIS FUMENT. ILS T'EN PROPOSENT UNE."
+      ]
+    },
+    {
+      "id": "add_alcool_proposition_ado",
+      "module": "addictions",
+      "age": [14, 17],
+      "requiert": {
+        "alcool": ["expose"]
+      },
+      "pBase": 0.3,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "accepter",
+          "libelle": "BOIRE AVEC LES AUTRES",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_alcool"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "refuser",
+          "libelle": "REFUSER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_alcool"
+              },
+              "m": 0.2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU REFUSES.",
+          "cout": {
+            "jauges": {
+              "liens": -1
+            }
+          }
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["alcool", "addiction"],
+      "textes": [
+        "A UNE FETE, ON TE SERT UN VERRE.",
+        "{annee} : SOIREE ENTRE AMIS. LES VERRES CIRCULENT."
+      ]
+    },
+    {
+      "id": "add_alcool_proposition_adulte",
+      "module": "addictions",
+      "age": [18, 30],
+      "requiert": {
+        "alcool": ["expose"]
+      },
+      "pBase": 0.3,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "accepter",
+          "libelle": "BOIRE AVEC LES AUTRES",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_alcool"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "refuser",
+          "libelle": "REFUSER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_alcool"
+              },
+              "m": 0.2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU REFUSES."
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["alcool", "addiction"],
+      "textes": [
+        "A UNE FETE, ON TE SERT UN VERRE.",
+        "{annee} : SOIREE ENTRE AMIS. LES VERRES CIRCULENT."
+      ]
+    },
+    {
+      "id": "add_cannabis_proposition_ado",
+      "module": "addictions",
+      "age": [14, 17],
+      "requiert": {
+        "cannabis": ["expose"]
+      },
+      "pBase": 0.3,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "accepter",
+          "libelle": "ESSAYER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_cannabis"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "refuser",
+          "libelle": "REFUSER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_cannabis"
+              },
+              "m": 0.2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU REFUSES.",
+          "cout": {
+            "jauges": {
+              "liens": -1
+            }
+          }
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["cannabis", "addiction"],
+      "textes": [
+        "A UNE FETE, ON TE PROPOSE DU CANNABIS.",
+        "{annee} : DANS TA BANDE, LE CANNABIS CIRCULE. ON T'EN PROPOSE."
+      ]
+    },
+    {
+      "id": "add_cannabis_proposition_adulte",
+      "module": "addictions",
+      "age": [18, 30],
+      "requiert": {
+        "cannabis": ["expose"]
+      },
+      "pBase": 0.3,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "accepter",
+          "libelle": "ESSAYER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_cannabis"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "refuser",
+          "libelle": "REFUSER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_cannabis"
+              },
+              "m": 0.2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU REFUSES."
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["cannabis", "addiction"],
+      "textes": [
+        "A UNE FETE, ON TE PROPOSE DU CANNABIS.",
+        "{annee} : DANS TA BANDE, LE CANNABIS CIRCULE. ON T'EN PROPOSE."
+      ]
+    },
+    {
+      "id": "add_autres_drogues_proposition_ado",
+      "module": "addictions",
+      "age": [16, 17],
+      "requiert": {
+        "autres_drogues": ["expose"]
+      },
+      "pBase": 0.3,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "accepter",
+          "libelle": "ESSAYER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_autres_drogues"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "refuser",
+          "libelle": "REFUSER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_autres_drogues"
+              },
+              "m": 0.2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU REFUSES.",
+          "cout": {
+            "jauges": {
+              "liens": -1
+            }
+          }
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["autres_drogues", "addiction"],
+      "textes": [
+        "A UNE SOIREE, ON TE PROPOSE UNE DROGUE.",
+        "{annee} : UNE CONNAISSANCE TE PROPOSE UNE DROGUE, \"POUR ESSAYER\"."
+      ]
+    },
+    {
+      "id": "add_autres_drogues_proposition_adulte",
+      "module": "addictions",
+      "age": [18, 35],
+      "requiert": {
+        "autres_drogues": ["expose"]
+      },
+      "pBase": 0.3,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "accepter",
+          "libelle": "ESSAYER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_autres_drogues"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "refuser",
+          "libelle": "REFUSER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_autres_drogues"
+              },
+              "m": 0.2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU REFUSES."
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["autres_drogues", "addiction"],
+      "textes": [
+        "A UNE SOIREE, ON TE PROPOSE UNE DROGUE.",
+        "{annee} : UNE CONNAISSANCE TE PROPOSE UNE DROGUE, \"POUR ESSAYER\"."
+      ]
+    },
+    {
+      "id": "add_ecrans_proposition_ado",
+      "module": "addictions",
+      "age": [8, 17],
+      "requiert": {
+        "ecrans": ["expose"]
+      },
+      "pBase": 0.3,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "accepter",
+          "libelle": "Y PASSER DES HEURES",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_ecrans"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "refuser",
+          "libelle": "GARDER UNE LIMITE",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_ecrans"
+              },
+              "m": 0.2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU REFUSES."
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["ecrans", "addiction"],
+      "textes": [
+        "ON T'OFFRE UNE CONSOLE DE JEUX.",
+        "{annee} : LES ECRANS PRENNENT DE PLUS EN PLUS DE PLACE DANS TES JOURNEES."
+      ]
+    },
+    {
+      "id": "add_ecrans_proposition_adulte",
+      "module": "addictions",
+      "age": [18, 25],
+      "requiert": {
+        "ecrans": ["expose"]
+      },
+      "pBase": 0.3,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "accepter",
+          "libelle": "Y PASSER DES HEURES",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_ecrans"
+              },
+              "m": 30,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU ACCEPTES."
+        },
+        {
+          "id": "refuser",
+          "libelle": "GARDER UNE LIMITE",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_ecrans"
+              },
+              "m": 0.2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU REFUSES."
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 1,
+      "tags": ["ecrans", "addiction"],
+      "textes": [
+        "ON T'OFFRE UNE CONSOLE DE JEUX.",
+        "{annee} : LES ECRANS PRENNENT DE PLUS EN PLUS DE PLACE DANS TES JOURNEES."
+      ]
+    },
+    {
+      "id": "add_tabac_arret",
+      "module": "addictions",
+      "age": [12, 110],
+      "requiert": {
+        "tabac": ["usage_regulier", "dependance"]
+      },
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "tabac": ["dependance"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "seul",
+          "libelle": "ARRETER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_tabac"
+              },
+              "m": 15,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU DECIDES D'ARRETER."
+        },
+        {
+          "id": "aide",
+          "libelle": "TE FAIRE AIDER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_tabac"
+              },
+              "m": 15,
+              "duree": 1
+            },
+            {
+              "cible": {
+                "tag": "rechute_tabac"
+              },
+              "m": 0.5,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.4
+            },
+            {
+              "trait": "resilience",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU TE FAIS AIDER POUR ARRETER."
+        },
+        {
+          "id": "continuer",
+          "libelle": "CONTINUER",
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            }
+          ],
+          "journal": "TU CONTINUES."
+        }
+      ],
+      "cooldown": 4,
+      "gravite": 2,
+      "tags": ["tabac", "addiction"],
+      "ressources": ["tabac"],
+      "textes": [
+        "TU FUMES TOUS LES JOURS. ET SI TU ARRETAIS ?",
+        "{annee} : TON MEDECIN TE PARLE DU TABAC."
+      ]
+    },
+    {
+      "id": "add_alcool_arret",
+      "module": "addictions",
+      "age": [12, 110],
+      "requiert": {
+        "alcool": ["usage_regulier", "dependance"]
+      },
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "alcool": ["dependance"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "seul",
+          "libelle": "ARRETER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_alcool"
+              },
+              "m": 15,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU DECIDES D'ARRETER."
+        },
+        {
+          "id": "aide",
+          "libelle": "TE FAIRE AIDER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_alcool"
+              },
+              "m": 15,
+              "duree": 1
+            },
+            {
+              "cible": {
+                "tag": "rechute_alcool"
+              },
+              "m": 0.5,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.4
+            },
+            {
+              "trait": "resilience",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU TE FAIS AIDER POUR ARRETER."
+        },
+        {
+          "id": "continuer",
+          "libelle": "CONTINUER",
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            }
+          ],
+          "journal": "TU CONTINUES."
+        }
+      ],
+      "cooldown": 4,
+      "gravite": 2,
+      "tags": ["alcool", "addiction"],
+      "ressources": ["alcool"],
+      "textes": [
+        "L'ALCOOL PREND DE LA PLACE DANS TA VIE. TES PROCHES S'INQUIETENT.",
+        "{annee} : APRES UNE SOIREE DE TROP, TU TE POSES DES QUESTIONS SUR L'ALCOOL."
+      ]
+    },
+    {
+      "id": "add_cannabis_arret",
+      "module": "addictions",
+      "age": [12, 110],
+      "requiert": {
+        "cannabis": ["usage_regulier", "dependance"]
+      },
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "cannabis": ["dependance"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "seul",
+          "libelle": "ARRETER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_cannabis"
+              },
+              "m": 15,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU DECIDES D'ARRETER."
+        },
+        {
+          "id": "aide",
+          "libelle": "TE FAIRE AIDER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_cannabis"
+              },
+              "m": 15,
+              "duree": 1
+            },
+            {
+              "cible": {
+                "tag": "rechute_cannabis"
+              },
+              "m": 0.5,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.4
+            },
+            {
+              "trait": "resilience",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU TE FAIS AIDER POUR ARRETER."
+        },
+        {
+          "id": "continuer",
+          "libelle": "CONTINUER",
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            }
+          ],
+          "journal": "TU CONTINUES."
+        }
+      ],
+      "cooldown": 4,
+      "gravite": 2,
+      "tags": ["cannabis", "addiction"],
+      "ressources": ["drogues"],
+      "textes": [
+        "LE CANNABIS FAIT PARTIE DE TES JOURNEES. TU PENSES A ARRETER.",
+        "{annee} : TU TE SENS DE PLUS EN PLUS DEPENDANT{e} DU CANNABIS."
+      ]
+    },
+    {
+      "id": "add_autres_drogues_arret",
+      "module": "addictions",
+      "age": [12, 110],
+      "requiert": {
+        "autres_drogues": ["usage_regulier", "dependance"]
+      },
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "autres_drogues": ["dependance"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "seul",
+          "libelle": "ARRETER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_autres_drogues"
+              },
+              "m": 15,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU DECIDES D'ARRETER."
+        },
+        {
+          "id": "aide",
+          "libelle": "TE FAIRE AIDER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_autres_drogues"
+              },
+              "m": 15,
+              "duree": 1
+            },
+            {
+              "cible": {
+                "tag": "rechute_autres_drogues"
+              },
+              "m": 0.5,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.4
+            },
+            {
+              "trait": "resilience",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU TE FAIS AIDER POUR ARRETER."
+        },
+        {
+          "id": "continuer",
+          "libelle": "CONTINUER",
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            }
+          ],
+          "journal": "TU CONTINUES."
+        }
+      ],
+      "cooldown": 4,
+      "gravite": 2,
+      "tags": ["autres_drogues", "addiction"],
+      "ressources": ["drogues"],
+      "textes": [
+        "LA DROGUE TE COUTE CHER ET TE FAIT PEUR. TU PENSES A ARRETER.",
+        "{annee} : UN PROCHE TE PARLE DE TA CONSOMMATION."
+      ]
+    },
+    {
+      "id": "add_jeux_argent_arret",
+      "module": "addictions",
+      "age": [12, 110],
+      "requiert": {
+        "jeux_argent": ["usage_regulier", "dependance"]
+      },
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "jeux_argent": ["dependance"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "seul",
+          "libelle": "ARRETER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_jeux_argent"
+              },
+              "m": 15,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU DECIDES D'ARRETER."
+        },
+        {
+          "id": "aide",
+          "libelle": "TE FAIRE AIDER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_jeux_argent"
+              },
+              "m": 15,
+              "duree": 1
+            },
+            {
+              "cible": {
+                "tag": "rechute_jeux_argent"
+              },
+              "m": 0.5,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.4
+            },
+            {
+              "trait": "resilience",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU TE FAIS AIDER POUR ARRETER."
+        },
+        {
+          "id": "continuer",
+          "libelle": "CONTINUER",
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            }
+          ],
+          "journal": "TU CONTINUES."
+        }
+      ],
+      "cooldown": 4,
+      "gravite": 2,
+      "tags": ["jeux_argent", "addiction"],
+      "ressources": ["joueurs"],
+      "textes": [
+        "TU PENSES AU JEU SANS ARRET. ET SI TU ARRETAIS ?",
+        "{annee} : TES PROCHES S'INQUIETENT DE TES DEPENSES DE JEU."
+      ]
+    },
+    {
+      "id": "add_ecrans_arret",
+      "module": "addictions",
+      "age": [12, 110],
+      "requiert": {
+        "ecrans": ["usage_regulier", "dependance"]
+      },
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "ecrans": ["dependance"]
+          },
+          "m": 1.5
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "seul",
+          "libelle": "ARRETER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_ecrans"
+              },
+              "m": 15,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU DECIDES D'ARRETER."
+        },
+        {
+          "id": "aide",
+          "libelle": "TE FAIRE AIDER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_ecrans"
+              },
+              "m": 15,
+              "duree": 1
+            },
+            {
+              "cible": {
+                "tag": "rechute_ecrans"
+              },
+              "m": 0.5,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": 0.4
+            },
+            {
+              "trait": "resilience",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU TE FAIS AIDER POUR ARRETER."
+        },
+        {
+          "id": "continuer",
+          "libelle": "CONTINUER",
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            }
+          ],
+          "journal": "TU CONTINUES."
+        }
+      ],
+      "cooldown": 4,
+      "gravite": 2,
+      "tags": ["ecrans", "addiction"],
+      "ressources": ["jeunes"],
+      "textes": [
+        "TU PASSES TES NUITS DEVANT LES ECRANS. TU PENSES A DECROCHER.",
+        "{annee} : TES PROCHES TE REPROCHENT D'ETRE TOUJOURS SUR UN ECRAN."
+      ]
+    },
+    {
+      "id": "add_surdose",
+      "module": "addictions",
+      "age": [14, 110],
+      "requiert": {
+        "autres_drogues": ["usage_regulier", "dependance"]
+      },
+      "pBase": 0.02,
+      "aCalibrer": true,
+      "modificateurs": [
+        {
+          "si": {
+            "autres_drogues": ["dependance"]
+          },
+          "m": 2
+        }
+      ],
+      "effets": {
+        "jauges": {
+          "santePhysique": -15,
+          "santeMentale": -5
+        },
+        "deces": 0.05
+      },
+      "cooldown": 2,
+      "gravite": 3,
+      "tags": ["sante", "addiction", "drogues"],
+      "ressources": ["drogues"],
+      "textes": [
+        "SURDOSE. TU TE REVEILLES A L'HOPITAL.",
+        "{annee} : UNE SURDOSE T'ENVOIE AUX URGENCES."
+      ]
+    }
+  ]
+}

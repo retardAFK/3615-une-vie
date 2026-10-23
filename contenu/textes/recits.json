@@ -7,5 +7,11 @@
   "argentDossier": "UN DOSSIER DE SURENDETTEMENT EST DEPOSE : PLAN D'APUREMENT, PLUS DE CREDIT PENDANT SA DUREE.",
   "argentFinPlan": "FIN DU PLAN D'APUREMENT.",
   "argentEffacement": "TES DETTES RESTANTES SONT EFFACEES.",
-  "argentDesendette": "TU AS REMBOURSE TOUTES TES DETTES."
+  "argentDesendette": "TU AS REMBOURSE TOUTES TES DETTES.",
+  "addictionOccasionnel": "{produit} : TU COMMENCES, DE TEMPS EN TEMPS.",
+  "addictionRegulier": "{produit} : C'EST DEVENU UNE HABITUDE.",
+  "addictionDependance": "{produit} : TU NE PEUX PLUS T'EN PASSER.",
+  "addictionSevrage": "{produit} : TU ARRETES. LES PREMIERS MOIS SONT DURS.",
+  "addictionAbstinent": "{produit} : UN AN SANS. TU TIENS BON.",
+  "addictionRechute": "{produit} : RECHUTE."
 }

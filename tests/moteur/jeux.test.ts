@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { creerPartie } from '../../src/moteur/boucle';
+import { creerPartie, jouerAnneeAuto } from '../../src/moteur/boucle';
 import { FINANCES_INITIALES } from '../../src/moteur/constantes';
 import { bilanAnnuel } from '../../src/moteur/modules/argent';
 import {
@@ -167,4 +167,19 @@ describe('jeux : mises et profil', () => {
     expect(avecChoix({ jeu: 'roulette_russe' }).join()).toContain('effet de choix jeu invalide');
     expect(avecChoix({ budget: 'enorme' }).join()).toContain('effet de choix budget invalide');
   });
+});
+
+describe('jeux : jamais gagnants', () => {
+  it('sur 300 vies, les joueurs recuperent moins que ce qu ils misent', () => {
+    let mise = 0;
+    let recupere = 0;
+    for (let i = 0; i < 300; i++) {
+      let etat = creerPartie(`jamais-gagnant-${i}`, DONNEES);
+      while (etat.personnage.vivant) etat = jouerAnneeAuto(etat, DONNEES).etat;
+      mise += etat.personnage.etats.jeu.totalMise;
+      recupere += etat.personnage.etats.jeu.totalRecupere;
+    }
+    expect(mise).toBeGreaterThan(0);
+    expect(recupere).toBeLessThan(mise);
+  }, 60_000);
 });

@@ -1,0 +1,758 @@
+{
+  "module": "jeux",
+  "source": "Jeux d'argent (regles, section 8) : premier jeu selon l'epoque, budget, chasse aux pertes, interdiction volontaire. Probabilites de travail, a calibrer.",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "id": "jeu_debut_tierce",
+      "module": "jeux",
+      "age": [18, 70],
+      "annees": [1950, 1975],
+      "requiert": {
+        "jeux_argent": ["expose"]
+      },
+      "pBase": 0.2,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "tierce",
+          "libelle": "JOUER AU TIERCE",
+          "effets": {
+            "jeu": "hippique",
+            "budget": "petit"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 1000,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU JOUES AU TIERCE LE DIMANCHE."
+        },
+        {
+          "id": "casino",
+          "libelle": "TENTER LE CASINO",
+          "effets": {
+            "jeu": "casino",
+            "budget": "petit"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 1000,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU VAS AU CASINO."
+        },
+        {
+          "id": "non",
+          "libelle": "NE PAS JOUER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 0.1,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU NE JOUES PAS."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["jeu", "jeux_argent"],
+      "textes": [
+        "LE DIMANCHE, AU CAFE, TOUT LE MONDE JOUE AU TIERCE.",
+        "{annee} : UN AMI T'EMMENE AU CASINO."
+      ]
+    },
+    {
+      "id": "jeu_debut_loto",
+      "module": "jeux",
+      "age": [18, 70],
+      "annees": [1976, 1988],
+      "requiert": {
+        "jeux_argent": ["expose"]
+      },
+      "pBase": 0.2,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "loto",
+          "libelle": "JOUER AU LOTO",
+          "effets": {
+            "jeu": "loto",
+            "budget": "petit"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 1000,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU JOUES AU LOTO CHAQUE SEMAINE."
+        },
+        {
+          "id": "tierce",
+          "libelle": "JOUER AU TIERCE",
+          "effets": {
+            "jeu": "hippique",
+            "budget": "petit"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 1000,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU JOUES AU TIERCE."
+        },
+        {
+          "id": "non",
+          "libelle": "NE PAS JOUER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 0.1,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU NE JOUES PAS."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["jeu", "jeux_argent"],
+      "textes": [
+        "LE LOTO FAIT REVER TOUT LE MONDE. TU TENTES TA CHANCE ?",
+        "{annee} : AU BUREAU DE TABAC, ON TE PROPOSE UNE GRILLE DE LOTO."
+      ]
+    },
+    {
+      "id": "jeu_debut_grattage",
+      "module": "jeux",
+      "age": [18, 70],
+      "annees": [1989, 2003],
+      "requiert": {
+        "jeux_argent": ["expose"]
+      },
+      "pBase": 0.2,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "loto",
+          "libelle": "JOUER AU LOTO",
+          "effets": {
+            "jeu": "loto",
+            "budget": "petit"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 1000,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU JOUES AU LOTO CHAQUE SEMAINE."
+        },
+        {
+          "id": "grattage",
+          "libelle": "GRATTER DES TICKETS",
+          "effets": {
+            "jeu": "grattage",
+            "budget": "petit"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 1000,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU GRATTES DES TICKETS."
+        },
+        {
+          "id": "non",
+          "libelle": "NE PAS JOUER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 0.1,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU NE JOUES PAS."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["jeu", "jeux_argent"],
+      "textes": [
+        "AU BUREAU DE TABAC, LES TICKETS A GRATTER TE FONT DE L'OEIL.",
+        "{annee} : UN COLLEGUE A GAGNE AU GRATTAGE. ET TOI ?"
+      ]
+    },
+    {
+      "id": "jeu_debut_euromillions",
+      "module": "jeux",
+      "age": [18, 70],
+      "annees": [2004, 2009],
+      "requiert": {
+        "jeux_argent": ["expose"]
+      },
+      "pBase": 0.2,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "euromillions",
+          "libelle": "JOUER A L'EUROMILLIONS",
+          "effets": {
+            "jeu": "euromillions",
+            "budget": "petit"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 1000,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU JOUES A L'EUROMILLIONS."
+        },
+        {
+          "id": "grattage",
+          "libelle": "GRATTER DES TICKETS",
+          "effets": {
+            "jeu": "grattage",
+            "budget": "petit"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 1000,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU GRATTES DES TICKETS."
+        },
+        {
+          "id": "non",
+          "libelle": "NE PAS JOUER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 0.1,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU NE JOUES PAS."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["jeu", "jeux_argent"],
+      "textes": [
+        "LA CAGNOTTE DE L'EUROMILLIONS BAT DES RECORDS. TU TENTES TA CHANCE ?",
+        "{annee} : AU BUREAU DE TABAC, ON TE PROPOSE UN TICKET."
+      ]
+    },
+    {
+      "id": "jeu_debut_paris",
+      "module": "jeux",
+      "age": [18, 70],
+      "annees": [2010, 2130],
+      "requiert": {
+        "jeux_argent": ["expose"]
+      },
+      "pBase": 0.2,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "paris",
+          "libelle": "PARIER EN LIGNE",
+          "effets": {
+            "jeu": "paris_sportifs",
+            "budget": "petit"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 1000,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU PARIES SUR LES MATCHS EN LIGNE."
+        },
+        {
+          "id": "grattage",
+          "libelle": "GRATTER DES TICKETS",
+          "effets": {
+            "jeu": "grattage",
+            "budget": "petit"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 1000,
+              "duree": 1
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            },
+            {
+              "trait": "ambition",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU GRATTES DES TICKETS."
+        },
+        {
+          "id": "non",
+          "libelle": "NE PAS JOUER",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "initiation_jeux_argent"
+              },
+              "m": 0.1,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU NE JOUES PAS."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["jeu", "jeux_argent"],
+      "textes": [
+        "UNE PUB TE PROMET UN PARI OFFERT POUR TON PREMIER MATCH.",
+        "{annee} : TES AMIS PARIENT SUR LES MATCHS. ILS T'INVITENT A ESSAYER."
+      ]
+    },
+    {
+      "id": "jeu_augmenter_petit",
+      "module": "jeux",
+      "age": [18, 110],
+      "requiert": {
+        "jeux_argent": ["usage_occasionnel", "usage_regulier", "dependance"],
+        "budgetJeu": ["petit"]
+      },
+      "pBase": 0.15,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "augmenter",
+          "libelle": "MISER PLUS",
+          "effets": {
+            "budget": "moyen"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "escalade_jeux_argent"
+              },
+              "m": 1.5,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.6
+            }
+          ],
+          "journal": "TU MISES PLUS."
+        },
+        {
+          "id": "garder",
+          "libelle": "GARDER TON BUDGET",
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU GARDES TON BUDGET."
+        }
+      ],
+      "cooldown": 4,
+      "gravite": 1,
+      "tags": ["jeu", "jeux_argent"],
+      "textes": [
+        "TU AS FAILLI GAGNER. ET SI TU MISAIS UN PEU PLUS ?",
+        "{annee} : LE JEU TE PREND UN PEU PLUS DE TEMPS CHAQUE SEMAINE."
+      ]
+    },
+    {
+      "id": "jeu_augmenter_moyen",
+      "module": "jeux",
+      "age": [18, 110],
+      "requiert": {
+        "jeux_argent": ["usage_occasionnel", "usage_regulier", "dependance"],
+        "budgetJeu": ["moyen"]
+      },
+      "pBase": 0.12,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "augmenter",
+          "libelle": "MISER GROS",
+          "effets": {
+            "budget": "gros"
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "escalade_jeux_argent"
+              },
+              "m": 2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.7
+            }
+          ],
+          "journal": "TU MISES GROS."
+        },
+        {
+          "id": "reduire",
+          "libelle": "REVENIR A UN PETIT BUDGET",
+          "effets": {
+            "budget": "petit"
+          },
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.5
+            }
+          ],
+          "journal": "TU REDUIS TES MISES."
+        },
+        {
+          "id": "garder",
+          "libelle": "GARDER TON BUDGET",
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.2
+            }
+          ],
+          "journal": "TU GARDES TON BUDGET."
+        }
+      ],
+      "cooldown": 4,
+      "gravite": 1,
+      "tags": ["jeu", "jeux_argent"],
+      "textes": [
+        "TU JOUES PLUS SOUVENT. UN GROS COUP, CA CHANGERAIT TOUT ?",
+        "{annee} : TU CONNAIS TOUS LES RESULTATS PAR COEUR."
+      ]
+    },
+    {
+      "id": "jeu_chasse",
+      "module": "jeux",
+      "age": [18, 110],
+      "requiert": {
+        "jeux_argent": ["usage_occasionnel", "usage_regulier", "dependance"],
+        "pertesJeu": ["elevees"]
+      },
+      "pBase": 0.6,
+      "aCalibrer": true,
+      "effets": {
+        "jauges": {
+          "santeMentale": -2
+        }
+      },
+      "choix": [
+        {
+          "id": "refaire",
+          "libelle": "TE REFAIRE",
+          "effets": {
+            "chasse": true
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "escalade_jeux_argent"
+              },
+              "m": 2,
+              "duree": 2
+            },
+            {
+              "cible": {
+                "tag": "dependance_jeux_argent"
+              },
+              "m": 2,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.8
+            }
+          ],
+          "journal": "TU DOUBLES TES MISES POUR TE REFAIRE."
+        },
+        {
+          "id": "encaisser",
+          "libelle": "ACCEPTER LA PERTE",
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.6
+            }
+          ],
+          "journal": "TU ACCEPTES LA PERTE."
+        }
+      ],
+      "cooldown": 1,
+      "gravite": 2,
+      "tags": ["jeu", "jeux_argent"],
+      "ressources": ["joueurs"],
+      "textes": [
+        "CETTE ANNEE, LE JEU T'A COUTE CHER. LA PROCHAINE FOIS, TU POURRAIS TOUT RECUPERER...",
+        "{annee} : TES PERTES AU JEU PESENT SUR TON BUDGET. UNE PETITE VOIX TE DIT DE TE REFAIRE."
+      ]
+    },
+    {
+      "id": "jeu_interdiction",
+      "module": "jeux",
+      "age": [18, 110],
+      "requiert": {
+        "jeux_argent": ["usage_regulier", "dependance"]
+      },
+      "pBase": 0.1,
+      "aCalibrer": true,
+      "effets": {},
+      "choix": [
+        {
+          "id": "inscrire",
+          "libelle": "DEMANDER L'INTERDICTION DE JEUX",
+          "effets": {
+            "interdiction": true
+          },
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "arret_jeux_argent"
+              },
+              "m": 3,
+              "duree": 3
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.5
+            }
+          ],
+          "journal": "TU T'INTERDIS LES CASINOS ET LES JEUX EN LIGNE."
+        },
+        {
+          "id": "continuer",
+          "libelle": "CONTINUER A JOUER",
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.5
+            }
+          ],
+          "journal": "TU CONTINUES A JOUER."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 2,
+      "tags": ["jeu", "jeux_argent"],
+      "ressources": ["joueurs"],
+      "textes": [
+        "TU APPRENDS QU'ON PEUT DEMANDER A ETRE INTERDIT{e} DE JEUX.",
+        "{annee} : UN PROCHE TE PARLE DE L'INTERDICTION VOLONTAIRE DE JEUX."
+      ]
+    }
+  ]
+}
