@@ -236,3 +236,30 @@ export function vieDEnfant(etat: EtatPartie, rang: number, donnees: Donnees): Et
   };
   return rejouer(`${etat.graine}E${rang + 1}`, options, [], donnees);
 }
+
+/** Une autre vie résumée : son origine et son bilan. */
+export interface VieResumee {
+  origine: Origine;
+  bilan: Bilan;
+}
+
+/** Ce que le worker calcule pour l'écran de bilan. */
+export interface Comparaison {
+  /** Même graine et mêmes choix, origine de l'autre bout de l'échelle sociale. */
+  autre: VieResumee & { options: OptionsPartie };
+  /** Vie de chaque enfant, dans l'ordre des naissances. */
+  enfants: VieResumee[];
+}
+
+/** « Mêmes choix, autre naissance » et vies des enfants, pour une vie terminée. */
+export function comparer(etat: EtatPartie, donnees: Donnees): Comparaison {
+  const options = autreNaissance(etat);
+  const autre = rejouer(etat.graine, options, decisionsDe(etat), donnees);
+  return {
+    autre: { options, origine: autre.personnage.origine, bilan: bilan(autre, donnees) },
+    enfants: etat.personnage.etats.famille.enfants.map((_, rang) => {
+      const vie = vieDEnfant(etat, rang, donnees);
+      return { origine: vie.personnage.origine, bilan: bilan(vie, donnees) };
+    }),
+  };
+}
