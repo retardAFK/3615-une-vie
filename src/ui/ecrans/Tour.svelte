@@ -162,7 +162,7 @@
         <p class="discret">
           {libelle('sexe', personnage.origine.sexe)} · {libelle(
             'region',
-            personnage.origine.region,
+            personnage.etats.residence.region,
           )}
         </p>
       </div>

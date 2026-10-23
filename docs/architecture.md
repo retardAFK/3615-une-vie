@@ -113,7 +113,8 @@ interface Personnage {
                             // debutEtatAddiction (âge d'entrée dans l'état de chaque produit),
                             // jeu (jeu, budget, totaux misés et récupérés, chasse, interdiction),
                             // famille (âges du joueur à la naissance des enfants, parents
-                            // en vie, achat possible)
+                            // en vie, achat possible), residence (région et territoire où il
+                            // vit : l'origine jusqu'à un déménagement)
   age: number
   vivant: boolean
 }
@@ -140,10 +141,12 @@ interface Evenement {
   pBase: number | { source: string; par: string[] }
   modificateurs: Modificateur[]   // { trait, k }, { jauge, k } ou { si, m }
   effets: Effets            // jauges, états, deces (probabilité), revenu [min, max], argent,
-                            // justice, surendettement (ouvre un plan d'apurement), maladie
+                            // justice, surendettement (ouvre un plan d'apurement), maladie,
+                            // modificateurs (posés par l'événement lui-même, comme un choix)
   choix?: ChoixPossible[]   // effets directs limités aux actes du joueur : accepter une
                             // opportunité, choisir un jeu et un budget, se refaire,
-                            // demander l'interdiction volontaire de jeux, acheter son logement
+                            // demander l'interdiction volontaire de jeux, acheter son logement,
+                            // déménager dans une autre région
   cooldown?: number
   unique?: boolean          // au plus une fois dans une vie (incompatible avec cooldown)
   gravite: 1 | 2 | 3        // au-delà de 3 événements dans l'année, les plus graves passent
