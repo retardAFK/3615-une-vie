@@ -67,20 +67,20 @@ describe('journal', () => {
 });
 
 describe('partage', () => {
-  it('fabrique et relit un lien de graine', () => {
+  it('fabrique et relit un lien de seed', () => {
     const lien = lienDePartage('https://exemple.fr/3615/?x=1#a', '7F3A21C9', {
       anneeNaissance: 1985,
     });
-    expect(lien).toBe('https://exemple.fr/3615/?graine=7F3A21C9&annee=1985');
+    expect(lien).toBe('https://exemple.fr/3615/?seed=7F3A21C9&annee=1985');
     expect(lireLien(new URL(lien).search)).toEqual({ graine: '7F3A21C9', annee: '1985' });
-    expect(lienDePartage('https://exemple.fr/', 'ABCD', {})).toBe(
-      'https://exemple.fr/?graine=ABCD',
-    );
+    expect(lienDePartage('https://exemple.fr/', 'ABCD', {})).toBe('https://exemple.fr/?seed=ABCD');
   });
 
-  it('ignore une graine invalide et une annee mal formee', () => {
-    expect(lireLien('?graine=!!')).toBeNull();
+  it('ignore un seed invalide et une annee mal formee', () => {
+    expect(lireLien('?seed=!!')).toBeNull();
     expect(lireLien('')).toBeNull();
-    expect(lireLien('?graine=abcd&annee=85')).toEqual({ graine: 'ABCD', annee: '' });
+    expect(lireLien('?seed=abcd&annee=85')).toEqual({ graine: 'ABCD', annee: '' });
+    // Les anciens liens restent lus.
+    expect(lireLien('?graine=7F3A21C9')).toEqual({ graine: '7F3A21C9', annee: '' });
   });
 });

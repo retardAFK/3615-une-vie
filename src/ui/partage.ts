@@ -1,5 +1,6 @@
-// Partage d'une vie par sa graine (docs/architecture.md, Stockage) : ?graine=7F3A21C9 dans
-// l'adresse, avec l'année de naissance quand elle avait été imposée.
+// Partage d'une vie par son seed (docs/architecture.md, Stockage) : ?seed=7F3A21C9 dans
+// l'adresse, avec l'année de naissance quand elle avait été imposée. Les anciens liens
+// (?graine=...) restent lus.
 
 import type { OptionsPartie } from '../moteur/types';
 import { normaliserGraine } from './graine';
@@ -9,7 +10,7 @@ export function lienDePartage(page: string, graine: string, options: OptionsPart
   const url = new URL(page);
   url.search = '';
   url.hash = '';
-  url.searchParams.set('graine', graine);
+  url.searchParams.set('seed', graine);
   if (options.anneeNaissance !== undefined && !options.anneeLibre) {
     url.searchParams.set('annee', String(options.anneeNaissance));
   }
@@ -19,7 +20,7 @@ export function lienDePartage(page: string, graine: string, options: OptionsPart
 /** Graine et année lues dans l'adresse ; une graine invalide est ignorée. */
 export function lireLien(recherche: string): { graine: string; annee: string } | null {
   const parametres = new URLSearchParams(recherche);
-  const graine = normaliserGraine(parametres.get('graine') ?? '');
+  const graine = normaliserGraine(parametres.get('seed') ?? parametres.get('graine') ?? '');
   if (!graine) return null;
   const annee = parametres.get('annee') ?? '';
   return { graine, annee: /^\d{4}$/.test(annee) ? annee : '' };

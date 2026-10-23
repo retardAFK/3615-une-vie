@@ -7,9 +7,7 @@
 
   let {
     graine = $bindable(''),
-    annee = $bindable(''),
     erreurGraine,
-    erreurAnnee,
     enCours = null,
     nombreVies = 0,
     onnouvellevie,
@@ -18,9 +16,7 @@
     onreglages,
   }: {
     graine?: string;
-    annee?: string;
     erreurGraine: string | null;
-    erreurAnnee: string | null;
     /** Partie sauvegardée, à reprendre : prénom et âge. */
     enCours?: { prenom: string; age: number } | null;
     nombreVies?: number;
@@ -70,23 +66,14 @@
         />
         <BoutonNumerote numero={4} libelle="REGLAGES" onclick={onreglages} />
       </nav>
-      <!-- Entrée dans l'un ou l'autre champ lance NOUVELLE VIE. -->
+      <!-- Entrée dans le champ lance NOUVELLE VIE (puis le choix de l'année). -->
       <form class="champs" onsubmit={soumettre}>
         <ChampGraine
           id="graine"
-          libelle="REJOUER UNE GRAINE :"
+          libelle="REJOUER UN SEED :"
+          indication="VIDE = NOUVEAU SEED"
           bind:valeur={graine}
           erreur={erreurGraine}
-        />
-        <ChampGraine
-          id="annee"
-          libelle="ANNEE DE NAISSANCE :"
-          indication="VIDE = HASARD"
-          bind:valeur={annee}
-          erreur={erreurAnnee}
-          maxlength={4}
-          placeholder="...."
-          numerique
         />
         <button type="submit" class="lecteur-seulement" tabindex="-1">NOUVELLE VIE</button>
       </form>

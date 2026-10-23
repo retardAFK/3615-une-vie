@@ -181,7 +181,7 @@
         </p>
       {/if}
 
-      <p class="discret">GRAINE {graine} · CHIFFRES PROVISOIRES, DONNEES A CALIBRER.</p>
+      <p class="discret">SEED {graine} · CHIFFRES PROVISOIRES, DONNEES A CALIBRER.</p>
       {#if message}<p class="message" role="status">{message}</p>{/if}
     </section>
   </div>

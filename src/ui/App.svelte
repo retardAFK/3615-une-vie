@@ -24,6 +24,7 @@
   import Touche from './composants/Touche.svelte';
   import { chargerDonnees } from './donnees';
   import Accueil from './ecrans/Accueil.svelte';
+  import Annee from './ecrans/Annee.svelte';
   import Bilan from './ecrans/Bilan.svelte';
   import Connexion from './ecrans/Connexion.svelte';
   import Journal from './ecrans/Journal.svelte';
@@ -56,6 +57,7 @@
     | 'connexion'
     | 'erreur'
     | 'accueil'
+    | 'annee'
     | 'reglages'
     | 'naissance'
     | 'tour'
@@ -81,6 +83,10 @@
   let erreurGraine = $state<string | null>(null);
   let saisieAnnee = $state('');
   let erreurAnnee = $state<string | null>(null);
+  /** Écran de l'année : le joueur choisit son année (sinon le hasard). */
+  let choisirAnnee = $state(false);
+  /** Seed retenu à l'accueil, en attente du choix de l'année. */
+  let grainePrete = $state<string | null>(null);
   let auto = $state(false);
   let confirmation = $state(false);
   /** Rang de l'avis affiché parmi les événements de l'année ouverte. */
@@ -222,16 +228,32 @@
     son('connexion');
   }
 
+  /** NOUVELLE VIE : le seed est vérifié (vide = nouveau), puis on choisit l'année. */
   function nouvelleVie(): void {
     if (!donnees) return;
     const saisie = saisieGraine.trim();
     const graine = saisie === '' ? nouvelleGraine() : normaliserGraine(saisie);
-    erreurGraine = graine === null ? 'GRAINE INVALIDE : 4 A 16 LETTRES OU CHIFFRES.' : null;
+    erreurGraine = graine === null ? 'SEED INVALIDE : 4 A 16 LETTRES OU CHIFFRES.' : null;
+    if (graine === null) return;
+    grainePrete = graine;
+    erreurAnnee = null;
+    // Lien partagé avec une année : le champ est déjà rempli.
+    choisirAnnee = saisieAnnee.trim() !== '';
+    ecran = 'annee';
+  }
+
+  function naitreAuHasard(): void {
+    if (grainePrete) commencer(grainePrete, {});
+  }
+
+  function naitreEnAnnee(): void {
+    if (!donnees || !grainePrete) return;
     const { min, max } = bornesAnneeNaissance(donnees.tables);
     const annee = lireAnnee(saisieAnnee, min, max);
-    erreurAnnee = annee === null ? `ANNEE INVALIDE : DE ${min} A ${max}.` : null;
-    if (graine === null || annee === null) return;
-    commencer(graine, annee === 'hasard' ? {} : { anneeNaissance: annee });
+    erreurAnnee =
+      annee === null || annee === 'hasard' ? `ANNEE INVALIDE : DE ${min} A ${max}.` : null;
+    if (annee === null || annee === 'hasard') return;
+    commencer(grainePrete, { anneeNaissance: annee });
   }
 
   /** Vérifie la fin de partie après chaque étape du moteur. */
@@ -363,7 +385,7 @@
     const lien = lienDePartage(location.href, partie.graine, partie.options);
     try {
       if (typeof navigator.share === 'function') {
-        await navigator.share({ title: '3615 UNE VIE', text: 'REJOUE MA GRAINE', url: lien });
+        await navigator.share({ title: '3615 UNE VIE', text: 'REJOUE MON SEED', url: lien });
         messageBilan = 'LIEN PARTAGE.';
       } else {
         await navigator.clipboard.writeText(lien);
@@ -440,6 +462,15 @@
           return true;
         }
         return false;
+      case 'annee':
+        if (action.type === 'choix' && action.numero === 1) naitreAuHasard();
+        else if (action.type === 'choix' && action.numero === 2) choisirAnnee = true;
+        else if (action.type === 'envoi') {
+          if (choisirAnnee) naitreEnAnnee();
+          else naitreAuHasard();
+        } else if (action.type === 'retour') ecran = 'accueil';
+        else return false;
+        return true;
       case 'reglages':
         if (action.type === 'choix' && action.numero <= 2) changerReglage(action.numero);
         else if (action.type === 'retour' || action.type === 'envoi') ecran = 'accueil';
@@ -526,15 +557,23 @@
   {:else if ecran === 'accueil'}
     <Accueil
       bind:graine={saisieGraine}
-      bind:annee={saisieAnnee}
       {erreurGraine}
-      {erreurAnnee}
       enCours={enCours ? { prenom: enCours.prenom, age: enCours.ageOuvert } : null}
       nombreVies={vies.length}
       onnouvellevie={nouvelleVie}
       onreprendre={reprendre}
       onvies={() => (ecran = 'vies')}
       onreglages={() => (ecran = 'reglages')}
+    />
+  {:else if ecran === 'annee' && donnees}
+    <Annee
+      {...bornesAnneeNaissance(donnees.tables)}
+      bind:choisir={choisirAnnee}
+      bind:annee={saisieAnnee}
+      erreur={erreurAnnee}
+      onhasard={naitreAuHasard}
+      onvalider={naitreEnAnnee}
+      onretour={() => (ecran = 'accueil')}
     />
   {:else if ecran === 'reglages'}
     <Reglages

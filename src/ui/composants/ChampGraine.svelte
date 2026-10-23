@@ -1,6 +1,6 @@
 <script lang="ts">
   // Champ de saisie Minitel : libellé accent, saisie jaune sur soulignement pointillé.
-  // Sert à la graine et à l'année de naissance ; le formulaire est fourni par l'écran.
+  // Sert au seed et à l'année de naissance ; le formulaire est fourni par l'écran.
   let {
     id,
     libelle,
@@ -10,6 +10,7 @@
     maxlength = 16,
     placeholder = '........',
     numerique = false,
+    focus = false,
   }: {
     id: string;
     libelle: string;
@@ -21,7 +22,14 @@
     placeholder?: string;
     /** Clavier numérique sur mobile. */
     numerique?: boolean;
+    /** Le curseur va dans le champ dès qu'il apparaît. */
+    focus?: boolean;
   } = $props();
+
+  let champ = $state<HTMLInputElement>();
+  $effect(() => {
+    if (focus) champ?.focus();
+  });
 
   const decrit = $derived(
     [indication ? `${id}-indication` : '', erreur ? `${id}-erreur` : ''].join(' ').trim(),
@@ -32,6 +40,7 @@
   <label for={id}>{libelle}</label>
   {#if indication}<p id="{id}-indication" class="indication">{indication}</p>{/if}
   <input
+    bind:this={champ}
     {id}
     bind:value={valeur}
     {maxlength}

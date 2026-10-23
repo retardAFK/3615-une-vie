@@ -51,7 +51,7 @@
 <div class="contenu">
   <div class="zones">
     <section class="gauche">
-      <p class="discret">TIRAGE EN COURS · GRAINE {partie.graine}</p>
+      <p class="discret">TIRAGE EN COURS · SEED {partie.graine}</p>
       <h1 class="titre-valeur">
         <TexteMinitel
           texte={origine.sexe === 'femme' ? 'TU ES NEE.' : 'TU ES NE.'}

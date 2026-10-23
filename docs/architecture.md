@@ -55,7 +55,7 @@ contenu/evenements/*.json  ─────────────────�
 │   │   │                        sante, famille, contexte
 │   │   └── recit.ts             remplissage des modèles de texte
 │   ├── ui/
-│   │   ├── ecrans/              Connexion, Accueil, Reglages, Naissance, Tour,
+│   │   ├── ecrans/              Connexion, Accueil, Annee, Reglages, Naissance, Tour,
 │   │   │                        Journal, Bilan, Vies
 │   │   ├── composants/          BarreTitre, BoutonNumerote, Touche, Jauge,
 │   │   │                        LigneValeur, Avis, Legende, TexteMinitel, Mosaique
@@ -215,7 +215,7 @@ interface Evenement {
 
 - IndexedDB pour les parties en cours et les vies passées (30 au plus) ; en mémoire si le navigateur refuse IndexedDB. La partie en cours est sauvegardée à chaque année ouverte, tous les 10 ans en AUTO et à chaque pause ; une vie terminée rejoint les vies passées.
 - La graine et la liste des choix suffisent à reconstruire une partie : on stocke ça, pas l'état complet.
-- Partage : `?graine=7F3A21C9` dans l'URL.
+- Partage : `?seed=7F3A21C9` dans l'URL (avec `&annee=1985` si l'année était choisie) ; les anciens liens `?graine=` restent lus. Dans l'interface, la graine s'appelle « seed » ; le code garde le mot graine.
 
 ## Déploiement
 
