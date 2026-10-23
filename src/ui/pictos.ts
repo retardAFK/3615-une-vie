@@ -49,6 +49,10 @@ const PAR_TAG: Readonly<Record<string, string>> = {
   loisirs: 'loisirs',
   quotidien: 'quotidien',
   mouvement: 'mouvement',
+  argent: 'argent',
+  dettes: 'argent',
+  surendettement: 'argent',
+  aides: 'argent',
 };
 
 /** Picto d'un événement d'après ses tags, ou null. */

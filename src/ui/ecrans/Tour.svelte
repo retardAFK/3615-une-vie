@@ -66,6 +66,23 @@
 
   const personnage = $derived(partie.personnage);
   const finances = $derived(personnage.finances);
+  const totalAides = $derived(
+    Object.values(finances.aides).reduce((somme, m) => somme + (m ?? 0), 0),
+  );
+  const endettement = $derived.by(() => {
+    const { planApurement } = finances;
+    if (planApurement > 0) return `PLAN · ${planApurement} AN${planApurement > 1 ? 'S' : ''}`;
+    return libelle('endettement', finances.endettement);
+  });
+  /** Nouvelles d'argent de l'année (aides, dettes), écrites à l'ouverture de l'année. */
+  const nouvellesArgent = $derived.by(() => {
+    const lignes: EntreeJournal[] = [];
+    const { historique } = partie;
+    for (let i = historique.length - 1; i >= 0 && historique[i]!.annee === partie.annee; i--) {
+      if (historique[i]!.type === 'argent') lignes.unshift(historique[i]!);
+    }
+    return lignes;
+  });
   /** Scolarité tant que les études durent, puis état d'emploi et métier. */
   const situation = $derived.by(() => {
     const { scolarite, emploi, education, travail } = personnage.etats;
@@ -138,11 +155,20 @@
           valeur={montant(finances.epargne, partie.annee)}
           ton="valeur"
         />
+        {#if totalAides > 0}
+          <LigneValeur libelle="AIDES" valeur="{montant(totalAides, partie.annee)}/AN" />
+        {/if}
         <LigneValeur
           libelle="DETTES"
           valeur={montant(finances.dettes, partie.annee)}
           ton="valeur"
         />
+        {#if finances.endettement !== 'sain'}
+          <LigneValeur libelle="ENDETTEMENT" valeur={endettement} ton="valeur" />
+        {/if}
+        {#each nouvellesArgent as entree, i (i)}
+          <p class="nouvelle">{entree.texte}</p>
+        {/each}
       </div>
     </section>
 
@@ -245,6 +271,11 @@
   .titre-flash {
     margin-left: 8px;
     color: var(--valeur);
+  }
+
+  .nouvelle {
+    color: var(--accent);
+    font-size: var(--taille-precision);
   }
 
   .ressource {
