@@ -6,9 +6,13 @@
 import { readFileSync } from 'node:fs';
 import { inflateRawSync } from 'node:zlib';
 
-/** Entrées d'une archive zip : nom → contenu décompressé. */
-export function lireZip(chemin) {
-  const zip = readFileSync(chemin);
+/**
+ * Entrées d'une archive zip (chemin ou contenu) : nom → contenu décompressé. Seules les
+ * entrées retenues par `garder` sont décompressées.
+ */
+export function lireZip(source, garder = () => true) {
+  const chemin = Buffer.isBuffer(source) ? 'archive' : source;
+  const zip = Buffer.isBuffer(source) ? source : readFileSync(source);
   // Fin du répertoire central : signature 0x06054b50, cherchée depuis la fin.
   let fin = zip.length - 22;
   while (fin >= 0 && zip.readUInt32LE(fin) !== 0x06054b50) fin--;
@@ -26,8 +30,10 @@ export function lireZip(chemin) {
     const local = zip.readUInt32LE(position + 42);
     const nom = zip.toString('utf8', position + 46, position + 46 + longueurNom);
     const debutDonnees = local + 30 + zip.readUInt16LE(local + 26) + zip.readUInt16LE(local + 28);
-    const brut = zip.subarray(debutDonnees, debutDonnees + taille);
-    entrees.set(nom, methode === 8 ? inflateRawSync(brut) : Buffer.from(brut));
+    if (garder(nom)) {
+      const brut = zip.subarray(debutDonnees, debutDonnees + taille);
+      entrees.set(nom, methode === 8 ? inflateRawSync(brut) : Buffer.from(brut));
+    }
     position += 46 + longueurNom + longueurExtra + longueurCommentaire;
   }
   return entrees;
@@ -51,11 +57,13 @@ function colonne(reference) {
 }
 
 /**
- * Feuilles d'un classeur : nom → tableau de lignes (tableaux de valeurs : nombre, texte
- * ou null). Les lignes et colonnes vides sont gardées à leur place.
+ * Feuilles d'un classeur (chemin ou contenu) : nom → tableau de lignes (tableaux de
+ * valeurs : nombre, texte ou null). Les lignes et colonnes vides sont gardées à leur
+ * place. `feuilles` limite la lecture aux feuilles retenues (gros classeurs).
  */
-export function lireClasseur(chemin) {
-  const zip = lireZip(chemin);
+export function lireClasseur(source, { feuilles: retenues = () => true } = {}) {
+  const contenu = Buffer.isBuffer(source) ? source : readFileSync(source);
+  const zip = lireZip(contenu, (nom) => !nom.startsWith('xl/worksheets/'));
   const texte = (nom) => zip.get(nom)?.toString('utf8') ?? '';
   const partagees = [...texte('xl/sharedStrings.xml').matchAll(/<si>(.*?)<\/si>/gs)].map((m) =>
     decoder([...m[1].matchAll(/<t[^>]*>(.*?)<\/t>/gs)].map((t) => t[1]).join('')),
@@ -66,12 +74,18 @@ export function lireClasseur(chemin) {
       /Target="([^"]+)"/.exec(m[0])[1].replace(/^\/?(xl\/)?/, 'xl/'),
     ]),
   );
+  const aLire = [...texte('xl/workbook.xml').matchAll(/<sheet [^>]*>/g)]
+    .map((m) => ({
+      nom: decoder(/name="([^"]*)"/.exec(m[0])[1]),
+      fichier: liens.get(/r:id="([^"]+)"/.exec(m[0])[1]),
+    }))
+    .filter((f) => retenues(f.nom));
+  const fichiers = new Set(aLire.map((f) => f.fichier));
+  for (const [nom, donnees] of lireZip(contenu, (n) => fichiers.has(n))) zip.set(nom, donnees);
   const feuilles = new Map();
-  for (const m of texte('xl/workbook.xml').matchAll(/<sheet [^>]*>/g)) {
-    const nom = decoder(/name="([^"]*)"/.exec(m[0])[1]);
-    const id = /r:id="([^"]+)"/.exec(m[0])[1];
+  for (const { nom, fichier } of aLire) {
     const lignes = [];
-    for (const ligne of texte(liens.get(id)).matchAll(/<row [^>]*?r="(\d+)"[^>]*>(.*?)<\/row>/gs)) {
+    for (const ligne of texte(fichier).matchAll(/<row [^>]*?r="(\d+)"[^>]*>(.*?)<\/row>/gs)) {
       const valeurs = [];
       for (const cellule of ligne[2].matchAll(/<c ([^>]*?)(?:\/>|>(.*?)<\/c>)/gs)) {
         const attributs = cellule[1];
