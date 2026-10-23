@@ -131,5 +131,11 @@
     "rural": "A LA CAMPAGNE",
     "quartier_prioritaire": "DANS UN QUARTIER POPULAIRE",
     "drom": "EN OUTRE-MER"
+  },
+  "endettement": {
+    "sain": "SAIN",
+    "tendu": "TENDU",
+    "critique": "CRITIQUE",
+    "surendettement": "SURENDETTEMENT"
   }
 }

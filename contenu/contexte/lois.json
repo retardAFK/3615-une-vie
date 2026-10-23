@@ -2,6 +2,19 @@
   "source": "Lois et textes reglementaires francais, cites par leur numero et leur date (Journal officiel). Regles du jeu, section 12.",
   "entrees": [
     {
+      "id": "loi_minimum_vieillesse",
+      "type": "loi",
+      "debut": 1956,
+      "fin": 1956,
+      "portee": "france",
+      "titre": "CREATION DU MINIMUM VIEILLESSE",
+      "texte": "LE FONDS NATIONAL DE SOLIDARITE COMPLETE LES PLUS PETITES RETRAITES.",
+      "source": "Loi n° 56-639 du 30 juin 1956 portant institution d'un Fonds national de solidarite.",
+      "regles": {
+        "minimumVieillesse": "LE MINIMUM VIEILLESSE"
+      }
+    },
+    {
       "id": "loi_berthoin",
       "type": "loi",
       "debut": 1959,
@@ -40,6 +53,19 @@
       "titre": "LOI SUR LES STUPEFIANTS",
       "texte": "L'USAGE DE STUPEFIANTS DEVIENT UN DELIT.",
       "source": "Loi n° 70-1320 du 31 decembre 1970 relative aux mesures sanitaires de lutte contre la toxicomanie."
+    },
+    {
+      "id": "loi_allocation_logement",
+      "type": "loi",
+      "debut": 1971,
+      "fin": 1971,
+      "portee": "france",
+      "titre": "CREATION DE L'ALLOCATION DE LOGEMENT SOCIALE",
+      "texte": "UNE AIDE AU LOYER EST OUVERTE AUX PERSONNES AGEES, AUX JEUNES TRAVAILLEURS ET AUX PERSONNES HANDICAPEES.",
+      "source": "Loi n° 71-582 du 16 juillet 1971 relative a l'allocation de logement.",
+      "regles": {
+        "aideLogement": "L'ALLOCATION DE LOGEMENT"
+      }
     },
     {
       "id": "loi_majorite",
@@ -82,6 +108,32 @@
       "source": "Loi n° 75-620 du 11 juillet 1975 relative a l'education (loi Haby)."
     },
     {
+      "id": "loi_aah",
+      "type": "loi",
+      "debut": 1975,
+      "fin": 1975,
+      "portee": "france",
+      "titre": "CREATION DE L'ALLOCATION AUX ADULTES HANDICAPES",
+      "texte": "LES ADULTES HANDICAPES SANS RESSOURCES SUFFISANTES TOUCHENT UNE ALLOCATION.",
+      "source": "Loi n° 75-534 du 30 juin 1975 d'orientation en faveur des personnes handicapees.",
+      "regles": {
+        "aah": "L'AAH"
+      }
+    },
+    {
+      "id": "loi_apl",
+      "type": "loi",
+      "debut": 1977,
+      "fin": 1977,
+      "portee": "france",
+      "titre": "CREATION DE L'APL",
+      "texte": "L'AIDE PERSONNALISEE AU LOGEMENT AIDE LES LOCATAIRES A PAYER LEUR LOYER.",
+      "source": "Loi n° 77-1 du 3 janvier 1977 portant reforme de l'aide au logement.",
+      "regles": {
+        "aideLogement": "L'APL"
+      }
+    },
+    {
       "id": "loi_peine_de_mort",
       "type": "loi",
       "debut": 1981,
@@ -110,7 +162,9 @@
       "titre": "PREMIERS BACS PROFESSIONNELS",
       "texte": "CREE EN 1985, LE BAC PROFESSIONNEL EST DELIVRE POUR LA PREMIERE FOIS.",
       "source": "Decret n° 85-1267 du 27 novembre 1985 portant creation du baccalaureat professionnel ; premiere session en 1987.",
-      "regles": { "bacPro": true }
+      "regles": {
+        "bacPro": true
+      }
     },
     {
       "id": "loi_rmi",
@@ -120,7 +174,23 @@
       "portee": "france",
       "titre": "CREATION DU RMI",
       "texte": "LE REVENU MINIMUM D'INSERTION EST CREE POUR LES PERSONNES SANS RESSOURCES.",
-      "source": "Loi n° 88-1088 du 1er decembre 1988 relative au revenu minimum d'insertion."
+      "source": "Loi n° 88-1088 du 1er decembre 1988 relative au revenu minimum d'insertion.",
+      "regles": {
+        "minimumSocial": "LE RMI"
+      }
+    },
+    {
+      "id": "loi_neiertz",
+      "type": "loi",
+      "debut": 1990,
+      "fin": 1990,
+      "portee": "france",
+      "titre": "LOI NEIERTZ SUR LE SURENDETTEMENT",
+      "texte": "LES MENAGES QUI NE PEUVENT PLUS REMBOURSER LEURS DETTES PEUVENT SAISIR UNE COMMISSION DE SURENDETTEMENT.",
+      "source": "Loi n° 89-1010 du 31 decembre 1989 relative a la prevention et au reglement des difficultes liees au surendettement des particuliers et des familles.",
+      "regles": {
+        "surendettement": true
+      }
     },
     {
       "id": "loi_evin",
@@ -183,6 +253,19 @@
       "source": "Loi n° 98-461 du 13 juin 1998 et loi n° 2000-37 du 19 janvier 2000 relatives a la reduction du temps de travail (lois Aubry)."
     },
     {
+      "id": "loi_prime_emploi",
+      "type": "loi",
+      "debut": 2001,
+      "fin": 2001,
+      "portee": "france",
+      "titre": "CREATION DE LA PRIME POUR L'EMPLOI",
+      "texte": "UN CREDIT D'IMPOT COMPLETE LES REVENUS DES TRAVAILLEURS MODESTES.",
+      "source": "Loi n° 2001-458 du 30 mai 2001 tendant a la creation d'une prime pour l'emploi.",
+      "regles": {
+        "complementActivite": "LA PRIME POUR L'EMPLOI"
+      }
+    },
+    {
       "id": "loi_euro",
       "type": "loi",
       "debut": 2002,
@@ -203,6 +286,19 @@
       "source": "Loi n° 2003-775 du 21 aout 2003 portant reforme des retraites (reforme Fillon)."
     },
     {
+      "id": "loi_retablissement_personnel",
+      "type": "loi",
+      "debut": 2004,
+      "fin": 2004,
+      "portee": "france",
+      "titre": "EFFACEMENT DES DETTES POSSIBLE",
+      "texte": "LA PROCEDURE DE RETABLISSEMENT PERSONNEL PERMET D'EFFACER LES DETTES DES MENAGES SURENDETTES.",
+      "source": "Loi n° 2003-710 du 1er aout 2003 d'orientation et de programmation pour la ville et la renovation urbaine, en vigueur en 2004.",
+      "regles": {
+        "retablissementPersonnel": true
+      }
+    },
+    {
       "id": "loi_tabac_lieux_publics",
       "type": "loi",
       "debut": 2007,
@@ -213,6 +309,19 @@
       "source": "Decret n° 2006-1386 du 15 novembre 2006 fixant les conditions d'application de l'interdiction de fumer dans les lieux affectes a un usage collectif."
     },
     {
+      "id": "loi_aspa",
+      "type": "loi",
+      "debut": 2007,
+      "fin": 2007,
+      "portee": "france",
+      "titre": "LE MINIMUM VIEILLESSE DEVIENT L'ASPA",
+      "texte": "L'ALLOCATION DE SOLIDARITE AUX PERSONNES AGEES REMPLACE LES ANCIENNES ALLOCATIONS DU MINIMUM VIEILLESSE.",
+      "source": "Ordonnance n° 2004-605 du 24 juin 2004 simplifiant le minimum vieillesse, en vigueur en 2007.",
+      "regles": {
+        "minimumVieillesse": "L'ASPA"
+      }
+    },
+    {
       "id": "loi_rsa",
       "type": "loi",
       "debut": 2009,
@@ -220,7 +329,11 @@
       "portee": "france",
       "titre": "LE RSA REMPLACE LE RMI",
       "texte": "LE REVENU DE SOLIDARITE ACTIVE REMPLACE LE RMI ET COMPLETE LES PETITS SALAIRES.",
-      "source": "Loi n° 2008-1249 du 1er decembre 2008 generalisant le revenu de solidarite active, en vigueur le 1er juin 2009."
+      "source": "Loi n° 2008-1249 du 1er decembre 2008 generalisant le revenu de solidarite active, en vigueur le 1er juin 2009.",
+      "regles": {
+        "minimumSocial": "LE RSA",
+        "complementActivite": "LE RSA ACTIVITE"
+      }
     },
     {
       "id": "loi_jeux_en_ligne",
@@ -260,7 +373,10 @@
       "portee": "france",
       "titre": "CREATION DE LA PRIME D'ACTIVITE",
       "texte": "LA PRIME D'ACTIVITE REMPLACE LE RSA ACTIVITE ET LA PRIME POUR L'EMPLOI.",
-      "source": "Loi n° 2015-994 du 17 aout 2015 relative au dialogue social et a l'emploi, en vigueur au 1er janvier 2016."
+      "source": "Loi n° 2015-994 du 17 aout 2015 relative au dialogue social et a l'emploi, en vigueur au 1er janvier 2016.",
+      "regles": {
+        "complementActivite": "LA PRIME D'ACTIVITE"
+      }
     },
     {
       "id": "loi_borne",

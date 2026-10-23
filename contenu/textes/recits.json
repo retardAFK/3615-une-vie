@@ -1,3 +1,11 @@
 {
-  "petiteEnfance": "{debut} A {fin} ANS : ENFANCE {lieu}."
+  "petiteEnfance": "{debut} A {fin} ANS : ENFANCE {lieu}.",
+  "argentAide": "TU TOUCHES {aide}.",
+  "argentNonRecours": "DROIT NON DEMANDE : {aide}.",
+  "argentTendu": "TES CREDITS PESENT SUR TON BUDGET.",
+  "argentCritique": "TU NE PEUX PLUS FAIRE FACE A TES DETTES.",
+  "argentDossier": "UN DOSSIER DE SURENDETTEMENT EST DEPOSE : PLAN D'APUREMENT, PLUS DE CREDIT PENDANT SA DUREE.",
+  "argentFinPlan": "FIN DU PLAN D'APUREMENT.",
+  "argentEffacement": "TES DETTES RESTANTES SONT EFFACEES.",
+  "argentDesendette": "TU AS REMBOURSE TOUTES TES DETTES."
 }

@@ -1,4 +1,14 @@
 {
-  "victimes": { "nom": "AIDE AUX VICTIMES", "contact": "116 006" },
-  "defenseur": { "nom": "DEFENSEUR DES DROITS", "contact": "DEFENSEURDESDROITS.FR" }
+  "victimes": {
+    "nom": "AIDE AUX VICTIMES",
+    "contact": "116 006"
+  },
+  "defenseur": {
+    "nom": "DEFENSEUR DES DROITS",
+    "contact": "DEFENSEURDESDROITS.FR"
+  },
+  "surendettement": {
+    "nom": "BANQUE DE FRANCE - SURENDETTEMENT",
+    "contact": "34 14"
+  }
 }

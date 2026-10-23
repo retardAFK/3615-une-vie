@@ -1,0 +1,208 @@
+{
+  "module": "argent",
+  "source": "Dettes, surendettement et non-recours aux aides (regles, section 7). Probabilites de travail, a calibrer.",
+  "aCalibrer": true,
+  "evenements": [
+    {
+      "module": "argent",
+      "aCalibrer": true,
+      "id": "arg_relances",
+      "age": [18, 110],
+      "requiert": {
+        "endettement": ["critique"]
+      },
+      "regle": "surendettement",
+      "pBase": 0.4,
+      "effets": {
+        "jauges": {
+          "santeMentale": -3
+        }
+      },
+      "choix": [
+        {
+          "id": "dossier",
+          "libelle": "DEPOSER UN DOSSIER DE SURENDETTEMENT",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "surendettement"
+              },
+              "m": 25,
+              "duree": 2
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.5
+            },
+            {
+              "trait": "impulsivite",
+              "k": -0.3
+            }
+          ],
+          "journal": "TU PREPARES UN DOSSIER POUR LA BANQUE DE FRANCE."
+        },
+        {
+          "id": "attendre",
+          "libelle": "FAIRE LE DOS ROND",
+          "affinites": [
+            {
+              "trait": "impulsivite",
+              "k": 0.4
+            }
+          ],
+          "journal": "TU N'OUVRES PLUS LE COURRIER."
+        }
+      ],
+      "cooldown": 2,
+      "gravite": 2,
+      "tags": ["argent", "dettes"],
+      "ressources": ["surendettement"],
+      "textes": [
+        "LES LETTRES DE RELANCE S'EMPILENT. TES CREANCIERS T'APPELLENT CHAQUE SEMAINE.",
+        "{annee} : TA BANQUE REFUSE TOUT NOUVEAU CREDIT ET LES RELANCES ARRIVENT."
+      ]
+    },
+    {
+      "module": "argent",
+      "aCalibrer": true,
+      "id": "arg_dossier_recevable",
+      "age": [18, 110],
+      "requiert": {
+        "endettement": ["critique"]
+      },
+      "regle": "surendettement",
+      "pBase": 0.02,
+      "effets": {
+        "surendettement": true
+      },
+      "cooldown": 1,
+      "gravite": 2,
+      "tags": ["argent", "surendettement"],
+      "ressources": ["surendettement"],
+      "textes": [
+        "LA COMMISSION DE SURENDETTEMENT JUGE TON DOSSIER RECEVABLE. UN PLAN D'APUREMENT COMMENCE.",
+        "{annee} : TON DOSSIER EST ACCEPTE. TES REMBOURSEMENTS SONT ETALES ET LES INTERETS SUSPENDUS."
+      ]
+    },
+    {
+      "module": "argent",
+      "aCalibrer": true,
+      "id": "arg_commandement",
+      "age": [18, 110],
+      "requiert": {
+        "endettement": ["critique"]
+      },
+      "pBase": 0.15,
+      "effets": {
+        "jauges": {
+          "santeMentale": -4
+        }
+      },
+      "cooldown": 3,
+      "gravite": 2,
+      "tags": ["argent", "dettes"],
+      "textes": [
+        "UN HUISSIER TE REMET UN COMMANDEMENT DE PAYER.",
+        "{annee} : SAISIE SUR TON COMPTE. IL NE TE RESTE QUE LE MINIMUM POUR VIVRE."
+      ]
+    },
+    {
+      "module": "argent",
+      "aCalibrer": true,
+      "id": "arg_expulsion",
+      "age": [18, 110],
+      "requiert": {
+        "endettement": ["critique"],
+        "logement": ["locataire_prive", "hlm"]
+      },
+      "pBase": 0.05,
+      "effets": {
+        "jauges": {
+          "santeMentale": -8,
+          "santePhysique": -3
+        },
+        "etats": {
+          "logement": "precaire"
+        }
+      },
+      "cooldown": 5,
+      "gravite": 3,
+      "tags": ["argent", "logement", "expulsion"],
+      "textes": [
+        "LOYERS IMPAYES : LE JUGE PRONONCE TON EXPULSION. TU DOIS QUITTER TON LOGEMENT.",
+        "{annee} : APRES DES MOIS D'IMPAYES, TU PERDS TON LOGEMENT."
+      ]
+    },
+    {
+      "module": "argent",
+      "aCalibrer": true,
+      "id": "arg_assistante_sociale",
+      "age": [18, 110],
+      "requiert": {
+        "scolarite": ["sortie"]
+      },
+      "pBase": 0.01,
+      "modificateurs": [
+        {
+          "si": {
+            "endettement": ["tendu", "critique", "surendettement"]
+          },
+          "m": 4
+        },
+        {
+          "si": {
+            "emploi": ["chomage", "inactif"]
+          },
+          "m": 2
+        }
+      ],
+      "effets": {},
+      "choix": [
+        {
+          "id": "droits",
+          "libelle": "FAIRE LE POINT SUR TES DROITS",
+          "modificateurs": [
+            {
+              "cible": {
+                "tag": "non_recours"
+              },
+              "m": 0.3,
+              "duree": 5
+            }
+          ],
+          "affinites": [
+            {
+              "trait": "resilience",
+              "k": 0.3
+            },
+            {
+              "trait": "sociabilite",
+              "k": 0.3
+            }
+          ],
+          "journal": "TU DEPOSES TES DEMANDES D'AIDE."
+        },
+        {
+          "id": "refuser",
+          "libelle": "NE RIEN DEMANDER",
+          "affinites": [
+            {
+              "trait": "sociabilite",
+              "k": -0.4
+            }
+          ],
+          "journal": "TU PREFERES TE DEBROUILLER SEUL{e}."
+        }
+      ],
+      "cooldown": 5,
+      "gravite": 1,
+      "tags": ["argent", "aides"],
+      "textes": [
+        "UNE ASSISTANTE SOCIALE TE PROPOSE DE FAIRE LE POINT SUR TES DROITS.",
+        "{annee} : AU GUICHET DE LA CAF, ON TE DIT QUE TU AS PEUT-ETRE DROIT A DES AIDES."
+      ]
+    }
+  ]
+}
