@@ -258,6 +258,17 @@ RSA, prime d'activité, aides au logement, allocations familiales, AAH, bourses 
 - Héritage : tiré au décès des parents, selon logementFamilial et decileRevenuFoyer.
 - Inflation : tout est calculé en euros constants pour simplifier, avec un affichage en francs avant 2002 pour l'ambiance.
 
+**Dans le jeu** (jalon 4d)
+
+- Le bilan commence à la sortie des études. Sous le plancher de dépense de vie, le personnage réduit son train de vie : seule une part de l'écart reste incompressible.
+- Soutien familial : avant l'âge du minimum social, la famille couvre le déficit d'un jeune qui vit chez ses parents, sauf après un placement à l'aide sociale à l'enfance.
+- Une aide n'existe qu'à partir de la loi du contexte historique qui la crée, et porte le nom de l'époque : minimum vieillesse puis ASPA, allocation de logement puis APL, AAH, RMI puis RSA, prime pour l'emploi puis RSA activité puis prime d'activité. Les aides sont calculées dans cet ordre : AAH, minimum vieillesse, minimum social, complément d'activité, aide au logement ; chacune compte dans les ressources des suivantes. AAH, minimum vieillesse et minimum social complètent les ressources jusqu'au montant du barème ; complément d'activité et aide au logement diminuent avec les ressources jusqu'au plafond. Les allocations familiales et les bourses viendront avec la famille et les études autonomes.
+- Non-recours : tiré chaque année et pour chaque aide par la formule des cotes, plus fréquent avant 30 ans et à la campagne. Un choix (faire le point sur ses droits avec une assistante sociale) le réduit pendant quelques années. Une aide non demandée est notée au journal.
+- Dettes : les intérêts courent chaque année ; le remboursement de l'année est une part des dettes, avec un minimum. Le déficit est pris sur l'épargne, puis emprunté jusqu'à un plafond de crédit proportionnel aux ressources ; au-delà, le personnage se prive (santé physique −) et c'est un incident de paiement.
+- Niveaux : la part des ressources prise par les remboursements fixe le niveau (sain, tendu, critique) ; un incident de paiement rend la situation critique. Tendu et critique font baisser le moral chaque année. En situation critique : relances, huissier, expulsion pour un locataire.
+- Surendettement (à partir de la loi Neiertz, 1990) : dossier déposé par choix (les relances le proposent, la commission le juge ensuite recevable) ou d'office après plusieurs années critiques. Pendant le plan d'apurement, pas d'intérêts, un remboursement selon la capacité, pas de crédit. À la fin du plan, les dettes restantes sont effacées si la procédure de rétablissement personnel existe (2004).
+- Tous les montants, seuils et taux sont dans `baremesAides`, `nonRecours` et `parametresArgent`, `aCalibrer`.
+
 ## 8. Module jeux d'argent
 
 Chaque jeu est simulé avec ses vraies règles mathématiques : on joue, on perd en moyenne, et parfois on gagne. Le jeu affiche toujours, dans le journal, combien le personnage a misé et récupéré au total : c'est l'outil pédagogique central.

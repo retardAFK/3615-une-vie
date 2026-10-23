@@ -50,7 +50,7 @@ contenu/evenements/*.json  ─────────────────�
 │   │   ├── boucle.ts            ouvrirAnnee(), fermerAnnee(), jouerAnneeAuto()
 │   │   ├── evenements.ts        sélection et application des événements
 │   │   ├── validation.ts        validation de contenu/evenements/ et contenu/contexte/
-│   │   ├── modules/             education, emploi, argent, jeux, addictions,
+│   │   ├── modules/             education, emploi, argent, aides, jeux, addictions,
 │   │   │                        sante, famille, contexte
 │   │   └── recit.ts             remplissage des modèles de texte
 │   ├── ui/
@@ -104,7 +104,8 @@ interface Personnage {
   origine: Origine          // figée à la naissance
   traits: Traits            // 0–100, dérive lente, cachés au joueur
   jauges: Jauges            // santePhysique, santeMentale, bienEtre, liens, competences
-  finances: Finances        // euros constants : revenuAnnuel, epargne, dettes, patrimoine
+  finances: Finances        // euros constants : revenuAnnuel, epargne, dettes, patrimoine,
+                            // aides de l'année, niveau d'endettement, plan d'apurement
   etats: Etats              // scolarite, emploi, couple, logement, addictions, maladies,
                             // education (diplôme, voie, filière), travail (métier, salaire, retraite),
                             // justice (gardes à vue, condamnations, casier : règles, section 14)
@@ -127,16 +128,21 @@ interface Evenement {
   id: string
   module: string
   age: [number, number]
-  requiert?: Conditions      // sur l'origine, et sur emploi, scolarite, diplome, pcs du joueur
+  requiert?: Conditions      // sur l'origine, et sur emploi, scolarite, diplome, pcs, justice,
+                            // logement, endettement du joueur
   pBase: number | { source: string; par: string[] }
   modificateurs: Modificateur[]   // { trait, k }, { jauge, k } ou { si, m }
-  effets: Effets            // jauges, états, deces (probabilité), revenu [min, max], argent
+  effets: Effets            // jauges, états, deces (probabilité), revenu [min, max], argent,
+                            // justice, surendettement (ouvre un plan d'apurement)
   choix?: ChoixPossible[]
   cooldown?: number
   unique?: boolean          // au plus une fois dans une vie (incompatible avec cooldown)
   gravite: 1 | 2 | 3        // au-delà de 3 événements dans l'année, les plus graves passent
   tags: string[]            // cibles des modificateurs posés par les choix
   textes: string[]          // variantes, avec {variables}
+  ressources?: string[]     // ressources d'aide affichées (contenu/textes/ressources.json)
+  annees?: [number, number] // années calendaires d'éligibilité
+  regle?: string            // règle du contexte qui doit être en vigueur
 }
 ```
 
@@ -167,7 +173,7 @@ interface Evenement {
 - Tant qu'une table n'est pas calibrée, elle contient des valeurs de travail plausibles et `"aCalibrer": true`. Le bilan peut alors afficher un avertissement discret.
 - Les règles de droit (âge légal de retraite, obligation scolaire) sont des tables à part, sourcées, avec `"aCalibrer": false`.
 - Les modules (`src/moteur/modules/`) tirent leurs issues à plusieurs valeurs (voie, orientation, transitions d'emploi) par la formule des cotes appliquée à chaque issue, puis renormalisée (`distributionCorrigee`). Les choix agissent sur ces tirages par des modificateurs visant des tags d'issue (`voie_generale`, `emploi_chomage`...). Un choix ne peut avoir un effet direct que pour accepter une opportunité déjà tirée (`effets: { changerEmploi: true }`).
-- Le contexte historique vit dans `contenu/contexte/` : chaque entrée est datée (`debut`, `fin`, années calendaires), sourcée (`source` obligatoire), et de type `actualite`, `crise`, `loi` ou `mouvement`. Une crise porte des multiplicateurs par tag, éventuellement limités à un profil (`profil`, jamais sur l'origine migratoire) ; une loi peut fixer une règle à partir de son année (`regles`, par exemple `bacPro`). Les entrées qui commencent une année entrent au journal et au bandeau FLASH INFO. Les mouvements sociaux sont aussi des événements bornés à des années calendaires (`annees`), avec un choix de participation.
+- Le contexte historique vit dans `contenu/contexte/` : chaque entrée est datée (`debut`, `fin`, années calendaires), sourcée (`source` obligatoire), et de type `actualite`, `crise`, `loi` ou `mouvement`. Une crise porte des multiplicateurs par tag, éventuellement limités à un profil (`profil`, jamais sur l'origine migratoire) ; une loi peut fixer une règle à partir de son année (`regles`, par exemple `bacPro`, ou le nom d'une aide qu'elle crée : `minimumSocial: "LE RSA"`). Un événement peut exiger une règle en vigueur (`regle`, par exemple `surendettement`). Les entrées qui commencent une année entrent au journal et au bandeau FLASH INFO. Les mouvements sociaux sont aussi des événements bornés à des années calendaires (`annees`), avec un choix de participation.
 - Chargement paresseux : chaque module charge ses tables quand il devient utile.
 
 ## Interface
