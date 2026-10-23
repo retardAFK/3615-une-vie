@@ -22,6 +22,8 @@ describe('actionClavier', () => {
     expect(actionClavier(touche('s'), false)).toEqual({ type: 'sommaire' });
     expect(actionClavier(touche('A'), false)).toEqual({ type: 'auto' });
     expect(actionClavier(touche('g'), false)).toEqual({ type: 'guide' });
+    expect(actionClavier(touche('J'), false)).toEqual({ type: 'journal' });
+    expect(actionClavier(touche('p'), false)).toEqual({ type: 'partager' });
     expect(actionClavier(touche('x'), false)).toBeNull();
   });
 

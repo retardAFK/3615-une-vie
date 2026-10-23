@@ -6,7 +6,9 @@ export type Action =
   | { type: 'retour' }
   | { type: 'sommaire' }
   | { type: 'auto' }
-  | { type: 'guide' };
+  | { type: 'guide' }
+  | { type: 'journal' }
+  | { type: 'partager' };
 
 export interface Touche {
   key: string;
@@ -33,6 +35,12 @@ export function actionClavier(touche: Touche, dansChampSaisie: boolean): Action 
     case 'g':
     case 'G':
       return { type: 'guide' };
+    case 'j':
+    case 'J':
+      return { type: 'journal' };
+    case 'p':
+    case 'P':
+      return { type: 'partager' };
     default:
       return null;
   }
