@@ -12,6 +12,31 @@ import type { Donnees, EtatPartie, OptionsPartie } from '../../src/moteur/types'
 import { DONNEES, TABLES_IMMORTELS, donneesAvec } from './donnees';
 import { TABLES } from './tables';
 
+/**
+ * Charge de référence pour le test de non-régression : du calcul pur, sans le moteur
+ * (objets courts, Map, Math), dont le temps suit la vitesse de la machine. Renvoie
+ * sa durée en millisecondes.
+ */
+function chargeDeReference(): number {
+  const debut = performance.now();
+  const table = new Map<number, number>();
+  let somme = 0;
+  for (let i = 0; i < 10_000_000; i++) {
+    const point = { x: i % 101, y: Math.sqrt(i) };
+    somme += Math.exp(-point.x / 50) * point.y;
+    if (i % 7 === 0) table.set(i % 997, somme);
+  }
+  if (!Number.isFinite(somme) || table.size === 0) throw new Error('Charge de reference');
+  return performance.now() - debut;
+}
+
+/**
+ * Rapport mesuré au jalon 5 (1 000 vies / charge de référence : 11,7 à 12,8 sur le poste
+ * local, 23 octobre 2026), et limite de non-régression : environ le double.
+ */
+const RAPPORT_MESURE = 12.3;
+const LIMITE_RAPPORT = 2 * RAPPORT_MESURE;
+
 function vivreAuto(
   graine: string,
   donnees: Donnees = DONNEES,
@@ -189,16 +214,24 @@ describe('boucle', () => {
 
   // Non-régression seulement : les objectifs réels (5 ms par vie, 1 000 vies en 1 s)
   // sont vérifiés par npm run perf, sur le moteur seul (docs/architecture.md, Budgets).
-  it('ne regresse pas : 1 000 vies en AUTO', () => {
+  // Le temps des 1 000 vies est rapporté à une charge de référence mesurée dans le même
+  // processus : la vitesse de la machine (runner de CI chargé ou non) s'annule.
+  it('ne regresse pas : 1 000 vies en AUTO, rapportees a une charge de reference', () => {
     for (let i = 0; i < 200; i++) vivreAuto(`chauffe-${i}`);
+    chargeDeReference();
+    const avant = Math.min(chargeDeReference(), chargeDeReference());
     const debut = performance.now();
     for (let i = 0; i < 1000; i++) vivreAuto(`regression-${i}`);
     const duree = performance.now() - debut;
+    // Référence prise avant et après les vies : la plus rapide des mesures.
+    const reference = Math.min(avant, chargeDeReference(), chargeDeReference());
+    const rapport = duree / reference;
     // Annotation GitHub : rend le temps mesuré sur la CI lisible sans les journaux.
-    console.log(`::notice title=Performance::1 000 vies en AUTO en ${Math.round(duree)} ms`);
-    // Limite = environ 2 fois le temps mesuré sur la machine de CI GitHub après la refonte
-    // des tirages (652 ms, annotation « Performance » du run du 22 octobre 2026) : une
-    // vraie régression la dépasse, les variations normales de la machine non.
-    expect(duree).toBeLessThan(1300);
-  }, 30_000);
+    console.log(
+      `::notice title=Performance::1 000 vies en AUTO en ${Math.round(duree)} ms, ` +
+        `soit ${rapport.toFixed(1)} fois la charge de reference (${Math.round(reference)} ms)`,
+    );
+    // Une vraie régression dépasse la limite ; les variations de la machine, non.
+    expect(rapport).toBeLessThan(LIMITE_RAPPORT);
+  }, 60_000);
 });

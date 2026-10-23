@@ -214,4 +214,4 @@ interface Evenement {
 | 1 000 vies | < 1 s (bilan comparatif « mêmes choix, autre naissance », calculé dans le worker) |
 | 10 000 vies | mesuré, sans objectif bloquant (équilibrage sur un grand nombre de vies, hors partie) |
 
-Les trois temps se mesurent avec `npm run perf`, banc d'essai local sur le moteur seul, regroupé hors de Vitest. Les deux premiers sont bloquants : le banc échoue s'ils ne sont pas tenus. La CI ne surveille que les régressions : un test sur 1 000 vies, avec une limite large fixée d'après le temps mesuré sur la machine de CI.
+Les trois temps se mesurent avec `npm run perf`, banc d'essai local sur le moteur seul, regroupé hors de Vitest. Les deux premiers sont bloquants : le banc échoue s'ils ne sont pas tenus. La CI ne surveille que les régressions : un test sur 1 000 vies, dont le temps est rapporté à une charge de référence (calcul pur, sans le moteur) mesurée dans le même processus, ce qui annule la vitesse du runner ; la limite vaut environ le double du rapport mesuré. Le temps et le rapport sont republiés en annotation GitHub.
