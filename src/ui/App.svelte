@@ -9,6 +9,7 @@
     ouvrirAnnee,
   } from '../moteur/boucle';
   import { AGE_FIN_PETITE_ENFANCE } from '../moteur/constantes';
+  import { nouveautesDeLAnnee } from '../moteur/modules/contexte';
   import { bornesAnneeNaissance } from '../moteur/naissance';
   import type {
     ChoixJoueur,
@@ -371,6 +372,7 @@
       {confirmation}
       {msParCaractere}
       {anime}
+      actualites={donnees ? nouveautesDeLAnnee(donnees.contexte, partie.annee) : []}
       onchoisir={choisir}
       onenvoi={envoi}
       onauto={basculerAuto}

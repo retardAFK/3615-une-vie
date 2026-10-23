@@ -1,5 +1,11 @@
 <script lang="ts">
-  import type { EntreeJournal, EtatPartie, EvenementTire, Jauges } from '../../moteur/types';
+  import type {
+    EntreeContexte,
+    EntreeJournal,
+    EtatPartie,
+    EvenementTire,
+    Jauges,
+  } from '../../moteur/types';
   import Avis from '../composants/Avis.svelte';
   import BarreTitre from '../composants/BarreTitre.svelte';
   import BoutonNumerote from '../composants/BoutonNumerote.svelte';
@@ -24,6 +30,7 @@
     confirmation,
     msParCaractere = 0,
     anime = false,
+    actualites = [],
     onchoisir,
     onenvoi,
     onauto,
@@ -48,6 +55,8 @@
     msParCaractere?: number;
     /** Animations permises : transitions, jauges, clignotements (jamais en AUTO). */
     anime?: boolean;
+    /** Contexte historique qui commence cette année : bandeau FLASH INFO. */
+    actualites?: readonly EntreeContexte[];
     onchoisir: (numero: number) => void;
     onenvoi: () => void;
     onauto: () => void;
@@ -92,6 +101,18 @@
 <p class="lecteur-seulement" aria-live={auto ? 'off' : 'polite'} aria-atomic="true">{annonce}</p>
 
 <div class="contenu">
+  {#if actualites.length > 0}
+    <!-- Contexte historique de l'année : actualités, crises, lois, mouvements. -->
+    <section class="flash" aria-label="Flash info">
+      {#each actualites as actualite (actualite.id)}
+        <p>
+          <span class="etiquette">FLASH INFO</span>
+          <span class="titre-flash">{partie.annee} · {actualite.titre}</span>
+        </p>
+        <p class="discret">{actualite.texte}</p>
+      {/each}
+    </section>
+  {/if}
   <div class="zones">
     <section class="gauche">
       <div>
@@ -204,6 +225,26 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+
+  .flash {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: var(--ecart-blocs);
+    padding-bottom: 8px;
+    border-bottom: 2px dotted var(--pointilles);
+  }
+
+  .etiquette {
+    padding: 0 6px;
+    background: var(--valeur);
+    color: var(--fond);
+  }
+
+  .titre-flash {
+    margin-left: 8px;
+    color: var(--valeur);
   }
 
   .ressource {

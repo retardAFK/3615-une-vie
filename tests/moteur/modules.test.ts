@@ -6,7 +6,13 @@ import { appliquerMontant } from '../../src/moteur/modules/argent';
 import { evoluerEducation } from '../../src/moteur/modules/education';
 import { ageRetraite, estSalarie } from '../../src/moteur/modules/emploi';
 import { creerGenerateur } from '../../src/moteur/rng';
-import type { DiplomeJoueur, Donnees, EtatPartie, Finances } from '../../src/moteur/types';
+import type {
+  DiplomeJoueur,
+  Donnees,
+  EntreeContexte,
+  EtatPartie,
+  Finances,
+} from '../../src/moteur/types';
 import { DONNEES, TABLES_IMMORTELS, donneesAvec, evenement } from './donnees';
 
 const finances = (epargne: number, dettes: number): Finances => ({
@@ -156,18 +162,29 @@ describe('emploi', () => {
   it('applique le contexte historique aux evenements du tag vise', () => {
     const ev = evenement('choc', { pBase: 0.1, tags: ['licenciement'] });
     const etat = creerPartie('contexte', DONNEES);
-    const tables = {
-      ...DONNEES.tables,
-      contexte: {
-        ...DONNEES.tables.contexte,
-        lignes: [
-          { conditions: { annee: String(etat.annee) }, multiplicateurs: { licenciement: 3 } },
-        ],
-      },
-    };
-    expect(probabiliteEvenement(ev, etat, tables)).toBeGreaterThan(
-      probabiliteEvenement(ev, etat, DONNEES.tables) * 2,
-    );
+    const crise = (profil?: EntreeContexte['profil']): Donnees => ({
+      ...DONNEES,
+      contexte: [
+        ...DONNEES.contexte,
+        {
+          id: 'crise_test',
+          type: 'crise',
+          debut: etat.annee,
+          fin: etat.annee,
+          portee: 'france',
+          titre: 'CRISE DE TEST',
+          texte: 'CRISE DE TEST.',
+          source: 'test',
+          multiplicateurs: { licenciement: 3 },
+          ...(profil ? { profil } : {}),
+        },
+      ],
+    });
+    const base = probabiliteEvenement(ev, etat, DONNEES);
+    expect(probabiliteEvenement(ev, etat, crise())).toBeGreaterThan(base * 2);
+    // Une crise qui vise un autre profil ne touche pas ce personnage.
+    const autreSexe = etat.personnage.origine.sexe === 'femme' ? 'homme' : 'femme';
+    expect(probabiliteEvenement(ev, etat, crise({ sexe: [autreSexe] }))).toBeCloseTo(base, 12);
   });
 });
 

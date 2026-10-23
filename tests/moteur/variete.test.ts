@@ -27,7 +27,9 @@ describe('petite enfance acceleree', () => {
     const { etat, evenements } = avancerPetiteEnfance(creerPartie('trois', donnees), donnees);
     expect(evenements.map((e) => e.id)).toEqual(['trois_ans']);
     expect(etat.personnage.age).toBe(3);
-    expect(etat.historique.at(-1)!.texte).toMatch(/^0 A 2 ANS : ENFANCE /);
+    // Le résumé suit les années défilées ; les actualités de l'année d'arrêt viennent après.
+    const resume = etat.historique.find((e) => e.type === 'resume');
+    expect(resume!.texte).toMatch(/^0 A 2 ANS : ENFANCE /);
     // Puis la vie reprend normalement.
     const suite = fermerAnnee(etat, [], donnees).etat;
     expect(suite.personnage.age).toBe(4);

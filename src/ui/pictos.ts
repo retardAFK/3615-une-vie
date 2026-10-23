@@ -19,6 +19,7 @@ export const PICTOS: Readonly<Record<string, Motif>> = {
   argent: ['..####..', '.#......', '#####...', '.#......', '#####...', '..####..'],
   orientation: ['....#...', '....##..', '#######.', '#######.', '....##..', '....#...'],
   quotidien: ['########', '#......#', '#.#..#.#', '#......#', '#.####.#', '########'],
+  mouvement: ['.######.', '.######.', '.######.', '...##...', '...##...', '...##...'],
 };
 
 /** Ordre de priorité : le premier tag de l'événement qui a un picto l'emporte. */
@@ -47,6 +48,7 @@ const PAR_TAG: Readonly<Record<string, string>> = {
   sinistre: 'logement',
   loisirs: 'loisirs',
   quotidien: 'quotidien',
+  mouvement: 'mouvement',
 };
 
 /** Picto d'un événement d'après ses tags, ou null. */
