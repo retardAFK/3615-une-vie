@@ -3,7 +3,7 @@
 // tirages par tag, selon le profil ; une loi fixe des règles à sa date d'entrée en vigueur.
 
 import { remplitConditions } from '../conditions';
-import type { Donnees, EntreeContexte, Personnage } from '../types';
+import type { Donnees, EntreeContexte, Personnage, RegleConnue, ValeurRegle } from '../types';
 
 /** Années couvertes par l'index (au-delà, aucun contexte). */
 const PREMIERE_ANNEE = 1940;
@@ -83,19 +83,41 @@ export function tagsDuContexte(contexte: readonly EntreeContexte[]): ReadonlySet
   return tags;
 }
 
-/** Règle en vigueur une année : celle de la loi la plus récente qui la fixe. */
+const regles = new WeakMap<
+  readonly EntreeContexte[],
+  Map<RegleConnue, (ValeurRegle | undefined)[]>
+>();
+
+/**
+ * Règle en vigueur une année : celle de la loi la plus récente qui la fixe.
+ * Valeurs indexées par année au premier appel (plusieurs règles lues chaque année).
+ */
 export function regleEnVigueur(
   contexte: readonly EntreeContexte[],
   annee: number,
-  cle: string,
-): boolean | number | undefined {
-  let valeur: boolean | number | undefined;
-  let depuis = -Infinity;
-  for (const entree of contexte) {
-    const regle = entree.regles?.[cle];
-    if (regle === undefined || entree.debut > annee || entree.debut < depuis) continue;
-    valeur = regle;
-    depuis = entree.debut;
+  cle: RegleConnue,
+): ValeurRegle | undefined {
+  let parCle = regles.get(contexte);
+  if (!parCle) {
+    parCle = new Map();
+    regles.set(contexte, parCle);
   }
-  return valeur;
+  let parAnnee = parCle.get(cle);
+  if (!parAnnee) {
+    parAnnee = [];
+    for (let a = PREMIERE_ANNEE; a <= DERNIERE_ANNEE; a++) {
+      let valeur: ValeurRegle | undefined;
+      let depuis = -Infinity;
+      for (const entree of contexte) {
+        const regle = entree.regles?.[cle];
+        if (regle === undefined || entree.debut > a || entree.debut < depuis) continue;
+        valeur = regle;
+        depuis = entree.debut;
+      }
+      parAnnee.push(valeur);
+    }
+    parCle.set(cle, parAnnee);
+  }
+  const borne = Math.min(Math.max(annee, PREMIERE_ANNEE), DERNIERE_ANNEE);
+  return parAnnee[borne - PREMIERE_ANNEE];
 }

@@ -2,6 +2,7 @@
 // sans lever d'exception, pour toutes les signaler d'un coup.
 
 import { AGE_MAXIMAL } from './constantes';
+import { TAGS_AIDES } from './modules/aides';
 import { TAGS_EDUCATION } from './modules/education';
 import { TAGS_EMPLOI } from './modules/emploi';
 import { VARIABLES_TEXTE, minitel, variablesDe } from './recit';
@@ -36,7 +37,7 @@ const CHAMPS_ORIGINE = [
   ...CHAMPS_ETATS_CONDITIONS,
 ];
 /** Tags d'issue des modules : cibles possibles des modificateurs de choix. */
-const TAGS_MODULES: readonly string[] = [...TAGS_EDUCATION, ...TAGS_EMPLOI];
+const TAGS_MODULES: readonly string[] = [...TAGS_EDUCATION, ...TAGS_EMPLOI, ...TAGS_AIDES];
 const JAUGES = [...JAUGES_MODIFIABLES, 'bienEtre'];
 const ETATS: Record<string, readonly string[]> = {
   scolarite: SCOLARITES,
@@ -85,6 +86,7 @@ function normaliser(e: Evenement): Evenement {
     textes: e.textes,
     ressources: e.ressources,
     annees: e.annees,
+    regle: e.regle,
   };
 }
 
@@ -314,6 +316,9 @@ export function validerEvenements(
       ) {
         erreurs.push(`${lieu} : justice doit valoir garde_a_vue ou condamnation`);
       }
+      if (effets.surendettement !== undefined && effets.surendettement !== true) {
+        erreurs.push(`${lieu} : surendettement doit valoir true`);
+      }
       if (effets.argent !== undefined && !estEntier(effets.argent)) {
         erreurs.push(`${lieu} : argent doit etre un entier`);
       }
@@ -342,6 +347,10 @@ export function validerEvenements(
       if (!estEntier(premiere) || !estEntier(derniere) || premiere > derniere) {
         erreurs.push(`${lieu} : annees doit etre [premiere, derniere] en annees calendaires`);
       }
+    }
+
+    if (brut.regle !== undefined && !(REGLES_CONNUES as readonly unknown[]).includes(brut.regle)) {
+      erreurs.push(`${lieu} : regle inconnue ${String(brut.regle)}`);
     }
 
     if (brut.cooldown !== undefined && (!estEntier(brut.cooldown) || brut.cooldown < 1)) {
@@ -474,7 +483,11 @@ export function validerContexte(
             if (!(REGLES_CONNUES as readonly string[]).includes(cle)) {
               erreurs.push(`${lieu} : regle inconnue ${cle}`);
             }
-            if (typeof valeur !== 'boolean' && !estNombre(valeur)) {
+            if (typeof valeur === 'string') {
+              if (!estTexte(valeur) || valeur !== minitel(valeur)) {
+                erreurs.push(`${lieu} : nom de la regle ${cle} hors format Minitel`);
+              }
+            } else if (typeof valeur !== 'boolean' && !estNombre(valeur)) {
               erreurs.push(`${lieu} : valeur de la regle ${cle} invalide`);
             }
           }

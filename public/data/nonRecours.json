@@ -1,0 +1,42 @@
+{
+  "table": "nonRecours",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "aide": "aah"
+      },
+      "valeur": 0.1
+    },
+    {
+      "conditions": {
+        "aide": "minimumVieillesse"
+      },
+      "valeur": 0.5
+    },
+    {
+      "conditions": {
+        "aide": "minimumSocial"
+      },
+      "valeur": 0.3
+    },
+    {
+      "conditions": {
+        "aide": "complementActivite"
+      },
+      "valeur": 0.35
+    },
+    {
+      "conditions": {
+        "aide": "aideLogement"
+      },
+      "valeur": 0.1
+    },
+    {
+      "conditions": {},
+      "valeur": 0.3
+    }
+  ]
+}

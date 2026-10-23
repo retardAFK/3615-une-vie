@@ -20,7 +20,8 @@ import {
   provoqueDeces,
   tirerEvenements,
 } from './evenements';
-import { bilanAnnuel } from './modules/argent';
+import { calculerAides } from './modules/aides';
+import { bilanAnnuel, ouvrirPlan } from './modules/argent';
 import { evoluerEducation } from './modules/education';
 import { nouveautesDeLAnnee } from './modules/contexte';
 import { changerEmploi, comptabiliserAnnee, evoluerEmploi } from './modules/emploi';
@@ -116,13 +117,14 @@ export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuv
   if (!etatRecu.personnage.vivant) throw new Error('La partie est terminee');
   if (etatRecu.anneeEnCours) throw new Error('Une annee est deja ouverte');
 
-  // Étape 1 : revenus de l'année (salaire, indemnités, pension), puis bilan d'argent.
+  // Étape 1 : revenus de l'année (salaire, indemnités, pension), aides, puis bilan d'argent.
   const { tables } = donnees;
-  const comptes = comptabiliserAnnee(etatRecu.personnage, etatRecu.annee, tables);
-  const etat: EtatPartie = {
+  const comptes: EtatPartie = {
     ...etatRecu,
-    personnage: bilanAnnuel(comptes, etatRecu.annee, tables),
+    personnage: comptabiliserAnnee(etatRecu.personnage, etatRecu.annee, tables),
   };
+  const bilan = bilanAnnuel(comptes, calculerAides(comptes, donnees), donnees);
+  const etat: EtatPartie = { ...comptes, personnage: bilan.personnage };
   const { personnage } = etat;
 
   const meurt =
@@ -130,12 +132,13 @@ export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuv
     tirage(etat.graine, personnage.age, 'mortalite') <
       probabiliteDeces(personnage.age, personnage.origine.sexe, etat.annee, donnees.tables);
   if (meurt) {
-    const { etat: final, journal } = deces(etat, 'mortalite', []);
+    const { etat: final, journal } = deces(etat, 'mortalite', bilan.journal);
     return { etat: final, evenements: [], choixProposes: [], journal };
   }
 
   const { retenus, reportes } = tirerEvenements(etat, donnees);
-  // Contexte historique : chaque entrée qui commence cette année entre au journal.
+  // Contexte historique : chaque entrée qui commence cette année entre au journal,
+  // puis les nouvelles de l'argent (aides, dettes).
   const actualites: EntreeJournal[] = nouveautesDeLAnnee(donnees.contexte, etat.annee).map(
     (entree) => ({
       annee: etat.annee,
@@ -145,6 +148,7 @@ export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuv
       contexteId: entree.id,
     }),
   );
+  if (bilan.journal.length > 0) actualites.push(...bilan.journal);
   return {
     etat: {
       ...etat,
@@ -178,6 +182,13 @@ export function fermerAnnee(
     courant = appliquerEvenement(courant, evenement, retenu, rangDe(donnees.evenements, evenement));
     // Opportunité acceptée (offre extérieure) : seule exception aux choix sans résultat direct.
     if (retenu?.effets?.changerEmploi) courant = changerEmploi(courant, donnees, evenement.id);
+    if (evenement.effets.surendettement) {
+      const { personnage } = courant;
+      courant = {
+        ...courant,
+        personnage: { ...personnage, finances: ouvrirPlan(personnage.finances, donnees.tables) },
+      };
+    }
     journal.push({
       annee: courant.annee,
       age: courant.personnage.age,

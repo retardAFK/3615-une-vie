@@ -21,6 +21,10 @@ function valeurChamp(personnage: Personnage, champ: ChampCondition): string {
         : etats.justice.gardesAVue > 0
           ? 'garde_a_vue'
           : 'aucun';
+    case 'logement':
+      return etats.logement;
+    case 'endettement':
+      return personnage.finances.endettement;
     default:
       return String(personnage.origine[champ]);
   }

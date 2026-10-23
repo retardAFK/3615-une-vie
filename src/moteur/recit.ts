@@ -19,7 +19,12 @@ export const VARIABLES_TEXTE = [
 ] as const;
 /** Variables en plus pour les résumés de plusieurs années : âges de début et de fin. */
 export const VARIABLES_RESUME = ['debut', 'fin'] as const;
-export type VariableTexte = (typeof VARIABLES_TEXTE)[number] | (typeof VARIABLES_RESUME)[number];
+/** Variable des récits d'argent : nom de l'aide, tel que la loi en vigueur la nomme. */
+export const VARIABLES_ARGENT = ['aide'] as const;
+export type VariableTexte =
+  | (typeof VARIABLES_TEXTE)[number]
+  | (typeof VARIABLES_RESUME)[number]
+  | (typeof VARIABLES_ARGENT)[number];
 
 const MOTIF_VARIABLE = /\{([^{}]*)\}/g;
 

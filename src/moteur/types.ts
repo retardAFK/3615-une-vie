@@ -128,11 +128,36 @@ export type JaugeModifiable = (typeof JAUGES_MODIFIABLES)[number];
 
 // --- Finances (euros constants, entiers) ---
 
+/** Aides sociales, dans l'ordre de calcul (règles, section 7). */
+export const AIDES = [
+  'aah',
+  'minimumVieillesse',
+  'minimumSocial',
+  'complementActivite',
+  'aideLogement',
+] as const;
+export type Aide = (typeof AIDES)[number];
+
+/** Niveaux d'endettement (règles, section 7). */
+export const NIVEAUX_ENDETTEMENT = ['sain', 'tendu', 'critique', 'surendettement'] as const;
+export type NiveauEndettement = (typeof NIVEAUX_ENDETTEMENT)[number];
+
 export interface Finances {
   revenuAnnuel: number;
   epargne: number;
   dettes: number;
   patrimoine: number;
+  /** Aides versées cette année (une aide absente n'est pas versée). */
+  aides: Readonly<Partial<Record<Aide, number>>>;
+  /** Aides auxquelles le personnage avait droit cette année sans les demander. */
+  nonDemandees: readonly Aide[];
+  /** Remboursements de l'année. */
+  remboursements: number;
+  endettement: NiveauEndettement;
+  /** Années de suite au niveau critique. */
+  anneesCritique: number;
+  /** Années restantes du plan d'apurement ; 0 sans plan (accès au crédit bloqué pendant). */
+  planApurement: number;
 }
 
 // --- États (variables discrètes) ---
@@ -318,6 +343,8 @@ export const CHAMPS_ETATS_CONDITIONS = [
   'diplome',
   'pcs',
   'justice',
+  'logement',
+  'endettement',
 ] as const;
 export type ChampCondition = keyof Origine | (typeof CHAMPS_ETATS_CONDITIONS)[number];
 
@@ -379,6 +406,8 @@ export interface Effets {
   argent?: number;
   /** Suite judiciaire : une condamnation inscrit le casier. */
   justice?: 'garde_a_vue' | 'condamnation';
+  /** Dossier de surendettement recevable : un plan d'apurement commence. */
+  surendettement?: true;
 }
 
 export interface Evenement {
@@ -405,6 +434,8 @@ export interface Evenement {
   ressources?: readonly string[];
   /** Années calendaires d'éligibilité, bornes comprises (mouvements sociaux datés). */
   annees?: readonly [number, number];
+  /** Règle du contexte qui doit être en vigueur (une loi l'a créée). */
+  regle?: RegleConnue;
 }
 
 export interface FichierEvenements {
@@ -422,7 +453,19 @@ export const TYPES_CONTEXTE = ['actualite', 'crise', 'loi', 'mouvement'] as cons
 export type TypeContexte = (typeof TYPES_CONTEXTE)[number];
 
 /** Règles qu'une loi peut fixer à sa date d'entrée en vigueur. */
-export const REGLES_CONNUES = ['bacPro'] as const;
+export const REGLES_CONNUES = [
+  'bacPro',
+  'minimumSocial',
+  'complementActivite',
+  'aideLogement',
+  'aah',
+  'minimumVieillesse',
+  'surendettement',
+  'retablissementPersonnel',
+] as const;
+export type RegleConnue = (typeof REGLES_CONNUES)[number];
+/** Valeur d'une règle ; un texte nomme l'aide créée (« LE RSA »). */
+export type ValeurRegle = boolean | number | string;
 
 export interface EntreeContexte {
   id: string;
@@ -442,7 +485,7 @@ export interface EntreeContexte {
   /** Multiplicateurs par tag pendant les années de l'entrée (aCalibrer). */
   multiplicateurs?: Readonly<Record<string, number>>;
   /** Règles fixées par une loi à partir de son année de début. */
-  regles?: Readonly<Record<string, boolean | number>>;
+  regles?: Readonly<Partial<Record<RegleConnue, ValeurRegle>>>;
   aCalibrer?: boolean;
 }
 
@@ -465,7 +508,7 @@ export interface Donnees {
  * « resume » : années sans événement de la petite enfance, en une ligne ;
  * « actualite » : entrée du contexte historique qui commence cette année-là.
  */
-export type TypeEntree = 'naissance' | 'deces' | 'evenement' | 'resume' | 'actualite';
+export type TypeEntree = 'naissance' | 'deces' | 'evenement' | 'resume' | 'actualite' | 'argent';
 
 export interface EntreeJournal {
   annee: number;
@@ -646,4 +689,6 @@ export interface Tables {
   // Argent
   depensesVie: TableValeur;
   parametresArgent: TableValeurs;
+  baremesAides: TableValeurs;
+  nonRecours: TableValeur;
 }

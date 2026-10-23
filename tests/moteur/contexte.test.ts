@@ -45,6 +45,10 @@ describe('validation du contexte', () => {
       'tag vise inconnu',
     );
     expect(erreurs([entree({ regles: { inventee: true } })]).join()).toContain('regle inconnue');
+    expect(erreurs([entree({ regles: { minimumSocial: 'Le RSA' } })]).join()).toContain(
+      'hors format Minitel',
+    );
+    expect(erreurs([entree({ regles: { minimumSocial: 'LE RSA' } })])).toEqual([]);
   });
 
   it('chaque entree du contenu porte une source', () => {

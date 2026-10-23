@@ -1,0 +1,426 @@
+{
+  "table": "baremesAides",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8). Une aide n'est versee que si une loi du contexte historique l'a creee.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {
+        "aide": "aah",
+        "periode": "1950-1959"
+      },
+      "valeurs": {
+        "montant": 0
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aah",
+        "periode": "1960-1969"
+      },
+      "valeurs": {
+        "montant": 0
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aah",
+        "periode": "1970-1979"
+      },
+      "valeurs": {
+        "montant": 6000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aah",
+        "periode": "1980-1989"
+      },
+      "valeurs": {
+        "montant": 7200
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aah",
+        "periode": "1990-1999"
+      },
+      "valeurs": {
+        "montant": 8000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aah",
+        "periode": "2000-2009"
+      },
+      "valeurs": {
+        "montant": 8400
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aah",
+        "periode": "2010-2019"
+      },
+      "valeurs": {
+        "montant": 9600
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aah",
+        "periode": "2020-2029"
+      },
+      "valeurs": {
+        "montant": 11400
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aah"
+      },
+      "valeurs": {
+        "montant": 11400
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumVieillesse",
+        "periode": "1950-1959"
+      },
+      "valeurs": {
+        "montant": 2400
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumVieillesse",
+        "periode": "1960-1969"
+      },
+      "valeurs": {
+        "montant": 3600
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumVieillesse",
+        "periode": "1970-1979"
+      },
+      "valeurs": {
+        "montant": 5200
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumVieillesse",
+        "periode": "1980-1989"
+      },
+      "valeurs": {
+        "montant": 7000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumVieillesse",
+        "periode": "1990-1999"
+      },
+      "valeurs": {
+        "montant": 7800
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumVieillesse",
+        "periode": "2000-2009"
+      },
+      "valeurs": {
+        "montant": 8400
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumVieillesse",
+        "periode": "2010-2019"
+      },
+      "valeurs": {
+        "montant": 9600
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumVieillesse",
+        "periode": "2020-2029"
+      },
+      "valeurs": {
+        "montant": 11400
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumVieillesse"
+      },
+      "valeurs": {
+        "montant": 11400
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumSocial",
+        "periode": "1950-1959"
+      },
+      "valeurs": {
+        "montant": 0
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumSocial",
+        "periode": "1960-1969"
+      },
+      "valeurs": {
+        "montant": 0
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumSocial",
+        "periode": "1970-1979"
+      },
+      "valeurs": {
+        "montant": 0
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumSocial",
+        "periode": "1980-1989"
+      },
+      "valeurs": {
+        "montant": 6400
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumSocial",
+        "periode": "1990-1999"
+      },
+      "valeurs": {
+        "montant": 6600
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumSocial",
+        "periode": "2000-2009"
+      },
+      "valeurs": {
+        "montant": 6700
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumSocial",
+        "periode": "2010-2019"
+      },
+      "valeurs": {
+        "montant": 6800
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumSocial",
+        "periode": "2020-2029"
+      },
+      "valeurs": {
+        "montant": 7000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "minimumSocial"
+      },
+      "valeurs": {
+        "montant": 7000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "complementActivite",
+        "periode": "1950-1959"
+      },
+      "valeurs": {
+        "montant": 0,
+        "plafond": 1
+      }
+    },
+    {
+      "conditions": {
+        "aide": "complementActivite",
+        "periode": "1960-1969"
+      },
+      "valeurs": {
+        "montant": 0,
+        "plafond": 1
+      }
+    },
+    {
+      "conditions": {
+        "aide": "complementActivite",
+        "periode": "1970-1979"
+      },
+      "valeurs": {
+        "montant": 0,
+        "plafond": 1
+      }
+    },
+    {
+      "conditions": {
+        "aide": "complementActivite",
+        "periode": "1980-1989"
+      },
+      "valeurs": {
+        "montant": 0,
+        "plafond": 1
+      }
+    },
+    {
+      "conditions": {
+        "aide": "complementActivite",
+        "periode": "1990-1999"
+      },
+      "valeurs": {
+        "montant": 0,
+        "plafond": 1
+      }
+    },
+    {
+      "conditions": {
+        "aide": "complementActivite",
+        "periode": "2000-2009"
+      },
+      "valeurs": {
+        "montant": 800,
+        "plafond": 17000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "complementActivite",
+        "periode": "2010-2019"
+      },
+      "valeurs": {
+        "montant": 2000,
+        "plafond": 19000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "complementActivite",
+        "periode": "2020-2029"
+      },
+      "valeurs": {
+        "montant": 2600,
+        "plafond": 21000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "complementActivite"
+      },
+      "valeurs": {
+        "montant": 2600,
+        "plafond": 21000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aideLogement",
+        "periode": "1950-1959"
+      },
+      "valeurs": {
+        "montant": 0,
+        "plafond": 1
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aideLogement",
+        "periode": "1960-1969"
+      },
+      "valeurs": {
+        "montant": 0,
+        "plafond": 1
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aideLogement",
+        "periode": "1970-1979"
+      },
+      "valeurs": {
+        "montant": 1800,
+        "plafond": 13000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aideLogement",
+        "periode": "1980-1989"
+      },
+      "valeurs": {
+        "montant": 2400,
+        "plafond": 14000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aideLogement",
+        "periode": "1990-1999"
+      },
+      "valeurs": {
+        "montant": 2800,
+        "plafond": 15000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aideLogement",
+        "periode": "2000-2009"
+      },
+      "valeurs": {
+        "montant": 3000,
+        "plafond": 16000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aideLogement",
+        "periode": "2010-2019"
+      },
+      "valeurs": {
+        "montant": 2900,
+        "plafond": 16000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aideLogement",
+        "periode": "2020-2029"
+      },
+      "valeurs": {
+        "montant": 2700,
+        "plafond": 16000
+      }
+    },
+    {
+      "conditions": {
+        "aide": "aideLogement"
+      },
+      "valeurs": {
+        "montant": 2700,
+        "plafond": 16000
+      }
+    }
+  ]
+}

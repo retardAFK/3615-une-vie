@@ -59,6 +59,8 @@ export const NOMS_TABLES: readonly (keyof Tables)[] = [
   'ageLegalRetraite',
   'depensesVie',
   'parametresArgent',
+  'baremesAides',
+  'nonRecours',
 ];
 
 export type Recuperer = (

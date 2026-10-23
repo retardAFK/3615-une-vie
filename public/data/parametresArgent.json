@@ -7,7 +7,27 @@
     {
       "conditions": {},
       "valeurs": {
-        "partRevenuDepensee": 0.7
+        "partRevenuDepensee": 0.7,
+        "ageMinimumSocial": 25,
+        "ageAah": 20,
+        "ageMinimumVieillesse": 65,
+        "ageJeune": 30,
+        "mNonRecoursJeune": 1.6,
+        "mNonRecoursRural": 1.3,
+        "tauxInteret": 0.08,
+        "partRemboursee": 0.25,
+        "remboursementMinimum": 600,
+        "plafondCreditRevenus": 1.5,
+        "plafondCreditMinimum": 3000,
+        "seuilTendu": 0.33,
+        "seuilCritique": 0.5,
+        "perteSanteTendu": 2,
+        "perteSanteCritique": 4,
+        "perteSantePrivation": 3,
+        "anneesAvantDossier": 3,
+        "dureePlan": 7,
+        "partCapacitePlan": 0.5,
+        "partDeficitIncompressible": 0.3
       }
     }
   ]

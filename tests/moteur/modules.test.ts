@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { creerPartie, fermerAnnee, jouerAnneeAuto, ouvrirAnnee } from '../../src/moteur/boucle';
+import { FINANCES_INITIALES } from '../../src/moteur/constantes';
 import { distributionCorrigee } from '../../src/moteur/cotes';
 import { probabiliteEvenement } from '../../src/moteur/evenements';
 import { appliquerMontant } from '../../src/moteur/modules/argent';
@@ -16,10 +17,9 @@ import type {
 import { DONNEES, TABLES_IMMORTELS, donneesAvec, evenement } from './donnees';
 
 const finances = (epargne: number, dettes: number): Finances => ({
-  revenuAnnuel: 0,
+  ...FINANCES_INITIALES,
   epargne,
   dettes,
-  patrimoine: 0,
 });
 
 /** Joue en AUTO jusqu'à l'âge voulu (ou la mort). */

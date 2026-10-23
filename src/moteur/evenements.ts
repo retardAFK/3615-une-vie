@@ -4,7 +4,7 @@ import { AGE_MAXIMAL } from './constantes';
 import { multiplicateurTrait, probabiliteFinale, probabiliteParProduit } from './cotes';
 import { appliquerMontant } from './modules/argent';
 import { remplitConditions } from './conditions';
-import { multiplicateurContexte, tagsDuContexte } from './modules/contexte';
+import { multiplicateurContexte, regleEnVigueur, tagsDuContexte } from './modules/contexte';
 import { rediger } from './recit';
 import { hachageIdentifiant, sousGenerateur, tirage, tirageHache, tirerPondere } from './rng';
 import { CHAMPS_ETATS_CONDITIONS } from './types';
@@ -89,15 +89,26 @@ export function estEligible(evenement: Evenement, etat: EtatPartie, donnees: Don
   const { age } = etat.personnage;
   const [min, max] = evenement.age;
   if (age < min || age > max) return false;
-  return estEligibleAgeCompris(evenement, rangDe(donnees.evenements, evenement), etat);
+  return estEligibleAgeCompris(evenement, rangDe(donnees.evenements, evenement), etat, donnees);
 }
 
-/** Éligibilité hors tranche d'âge (déjà garantie par l'index par âge) : cooldown, conditions. */
-function estEligibleAgeCompris(evenement: Evenement, rang: number, etat: EtatPartie): boolean {
+/**
+ * Éligibilité hors tranche d'âge (déjà garantie par l'index par âge) : cooldown,
+ * années calendaires, règle en vigueur, conditions.
+ */
+function estEligibleAgeCompris(
+  evenement: Evenement,
+  rang: number,
+  etat: EtatPartie,
+  donnees: Donnees,
+): boolean {
   const reprise = etat.cooldowns[rang];
   if (reprise !== undefined && etat.personnage.age < reprise) return false;
   const annees = evenement.annees;
   if (annees && (etat.annee < annees[0] || etat.annee > annees[1])) return false;
+  if (evenement.regle && !regleEnVigueur(donnees.contexte, etat.annee, evenement.regle)) {
+    return false;
+  }
   return !evenement.requiert || remplitConditions(etat.personnage, evenement.requiert);
 }
 
@@ -292,7 +303,7 @@ export function tirerEvenements(
   let candidats: { tire: EvenementTire; rang: number }[] | null = null;
   for (let i = 0; i < tranche.length; i++) {
     const { evenement, rang, identifiant } = tranche[i]!;
-    if (!estEligibleAgeCompris(evenement, rang, etat)) continue;
+    if (!estEligibleAgeCompris(evenement, rang, etat, donnees)) continue;
     if (reportes.length > 0 && reportes.includes(evenement.id)) {
       (candidats ??= []).push({ tire: tire(evenement, etat, donnees, 1, true), rang });
       continue;

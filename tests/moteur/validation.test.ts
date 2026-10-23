@@ -77,4 +77,19 @@ describe('validerEvenements', () => {
       ]).join(),
     ).toContain('un cout ne peut pas augmenter');
   });
+
+  it('verifie la regle requise, l effet de surendettement et les champs argent', () => {
+    expect(erreurs([evenement('loi', { regle: 'surendettement' })])).toEqual([]);
+    expect(erreurs([{ ...evenement('loi'), regle: 'inventee' }]).join()).toContain(
+      'regle inconnue',
+    );
+    expect(erreurs([{ ...evenement('plan'), effets: { surendettement: 'oui' } }]).join()).toContain(
+      'surendettement doit valoir true',
+    );
+    expect(
+      erreurs([
+        evenement('dettes', { requiert: { endettement: ['critique'], logement: ['hlm'] } }),
+      ]),
+    ).toEqual([]);
+  });
 });

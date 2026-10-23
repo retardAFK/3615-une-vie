@@ -49,6 +49,12 @@ export const FINANCES_INITIALES: Readonly<Finances> = {
   epargne: 0,
   dettes: 0,
   patrimoine: 0,
+  aides: {},
+  nonDemandees: [],
+  remboursements: 0,
+  endettement: 'sain',
+  anneesCritique: 0,
+  planApurement: 0,
 };
 
 export function etatsInitiaux(): Etats {
