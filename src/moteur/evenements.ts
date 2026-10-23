@@ -357,50 +357,212 @@ export function aProbabiliteFixe(
   return fixe;
 }
 
+const AUCUN_TAG: readonly string[] = [];
+
 /**
- * Produits de multiplicateurs fixes déjà calculés, par vie (origine et traits constants).
- * Les conditions sur region et territoire suivent le lieu de vie : un déménagement
- * (nouvel objet residence) refait le cache.
+ * Ce qui ne change pas d'une vie à l'autre pour une liste d'événements, un contexte et
+ * une table addictionsAutresTags : rangé par rang d'événement (tableaux, sans Map).
+ */
+interface ProfilEvenements {
+  evenements: readonly Evenement[];
+  contexte: readonly EntreeContexte[];
+  table: object;
+  /** 1 si la probabilité est fixe pour la vie (hors addictions et choix). */
+  fixe: Uint8Array;
+  /** Tags de l'événement sur lesquels pèsent les addictions actives (souvent aucun). */
+  tagsAddictions: (readonly string[])[];
+  /**
+   * Borne haute de la probabilité de l'événement, hors modificateurs de choix : chaque
+   * multiplicateur pris à son maximum. Un tirage au-dessus de la borne ne peut pas
+   * déclencher l'événement : inutile de tester l'éligibilité ou de calculer la probabilité.
+   */
+  borne: Float64Array;
+}
+
+/** Plus grand produit possible des multiplicateurs d'un événement (hors choix). */
+function produitMaximal(
+  evenement: Evenement,
+  contexte: readonly EntreeContexte[],
+  table: TableValeur,
+): number {
+  let produit = 1;
+  for (const mod of evenement.modificateurs ?? []) {
+    // Traits et jauges vont de 0 à 100 : e^(k × (x − 50) / 50) vaut au plus e^|k|.
+    if ('trait' in mod || 'jauge' in mod) produit *= Math.exp(Math.abs(mod.k));
+    else produit *= Math.max(1, mod.m);
+  }
+  const addictions = indexAddictions(table);
+  for (const tag of evenement.tags) {
+    for (const entree of contexte) {
+      const facteur = entree.multiplicateurs?.[tag];
+      if (facteur !== undefined && facteur > 1) produit *= facteur;
+    }
+    for (const [, facteur] of addictions.get(tag) ?? []) {
+      if (facteur > 1) produit *= facteur;
+    }
+  }
+  return produit;
+}
+let dernierProfil: ProfilEvenements | null = null;
+
+function profilEvenements(donnees: Donnees): ProfilEvenements {
+  const { evenements, contexte } = donnees;
+  const table = donnees.tables.addictionsAutresTags;
+  const p = dernierProfil;
+  if (p && p.evenements === evenements && p.contexte === contexte && p.table === table) return p;
+  const vises = tagsDesAddictions(table);
+  const profil: ProfilEvenements = {
+    evenements,
+    contexte,
+    table,
+    fixe: Uint8Array.from(evenements, (e) => (aProbabiliteFixe(e, contexte) ? 1 : 0)),
+    tagsAddictions: evenements.map((e) => {
+      const trouves = e.tags.filter((tag) => vises.has(tag));
+      return trouves.length > 0 ? trouves : AUCUN_TAG;
+    }),
+    borne: Float64Array.from(evenements, (e) =>
+      typeof e.pBase === 'number'
+        ? probabiliteParProduit(e.pBase, produitMaximal(e, contexte, table))
+        : Infinity,
+    ),
+  };
+  dernierProfil = profil;
+  return profil;
+}
+
+/**
+ * Produits de multiplicateurs fixes déjà calculés, par vie (origine et traits constants),
+ * rangés par rang d'événement (NaN : pas encore calculé). Les conditions sur region et
+ * territoire suivent le lieu de vie : un déménagement (nouvel objet residence) refait le cache.
  */
 interface CacheVie {
   traits: object;
   residence: object;
-  valeurs: Map<Evenement, number>;
-  probabilites: Map<Evenement, number>;
+  evenements: readonly Evenement[];
+  valeurs: Float64Array;
+  probabilites: Float64Array;
 }
 const produitsFixes = new WeakMap<object, CacheVie>();
 // Vie en cours : ses années se suivent, sans recherche dans le cache des vies.
 let derniereOrigine: object | null = null;
 let dernierCache: CacheVie | undefined;
 
-function viseParUnChoix(evenement: Evenement, etat: EtatPartie): boolean {
-  const actifs = etat.modificateursActifs;
-  for (let i = 0; i < actifs.length; i++) {
-    if (estActif(actifs[i]!, etat.personnage.age) && vise(actifs[i]!, evenement)) return true;
+function cacheVie(etat: EtatPartie, evenements: readonly Evenement[]): CacheVie {
+  const { origine, traits } = etat.personnage;
+  const { residence } = etat.personnage.etats;
+  let cache = origine === derniereOrigine ? dernierCache : produitsFixes.get(origine);
+  if (
+    !cache ||
+    cache.traits !== traits ||
+    cache.residence !== residence ||
+    cache.evenements !== evenements
+  ) {
+    cache = {
+      traits,
+      residence,
+      evenements,
+      valeurs: new Float64Array(evenements.length).fill(NaN),
+      probabilites: new Float64Array(evenements.length).fill(NaN),
+    };
+    produitsFixes.set(origine, cache);
   }
-  return false;
+  derniereOrigine = origine;
+  dernierCache = cache;
+  return cache;
 }
 
-// Tags de chaque événement visés par la table addictionsAutresTags courante.
-let tableTagsEvenements: object | null = null;
-let tagsEvenements = new Map<Evenement, readonly string[]>();
-const AUCUN_TAG: readonly string[] = [];
+/**
+ * Événements visés par les modificateurs de choix actifs : marqués une fois par an dans
+ * un tableau indexé par rang (marque = numéro de l'année de calcul, sans remise à zéro).
+ */
+interface Cibles {
+  actifs: readonly ModificateurTemporaire[];
+  age: number;
+  evenements: readonly Evenement[];
+  marques: Uint32Array;
+  generation: number;
+  aucune: boolean;
+}
+let dernieresCibles: Cibles | null = null;
+let generationCibles = 0;
+const parTagDeListe = new WeakMap<readonly Evenement[], Map<string, number[]>>();
 
-/** Tags de l'événement sur lesquels pèsent les addictions actives (souvent aucun). */
-function tagsAddictionsDe(evenement: Evenement, donnees: Donnees): readonly string[] {
-  const table = donnees.tables.addictionsAutresTags;
-  if (table !== tableTagsEvenements) {
-    tableTagsEvenements = table;
-    tagsEvenements = new Map();
+function rangsParTag(evenements: readonly Evenement[]): Map<string, number[]> {
+  let parTag = parTagDeListe.get(evenements);
+  if (!parTag) {
+    parTag = new Map();
+    evenements.forEach((e, rang) => {
+      for (const tag of e.tags) {
+        if (!parTag!.has(tag)) parTag!.set(tag, []);
+        parTag!.get(tag)!.push(rang);
+      }
+    });
+    parTagDeListe.set(evenements, parTag);
   }
-  let tags = tagsEvenements.get(evenement);
-  if (tags === undefined) {
-    const vises = tagsDesAddictions(table);
-    const trouves = evenement.tags.filter((tag) => vises.has(tag));
-    tags = trouves.length > 0 ? trouves : AUCUN_TAG;
-    tagsEvenements.set(evenement, tags);
+  return parTag;
+}
+
+function ciblesActives(etat: EtatPartie, evenements: readonly Evenement[]): Cibles {
+  const actifs = etat.modificateursActifs;
+  const { age } = etat.personnage;
+  let c = dernieresCibles;
+  if (c && c.actifs === actifs && c.age === age && c.evenements === evenements) return c;
+  if (!c || c.evenements !== evenements) {
+    c = {
+      actifs,
+      age,
+      evenements,
+      marques: new Uint32Array(evenements.length),
+      generation: 0,
+      aucune: true,
+    };
   }
-  return tags;
+  generationCibles++;
+  c.actifs = actifs;
+  c.age = age;
+  c.generation = generationCibles;
+  c.aucune = true;
+  const parTag = rangsParTag(evenements);
+  for (let i = 0; i < actifs.length; i++) {
+    const mod = actifs[i]!;
+    if (!estActif(mod, age)) continue;
+    if ('tag' in mod.cible) {
+      for (const rang of parTag.get(mod.cible.tag) ?? []) c.marques[rang] = c.generation;
+    } else {
+      const rang = rangsParId(evenements).get(mod.cible.evenement);
+      if (rang !== undefined) c.marques[rang] = c.generation;
+    }
+    c.aucune = false;
+  }
+  dernieresCibles = c;
+  return c;
+}
+
+const parIdDeListe = new WeakMap<readonly Evenement[], Map<string, number>>();
+
+function rangsParId(evenements: readonly Evenement[]): Map<string, number> {
+  let parId = parIdDeListe.get(evenements);
+  if (!parId) {
+    parId = new Map(evenements.map((e, rang) => [e.id, rang]));
+    parIdDeListe.set(evenements, parId);
+  }
+  return parId;
+}
+
+function viseParUnChoix(rang: number, cibles: Cibles): boolean {
+  return !cibles.aucune && cibles.marques[rang] === cibles.generation;
+}
+
+function facteurAddictions(tags: readonly string[], etat: EtatPartie, donnees: Donnees): number {
+  let facteur = 1;
+  for (let i = 0; i < tags.length; i++) {
+    facteur *= multiplicateurAddictions(
+      etat.personnage,
+      tags[i]!,
+      donnees.tables.addictionsAutresTags,
+    );
+  }
+  return facteur;
 }
 
 /** Probabilité finale de l'événement cette année : pBase corrigée par la formule des cotes. */
@@ -415,45 +577,56 @@ export function probabiliteEvenement(
   if (!donnees) {
     return probabiliteParProduit(evenement.pBase, produitMultiplicateurs(evenement, etat));
   }
-  const tags = tagsAddictionsDe(evenement, donnees);
-  let facteur = 1;
-  for (let i = 0; i < tags.length; i++) {
-    facteur *= multiplicateurAddictions(
-      etat.personnage,
-      tags[i]!,
-      donnees.tables.addictionsAutresTags,
-    );
-  }
-  if (!aProbabiliteFixe(evenement, donnees.contexte) || viseParUnChoix(evenement, etat)) {
+  const rang = donnees.evenements.indexOf(evenement);
+  if (rang === -1) {
+    // Événement hors de la liste : calculé sans cache.
+    const vises = tagsDesAddictions(donnees.tables.addictionsAutresTags);
     return probabiliteParProduit(
       evenement.pBase,
-      produitMultiplicateurs(evenement, etat, donnees) * facteur,
+      produitMultiplicateurs(evenement, etat, donnees) *
+        facteurAddictions(
+          evenement.tags.filter((tag) => vises.has(tag)),
+          etat,
+          donnees,
+        ),
     );
   }
-  // Partie fixe pour toute la vie : le produit des multiplicateurs, en cache.
-  const { origine, traits } = etat.personnage;
-  const { residence } = etat.personnage.etats;
-  let cache = origine === derniereOrigine ? dernierCache : produitsFixes.get(origine);
-  if (!cache || cache.traits !== traits || cache.residence !== residence) {
-    cache = { traits, residence, valeurs: new Map(), probabilites: new Map() };
-    produitsFixes.set(origine, cache);
+  return probabiliteRangee(evenement, rang, etat, donnees);
+}
+
+/** Même chose, pour un événement dont le rang dans donnees.evenements est connu (tirage annuel). */
+function probabiliteRangee(
+  evenement: Evenement,
+  rang: number,
+  etat: EtatPartie,
+  donnees: Donnees,
+): number {
+  if (typeof evenement.pBase !== 'number') {
+    throw new Error(`${evenement.id} : pBase par table pas encore prise en charge`);
   }
-  derniereOrigine = origine;
-  dernierCache = cache;
+  const pBase = evenement.pBase;
+  const profil = profilEvenements(donnees);
+  const tags = profil.tagsAddictions[rang]!;
+  const facteur = tags.length === 0 ? 1 : facteurAddictions(tags, etat, donnees);
+  if (profil.fixe[rang] === 0 || viseParUnChoix(rang, ciblesActives(etat, donnees.evenements))) {
+    return probabiliteParProduit(pBase, produitMultiplicateurs(evenement, etat, donnees) * facteur);
+  }
+  // Partie fixe pour toute la vie : le produit des multiplicateurs, en cache.
+  const cache = cacheVie(etat, donnees.evenements);
   if (tags.length === 0) {
-    let p = cache.probabilites.get(evenement);
-    if (p === undefined) {
-      p = probabiliteParProduit(evenement.pBase, produitMultiplicateurs(evenement, etat, donnees));
-      cache.probabilites.set(evenement, p);
+    let p = cache.probabilites[rang]!;
+    if (Number.isNaN(p)) {
+      p = probabiliteParProduit(pBase, produitMultiplicateurs(evenement, etat, donnees));
+      cache.probabilites[rang] = p;
     }
     return p;
   }
-  let produit = cache.valeurs.get(evenement);
-  if (produit === undefined) {
+  let produit = cache.valeurs[rang]!;
+  if (Number.isNaN(produit)) {
     produit = produitMultiplicateurs(evenement, etat, donnees);
-    cache.valeurs.set(evenement, produit);
+    cache.valeurs[rang] = produit;
   }
-  return probabiliteParProduit(evenement.pBase, produit * facteur);
+  return probabiliteParProduit(pBase, produit * facteur);
 }
 
 /** Produit des multiplicateurs de l'événement, hors addictions (appelé ~20 fois par an). */
@@ -501,6 +674,40 @@ function tire(
   };
 }
 
+/** Candidats de l'année : événements tirés (ou reportés), avec leur rang. */
+type Candidats = { tire: EvenementTire; rang: number }[];
+
+/** Examine une liste d'événements de la tranche d'âge et ajoute les candidats tirés. */
+function examiner(
+  liste: readonly EvenementRange[],
+  etat: EtatPartie,
+  donnees: Donnees,
+  borne: Float64Array,
+  cibles: Cibles,
+  candidats: Candidats,
+): void {
+  const { graine, reportes } = etat;
+  const { age } = etat.personnage;
+  for (let i = 0; i < liste.length; i++) {
+    const range = liste[i]!;
+    const { evenement, rang } = range;
+    if (reportes.length > 0 && reportes.includes(evenement.id)) {
+      // Reporté l'an dernier : passe sans nouveau tirage s'il est encore éligible.
+      if (estEligibleAgeCompris(evenement, rang, etat, donnees)) {
+        candidats.push({ tire: tire(evenement, etat, donnees, 1, true), rang });
+      }
+      continue;
+    }
+    // Le tirage ne dépend que de (graine, âge, événement) : le faire d'abord ne change
+    // rien. Au-dessus de la borne de sa probabilité, l'événement ne peut pas passer.
+    const u = tirageHache(graine, age, range.identifiant);
+    if (u >= borne[rang]! && !viseParUnChoix(rang, cibles)) continue;
+    if (!estEligibleAgeCompris(evenement, rang, etat, donnees)) continue;
+    const p = probabiliteRangee(evenement, rang, etat, donnees);
+    if (u < p) candidats.push({ tire: tire(evenement, etat, donnees, p, false), rang });
+  }
+}
+
 /**
  * Tirage de l'année : les événements reportés passent sans nouveau tirage s'ils sont
  * encore éligibles ; les autres sont tirés chacun par son sous-générateur.
@@ -511,30 +718,17 @@ export function tirerEvenements(
   etat: EtatPartie,
   donnees: Donnees,
 ): { retenus: EvenementTire[]; reportes: string[] } {
-  const { graine, personnage } = etat;
+  const { personnage } = etat;
   const rangee = tranchesRangees(donnees.evenements)[personnage.age];
   if (!rangee) return { retenus: [], reportes: [] };
-  const reportes = etat.reportes;
-  const candidats: { tire: EvenementTire; rang: number }[] = [];
-  const examiner = (liste: readonly EvenementRange[]): void => {
-    for (let i = 0; i < liste.length; i++) {
-      const { evenement, rang, identifiant } = liste[i]!;
-      if (!estEligibleAgeCompris(evenement, rang, etat, donnees)) continue;
-      if (reportes.length > 0 && reportes.includes(evenement.id)) {
-        candidats.push({ tire: tire(evenement, etat, donnees, 1, true), rang });
-        continue;
-      }
-      const p = probabiliteEvenement(evenement, etat, donnees);
-      if (tirageHache(graine, personnage.age, identifiant) < p) {
-        candidats.push({ tire: tire(evenement, etat, donnees, p, false), rang });
-      }
-    }
-  };
-  examiner(rangee.libres);
+  const { borne } = profilEvenements(donnees);
+  const cibles = ciblesActives(etat, donnees.evenements);
+  const candidats: Candidats = [];
+  examiner(rangee.libres, etat, donnees, borne, cibles, candidats);
   for (let i = 0; i < rangee.gardes.length; i++) {
     const { champ, parValeur } = rangee.gardes[i]!;
     const liste = parValeur.get(valeurChamp(personnage, champ));
-    if (liste) examiner(liste);
+    if (liste) examiner(liste, etat, donnees, borne, cibles, candidats);
   }
   if (candidats.length === 0) return { retenus: [], reportes: [] };
   candidats.sort((a, b) => b.tire.gravite - a.tire.gravite || a.rang - b.rang);
