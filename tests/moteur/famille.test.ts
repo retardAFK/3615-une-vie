@@ -294,14 +294,28 @@ describe('famille', () => {
     });
 
     it('fait payer le loyer, partage en vie commune, et le cout des enfants', () => {
-      const seul = depensesFamille(adulte().personnage, 2015, TABLES);
+      // Revenus élevés : le loyer moyen du territoire, partagé en vie commune.
+      const aise = { finances: { revenuAnnuel: 200_000 } };
+      const seul = depensesFamille(adulte(aise).personnage, 2015, TABLES);
       expect(seul).toBeGreaterThan(0);
-      expect(depensesFamille(adulte({ couple: 'mariage' }).personnage, 2015, TABLES)).toBe(
+      expect(depensesFamille(adulte({ ...aise, couple: 'mariage' }).personnage, 2015, TABLES)).toBe(
         Math.round(seul * reglage('partChargesCouple')),
       );
       expect(
-        depensesFamille(adulte({ famille: { enfants: enfants(28) } }).personnage, 2015, TABLES),
+        depensesFamille(
+          adulte({ ...aise, famille: { enfants: enfants(28) } }).personnage,
+          2015,
+          TABLES,
+        ),
       ).toBeGreaterThan(seul);
+      // Petit revenu : un logement plus modeste, jamais sous la part minimale du loyer moyen.
+      const modeste = depensesFamille(
+        adulte({ finances: { revenuAnnuel: 8000 } }).personnage,
+        2015,
+        TABLES,
+      );
+      expect(modeste).toBeLessThan(seul);
+      expect(modeste).toBeGreaterThanOrEqual(Math.round(reglage('partLoyerMinimum') * seul));
       expect(depensesFamille(adulte({ logement: 'chez_parents' }).personnage, 2015, TABLES)).toBe(
         0,
       );
@@ -325,13 +339,16 @@ describe('famille', () => {
       expect(
         peutAcheter(adulte({ ...acheteur, finances: { epargne: 0 } }).personnage, 2015, TABLES),
       ).toBe(false);
-      expect(
+      // Une petite dette n'empêche pas d'acheter tant que l'endettement reste sain.
+      const dette = (endettement: 'sain' | 'tendu'): boolean =>
         peutAcheter(
-          adulte({ ...acheteur, finances: { ...acheteur.finances, dettes: 500 } }).personnage,
+          adulte({ ...acheteur, finances: { ...acheteur.finances, dettes: 500, endettement } })
+            .personnage,
           2015,
           TABLES,
-        ),
-      ).toBe(false);
+        );
+      expect(dette('sain')).toBe(true);
+      expect(dette('tendu')).toBe(false);
     });
 
     it('achete a credit, puis rembourse jusqu a la derniere echeance', () => {

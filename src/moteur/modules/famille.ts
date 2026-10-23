@@ -83,6 +83,7 @@ const NOMS_PARAMETRES = [
   'ageSortieAse',
   'mEmploiDepart',
   'multipleLoyerAcces',
+  'partLoyerMinimum',
   'plafondHlm',
   'pHlm',
   'pSortieHlm',
@@ -93,6 +94,7 @@ const NOMS_PARAMETRES = [
   'dureeCredit',
   'tauxCredit',
   'multipleRevenuAchat',
+  'partPrixMinimum',
   'ageAchatMax',
 ] as const;
 type ParametresFamille = Readonly<Record<(typeof NOMS_PARAMETRES)[number], number>>;
@@ -135,8 +137,8 @@ interface ConfigFamille {
   annees: Map<number, AnneeFamille>;
   /** Avant cet âge, rien ne peut changer (ni rencontre, ni départ, ni deuil). */
   ageDebut: number;
-  /** Prix d'un logement en multiple du salaire de référence, par territoire. */
-  prix: Map<string, number>;
+  /** Prix d'un logement en multiple du salaire de référence, par territoire puis période. */
+  prix: Map<string, Map<string, number>>;
   /** Loyer en part du salaire de référence, par territoire puis logement. */
   loyers: Map<string, Map<Logement, number>>;
 }
@@ -263,8 +265,13 @@ export function enfantsACharge(personnage: Personnage, tables: Tables): number {
   return n;
 }
 
-/** Loyer annuel (ou charges d'un propriétaire) pour ce logement, avant partage. */
-function loyer(personnage: Personnage, logement: Logement, annee: number, tables: Tables): number {
+/** Loyer annuel moyen (ou charges d'un propriétaire) de ce logement sur le territoire. */
+function loyerMoyen(
+  personnage: Personnage,
+  logement: Logement,
+  annee: number,
+  tables: Tables,
+): number {
   const config = configuration(tables);
   const { territoire } = personnage.etats.residence;
   let parLogement = config.loyers.get(territoire);
@@ -278,6 +285,35 @@ function loyer(personnage: Personnage, logement: Logement, annee: number, tables
     parLogement.set(logement, part);
   }
   return part * anneeFamille(config, annee).reference;
+}
+
+/** Revenu du foyer : en vie commune, les deux revenus (approchés par la part des charges). */
+function revenuFoyer(personnage: Personnage, tables: Tables): number {
+  const { parametres } = configuration(tables);
+  const part = vitEnCouple(personnage.etats.couple) ? parametres.partChargesCouple : 1;
+  return personnage.finances.revenuAnnuel / part;
+}
+
+/**
+ * Loyer annuel du foyer, avant partage. Dans le privé, on loue à sa mesure : au plus le
+ * loyer moyen du territoire, et pas plus du revenu divisé par le multiple exigé par les
+ * bailleurs (logement plus petit ou moins bien placé), sans descendre sous une part
+ * minimale du loyer moyen. HLM et propriétaires : la valeur moyenne.
+ */
+function loyer(personnage: Personnage, logement: Logement, annee: number, tables: Tables): number {
+  const moyen = loyerMoyen(personnage, logement, annee, tables);
+  if (logement !== 'locataire_prive') return moyen;
+  const { parametres } = configuration(tables);
+  const plafond = revenuFoyer(personnage, tables) / parametres.multipleLoyerAcces;
+  return Math.min(moyen, Math.max(parametres.partLoyerMinimum * moyen, plafond));
+}
+
+/** Les revenus du foyer suffisent à louer dans le privé, au moins un petit logement. */
+function peutLouer(personnage: Personnage, annee: number, tables: Tables): boolean {
+  const { parametres } = configuration(tables);
+  const minimum =
+    parametres.partLoyerMinimum * loyerMoyen(personnage, 'locataire_prive', annee, tables);
+  return revenuFoyer(personnage, tables) >= parametres.multipleLoyerAcces * minimum;
 }
 
 /**
@@ -299,34 +335,58 @@ export function depensesFamille(personnage: Personnage, annee: number, tables: T
   );
 }
 
-/** Prix d'un logement sur le territoire du personnage, cette année. */
+/** Prix d'un logement sur le territoire du personnage, cette année (multiple de la décennie). */
 function prixLogement(personnage: Personnage, annee: number, tables: Tables): number {
   const config = configuration(tables);
   const { territoire } = personnage.etats.residence;
-  let multiple = config.prix.get(territoire);
+  const periode = periodeDe(annee);
+  let parPeriode = config.prix.get(territoire);
+  if (!parPeriode) {
+    parPeriode = new Map();
+    config.prix.set(territoire, parPeriode);
+  }
+  let multiple = parPeriode.get(periode);
   if (multiple === undefined) {
-    multiple = valeurDe(tables.prixLogement, { territoire }, ['territoire']);
-    config.prix.set(territoire, multiple);
+    multiple = valeurDe(tables.prixLogement, { territoire, periode }, ['periode', 'territoire']);
+    parPeriode.set(periode, multiple);
   }
   return multiple * anneeFamille(config, annee).reference;
 }
 
-/** L'achat est à sa portée : locataire, apport épargné, revenus suffisants, pas de dettes. */
+/**
+ * L'achat est à sa portée : locataire, endettement sain et sans crédit en cours, capacité d'emprunt
+ * suffisante pour un logement du territoire, apport épargné.
+ */
 export function peutAcheter(personnage: Personnage, annee: number, tables: Tables): boolean {
   const { parametres } = configuration(tables);
   const { finances, etats } = personnage;
   if (etats.logement !== 'locataire_prive' && etats.logement !== 'hlm') return false;
   if (!estAutonome(personnage) || personnage.age > parametres.ageAchatMax) return false;
-  if (finances.dettes > 0 || finances.planApurement > 0 || finances.creditImmobilier > 0) {
+  // Les banques prêtent tant que l'endettement reste sain (moins d'un tiers des ressources).
+  if (
+    finances.endettement !== 'sain' ||
+    finances.planApurement > 0 ||
+    finances.creditImmobilier > 0
+  ) {
     return false;
   }
+  const prix = prixAchat(personnage, annee, tables);
+  return prix > 0 && finances.epargne >= parametres.partApport * prix;
+}
+
+/**
+ * Prix du logement que le personnage peut acheter : le prix moyen de son territoire, ou
+ * moins (plus petit, moins bien placé) si sa capacité d'emprunt est plus faible, pourvu
+ * qu'elle atteigne une part minimale du prix moyen ; 0 sinon. En vie commune, les deux
+ * revenus comptent (approchés par la part des charges).
+ */
+function prixAchat(personnage: Personnage, annee: number, tables: Tables): number {
+  const { parametres } = configuration(tables);
   const prix = prixLogement(personnage, annee, tables);
-  // En vie commune, les deux revenus comptent : approché par la part des charges.
-  const part = vitEnCouple(etats.couple) ? parametres.partChargesCouple : 1;
-  return (
-    finances.epargne >= parametres.partApport * prix &&
-    (finances.revenuAnnuel / part) * parametres.multipleRevenuAchat >= prix
-  );
+  const part = vitEnCouple(personnage.etats.couple) ? parametres.partChargesCouple : 1;
+  const capacite = (personnage.finances.revenuAnnuel / part) * parametres.multipleRevenuAchat;
+  if (capacite < parametres.partPrixMinimum * prix) return 0;
+  return Math.min(prix, capacite);
 }
 
 /**
@@ -338,7 +398,7 @@ export function acheterLogement(etat: EtatPartie, donnees: Donnees): EtatPartie 
   const { tables } = donnees;
   if (!peutAcheter(personnage, annee, tables)) return etat;
   const { parametres } = configuration(tables);
-  const prix = Math.round(prixLogement(personnage, annee, tables));
+  const prix = Math.round(prixAchat(personnage, annee, tables));
   const apport = Math.round(parametres.partApport * prix);
   const credit = prix - apport;
   const t = parametres.tauxCredit;
@@ -539,22 +599,38 @@ function deuilDesParents(
     liens: borner(t.jauges.liens - parametres.perteLiensDeuil),
   };
   ecrire('familleDeuil');
-  const { origine } = personnage;
-  if (origine.structureFamiliale === 'placement_ase') return;
-  const base = valeurDe(donnees.tables.heritage, { logementFamilial: origine.logementFamilial }, [
-    'logementFamilial',
-  ]);
-  const montant = Math.round(
-    base *
-      reference(annee, donnees.tables) *
-      Math.exp((parametres.kDecileHeritage * (origine.decileRevenuFoyer - 5.5)) / 4.5),
-  );
+  const montant = montantHeritage(personnage, annee, donnees.tables);
   if (montant <= 0) return;
   t.personnage = {
     ...t.personnage,
     finances: appliquerMontant(t.personnage.finances, montant),
   };
   ecrire('familleHeritage');
+}
+
+/**
+ * Héritage reçu au décès du dernier parent : selon le logement et le décile de revenu du
+ * foyer d'origine ; rien après un placement à l'aide sociale à l'enfance.
+ */
+export function montantHeritage(personnage: Personnage, annee: number, tables: Tables): number {
+  const { origine } = personnage;
+  if (origine.structureFamiliale === 'placement_ase') return 0;
+  const { parametres } = configuration(tables);
+  const base = valeurDe(tables.heritage, { logementFamilial: origine.logementFamilial }, [
+    'logementFamilial',
+  ]);
+  return Math.round(
+    base *
+      reference(annee, tables) *
+      Math.exp((parametres.kDecileHeritage * (origine.decileRevenuFoyer - 5.5)) / 4.5),
+  );
+}
+
+/** Loyer annuel du logement occupé (charges d'un propriétaire), partagé en vie commune. */
+export function loyerDuLogement(personnage: Personnage, annee: number, tables: Tables): number {
+  const { parametres } = configuration(tables);
+  const part = vitEnCouple(personnage.etats.couple) ? parametres.partChargesCouple : 1;
+  return loyer(personnage, personnage.etats.logement, annee, tables) * part;
 }
 
 /** Multiplicateur de séparation selon la situation du couple (règles, section 11). */
@@ -774,12 +850,14 @@ function evoluerLogement(
   const destination = (force: boolean): Logement | null => {
     // Un étudiant qui part est logé avec l'aide de ses parents.
     if (!estAutonome(personnage)) return force ? 'locataire_prive' : null;
-    const part = vitEnCouple(couple) ? parametres.partChargesCouple : 1;
-    const loyerPrive = loyer(personnage, 'locataire_prive', annee, tables) * part;
-    if (revenu >= parametres.multipleLoyerAcces * loyerPrive) return 'locataire_prive';
+    if (peutLouer(personnage, annee, tables)) return 'locataire_prive';
     if (sousPlafond && tirer('hlm') < pHlm()) return 'hlm';
     if (!force) return null;
-    return personnage.finances.epargne >= loyerPrive ? 'locataire_prive' : 'precaire';
+    // Départ forcé sans revenus suffisants : un an de petit loyer d'avance, sinon la rue.
+    const part = vitEnCouple(couple) ? parametres.partChargesCouple : 1;
+    const petitLoyer =
+      parametres.partLoyerMinimum * loyerMoyen(personnage, 'locataire_prive', annee, tables) * part;
+    return personnage.finances.epargne >= petitLoyer ? 'locataire_prive' : 'precaire';
   };
 
   switch (logement) {

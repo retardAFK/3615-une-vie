@@ -41,7 +41,7 @@
         "mEmploiDepart": 2,
         "multipleLoyerAcces": 3,
         "plafondHlm": 0.8,
-        "pHlm": 0.1,
+        "pHlm": 0.0663,
         "pSortieHlm": 0.05,
         "pSortiePrecaire": 0.3,
         "perteSantePrecaire": 3,
@@ -51,7 +51,9 @@
         "tauxCredit": 0.04,
         "multipleRevenuAchat": 5,
         "ageAchatMax": 60,
-        "facteurFecondite": 2.871
+        "facteurFecondite": 2.88,
+        "partPrixMinimum": 0.5,
+        "partLoyerMinimum": 0.6
       }
     }
   ],
@@ -81,7 +83,9 @@
       "pSortiePrecaire",
       "perteSantePrecaire",
       "mPrecaireChomage",
-      "ageAchatMax"
+      "ageAchatMax",
+      "partPrixMinimum",
+      "partLoyerMinimum"
     ],
     "source": "Choix de conception (pas une statistique) : effets sur les jauges, poids des traits, seuils et multiplicateurs de mécanique de jeu, sans mesure directe. Ajustés à l'équilibrage (jalon 9), jamais présentés comme des faits."
   }

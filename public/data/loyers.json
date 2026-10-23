@@ -1,6 +1,6 @@
 {
   "table": "loyers",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE (enquete Logement) et ANIL. Loyer annuel en part du salaire de reference de la periode.",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE (enquete Logement) et ANIL. Loyer annuel en part du salaire de reference de la periode. Loyer HLM : loyer privé × 0.636, rapport des loyers moyens au m² des parcs social et privé en 2013 (SDES, Chiffres clés du logement 2022, transcription dans data/brut/transcriptions). Niveau ajusté par simulation sur les taux d'effort médians des locataires (Insee, enquête SRCV début 2024 : secteur libre 29.600000000000005 %, secteur social 26.6 %).",
   "url": null,
   "aCalibrer": true,
   "lignes": [
@@ -9,96 +9,96 @@
         "logement": "locataire_prive",
         "territoire": "grande_metropole"
       },
-      "valeur": 0.26
+      "valeur": 0.754
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "grande_metropole"
       },
-      "valeur": 0.14
+      "valeur": 0.387
     },
     {
       "conditions": {
         "logement": "locataire_prive",
         "territoire": "ville_moyenne"
       },
-      "valeur": 0.18
+      "valeur": 0.522
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "ville_moyenne"
       },
-      "valeur": 0.1
+      "valeur": 0.268
     },
     {
       "conditions": {
         "logement": "locataire_prive",
         "territoire": "periurbain"
       },
-      "valeur": 0.18
+      "valeur": 0.522
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "periurbain"
       },
-      "valeur": 0.1
+      "valeur": 0.268
     },
     {
       "conditions": {
         "logement": "locataire_prive",
         "territoire": "rural"
       },
-      "valeur": 0.13
+      "valeur": 0.378
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "rural"
       },
-      "valeur": 0.08
+      "valeur": 0.194
     },
     {
       "conditions": {
         "logement": "locataire_prive",
         "territoire": "quartier_prioritaire"
       },
-      "valeur": 0.17
+      "valeur": 0.493
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "quartier_prioritaire"
       },
-      "valeur": 0.09
+      "valeur": 0.253
     },
     {
       "conditions": {
         "logement": "locataire_prive",
         "territoire": "drom"
       },
-      "valeur": 0.18
+      "valeur": 0.522
     },
     {
       "conditions": {
         "logement": "hlm",
         "territoire": "drom"
       },
-      "valeur": 0.1
+      "valeur": 0.268
     },
     {
       "conditions": {
         "logement": "locataire_prive"
       },
-      "valeur": 0.19
+      "valeur": 0.552
     },
     {
       "conditions": {
         "logement": "hlm"
       },
-      "valeur": 0.1
+      "valeur": 0.283
     },
     {
       "conditions": {

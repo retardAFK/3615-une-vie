@@ -1,48 +1,384 @@
 {
   "table": "prixLogement",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE et notaires de France. Prix d'un logement en multiple du salaire de reference de la periode.",
-  "url": null,
+  "source": "IGEDD (J. Friggit), valeurs immobilières depuis 1800 : prix moyen d'un logement ancien (montant des ventes / nombre de ventes depuis 1967, indice du prix des logements avant), en euros 2025, moyenne de la décennie, en multiple du salaire de référence. Écart entre territoires : rapports provisoires, ramenés à la moyenne nationale (à calibrer).",
+  "url": "https://www.igedd.developpement-durable.gouv.fr/prix-immobilier-evolution-a-long-terme-a1048.html",
   "aCalibrer": true,
   "lignes": [
     {
       "conditions": {
+        "territoire": "grande_metropole",
+        "periode": "1950-1959"
+      },
+      "valeur": 2.09
+    },
+    {
+      "conditions": {
+        "territoire": "grande_metropole",
+        "periode": "1960-1969"
+      },
+      "valeur": 4.89
+    },
+    {
+      "conditions": {
+        "territoire": "grande_metropole",
+        "periode": "1970-1979"
+      },
+      "valeur": 5.45
+    },
+    {
+      "conditions": {
+        "territoire": "grande_metropole",
+        "periode": "1980-1989"
+      },
+      "valeur": 5.26
+    },
+    {
+      "conditions": {
+        "territoire": "grande_metropole",
+        "periode": "1990-1999"
+      },
+      "valeur": 5.78
+    },
+    {
+      "conditions": {
+        "territoire": "grande_metropole",
+        "periode": "2000-2009"
+      },
+      "valeur": 9.03
+    },
+    {
+      "conditions": {
+        "territoire": "grande_metropole",
+        "periode": "2010-2019"
+      },
+      "valeur": 10.1
+    },
+    {
+      "conditions": {
+        "territoire": "grande_metropole",
+        "periode": "2020-2029"
+      },
+      "valeur": 10.4
+    },
+    {
+      "conditions": {
         "territoire": "grande_metropole"
       },
-      "valeur": 9
+      "valeur": 10.4
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "periode": "1950-1959"
+      },
+      "valeur": 1.39
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "periode": "1960-1969"
+      },
+      "valeur": 3.24
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "periode": "1970-1979"
+      },
+      "valeur": 3.61
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "periode": "1980-1989"
+      },
+      "valeur": 3.49
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "periode": "1990-1999"
+      },
+      "valeur": 3.83
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "periode": "2000-2009"
+      },
+      "valeur": 5.99
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "periode": "2010-2019"
+      },
+      "valeur": 6.73
+    },
+    {
+      "conditions": {
+        "territoire": "ville_moyenne",
+        "periode": "2020-2029"
+      },
+      "valeur": 6.9
     },
     {
       "conditions": {
         "territoire": "ville_moyenne"
       },
-      "valeur": 6
+      "valeur": 6.9
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "periode": "1950-1959"
+      },
+      "valeur": 1.62
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "periode": "1960-1969"
+      },
+      "valeur": 3.78
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "periode": "1970-1979"
+      },
+      "valeur": 4.21
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "periode": "1980-1989"
+      },
+      "valeur": 4.07
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "periode": "1990-1999"
+      },
+      "valeur": 4.47
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "periode": "2000-2009"
+      },
+      "valeur": 6.98
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "periode": "2010-2019"
+      },
+      "valeur": 7.84
+    },
+    {
+      "conditions": {
+        "territoire": "periurbain",
+        "periode": "2020-2029"
+      },
+      "valeur": 8.04
     },
     {
       "conditions": {
         "territoire": "periurbain"
       },
-      "valeur": 7
+      "valeur": 8.04
+    },
+    {
+      "conditions": {
+        "territoire": "rural",
+        "periode": "1950-1959"
+      },
+      "valeur": 1.16
+    },
+    {
+      "conditions": {
+        "territoire": "rural",
+        "periode": "1960-1969"
+      },
+      "valeur": 2.7
+    },
+    {
+      "conditions": {
+        "territoire": "rural",
+        "periode": "1970-1979"
+      },
+      "valeur": 3.01
+    },
+    {
+      "conditions": {
+        "territoire": "rural",
+        "periode": "1980-1989"
+      },
+      "valeur": 2.91
+    },
+    {
+      "conditions": {
+        "territoire": "rural",
+        "periode": "1990-1999"
+      },
+      "valeur": 3.19
+    },
+    {
+      "conditions": {
+        "territoire": "rural",
+        "periode": "2000-2009"
+      },
+      "valeur": 4.99
+    },
+    {
+      "conditions": {
+        "territoire": "rural",
+        "periode": "2010-2019"
+      },
+      "valeur": 5.61
+    },
+    {
+      "conditions": {
+        "territoire": "rural",
+        "periode": "2020-2029"
+      },
+      "valeur": 5.75
     },
     {
       "conditions": {
         "territoire": "rural"
       },
-      "valeur": 5
+      "valeur": 5.75
+    },
+    {
+      "conditions": {
+        "territoire": "quartier_prioritaire",
+        "periode": "1950-1959"
+      },
+      "valeur": 1.16
+    },
+    {
+      "conditions": {
+        "territoire": "quartier_prioritaire",
+        "periode": "1960-1969"
+      },
+      "valeur": 2.7
+    },
+    {
+      "conditions": {
+        "territoire": "quartier_prioritaire",
+        "periode": "1970-1979"
+      },
+      "valeur": 3.01
+    },
+    {
+      "conditions": {
+        "territoire": "quartier_prioritaire",
+        "periode": "1980-1989"
+      },
+      "valeur": 2.91
+    },
+    {
+      "conditions": {
+        "territoire": "quartier_prioritaire",
+        "periode": "1990-1999"
+      },
+      "valeur": 3.19
+    },
+    {
+      "conditions": {
+        "territoire": "quartier_prioritaire",
+        "periode": "2000-2009"
+      },
+      "valeur": 4.99
+    },
+    {
+      "conditions": {
+        "territoire": "quartier_prioritaire",
+        "periode": "2010-2019"
+      },
+      "valeur": 5.61
+    },
+    {
+      "conditions": {
+        "territoire": "quartier_prioritaire",
+        "periode": "2020-2029"
+      },
+      "valeur": 5.75
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire"
       },
-      "valeur": 5
+      "valeur": 5.75
+    },
+    {
+      "conditions": {
+        "territoire": "drom",
+        "periode": "1950-1959"
+      },
+      "valeur": 1.62
+    },
+    {
+      "conditions": {
+        "territoire": "drom",
+        "periode": "1960-1969"
+      },
+      "valeur": 3.78
+    },
+    {
+      "conditions": {
+        "territoire": "drom",
+        "periode": "1970-1979"
+      },
+      "valeur": 4.21
+    },
+    {
+      "conditions": {
+        "territoire": "drom",
+        "periode": "1980-1989"
+      },
+      "valeur": 4.07
+    },
+    {
+      "conditions": {
+        "territoire": "drom",
+        "periode": "1990-1999"
+      },
+      "valeur": 4.47
+    },
+    {
+      "conditions": {
+        "territoire": "drom",
+        "periode": "2000-2009"
+      },
+      "valeur": 6.98
+    },
+    {
+      "conditions": {
+        "territoire": "drom",
+        "periode": "2010-2019"
+      },
+      "valeur": 7.84
+    },
+    {
+      "conditions": {
+        "territoire": "drom",
+        "periode": "2020-2029"
+      },
+      "valeur": 8.04
     },
     {
       "conditions": {
         "territoire": "drom"
       },
-      "valeur": 7
+      "valeur": 8.04
     },
     {
       "conditions": {},
-      "valeur": 7
+      "valeur": 7.67
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "table": "heritage",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE (enquete Patrimoine). Heritage en multiple du salaire de reference, pour un decile de revenu median.",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE (enquete Patrimoine). Heritage en multiple du salaire de reference, pour un decile de revenu median. Niveau ajusté par simulation : part des héritages venant de la mère inférieurs à 30 000 € de 2015 (Insee, enquête Patrimoine 2014-2015, T3A2 : 63.7 %).",
   "url": null,
   "aCalibrer": true,
   "lignes": [
@@ -8,19 +8,19 @@
       "conditions": {
         "logementFamilial": "proprietaire"
       },
-      "valeur": 3
+      "valeur": 1.54
     },
     {
       "conditions": {
         "logementFamilial": "locataire_prive"
       },
-      "valeur": 0.5
+      "valeur": 0.257
     },
     {
       "conditions": {
         "logementFamilial": "hlm"
       },
-      "valeur": 0.2
+      "valeur": 0.103
     },
     {
       "conditions": {

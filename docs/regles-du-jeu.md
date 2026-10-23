@@ -272,7 +272,8 @@ RSA, prime d'activité, aides au logement, allocations familiales, AAH, bourses 
 **Dans le jeu** (jalon 6)
 
 - Charges fixes : le loyer (ou les charges d'un propriétaire), le coût des enfants à charge et l'annuité du crédit immobilier passent d'abord ; la dépense de vie se règle sur ce qui reste. En vie commune, ces charges sont partagées. La dépense de vie ne comprend plus le logement.
-- Achat immobilier : quand l'apport est épargné, que les revenus suffisent et qu'il n'y a pas de dettes, un événement propose d'acheter. L'apport est pris sur l'épargne, le reste emprunté à annuités constantes ; le logement entre au patrimoine.
+- Achat immobilier : quand l'apport est épargné, que la capacité d'emprunt atteint au moins une part du prix moyen du territoire et de la décennie, et que l'endettement reste sain, un événement propose d'acheter. On achète à sa mesure : le prix moyen, ou moins si la capacité d'emprunt est plus faible. L'apport est pris sur l'épargne, le reste emprunté à annuités constantes ; le logement entre au patrimoine.
+- Location : dans le privé, on loue à sa mesure, au plus le loyer moyen du territoire et pas plus du revenu du foyer divisé par le multiple exigé par les bailleurs, sans descendre sous une part minimale du loyer moyen. Les loyers HLM sont fixes.
 - Héritage : au décès du dernier parent, selon le logement familial et le décile de revenu du foyer ; rien après un placement à l'aide sociale à l'enfance. Il va à l'épargne.
 - Valeurs dans `loyers`, `prixLogement`, `heritage` et `parametresFamille`, `aCalibrer`.
 
