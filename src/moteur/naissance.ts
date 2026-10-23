@@ -121,7 +121,6 @@ export const ETAPES_NAISSANCE: readonly EtapeNaissance[] = [
   },
 ];
 
-/** Tire les champs de l'origine, sous forme de chaînes, dans l'ordre des étapes. */
 /** Années de naissance possibles : les clés de la table anneeNaissance. */
 export function bornesAnneeNaissance(tables: Tables): { min: number; max: number } {
   const annees = tables.anneeNaissance.lignes.flatMap((l) =>
@@ -132,8 +131,8 @@ export function bornesAnneeNaissance(tables: Tables): { min: number; max: number
 
 /**
  * Tire les champs de l'origine, sous forme de chaînes, dans l'ordre des étapes.
- * Une année imposée remplace le premier tirage ; les autres étapes gardent
- * leurs sous-générateurs et restent conditionnées par cette année.
+ * Une année ou des champs imposés remplacent leur tirage ; les autres étapes gardent
+ * leurs sous-générateurs et restent conditionnées par les champs imposés.
  */
 export function tirerOrigineBrute(
   graine: string,
@@ -144,10 +143,14 @@ export function tirerOrigineBrute(
   if (options.anneeNaissance !== undefined) {
     const { min, max } = bornesAnneeNaissance(tables);
     const annee = options.anneeNaissance;
-    if (!Number.isInteger(annee) || annee < min || annee > max) {
+    const horsBornes = annee < min || (annee > max && !options.anneeLibre);
+    if (!Number.isInteger(annee) || horsBornes) {
       throw new RangeError(`Annee de naissance hors bornes (${min}-${max}) : ${annee}`);
     }
     brute.anneeNaissance = String(annee);
+  }
+  for (const [champ, valeur] of Object.entries(options.origine ?? {})) {
+    if (valeur !== undefined) brute[champ as ChampOrigine] = String(valeur);
   }
   for (const etape of ETAPES_NAISSANCE) {
     if (brute[etape.champ] !== undefined) continue;

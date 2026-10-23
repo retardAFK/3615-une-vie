@@ -10,6 +10,10 @@ import { hachageIdentifiant, sousGenerateur, tirageHache, tirerPondere } from '.
 import { chercherLigne, parametre, periodeDe, valeurDe } from '../tables';
 import type {
   Couple,
+  Diplome,
+  DiplomeJoueur,
+  LogementFamilial,
+  OrigineTransmise,
   Donnees,
   EntreeJournal,
   EtatPartie,
@@ -22,7 +26,7 @@ import type {
   Tables,
   Territoire,
 } from '../types';
-import { appliquerMontant, estAutonome } from './argent';
+import { appliquerMontant, decileDeRevenu, estAutonome } from './argent';
 import { regleEnVigueur } from './contexte';
 import { estSalarie } from './emploi';
 import { probabiliteDecesTable } from './sante';
@@ -201,12 +205,58 @@ function reference(annee: number, tables: Tables): number {
   return anneeFamille(configuration(tables), annee).reference;
 }
 
+/** Diplôme des parents (nomenclature de l'origine) d'après le diplôme du joueur. */
+const DIPLOME_PARENT: Readonly<Record<DiplomeJoueur, Diplome>> = {
+  aucun: 'aucun',
+  cap_bep: 'cap_bep',
+  bac_pro: 'bac',
+  bac_techno: 'bac',
+  bac_general: 'bac',
+  bac_2_3: 'bac_2_3',
+  bac_5: 'bac_5',
+};
+
+/** Logement familial de l'enfant d'après le logement du joueur. */
+const LOGEMENT_FAMILIAL: Readonly<Record<Logement, LogementFamilial>> = {
+  chez_parents: 'locataire_prive',
+  locataire_prive: 'locataire_prive',
+  hlm: 'hlm',
+  proprietaire: 'proprietaire',
+  precaire: 'precaire',
+};
+
+/**
+ * Origine transmise à un enfant qui naît : lieu de vie, métier et diplôme du joueur,
+ * décile du revenu du foyer (les deux revenus en vie commune, approchés par la part
+ * des charges), logement, structure familiale. C'est la reproduction sociale vue de
+ * l'autre côté (règles, section 11).
+ */
+export function origineTransmise(
+  personnage: Personnage,
+  annee: number,
+  tables: Tables,
+): OrigineTransmise {
+  const { etats, finances } = personnage;
+  const { parametres } = configuration(tables);
+  const commun = vitEnCouple(etats.couple);
+  const revenuFoyer = finances.revenuAnnuel / (commun ? parametres.partChargesCouple : 1);
+  return {
+    region: etats.residence.region,
+    territoire: etats.residence.territoire,
+    pcsParents: etats.travail.pcs ?? 'sans_emploi',
+    diplomeParents: DIPLOME_PARENT[etats.education.diplome],
+    decileRevenuFoyer: decileDeRevenu(revenuFoyer, annee, tables),
+    structureFamiliale: estEnCouple(etats.couple) ? 'couple' : 'monoparentale',
+    logementFamilial: LOGEMENT_FAMILIAL[etats.logement],
+  };
+}
+
 /** Enfants de moins de l'âge d'autonomie : à charge (coût, allocations familiales). */
 export function enfantsACharge(personnage: Personnage, tables: Tables): number {
   const limite = configuration(tables).parametres.ageAutonomieEnfant;
   let n = 0;
-  for (const age of personnage.etats.famille.enfants) {
-    if (personnage.age - age < limite) n++;
+  for (const enfant of personnage.etats.famille.enfants) {
+    if (personnage.age - enfant.age < limite) n++;
   }
   return n;
 }
@@ -661,7 +711,12 @@ function naissance(
   if (!vitEnCouple(couple)) m *= parametres.mEnCoupleNaissance;
   if (tirageHache(graine, age, ID.naissance!) >= probabiliteParProduit(base, m)) return;
 
-  changerFamille({ enfants: [...enfants, age] });
+  changerFamille({
+    enfants: [
+      ...enfants,
+      { age, origine: origineTransmise(t.personnage, etat.annee, donnees.tables) },
+    ],
+  });
   t.jauges = { ...t.jauges, liens: borner(t.jauges.liens + parametres.bonusLiensNaissance) };
   ecrire('familleNaissance');
   // Carrière : passage au temps partiel, progression ralentie (table effetsEnfant).

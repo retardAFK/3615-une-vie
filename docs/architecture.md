@@ -48,6 +48,7 @@ contenu/evenements/*.json  ─────────────────�
 │   │   ├── types.ts             Personnage, Evenement, Choix...
 │   │   ├── naissance.ts         tirage de l'origine
 │   │   ├── boucle.ts            ouvrirAnnee(), fermerAnnee(), jouerAnneeAuto()
+│   │   ├── bilan.ts             bilan(), rejouer(), autreNaissance(), vies des enfants
 │   │   ├── evenements.ts        sélection et application des événements
 │   │   ├── validation.ts        validation de contenu/evenements/ et contenu/contexte/
 │   │   ├── modules/             education, emploi, argent, aides, jeux, addictions,
@@ -89,12 +90,17 @@ ouvrirAnnee(etat: EtatPartie, donnees: Donnees): ResultatOuverture
 fermerAnnee(etat: EtatPartie, choix: ChoixJoueur[], donnees: Donnees): ResultatFermeture
 jouerAnneeAuto(etat: EtatPartie, donnees: Donnees): ResultatFermeture
 choisirAuto(etat: EtatPartie, evenement: EvenementTire, donnees: Donnees): ChoixJoueur
-bilan(etat: EtatPartie): Bilan
+bilan(etat: EtatPartie, donnees: Donnees): Bilan
+rejouer(graine: string, options: OptionsPartie, decisions: Decision[], donnees: Donnees,
+        ageOuvert?: number): EtatPartie
 ```
 
 - `donnees` regroupe tout ce que le moteur reçoit en plus de l'état : `{ tables, evenements, libelles, contexte }`.
 - Une année se joue en deux temps. `ouvrirAnnee` passe le test de mortalité puis tire les événements de l'année ; elle renvoie l'état avec `anneeEnCours`, les événements tirés (avec la probabilité finale qui a servi au tirage) et les choix proposés. `fermerAnnee` applique les choix, les effets, écrit le journal et fait vieillir le personnage.
 - `jouerAnneeAuto` enchaîne les deux avec `choisirAuto` : mode AUTO, worker et tests de performance.
+- `rejouer` reconstruit une partie à partir de sa graine, de ses options et de ses choix (`decisionsDe` les lit dans le journal) : il ouvre les années comme l'interface (petite enfance sans arrêt) et s'arrête sur l'année ouverte que le joueur avait laissée, ou à la mort. Une vie jouée dans l'interface est reconstruite à l'identique ; une vie jouée en AUTO donne le même personnage, avec des résumés de petite enfance en plus au journal.
+- Le parcours (`EtatPartie.parcours`) cumule chaque année ce que le bilan affiche : moral par décennie, années de chômage et de dépendance, revenus, coût des addictions, revenu des 60 ans.
+- `OptionsPartie.origine` impose des champs de l'origine (« mêmes choix, autre naissance », enfants du joueur) ; `anneeLibre` permet une année hors de la table des naissances (enfants nés après 2010).
 
 Esquisse des types principaux (le détail suit `docs/regles-du-jeu.md`, section 2) :
 

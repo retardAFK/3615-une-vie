@@ -14,6 +14,7 @@ import {
 import { parametre } from '../../src/moteur/tables';
 import type {
   Couple,
+  Enfant,
   Donnees,
   Emploi,
   EtatPartie,
@@ -91,6 +92,20 @@ function taux(
 }
 
 const reglage = (nom: string): number => parametre(TABLES.parametresFamille, nom);
+/** Enfants nés aux âges donnés du joueur (origine transmise sans importance ici). */
+const enfants = (...ages: number[]): Enfant[] =>
+  ages.map((age) => ({
+    age,
+    origine: {
+      region: 'bretagne',
+      territoire: 'ville_moyenne',
+      pcsParents: 'employe',
+      diplomeParents: 'bac',
+      decileRevenuFoyer: 5,
+      structureFamiliale: 'couple',
+      logementFamilial: 'locataire_prive',
+    },
+  }));
 const pour = (tag: string, m: number): ModificateurTemporaire[] => [
   { cible: { tag }, m, debut: 0, fin: null },
 ];
@@ -209,7 +224,10 @@ describe('famille', () => {
 
     it('compte les enfants a charge jusqu a l age d autonomie', () => {
       const limite = reglage('ageAutonomieEnfant');
-      const { personnage } = adulte({ age: 50, famille: { enfants: [25, 50 - limite + 1, 49] } });
+      const { personnage } = adulte({
+        age: 50,
+        famille: { enfants: enfants(25, 50 - limite + 1, 49) },
+      });
       expect(enfantsACharge(personnage, TABLES)).toBe(2);
     });
 
@@ -221,13 +239,13 @@ describe('famille', () => {
           nonRecours: { ...TABLES.nonRecours, lignes: [{ conditions: {}, valeur: 0 }] },
         },
       };
-      const allocations = (enfants: number[]): number | undefined =>
-        calculerAides(adulte({ age: 40, famille: { enfants } }), sansRecours).versees
-          .allocationsFamiliales;
-      expect(allocations([35])).toBeUndefined();
-      const deux = allocations([33, 35])!;
+      const allocations = (...ages: number[]): number | undefined =>
+        calculerAides(adulte({ age: 40, famille: { enfants: enfants(...ages) } }), sansRecours)
+          .versees.allocationsFamiliales;
+      expect(allocations(35)).toBeUndefined();
+      const deux = allocations(33, 35)!;
       expect(deux).toBeGreaterThan(0);
-      expect(allocations([31, 33, 35])).toBe(2 * deux);
+      expect(allocations(31, 33, 35)).toBe(2 * deux);
     });
   });
 
@@ -280,7 +298,7 @@ describe('famille', () => {
         Math.round(seul * reglage('partChargesCouple')),
       );
       expect(
-        depensesFamille(adulte({ famille: { enfants: [28] } }).personnage, 2015, TABLES),
+        depensesFamille(adulte({ famille: { enfants: enfants(28) } }).personnage, 2015, TABLES),
       ).toBeGreaterThan(seul);
       expect(depensesFamille(adulte({ logement: 'chez_parents' }).personnage, 2015, TABLES)).toBe(
         0,

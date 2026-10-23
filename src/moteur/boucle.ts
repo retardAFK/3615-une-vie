@@ -42,9 +42,50 @@ import type {
   EntreeJournal,
   EtatPartie,
   OptionsPartie,
+  Parcours,
+  Personnage,
   ResultatFermeture,
   ResultatOuverture,
 } from './types';
+
+/** Décennies d'âge suivies par le parcours (0-9 ans, 10-19 ans... jusqu'à l'âge maximal). */
+export const DECENNIES = Math.floor(AGE_MAXIMAL / 10) + 1;
+
+function parcoursInitial(): Parcours {
+  return {
+    moral: Array.from({ length: DECENNIES }, () => 0),
+    annees: Array.from({ length: DECENNIES }, () => 0),
+    anneesChomage: 0,
+    anneesDependance: 0,
+    revenusCumules: 0,
+    coutAddictions: 0,
+    revenu60: null,
+  };
+}
+
+/** Fin d'année : le moral, le chômage, la dépendance et le revenu des 60 ans entrent au parcours. */
+function cumulerAnnee(parcours: Parcours, personnage: Personnage): Parcours {
+  const decennie = Math.floor(personnage.age / 10);
+  const moral = parcours.moral.slice();
+  const annees = parcours.annees.slice();
+  moral[decennie] = (moral[decennie] ?? 0) + personnage.jauges.santeMentale;
+  annees[decennie] = (annees[decennie] ?? 0) + 1;
+  const { etats } = personnage;
+  let dependance = false;
+  for (const produit in etats.addictions) {
+    if (etats.addictions[produit as keyof typeof etats.addictions] === 'dependance') {
+      dependance = true;
+    }
+  }
+  return {
+    ...parcours,
+    moral,
+    annees,
+    anneesChomage: parcours.anneesChomage + (etats.emploi === 'chomage' ? 1 : 0),
+    anneesDependance: parcours.anneesDependance + (dependance ? 1 : 0),
+    revenu60: personnage.age === 60 ? personnage.finances.revenuAnnuel : parcours.revenu60,
+  };
+}
 
 export function creerPartie(
   graine: string,
@@ -66,6 +107,7 @@ export function creerPartie(
       age: 0,
       vivant: true,
     },
+    parcours: parcoursInitial(),
     historique: [{ annee: origine.anneeNaissance, age: 0, type: 'naissance' }],
     cooldowns: [],
     modificateursActifs: [],
@@ -108,13 +150,21 @@ export function ouvrirAnnee(etatRecu: EtatPartie, donnees: Donnees): ResultatOuv
   const jeu = jouerAnnee(comptes, donnees);
   const joueur = jeu.etat.personnage;
   const autonome = estAutonome(joueur);
+  const coutAddictions = autonome ? depensesAddictions(joueur, tables) : 0;
   const depenses =
-    (autonome ? depensesAddictions(joueur, tables) + depensesSante(joueur, tables) : 0) +
-    jeu.mise -
-    jeu.gain;
+    coutAddictions + (autonome ? depensesSante(joueur, tables) : 0) + jeu.mise - jeu.gain;
   const charges = autonome ? depensesFamille(joueur, comptes.annee, tables) : 0;
-  const bilan = bilanAnnuel(jeu.etat, calculerAides(jeu.etat, donnees), donnees, depenses, charges);
-  const etat: EtatPartie = { ...jeu.etat, personnage: bilan.personnage };
+  const aides = calculerAides(jeu.etat, donnees);
+  const bilan = bilanAnnuel(jeu.etat, aides, donnees, depenses, charges);
+  const etat: EtatPartie = {
+    ...jeu.etat,
+    personnage: bilan.personnage,
+    parcours: {
+      ...jeu.etat.parcours,
+      revenusCumules: jeu.etat.parcours.revenusCumules + joueur.finances.revenuAnnuel + aides.total,
+      coutAddictions: jeu.etat.parcours.coutAddictions + coutAddictions,
+    },
+  };
   const { personnage } = etat;
 
   const meurt =
@@ -220,6 +270,7 @@ export function fermerAnnee(
     etat: {
       ...courant,
       annee: courant.annee + 1,
+      parcours: cumulerAnnee(courant.parcours, personnage),
       personnage: {
         ...personnage,
         age,

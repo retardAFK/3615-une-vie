@@ -368,10 +368,28 @@ export interface Residence {
   territoire: Territoire;
 }
 
+/** Ce qu'un enfant reçoit de la situation du joueur le jour de sa naissance. */
+export type OrigineTransmise = Pick<
+  Origine,
+  | 'region'
+  | 'territoire'
+  | 'pcsParents'
+  | 'diplomeParents'
+  | 'decileRevenuFoyer'
+  | 'structureFamiliale'
+  | 'logementFamilial'
+>;
+
+/** Enfant du joueur : personnage secondaire dont l'origine vient de la situation du joueur. */
+export interface Enfant {
+  /** Âge du joueur à la naissance. */
+  age: number;
+  origine: OrigineTransmise;
+}
+
 /** Famille du joueur (règles, section 11). */
 export interface Famille {
-  /** Âge du joueur à la naissance de chacun de ses enfants. */
-  enfants: readonly number[];
+  enfants: readonly Enfant[];
   /** Au moins un parent du joueur est en vie : l'héritage vient au décès du dernier. */
   parentsVivants: boolean;
   /** Achat immobilier à sa portée cette année (apport, revenus, pas de dettes). */
@@ -687,11 +705,36 @@ export interface AnneeEnCours {
 export interface OptionsPartie {
   /** Année imposée ; absente : tirage pondéré. */
   anneeNaissance?: number;
+  /**
+   * Champs de l'origine imposés (« mêmes choix, autre naissance », enfants du joueur) :
+   * les autres restent tirés, conditionnés par ceux-ci. L'année se règle par anneeNaissance.
+   */
+  origine?: Partial<Omit<Origine, 'anneeNaissance'>>;
+  /**
+   * L'année imposée peut sortir de la table des naissances (enfants du joueur, nés
+   * après 2010) : les tables suivent alors par repli vers leurs lignes sans période.
+   */
+  anneeLibre?: true;
+}
+
+/** Ce qui se cumule au fil de la vie pour le bilan (règles, section 13). */
+export interface Parcours {
+  /** Somme du moral (santeMentale) et nombre d'années vécues, par décennie d'âge. */
+  moral: readonly number[];
+  annees: readonly number[];
+  anneesChomage: number;
+  /** Années avec au moins une addiction en dépendance. */
+  anneesDependance: number;
+  revenusCumules: number;
+  coutAddictions: number;
+  /** Revenu de l'année des 60 ans ; null avant (le bilan prend alors le dernier revenu). */
+  revenu60: number | null;
 }
 
 export interface EtatPartie {
   graine: string;
   options: OptionsPartie;
+  parcours: Parcours;
   annee: number;
   personnage: Personnage;
   historique: EntreeJournal[];
@@ -855,4 +898,6 @@ export interface Tables {
   prixLogement: TableValeur;
   heritage: TableValeur;
   mobilite: TableDistribution;
+  // Bilan
+  seuilsDeciles: TableValeurs;
 }

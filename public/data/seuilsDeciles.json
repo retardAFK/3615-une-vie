@@ -1,0 +1,22 @@
+{
+  "table": "seuilsDeciles",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les seuils de deciles de revenu disponible de l'INSEE (Filosofi, ERFS). Seuils en multiples du salaire de reference de la periode.",
+  "url": null,
+  "aCalibrer": true,
+  "lignes": [
+    {
+      "conditions": {},
+      "valeurs": {
+        "d1": 0.35,
+        "d2": 0.5,
+        "d3": 0.62,
+        "d4": 0.72,
+        "d5": 0.82,
+        "d6": 0.95,
+        "d7": 1.1,
+        "d8": 1.3,
+        "d9": 1.7
+      }
+    }
+  ]
+}

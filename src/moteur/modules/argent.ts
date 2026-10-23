@@ -6,6 +6,7 @@ import { remplir } from '../recit';
 import { parametre, periodeDe, valeurDe, valeurSimple } from '../tables';
 import type {
   Aide,
+  Decile,
   Donnees,
   Emploi,
   EntreeContexte,
@@ -39,6 +40,21 @@ export function appliquerMontant(finances: Finances, montant: number): Finances 
     epargne: finances.epargne - prise,
     dettes: finances.dettes - somme - prise,
   };
+}
+
+const SEUILS_DECILES = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'd9'] as const;
+
+/**
+ * Décile d'un revenu annuel l'année donnée : nombre de seuils de seuilsDeciles (en
+ * multiples du salaire de référence de la période) atteints, plus un.
+ */
+export function decileDeRevenu(revenu: number, annee: number, tables: Tables): Decile {
+  const reference = valeurSimple(tables.salaireReference, 'periode', periodeDe(annee));
+  let decile = 1;
+  for (const seuil of SEUILS_DECILES) {
+    if (revenu >= parametre(tables.seuilsDeciles, seuil) * reference) decile++;
+  }
+  return decile as Decile;
 }
 
 /** Le bilan personnel commence à la sortie des études : avant, les parents paient. */
