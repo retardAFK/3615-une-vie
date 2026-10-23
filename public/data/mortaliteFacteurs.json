@@ -1,26 +1,26 @@
 {
   "table": "mortaliteFacteurs",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE, DREES et Sante publique France.",
-  "url": null,
+  "source": "Catégories sociales : Insee, espérance de vie à 35 ans par catégorie socioprofessionnelle (échantillon démographique permanent, France métropolitaine, 1976-1984 à 2020-2022), convertie en multiplicateur des cotes de décès rapporté à l'ensemble (moyenne géométrique des périodes et des sexes). Addictions : valeurs de travail, à calibrer.",
+  "url": "https://www.insee.fr/fr/statistiques/2383438",
   "aCalibrer": true,
   "lignes": [
     {
       "conditions": {
         "pcs": "cadre"
       },
-      "valeur": 0.8
+      "valeur": 0.703
     },
     {
       "conditions": {
         "pcs": "intermediaire"
       },
-      "valeur": 0.9
+      "valeur": 0.814
     },
     {
       "conditions": {
         "pcs": "employe"
       },
-      "valeur": 1
+      "valeur": 0.981
     },
     {
       "conditions": {
@@ -32,19 +32,19 @@
       "conditions": {
         "pcs": "artisan_commercant"
       },
-      "valeur": 0.95
+      "valeur": 0.87
     },
     {
       "conditions": {
         "pcs": "agriculteur"
       },
-      "valeur": 1
+      "valeur": 0.883
     },
     {
       "conditions": {
         "pcs": "sans_emploi"
       },
-      "valeur": 1.2
+      "valeur": 2.01
     },
     {
       "conditions": {

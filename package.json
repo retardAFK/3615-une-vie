@@ -15,7 +15,7 @@
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
-    "data": "node data/scripts/mortalite.mjs && node data/scripts/naissances.mjs && node data/scripts/argent.mjs && vite build --ssr data/scripts/calibrer.ts --outDir node_modules/.calibrage --emptyOutDir --logLevel warn && node node_modules/.calibrage/calibrer.js"
+    "data": "node data/scripts/mortalite.mjs && node data/scripts/naissances.mjs && node data/scripts/argent.mjs && node data/scripts/salaires.mjs && node data/scripts/facteurs.mjs && node data/scripts/unions.mjs && node data/scripts/aides.mjs && vite build --ssr data/scripts/calibrer.ts --outDir node_modules/.calibrage --emptyOutDir --logLevel warn && node node_modules/.calibrage/calibrer.js"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

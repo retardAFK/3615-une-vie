@@ -23,6 +23,7 @@ import type {
   Logement,
   ModificateurTemporaire,
   Origine,
+  Pcs,
 } from '../../src/moteur/types';
 import { estEligible, evenementParId, probabiliteEvenement } from '../../src/moteur/evenements';
 import { valeurChamp } from '../../src/moteur/conditions';
@@ -40,6 +41,7 @@ interface Situation {
   origine?: Partial<Origine>;
   modificateurs?: ModificateurTemporaire[];
   liens?: number;
+  pcs?: Pcs;
 }
 
 /** Adulte sorti des études, placé une année donnée dans une situation familiale donnée. */
@@ -69,7 +71,7 @@ function adulte(situation: Situation = {}, graine = 'famille'): EtatPartie {
         emploi,
         couple,
         logement,
-        travail: { ...etats.travail, pcs: 'employe', salaire: 20_000 },
+        travail: { ...etats.travail, pcs: situation.pcs ?? 'employe', salaire: 20_000 },
         famille: { ...etats.famille, ...situation.famille },
       },
       finances: { ...FINANCES_INITIALES, revenuAnnuel: 20_000, ...situation.finances },
@@ -310,8 +312,10 @@ describe('famille', () => {
   });
 
   describe('achat immobilier et heritage', () => {
+    // Cadre : à l'ouverture de l'année, le revenu est recalculé d'après le métier.
     const acheteur: Situation = {
       age: 35,
+      pcs: 'cadre',
       couple: 'mariage',
       finances: { revenuAnnuel: 40_000, epargne: 60_000 },
     };

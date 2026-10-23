@@ -1,13 +1,13 @@
 {
   "table": "parametresEmploi",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
+  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8). ecartSexe : Insee, EQTP02, écart de salaire femmes-hommes à catégorie égale, moyenne 1996-2021.",
   "url": null,
   "aCalibrer": true,
   "lignes": [
     {
       "conditions": {},
       "valeurs": {
-        "ecartSexe": 0.09,
+        "ecartSexe": 0.154,
         "sigmaBruit": 0.15,
         "partAnneeCdd": 0.85,
         "partAnneeInterim": 0.7,

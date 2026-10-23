@@ -16,6 +16,7 @@ import type {
   Tables,
 } from '../../src/moteur/types';
 import { DONNEES, donneesAvec, evenement } from './donnees';
+import { probabiliteParProduit } from '../../src/moteur/cotes';
 import { parametre } from '../../src/moteur/tables';
 import { TABLES } from './tables';
 
@@ -131,7 +132,7 @@ describe('sante', () => {
 
     it('part de la table et reste une probabilite', () => {
       // Santé physique au centre de la correction, correction des causes modélisées
-      // neutre : seule la PCS employé (1) s'applique.
+      // neutre : seul le facteur de la PCS employé s'applique.
       const neutre: Tables = {
         ...TABLES,
         correctionMortalite: {
@@ -146,7 +147,10 @@ describe('sante', () => {
       const qNeutre = probabiliteDecesPersonnage(personnage, 2010, neutre);
       expect(qNeutre).toBeGreaterThan(0);
       expect(qNeutre).toBeLessThan(1);
-      expect(qNeutre).toBeCloseTo(table, 6);
+      const employe = TABLES.mortaliteFacteurs.lignes.find(
+        (l) => l.conditions.pcs === 'employe',
+      )!.valeur;
+      expect(qNeutre).toBeCloseTo(probabiliteParProduit(table, employe), 6);
       // La correction calibrée s'applique en plus.
       expect(q(personnage)).toBeGreaterThan(0);
     });

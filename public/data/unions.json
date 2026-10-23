@@ -1,7 +1,7 @@
 {
   "table": "unions",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8) par les donnees INSEE et INED.",
-  "url": null,
+  "source": "Évolution par décennie d'après l'Insee : taux brut de nuptialité (MAR1) pour les mariages, taux brut de divortialité (T26) pour les séparations, rapport PACS / mariages (MAR3) pour les PACS ; niveaux rapportés à la décennie 2010-2019, dont les valeurs restent des réglages de travail. La vie commune hors mariage (pCohabitation) reste à calibrer.",
+  "url": "https://www.insee.fr/fr/statistiques/8560677",
   "aCalibrer": true,
   "lignes": [
     {
@@ -10,10 +10,10 @@
       },
       "valeurs": {
         "pCohabitation": 0.05,
-        "pMariageDirect": 0.35,
-        "pMariage": 0.3,
+        "pMariageDirect": 0.0754,
+        "pMariage": 0.0646,
         "pPacs": 0,
-        "pSeparation": 0.0035
+        "pSeparation": 0.00654
       }
     },
     {
@@ -22,10 +22,10 @@
       },
       "valeurs": {
         "pCohabitation": 0.08,
-        "pMariageDirect": 0.3,
-        "pMariage": 0.3,
+        "pMariageDirect": 0.0682,
+        "pMariage": 0.0682,
         "pPacs": 0,
-        "pSeparation": 0.0049
+        "pSeparation": 0.00625
       }
     },
     {
@@ -34,10 +34,10 @@
       },
       "valeurs": {
         "pCohabitation": 0.2,
-        "pMariageDirect": 0.15,
-        "pMariage": 0.2,
+        "pMariageDirect": 0.0608,
+        "pMariage": 0.0811,
         "pPacs": 0,
-        "pSeparation": 0.0084
+        "pSeparation": 0.00963
       }
     },
     {
@@ -46,10 +46,10 @@
       },
       "valeurs": {
         "pCohabitation": 0.3,
-        "pMariageDirect": 0.06,
-        "pMariage": 0.12,
+        "pMariageDirect": 0.0339,
+        "pMariage": 0.0678,
         "pPacs": 0,
-        "pSeparation": 0.0126
+        "pSeparation": 0.0162
       }
     },
     {
@@ -58,10 +58,10 @@
       },
       "valeurs": {
         "pCohabitation": 0.35,
-        "pMariageDirect": 0.04,
-        "pMariage": 0.08,
-        "pPacs": 0,
-        "pSeparation": 0.0154
+        "pMariageDirect": 0.0304,
+        "pMariage": 0.0607,
+        "pPacs": 0.00133,
+        "pSeparation": 0.0176
       }
     },
     {
@@ -70,10 +70,10 @@
       },
       "valeurs": {
         "pCohabitation": 0.35,
-        "pMariageDirect": 0.03,
-        "pMariage": 0.06,
-        "pPacs": 0.06,
-        "pSeparation": 0.0175
+        "pMariageDirect": 0.0289,
+        "pMariage": 0.0578,
+        "pPacs": 0.0144,
+        "pSeparation": 0.0187
       }
     },
     {
@@ -84,7 +84,7 @@
         "pCohabitation": 0.35,
         "pMariageDirect": 0.02,
         "pMariage": 0.05,
-        "pPacs": 0.07,
+        "pPacs": 0.0388,
         "pSeparation": 0.0175
       }
     },
@@ -94,9 +94,9 @@
       },
       "valeurs": {
         "pCohabitation": 0.35,
-        "pMariageDirect": 0.02,
-        "pMariage": 0.04,
-        "pPacs": 0.07,
+        "pMariageDirect": 0.021,
+        "pMariage": 0.042,
+        "pPacs": 0.0379,
         "pSeparation": 0.0175
       }
     },
@@ -104,9 +104,9 @@
       "conditions": {},
       "valeurs": {
         "pCohabitation": 0.35,
-        "pMariageDirect": 0.02,
-        "pMariage": 0.04,
-        "pPacs": 0.07,
+        "pMariageDirect": 0.021,
+        "pMariage": 0.042,
+        "pPacs": 0.0379,
         "pSeparation": 0.0175
       }
     }

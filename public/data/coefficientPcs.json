@@ -1,32 +1,32 @@
 {
   "table": "coefficientPcs",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
-  "url": null,
+  "source": "Insee, séries longues sur les salaires dans le secteur privé, tableau EQTP02 : salaire net moyen en équivalent temps plein de chaque catégorie salariée rapporté à l'ensemble, moyenne 1996-2021. Artisans et commerçants, agriculteurs, sans emploi : valeurs de travail (revenus des non-salariés à calibrer).",
+  "url": "https://www.insee.fr/fr/statistiques/8668548",
   "aCalibrer": true,
   "lignes": [
     {
       "conditions": {
         "pcs": "cadre"
       },
-      "valeur": 2
+      "valeur": 1.89
     },
     {
       "conditions": {
         "pcs": "intermediaire"
       },
-      "valeur": 1.35
+      "valeur": 1.05
     },
     {
       "conditions": {
         "pcs": "employe"
       },
-      "valeur": 1
+      "valeur": 0.734
     },
     {
       "conditions": {
         "pcs": "ouvrier"
       },
-      "valeur": 1.05
+      "valeur": 0.752
     },
     {
       "conditions": {

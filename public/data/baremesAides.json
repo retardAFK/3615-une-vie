@@ -1,7 +1,7 @@
 {
   "table": "baremesAides",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8). Une aide n'est versee que si une loi du contexte historique l'a creee.",
-  "url": null,
+  "source": "minimumSocial (RMI 1988-2008, RSA ensuite, personne seule) et allocationsFamiliales (deuxième enfant, taux × BMAF) : barèmes IPP, prestations sociales, montant au 1er janvier de chaque année converti en euros 2025 (convertisseur Insee), moyenne de la décennie ; le fichier s'arrête en 2014, les années suivantes reprennent la dernière valeur. AAH, minimum vieillesse, complément d'activité, aide au logement : valeurs de travail, à calibrer.",
+  "url": "https://www.data.gouv.fr/datasets/baremes-ipp-systeme-social-et-fiscal-francais",
   "aCalibrer": true,
   "lignes": [
     {
@@ -197,7 +197,7 @@
         "periode": "1980-1989"
       },
       "valeurs": {
-        "montant": 6400
+        "montant": 6790
       }
     },
     {
@@ -206,7 +206,7 @@
         "periode": "1990-1999"
       },
       "valeurs": {
-        "montant": 6600
+        "montant": 6860
       }
     },
     {
@@ -215,7 +215,7 @@
         "periode": "2000-2009"
       },
       "valeurs": {
-        "montant": 6700
+        "montant": 7050
       }
     },
     {
@@ -224,7 +224,7 @@
         "periode": "2010-2019"
       },
       "valeurs": {
-        "montant": 6800
+        "montant": 7160
       }
     },
     {
@@ -233,7 +233,7 @@
         "periode": "2020-2029"
       },
       "valeurs": {
-        "montant": 7000
+        "montant": 7250
       }
     },
     {
@@ -241,7 +241,7 @@
         "aide": "minimumSocial"
       },
       "valeurs": {
-        "montant": 7000
+        "montant": 7250
       }
     },
     {
@@ -446,7 +446,7 @@
         "periode": "1970-1979"
       },
       "valeurs": {
-        "montant": 1100
+        "montant": 1350
       }
     },
     {
@@ -455,7 +455,7 @@
         "periode": "1980-1989"
       },
       "valeurs": {
-        "montant": 1300
+        "montant": 1960
       }
     },
     {
@@ -464,7 +464,7 @@
         "periode": "1990-1999"
       },
       "valeurs": {
-        "montant": 1400
+        "montant": 1940
       }
     },
     {
@@ -473,7 +473,7 @@
         "periode": "2000-2009"
       },
       "valeurs": {
-        "montant": 1500
+        "montant": 1910
       }
     },
     {
@@ -482,7 +482,7 @@
         "periode": "2010-2019"
       },
       "valeurs": {
-        "montant": 1550
+        "montant": 1880
       }
     },
     {
@@ -491,7 +491,7 @@
         "periode": "2020-2029"
       },
       "valeurs": {
-        "montant": 1600
+        "montant": 1880
       }
     },
     {
@@ -499,7 +499,7 @@
         "aide": "allocationsFamiliales"
       },
       "valeurs": {
-        "montant": 1600
+        "montant": 1880
       }
     }
   ]

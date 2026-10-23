@@ -52,10 +52,11 @@ export function significatif(valeur, chiffres = 4) {
 
 /**
  * Écrit une table de public/data/ avec ses métadonnées. Une table calibrée cite sa
- * source et son adresse ; aCalibrer passe à false.
+ * source et son adresse ; aCalibrer passe à false. Les réglages déclarés sont gardés.
  */
-export function ecrireTable(nom, { source, url, lignes, aCalibrer = false }) {
+export function ecrireTable(nom, { source, url, lignes, aCalibrer = false, reglages }) {
   const table = { table: nom, source, url, aCalibrer, lignes };
+  if (reglages) table.reglages = reglages;
   writeFileSync(join(SORTIE, `${nom}.json`), `${JSON.stringify(table, null, 2)}\n`);
   return table;
 }
