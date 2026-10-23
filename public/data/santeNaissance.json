@@ -1,7 +1,7 @@
 {
   "table": "santeNaissance",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
-  "url": null,
+  "source": "Prématurité : 6.7 % des naissances vivantes en France métropolitaine en 2021 (DREES, indicateurs de santé périnatale 2021, transcription), moyenne des déciles ; écart entre déciles et handicap provisoires (à calibrer).",
+  "url": "https://drees.solidarites-sante.gouv.fr/communique-de-presse/indicateurs-de-sante-perinatale-2021-la-mortinatalite-reste-stable-entre-2020",
   "aCalibrer": true,
   "lignes": [
     {
@@ -9,8 +9,8 @@
         "decileRevenuFoyer": "1"
       },
       "distribution": {
-        "normale": 0.9,
-        "prematurite": 0.08,
+        "normale": 0.8988,
+        "prematurite": 0.08121,
         "handicap": 0.02
       }
     },
@@ -19,8 +19,8 @@
         "decileRevenuFoyer": "2"
       },
       "distribution": {
-        "normale": 0.9,
-        "prematurite": 0.08,
+        "normale": 0.8988,
+        "prematurite": 0.08121,
         "handicap": 0.02
       }
     },
@@ -29,8 +29,8 @@
         "decileRevenuFoyer": "3"
       },
       "distribution": {
-        "normale": 0.9,
-        "prematurite": 0.08,
+        "normale": 0.8988,
+        "prematurite": 0.08121,
         "handicap": 0.02
       }
     },
@@ -39,8 +39,8 @@
         "decileRevenuFoyer": "4"
       },
       "distribution": {
-        "normale": 0.925,
-        "prematurite": 0.06,
+        "normale": 0.9241,
+        "prematurite": 0.06091,
         "handicap": 0.015
       }
     },
@@ -49,8 +49,8 @@
         "decileRevenuFoyer": "5"
       },
       "distribution": {
-        "normale": 0.925,
-        "prematurite": 0.06,
+        "normale": 0.9241,
+        "prematurite": 0.06091,
         "handicap": 0.015
       }
     },
@@ -59,8 +59,8 @@
         "decileRevenuFoyer": "6"
       },
       "distribution": {
-        "normale": 0.925,
-        "prematurite": 0.06,
+        "normale": 0.9241,
+        "prematurite": 0.06091,
         "handicap": 0.015
       }
     },
@@ -69,8 +69,8 @@
         "decileRevenuFoyer": "7"
       },
       "distribution": {
-        "normale": 0.925,
-        "prematurite": 0.06,
+        "normale": 0.9241,
+        "prematurite": 0.06091,
         "handicap": 0.015
       }
     },
@@ -79,8 +79,8 @@
         "decileRevenuFoyer": "8"
       },
       "distribution": {
-        "normale": 0.925,
-        "prematurite": 0.06,
+        "normale": 0.9241,
+        "prematurite": 0.06091,
         "handicap": 0.015
       }
     },
@@ -89,8 +89,8 @@
         "decileRevenuFoyer": "9"
       },
       "distribution": {
-        "normale": 0.925,
-        "prematurite": 0.06,
+        "normale": 0.9241,
+        "prematurite": 0.06091,
         "handicap": 0.015
       }
     },
@@ -99,16 +99,16 @@
         "decileRevenuFoyer": "10"
       },
       "distribution": {
-        "normale": 0.925,
-        "prematurite": 0.06,
+        "normale": 0.9241,
+        "prematurite": 0.06091,
         "handicap": 0.015
       }
     },
     {
       "conditions": {},
       "distribution": {
-        "normale": 0.92,
-        "prematurite": 0.065,
+        "normale": 0.919,
+        "prematurite": 0.06598,
         "handicap": 0.015
       }
     }

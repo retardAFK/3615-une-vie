@@ -1,7 +1,7 @@
 {
   "table": "logementFamilial",
-  "source": "Valeurs de travail non sourcees, plausibles mais inventees. A remplacer au calibrage (jalon 8).",
-  "url": null,
+  "source": "Insee, Revenus et patrimoine des ménages 2021, « Les dépenses en logement des ménages », figure 1 : répartition des ménages par statut d'occupation selon le quartile de niveau de vie en 2017 (SRCV, France métropolitaine, hors logés gratuitement), propriétaires = accédants et non accédants ; un décile prend la moyenne des quartiles qu'il recouvre. Part « précaire » provisoire (à calibrer).",
+  "url": "https://www.insee.fr/fr/statistiques/5371269?sommaire=5371304",
   "aCalibrer": true,
   "lignes": [
     {
@@ -9,9 +9,9 @@
         "decileRevenuFoyer": "1"
       },
       "distribution": {
-        "proprietaire": 0.2105,
-        "locataire_prive": 0.3158,
-        "hlm": 0.3684,
+        "proprietaire": 0.3543,
+        "locataire_prive": 0.2487,
+        "hlm": 0.2917,
         "precaire": 0.1053
       }
     },
@@ -20,9 +20,9 @@
         "decileRevenuFoyer": "2"
       },
       "distribution": {
-        "proprietaire": 0.2771,
-        "locataire_prive": 0.3002,
-        "hlm": 0.3291,
+        "proprietaire": 0.359,
+        "locataire_prive": 0.252,
+        "hlm": 0.2955,
         "precaire": 0.0935
       }
     },
@@ -31,9 +31,9 @@
         "decileRevenuFoyer": "3"
       },
       "distribution": {
-        "proprietaire": 0.3421,
-        "locataire_prive": 0.2851,
-        "hlm": 0.2908,
+        "proprietaire": 0.4552,
+        "locataire_prive": 0.2185,
+        "hlm": 0.2442,
         "precaire": 0.0821
       }
     },
@@ -42,9 +42,9 @@
         "decileRevenuFoyer": "4"
       },
       "distribution": {
-        "proprietaire": 0.4054,
-        "locataire_prive": 0.2703,
-        "hlm": 0.2534,
+        "proprietaire": 0.5537,
+        "locataire_prive": 0.184,
+        "hlm": 0.1914,
         "precaire": 0.0709
       }
     },
@@ -53,9 +53,9 @@
         "decileRevenuFoyer": "5"
       },
       "distribution": {
-        "proprietaire": 0.4672,
-        "locataire_prive": 0.2558,
-        "hlm": 0.2169,
+        "proprietaire": 0.5602,
+        "locataire_prive": 0.1861,
+        "hlm": 0.1936,
         "precaire": 0.0601
       }
     },
@@ -64,9 +64,9 @@
         "decileRevenuFoyer": "6"
       },
       "distribution": {
-        "proprietaire": 0.5275,
-        "locataire_prive": 0.2418,
-        "hlm": 0.1813,
+        "proprietaire": 0.6777,
+        "locataire_prive": 0.1834,
+        "hlm": 0.08935,
         "precaire": 0.0495
       }
     },
@@ -75,9 +75,9 @@
         "decileRevenuFoyer": "7"
       },
       "distribution": {
-        "proprietaire": 0.5863,
-        "locataire_prive": 0.228,
-        "hlm": 0.1466,
+        "proprietaire": 0.6851,
+        "locataire_prive": 0.1855,
+        "hlm": 0.09032,
         "precaire": 0.0391
       }
     },
@@ -86,9 +86,9 @@
         "decileRevenuFoyer": "8"
       },
       "distribution": {
-        "proprietaire": 0.6438,
-        "locataire_prive": 0.2146,
-        "hlm": 0.1127,
+        "proprietaire": 0.7434,
+        "locataire_prive": 0.1382,
+        "hlm": 0.08937,
         "precaire": 0.029
       }
     },
@@ -97,9 +97,9 @@
         "decileRevenuFoyer": "9"
       },
       "distribution": {
-        "proprietaire": 0.6999,
-        "locataire_prive": 0.2015,
-        "hlm": 0.0795,
+        "proprietaire": 0.7796,
+        "locataire_prive": 0.1121,
+        "hlm": 0.08922,
         "precaire": 0.0191
       }
     },
@@ -108,19 +108,19 @@
         "decileRevenuFoyer": "10"
       },
       "distribution": {
-        "proprietaire": 0.7547,
-        "locataire_prive": 0.1887,
-        "hlm": 0.0472,
+        "proprietaire": 0.7873,
+        "locataire_prive": 0.1132,
+        "hlm": 0.0901,
         "precaire": 0.0094
       }
     },
     {
       "conditions": {},
       "distribution": {
-        "proprietaire": 0.5,
-        "locataire_prive": 0.25,
-        "hlm": 0.2,
-        "precaire": 0.05
+        "proprietaire": 0.5955,
+        "locataire_prive": 0.1822,
+        "hlm": 0.1665,
+        "precaire": 0.0558
       }
     }
   ]

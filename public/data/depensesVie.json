@@ -9,196 +9,196 @@
         "territoire": "grande_metropole",
         "statut": "emploi"
       },
-      "valeur": 0.362
+      "valeur": 0.373
     },
     {
       "conditions": {
         "territoire": "grande_metropole",
         "statut": "chomage"
       },
-      "valeur": 0.253
+      "valeur": 0.261
     },
     {
       "conditions": {
         "territoire": "grande_metropole",
         "statut": "inactif"
       },
-      "valeur": 0.126
+      "valeur": 0.13
     },
     {
       "conditions": {
         "territoire": "grande_metropole",
         "statut": "retraite"
       },
-      "valeur": 0.271
+      "valeur": 0.279
     },
     {
       "conditions": {
         "territoire": "ville_moyenne",
         "statut": "emploi"
       },
-      "valeur": 0.307
+      "valeur": 0.316
     },
     {
       "conditions": {
         "territoire": "ville_moyenne",
         "statut": "chomage"
       },
-      "valeur": 0.215
+      "valeur": 0.222
     },
     {
       "conditions": {
         "territoire": "ville_moyenne",
         "statut": "inactif"
       },
-      "valeur": 0.108
+      "valeur": 0.111
     },
     {
       "conditions": {
         "territoire": "ville_moyenne",
         "statut": "retraite"
       },
-      "valeur": 0.23
+      "valeur": 0.237
     },
     {
       "conditions": {
         "territoire": "periurbain",
         "statut": "emploi"
       },
-      "valeur": 0.326
+      "valeur": 0.336
     },
     {
       "conditions": {
         "territoire": "periurbain",
         "statut": "chomage"
       },
-      "valeur": 0.227
+      "valeur": 0.234
     },
     {
       "conditions": {
         "territoire": "periurbain",
         "statut": "inactif"
       },
-      "valeur": 0.114
+      "valeur": 0.117
     },
     {
       "conditions": {
         "territoire": "periurbain",
         "statut": "retraite"
       },
-      "valeur": 0.244
+      "valeur": 0.251
     },
     {
       "conditions": {
         "territoire": "rural",
         "statut": "emploi"
       },
-      "valeur": 0.281
+      "valeur": 0.29
     },
     {
       "conditions": {
         "territoire": "rural",
         "statut": "chomage"
       },
-      "valeur": 0.196
+      "valeur": 0.202
     },
     {
       "conditions": {
         "territoire": "rural",
         "statut": "inactif"
       },
-      "valeur": 0.0975
+      "valeur": 0.1
     },
     {
       "conditions": {
         "territoire": "rural",
         "statut": "retraite"
       },
-      "valeur": 0.21
+      "valeur": 0.216
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "emploi"
       },
-      "valeur": 0.307
+      "valeur": 0.316
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "chomage"
       },
-      "valeur": 0.215
+      "valeur": 0.222
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "inactif"
       },
-      "valeur": 0.108
+      "valeur": 0.111
     },
     {
       "conditions": {
         "territoire": "quartier_prioritaire",
         "statut": "retraite"
       },
-      "valeur": 0.23
+      "valeur": 0.237
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "emploi"
       },
-      "valeur": 0.326
+      "valeur": 0.336
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "chomage"
       },
-      "valeur": 0.227
+      "valeur": 0.234
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "inactif"
       },
-      "valeur": 0.114
+      "valeur": 0.117
     },
     {
       "conditions": {
         "territoire": "drom",
         "statut": "retraite"
       },
-      "valeur": 0.244
+      "valeur": 0.251
     },
     {
       "conditions": {
         "statut": "emploi"
       },
-      "valeur": 0.326
+      "valeur": 0.336
     },
     {
       "conditions": {
         "statut": "chomage"
       },
-      "valeur": 0.227
+      "valeur": 0.234
     },
     {
       "conditions": {
         "statut": "inactif"
       },
-      "valeur": 0.114
+      "valeur": 0.117
     },
     {
       "conditions": {
         "statut": "retraite"
       },
-      "valeur": 0.244
+      "valeur": 0.251
     },
     {
       "conditions": {},
-      "valeur": 0.326
+      "valeur": 0.336
     }
   ]
 }

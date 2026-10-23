@@ -8,19 +8,19 @@
       "conditions": {
         "logementFamilial": "proprietaire"
       },
-      "valeur": 1.63
+      "valeur": 1.24
     },
     {
       "conditions": {
         "logementFamilial": "locataire_prive"
       },
-      "valeur": 0.27
+      "valeur": 0.206
     },
     {
       "conditions": {
         "logementFamilial": "hlm"
       },
-      "valeur": 0.108
+      "valeur": 0.0823
     },
     {
       "conditions": {
