@@ -53,6 +53,15 @@ const PAR_TAG: Readonly<Record<string, string>> = {
   dettes: 'argent',
   surendettement: 'argent',
   aides: 'argent',
+  tabac: 'sante',
+  alcool: 'sante',
+  cannabis: 'sante',
+  autres_drogues: 'sante',
+  drogues: 'sante',
+  addiction: 'sante',
+  ecrans: 'loisirs',
+  jeu: 'argent',
+  jeux_argent: 'argent',
 };
 
 /** Picto d'un événement d'après ses tags, ou null. */

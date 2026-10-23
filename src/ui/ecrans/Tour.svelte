@@ -14,6 +14,7 @@
   import TexteMinitel from '../composants/TexteMinitel.svelte';
   import Touche from '../composants/Touche.svelte';
   import { estSalarie } from '../../moteur/modules/emploi';
+  import { PRODUITS } from '../../moteur/types';
   import { RESSOURCES } from '../donnees';
   import { pictoPour } from '../pictos';
   import { libelle, minitel, montant } from '../texte';
@@ -74,15 +75,30 @@
     if (planApurement > 0) return `PLAN · ${planApurement} AN${planApurement > 1 ? 'S' : ''}`;
     return libelle('endettement', finances.endettement);
   });
-  /** Nouvelles d'argent de l'année (aides, dettes), écrites à l'ouverture de l'année. */
-  const nouvellesArgent = $derived.by(() => {
+  /**
+   * Nouvelles du tour : addictions de l'année écoulée (écrites à sa fermeture), puis
+   * argent de l'année (aides, dettes, écrites à son ouverture).
+   */
+  const nouvelles = $derived.by(() => {
     const lignes: EntreeJournal[] = [];
     const { historique } = partie;
-    for (let i = historique.length - 1; i >= 0 && historique[i]!.annee === partie.annee; i--) {
-      if (historique[i]!.type === 'argent') lignes.unshift(historique[i]!);
+    for (let i = historique.length - 1; i >= 0; i--) {
+      const entree = historique[i]!;
+      if (entree.annee < partie.annee - 1) break;
+      const recente =
+        (entree.type === 'argent' && entree.annee === partie.annee) ||
+        (entree.type === 'addiction' && entree.annee === partie.annee - 1);
+      if (recente) lignes.unshift(entree);
     }
     return lignes;
   });
+  /** Addictions qui pèsent : usage régulier, dépendance, sevrage. */
+  const addictions = $derived(
+    PRODUITS.filter((produit) =>
+      ['usage_regulier', 'dependance', 'sevrage'].includes(personnage.etats.addictions[produit]),
+    ),
+  );
+  const jeu = $derived(personnage.etats.jeu);
   /** Scolarité tant que les études durent, puis état d'emploi et métier. */
   const situation = $derived.by(() => {
     const { scolarite, emploi, education, travail } = personnage.etats;
@@ -94,7 +110,7 @@
     return `${libelle('emploi', emploi)}${metier}`;
   });
   const ageTexte = $derived(`${personnage.age} ${personnage.age > 1 ? 'ANS' : 'AN'}`);
-  const titreAvis = $derived(minitel(avis?.tags[0] ?? 'quotidien'));
+  const titreAvis = $derived(minitel((avis?.tags[0] ?? 'quotidien').replaceAll('_', ' ')));
   const envoiBloque = $derived(!auto && !confirmation && !!avis?.choix.length && !choixFait);
   const evenementsAuto = $derived(journalAuto.filter((e) => e.type === 'evenement'));
   const annonce = $derived.by(() => {
@@ -166,7 +182,19 @@
         {#if finances.endettement !== 'sain'}
           <LigneValeur libelle="ENDETTEMENT" valeur={endettement} ton="valeur" />
         {/if}
-        {#each nouvellesArgent as entree, i (i)}
+        {#each addictions as produit (produit)}
+          <LigneValeur
+            libelle={libelle('produits', produit)}
+            valeur={libelle('etatsAddiction', personnage.etats.addictions[produit])}
+            ton="valeur"
+          />
+        {/each}
+        {#if jeu.totalMise > 0}
+          <!-- Garde-fou : le total misé et récupéré au jeu reste toujours visible. -->
+          <LigneValeur libelle="JEU · MISE" valeur={montant(jeu.totalMise, partie.annee)} />
+          <LigneValeur libelle="JEU · RECUPERE" valeur={montant(jeu.totalRecupere, partie.annee)} />
+        {/if}
+        {#each nouvelles as entree, i (i)}
           <p class="nouvelle">{entree.texte}</p>
         {/each}
       </div>
