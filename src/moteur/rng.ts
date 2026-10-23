@@ -146,20 +146,54 @@ function melangerIdentifiant(id: readonly number[]): void {
   finir();
 }
 
-function preparerPrefixe(graine: string, age: number): void {
-  if (graine !== prefixe.graine || age !== prefixe.age) {
-    initialiser();
-    absorber(`${graine}|${age}|`);
-    prefixe.graine = graine;
-    prefixe.age = age;
-    prefixe.p1 = h1;
-    prefixe.p2 = h2;
-    prefixe.p3 = h3;
-    prefixe.p4 = h4;
-  }
+/** Absorbe un caractère (même calcul qu'absorber, pour un seul code). */
+function absorberCode(k: number): void {
+  h1 = h2 ^ Math.imul(h1 ^ k, 597399067);
+  h2 = h3 ^ Math.imul(h2 ^ k, 2869860233);
+  h3 = h4 ^ Math.imul(h3 ^ k, 951274213);
+  h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
 }
 
-const prefixe = { graine: '', age: -1, p1: 0, p2: 0, p3: 0, p4: 0 };
+const BARRE = 124; // « | »
+const ZERO = 48; // « 0 »
+
+/**
+ * Prépare l'état du hachage de « graine|age| ». L'absorption est séquentielle : l'état
+ * après « graine| » est gardé (une vie entière), seuls les chiffres de l'âge et la barre
+ * finale sont absorbés chaque année, sans construire de chaîne.
+ */
+function preparerPrefixe(graine: string, age: number): void {
+  if (graine === prefixe.graine && age === prefixe.age) return;
+  if (graine !== prefixe.graine) {
+    initialiser();
+    absorber(graine);
+    absorberCode(BARRE);
+    prefixe.graine = graine;
+    prefixe.g1 = h1;
+    prefixe.g2 = h2;
+    prefixe.g3 = h3;
+    prefixe.g4 = h4;
+  } else {
+    h1 = prefixe.g1;
+    h2 = prefixe.g2;
+    h3 = prefixe.g3;
+    h4 = prefixe.g4;
+  }
+  // Chiffres de l'âge (entier positif), du plus fort au plus faible.
+  let puissance = 1;
+  while (puissance * 10 <= age) puissance *= 10;
+  for (; puissance >= 1; puissance = Math.floor(puissance / 10)) {
+    absorberCode(ZERO + (Math.floor(age / puissance) % 10));
+  }
+  absorberCode(BARRE);
+  prefixe.age = age;
+  prefixe.p1 = h1;
+  prefixe.p2 = h2;
+  prefixe.p3 = h3;
+  prefixe.p4 = h4;
+}
+
+const prefixe = { graine: '', age: -1, g1: 0, g2: 0, g3: 0, g4: 0, p1: 0, p2: 0, p3: 0, p4: 0 };
 /** Hachage de chaque identifiant de tirage (ils sont en nombre fini). */
 const identifiants = new Map<string, [number, number, number, number]>();
 

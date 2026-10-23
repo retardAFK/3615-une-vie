@@ -3,7 +3,7 @@
 // immobilier et l'héritage, par le module famille.
 
 import { remplir } from '../recit';
-import { parametre, periodeDe, valeurDe } from '../tables';
+import { parametre, periodeDe, valeurDe, valeurSimple } from '../tables';
 import type {
   Aide,
   Donnees,
@@ -61,6 +61,31 @@ function statut(emploi: Emploi): 'emploi' | 'chomage' | 'inactif' | 'retraite' {
   }
 }
 
+const coefficients = new WeakMap<object, Map<string, Map<string, number>>>();
+
+/** Coefficient de dépense de vie par territoire et statut, gardé par table. */
+function coefficientDepense(tables: Tables, territoire: string, statutEmploi: string): number {
+  let parTerritoire = coefficients.get(tables.depensesVie);
+  if (!parTerritoire) {
+    parTerritoire = new Map();
+    coefficients.set(tables.depensesVie, parTerritoire);
+  }
+  let parStatut = parTerritoire.get(territoire);
+  if (!parStatut) {
+    parStatut = new Map();
+    parTerritoire.set(territoire, parStatut);
+  }
+  let coefficient = parStatut.get(statutEmploi);
+  if (coefficient === undefined) {
+    coefficient = valeurDe(tables.depensesVie, { territoire, statut: statutEmploi }, [
+      'territoire',
+      'statut',
+    ]);
+    parStatut.set(statutEmploi, coefficient);
+  }
+  return coefficient;
+}
+
 /**
  * Dépense de vie provisoire : un plancher (part du salaire de référence de la
  * période, selon le territoire et le statut), plus une part des ressources au-delà.
@@ -73,11 +98,11 @@ export function depenseVie(
   tables: Tables,
   ressources: number = personnage.finances.revenuAnnuel,
 ): number {
-  const reference = valeurDe(tables.salaireReference, { periode: periodeDe(annee) }, ['periode']);
-  const coefficient = valeurDe(
-    tables.depensesVie,
-    { territoire: personnage.etats.residence.territoire, statut: statut(personnage.etats.emploi) },
-    ['territoire', 'statut'],
+  const reference = valeurSimple(tables.salaireReference, 'periode', periodeDe(annee));
+  const coefficient = coefficientDepense(
+    tables,
+    personnage.etats.residence.territoire,
+    statut(personnage.etats.emploi),
   );
   const plancher = coefficient * reference;
   if (ressources < plancher) {

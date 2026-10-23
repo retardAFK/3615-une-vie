@@ -3,10 +3,17 @@
 
 import type { Conditions, LigneValeur, LigneValeurs, Table } from './types';
 
-/** Période décennale d'une année : 1987 → « 1980-1989 ». */
+const periodes = new Map<number, string>();
+
+/** Période décennale d'une année : 1987 → « 1980-1989 » (chaîne construite une fois). */
 export function periodeDe(annee: number): string {
-  const debut = Math.floor(annee / 10) * 10;
-  return `${debut}-${debut + 9}`;
+  let periode = periodes.get(annee);
+  if (periode === undefined) {
+    const debut = Math.floor(annee / 10) * 10;
+    periode = `${debut}-${debut + 9}`;
+    periodes.set(annee, periode);
+  }
+  return periode;
 }
 
 function memesConditions(a: Conditions, b: Conditions): boolean {
@@ -84,6 +91,31 @@ export function valeurDe(
   ordreRepli?: readonly string[],
 ): number {
   return chercherLigne(table, conditions, ordreRepli).valeur;
+}
+
+const simples = new WeakMap<object, Map<string, Map<string, number>>>();
+
+/**
+ * valeurDe pour une seule condition, avec repli vers la ligne sans condition : le
+ * résultat est gardé par table, champ et valeur (recherches annuelles des modules).
+ */
+export function valeurSimple(table: Table<LigneValeur>, champ: string, valeur: string): number {
+  let parChamp = simples.get(table);
+  if (!parChamp) {
+    parChamp = new Map();
+    simples.set(table, parChamp);
+  }
+  let parValeur = parChamp.get(champ);
+  if (!parValeur) {
+    parValeur = new Map();
+    parChamp.set(champ, parValeur);
+  }
+  let resultat = parValeur.get(valeur);
+  if (resultat === undefined) {
+    resultat = valeurDe(table, { [champ]: valeur }, [champ]);
+    parValeur.set(valeur, resultat);
+  }
+  return resultat;
 }
 
 const parametresFixes = new WeakMap<object, Readonly<Record<string, number>>>();

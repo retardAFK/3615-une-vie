@@ -11,6 +11,11 @@ const DERNIERE_ANNEE = 2130;
 
 const actives = new WeakMap<readonly EntreeContexte[], EntreeContexte[][]>();
 const nouvelles = new WeakMap<readonly EntreeContexte[], EntreeContexte[][]>();
+/** Par année, les entrées actives qui portent un multiplicateur, rangées par tag visé. */
+const multiplicateursParAnnee = new WeakMap<
+  readonly EntreeContexte[],
+  Map<string, EntreeContexte[]>[]
+>();
 
 function indexer(contexte: readonly EntreeContexte[]): void {
   const parAnnee: EntreeContexte[][] = [];
@@ -29,6 +34,19 @@ function indexer(contexte: readonly EntreeContexte[]): void {
   }
   actives.set(contexte, parAnnee);
   nouvelles.set(contexte, parDebut);
+  multiplicateursParAnnee.set(
+    contexte,
+    parAnnee.map((entrees) => {
+      const parTag = new Map<string, EntreeContexte[]>();
+      for (const entree of entrees) {
+        for (const tag in entree.multiplicateurs ?? {}) {
+          if (!parTag.has(tag)) parTag.set(tag, []);
+          parTag.get(tag)!.push(entree);
+        }
+      }
+      return parTag;
+    }),
+  );
 }
 
 const AUCUNE: readonly EntreeContexte[] = [];
@@ -61,13 +79,16 @@ export function multiplicateurContexte(
   annee: number,
   tag: string,
 ): number {
-  if (!tagsDuContexte(donnees.contexte).has(tag)) return 1;
+  const { contexte } = donnees;
+  if (!tagsDuContexte(contexte).has(tag)) return 1;
+  if (!multiplicateursParAnnee.has(contexte)) indexer(contexte);
+  const entrees = multiplicateursParAnnee.get(contexte)![annee - PREMIERE_ANNEE]?.get(tag);
+  if (!entrees) return 1;
   let m = 1;
-  for (const entree of contexteActif(donnees.contexte, annee)) {
-    const facteur = entree.multiplicateurs?.[tag];
-    if (facteur === undefined) continue;
+  for (let i = 0; i < entrees.length; i++) {
+    const entree = entrees[i]!;
     if (entree.profil && !remplitConditions(personnage, entree.profil)) continue;
-    m *= facteur;
+    m *= entree.multiplicateurs![tag]!;
   }
   return m;
 }

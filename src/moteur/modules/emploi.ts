@@ -10,7 +10,7 @@ import {
   sousGenerateurHache,
   tirerPondere,
 } from '../rng';
-import { chercherLigne, parametre, periodeDe, valeurDe } from '../tables';
+import { chercherLigne, parametre, periodeDe, valeurSimple } from '../tables';
 import type {
   DiplomeJoueur,
   Donnees,
@@ -87,10 +87,10 @@ export function salaireAnnuel(personnage: Personnage, annee: number, tables: Tab
   const { travail, education, emploi } = personnage.etats;
   const { origine } = personnage;
   const grille =
-    valeurDe(tables.salaireReference, { periode: periodeDe(annee) }, ['periode']) *
-    valeurDe(tables.coefficientPcs, { pcs: travail.pcs ?? 'employe' }, ['pcs']) *
-    valeurDe(tables.coefficientDiplome, { diplome: education.diplome }, ['diplome']) *
-    valeurDe(tables.coefficientRegion, { region: personnage.etats.residence.region }, ['region']);
+    valeurSimple(tables.salaireReference, 'periode', periodeDe(annee)) *
+    valeurSimple(tables.coefficientPcs, 'pcs', travail.pcs ?? 'employe') *
+    valeurSimple(tables.coefficientDiplome, 'diplome', education.diplome) *
+    valeurSimple(tables.coefficientRegion, 'region', personnage.etats.residence.region);
   const courbe = chercherLigne(tables.courbeAnciennete, {}, []).parAnnee;
   const anciennete = courbe[Math.min(travail.anciennete, courbe.length - 1)] ?? 1;
   const ecart = origine.sexe === 'femme' ? parametre(tables.parametresEmploi, 'ecartSexe') : 0;
