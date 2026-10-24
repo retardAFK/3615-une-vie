@@ -1,0 +1,96 @@
+﻿"FOR2 - Population non scolarisée de 15 ans ou plus par sexe, âge et diplôme le plus élevé en 2022"
+"France entière"
+"© Insee"
+
+
+"FOR2 - Âge regroupé - Sexe : Ensemble"
+"Âge";"Aucun diplôme ou certificat d'études primaires";"BEPC, brevet des collèges, DNB";"CAP, BEP ou équivalent";"Baccalauréat, brevet professionnel ou équivalent";"Diplôme de l'enseignement supérieur de niveau bac + 2";"Diplôme de l'enseignement supérieur de niveau bac + 3 ou bac + 4";"Diplôme de l'enseignement supérieur de niveau bac + 5 ou plus";"Ensemble";
+"15 à 19 ans";"126260";"90701";"94097";"172473";"4080";"1270";"814";"489694";
+"20 à 24 ans";"241819";"109696";"379415";"800398";"319000";"246532";"177946";"2274805";
+"25 à 39 ans";"1070462";"356763";"2059162";"2493229";"1643230";"1546370";"2445932";"11615148";
+"40 à 54 ans";"1598005";"428952";"3119400";"2420686";"1993438";"1623521";"1770152";"12954153";
+"55 à 64 ans";"1585776";"538009";"2804869";"1311850";"877990";"687474";"755715";"8561682";
+"65 ans ou plus";"5302063";"1095875";"3428777";"1696149";"826577";"855617";"863775";"14068834";
+"Ensemble";"9924384";"2619996";"11885720";"8894785";"5664315";"4960783";"6014333";"49964316";
+
+"Source : Insee, RP2022 exploitation principale, géographie au 01/01/2025."
+
+
+"FOR2 - Âge regroupé - Sexe : Hommes"
+"Âge";"Aucun diplôme ou certificat d'études primaires";"BEPC, brevet des collèges, DNB";"CAP, BEP ou équivalent";"Baccalauréat, brevet professionnel ou équivalent";"Diplôme de l'enseignement supérieur de niveau bac + 2";"Diplôme de l'enseignement supérieur de niveau bac + 3 ou bac + 4";"Diplôme de l'enseignement supérieur de niveau bac + 5 ou plus";"Ensemble";
+"15 à 19 ans";"79988";"51421";"60729";"94045";"2040";"665";"434";"289320";
+"20 à 24 ans";"149126";"65744";"237761";"440119";"169291";"100723";"79701";"1242464";
+"25 à 39 ans";"597028";"190807";"1202844";"1265490";"748433";"599857";"1126963";"5731422";
+"40 à 54 ans";"828629";"206806";"1778745";"1153521";"911871";"614044";"897445";"6391061";
+"55 à 64 ans";"737786";"213032";"1560301";"540013";"386812";"269170";"428721";"4135835";
+"65 ans ou plus";"1933920";"360648";"1799115";"704247";"352059";"372844";"562542";"6085375";
+"Ensemble";"4326478";"1088457";"6639494";"4197435";"2570507";"1957303";"3095806";"23875479";
+
+"Source : Insee, RP2022 exploitation principale, géographie au 01/01/2025."
+
+
+"FOR2 - Âge regroupé - Sexe : Femmes"
+"Âge";"Aucun diplôme ou certificat d'études primaires";"BEPC, brevet des collèges, DNB";"CAP, BEP ou équivalent";"Baccalauréat, brevet professionnel ou équivalent";"Diplôme de l'enseignement supérieur de niveau bac + 2";"Diplôme de l'enseignement supérieur de niveau bac + 3 ou bac + 4";"Diplôme de l'enseignement supérieur de niveau bac + 5 ou plus";"Ensemble";
+"15 à 19 ans";"46272";"39280";"33369";"78428";"2040";"605";"380";"200373";
+"20 à 24 ans";"92693";"43952";"141654";"360279";"149709";"145809";"98245";"1032341";
+"25 à 39 ans";"473433";"165956";"856318";"1227739";"894797";"946513";"1318969";"5883725";
+"40 à 54 ans";"769376";"222146";"1340655";"1267165";"1081567";"1009477";"872706";"6563091";
+"55 à 64 ans";"847990";"324978";"1244568";"771837";"491178";"418303";"326994";"4425847";
+"65 ans ou plus";"3368143";"735228";"1629662";"991902";"474518";"482773";"301233";"7983459";
+"Ensemble";"5597906";"1531539";"5246226";"4697351";"3093808";"3003480";"2918526";"26088837";
+
+"Source : Insee, RP2022 exploitation principale, géographie au 01/01/2025."
+
+
+"FOR2 - Âge quinquennal - Sexe : Ensemble"
+"Âge";"Aucun diplôme ou certificat d'études primaires";"BEPC, brevet des collèges, DNB";"CAP, BEP ou équivalent";"Baccalauréat, brevet professionnel ou équivalent";"Diplôme de l'enseignement supérieur de niveau bac + 2";"Diplôme de l'enseignement supérieur de niveau bac + 3 ou bac + 4";"Diplôme de l'enseignement supérieur de niveau bac + 5 ou plus";"Ensemble";
+"15 à 19 ans";"126260";"90701";"94097";"172473";"4080";"1270";"814";"489694";
+"20 à 24 ans";"241819";"109696";"379415";"800398";"319000";"246532";"177946";"2274805";
+"25 à 29 ans";"299022";"103088";"543809";"814498";"446589";"469965";"800836";"3477807";
+"30 à 34 ans";"359872";"121887";"724645";"827791";"549067";"523635";"872244";"3979141";
+"35 à 39 ans";"411568";"131788";"790708";"850941";"647574";"552769";"772852";"4158200";
+"40 à 44 ans";"439825";"127418";"807246";"853688";"708060";"573934";"672893";"4183064";
+"45 à 49 ans";"520549";"136603";"975128";"828236";"686816";"569584";"592015";"4308931";
+"50 à 54 ans";"637630";"164930";"1337026";"738762";"598562";"480003";"505244";"4462157";
+"55 à 59 ans";"735485";"238470";"1476129";"683238";"482953";"371331";"408872";"4396479";
+"60 à 64 ans";"850291";"299539";"1328740";"628611";"395037";"316142";"346842";"4165203";
+"65 ans ou plus";"5302063";"1095875";"3428777";"1696149";"826577";"855617";"863775";"14068834";
+"Ensemble";"9924384";"2619996";"11885720";"8894785";"5664315";"4960783";"6014333";"49964316";
+
+"Source : Insee, RP2022 exploitation principale, géographie au 01/01/2025."
+
+
+"FOR2 - Âge quinquennal - Sexe : Hommes"
+"Âge";"Aucun diplôme ou certificat d'études primaires";"BEPC, brevet des collèges, DNB";"CAP, BEP ou équivalent";"Baccalauréat, brevet professionnel ou équivalent";"Diplôme de l'enseignement supérieur de niveau bac + 2";"Diplôme de l'enseignement supérieur de niveau bac + 3 ou bac + 4";"Diplôme de l'enseignement supérieur de niveau bac + 5 ou plus";"Ensemble";
+"15 à 19 ans";"79988";"51421";"60729";"94045";"2040";"665";"434";"289320";
+"20 à 24 ans";"149126";"65744";"237761";"440119";"169291";"100723";"79701";"1242464";
+"25 à 29 ans";"172633";"57345";"316601";"425603";"214708";"187119";"362488";"1736496";
+"30 à 34 ans";"200087";"65049";"419865";"416537";"248592";"205394";"401363";"1956887";
+"35 à 39 ans";"224308";"68413";"466378";"423351";"285133";"207344";"363113";"2038040";
+"40 à 44 ans";"234679";"65320";"476789";"422958";"318732";"211544";"329412";"2059434";
+"45 à 49 ans";"270142";"67046";"559879";"401933";"318984";"216503";"300292";"2134779";
+"50 à 54 ans";"323808";"74440";"742077";"328629";"274156";"185997";"267742";"2196849";
+"55 à 59 ans";"354875";"96765";"822858";"281520";"214794";"143835";"226572";"2141218";
+"60 à 64 ans";"382911";"116267";"737443";"258494";"172018";"125335";"202149";"1994617";
+"65 ans ou plus";"1933920";"360648";"1799115";"704247";"352059";"372844";"562542";"6085375";
+"Ensemble";"4326478";"1088457";"6639494";"4197435";"2570507";"1957303";"3095806";"23875479";
+
+"Source : Insee, RP2022 exploitation principale, géographie au 01/01/2025."
+
+
+"FOR2 - Âge quinquennal - Sexe : Femmes"
+"Âge";"Aucun diplôme ou certificat d'études primaires";"BEPC, brevet des collèges, DNB";"CAP, BEP ou équivalent";"Baccalauréat, brevet professionnel ou équivalent";"Diplôme de l'enseignement supérieur de niveau bac + 2";"Diplôme de l'enseignement supérieur de niveau bac + 3 ou bac + 4";"Diplôme de l'enseignement supérieur de niveau bac + 5 ou plus";"Ensemble";
+"15 à 19 ans";"46272";"39280";"33369";"78428";"2040";"605";"380";"200373";
+"20 à 24 ans";"92693";"43952";"141654";"360279";"149709";"145809";"98245";"1032341";
+"25 à 29 ans";"126389";"45743";"227208";"388895";"231881";"282846";"438349";"1741311";
+"30 à 34 ans";"159785";"56838";"304780";"411254";"300475";"318242";"470881";"2022254";
+"35 à 39 ans";"187260";"63375";"324330";"427590";"362441";"345425";"409739";"2120160";
+"40 à 44 ans";"205146";"62098";"330457";"430730";"389328";"362390";"343481";"2123631";
+"45 à 49 ans";"250407";"69557";"415249";"426303";"367832";"353081";"291723";"2174152";
+"50 à 54 ans";"313822";"90491";"594949";"410133";"324406";"294006";"237502";"2265309";
+"55 à 59 ans";"380611";"141706";"653271";"401719";"268159";"227496";"182300";"2255261";
+"60 à 64 ans";"467379";"183272";"591297";"370118";"223019";"190807";"144693";"2170586";
+"65 ans ou plus";"3368143";"735228";"1629662";"991902";"474518";"482773";"301233";"7983459";
+"Ensemble";"5597906";"1531539";"5246226";"4697351";"3093808";"3003480";"2918526";"26088837";
+
+"Source : Insee, RP2022 exploitation principale, géographie au 01/01/2025."

@@ -187,6 +187,8 @@ La scolarité est une suite de paliers, chacun tiré selon la facilité, l'origi
 - Le diplôme final fixe le niveau de **competences** de départ et la grille de salaire (section 6).
 - Le décrochage ouvre l'accès à des événements spécifiques (petits boulots, fréquentations à risque) et augmente l'exposition aux addictions.
 - Années de naissance anciennes : moins de bacheliers, entrée plus précoce dans le travail.
+- Tout bachelier, professionnel compris, passe par l'orientation après le bac.
+- Les tables d'éducation donnent les écarts selon l'origine ; une correction par génération (`calibrageEducation`), calibrée par simulation, ramène chaque génération à ses diplômes réels : retard à l'entrée au collège, bacheliers de chaque série (DEPP), sans diplôme, diplômés du supérieur et bac+5 parmi les bacheliers (recensement).
 
 ## 6. Module emploi et revenus
 

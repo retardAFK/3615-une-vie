@@ -33,7 +33,7 @@ Node 24 (voir `.nvmrc`).
 - `npm run format` : formate le code avec Prettier
 - `npm run check` : vérification des types (svelte-check, avertissements bloquants)
 - `npm run perf` : banc d'essai du moteur (une vie en moins de 5 ms, 1 000 vies en moins de 1 s)
-- `npm run data` : régénère les tables JSON à partir de `data/brut/` (sources dans `data/brut/SOURCES.md`), puis calibre par simulation la correction de mortalité et le facteur de fécondité (environ une minute)
+- `npm run data` : régénère les tables JSON à partir de `data/brut/` (sources dans `data/brut/SOURCES.md`), puis calibre par simulation l'éducation (`calibrer-education.ts`), puis la mortalité, la fécondité, le logement et le budget (`calibrer.ts`) (quelques minutes)
 
 ## Principes non négociables
 
