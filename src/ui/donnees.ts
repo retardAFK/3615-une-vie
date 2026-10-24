@@ -39,6 +39,7 @@ export const NOMS_TABLES: readonly (keyof Tables)[] = [
   'mortalite',
   'correctionMortalite',
   'obligationScolaire',
+  'calibrageEducation',
   'redoublement',
   'voieFin3e',
   'decrochage',

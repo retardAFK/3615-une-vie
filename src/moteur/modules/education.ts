@@ -13,7 +13,7 @@ import { distributionCorrigee, multiplicateurTrait, probabiliteFinale } from '..
 import { multiplicateursTag } from '../evenements';
 import { regleEnVigueur } from './contexte';
 import { hachageSuffixe, sousGenerateur, tirageHache, tirerPondere } from '../rng';
-import { chercherLigne, periodeDe, valeurDe } from '../tables';
+import { chercherLigne, parametre, periodeDe, valeurDe } from '../tables';
 import type {
   DiplomeJoueur,
   Donnees,
@@ -86,6 +86,22 @@ function tags(t: Tirage, tag: string): number[] {
   return multiplicateursTag(t.etat, tag, t.suivant, t.donnees);
 }
 
+/** Âge de la fin de 3e : la génération est repérée par la décennie de cet âge. */
+const AGE_GENERATION = 15;
+
+/**
+ * Correction calibrée de la génération (calibrer-education.ts) : elle relie les tables
+ * provisoires aux diplômes réels de chaque génération, quelle que soit l'année du palier.
+ */
+function correction(t: Tirage, nom: string): number {
+  return parametre(
+    t.donnees.tables.calibrageEducation,
+    nom,
+    { periode: periodeDe(t.etat.personnage.origine.anneeNaissance + AGE_GENERATION) },
+    ['periode'],
+  );
+}
+
 function trait(t: Tirage, nom: keyof Personnage['traits'], k: number): number {
   return multiplicateurTrait(t.etat.personnage.traits[nom], k);
 }
@@ -133,6 +149,7 @@ function redouble(t: Tirage): boolean {
   });
   const santeFragile = personnage.origine.santeNaissance === 'normale' ? [] : [1.5];
   return tirer(t, 'redoublement', p, [
+    correction(t, 'redoublement'),
     trait(t, 'facilite', -0.8),
     ...santeFragile,
     ...tags(t, 'redoublement'),
@@ -166,6 +183,7 @@ function orienterFin3e(t: Tirage): Voie {
     sortie: -0.8,
   };
   const corrigee = distributionCorrigee(base, (voie) => [
+    correction(t, voie),
     trait(t, 'facilite', k[voie]),
     ...(voie === 'generale' && retard > 0 ? [0.5 ** retard] : []),
     ...tags(t, `voie_${voie}`),
@@ -182,15 +200,17 @@ function orienterPostBac(t: Tirage, diplome: DiplomeJoueur): Filiere {
   );
   const k: Partial<Record<Filiere, number>> = { prepa: 1, ecole: 0.6, universite: 0.3 };
   const corrigee = distributionCorrigee(distribution as Record<Filiere, number>, (filiere) => [
+    ...(filiere === 'emploi_direct' ? [correction(t, 'freinSuperieur')] : []),
     trait(t, 'facilite', k[filiere] ?? 0),
     ...tags(t, `filiere_${filiere}`),
   ]);
   return tirerPondere(sousGenerateur(t.etat.graine, personnage.age, 'education.filiere'), corrigee);
 }
 
-function reussit(t: Tirage, formation: string): boolean {
+function reussit(t: Tirage, formation: string, superieur = false): boolean {
   const p = valeurDe(t.donnees.tables.reussiteDiplome, { formation });
   return tirer(t, 'examen', p, [
+    ...(superieur ? [1 / correction(t, 'freinSuperieur')] : []),
     trait(t, 'facilite', 0.8),
     multiplicateurTrait(t.etat.personnage.jauges.santeMentale, 0.3),
     ...tags(t, 'reussite_scolaire'),
@@ -239,9 +259,7 @@ function lycee(t: Tirage, personnage: Personnage): Personnage {
   if (ed.finPalier === null || t.suivant < ed.finPalier) return personnage;
   if (reussit(t, voie)) {
     const diplome = diplomeLycee(voie, t.etat.annee, t.donnees);
-    return diplome === 'cap_bep' || diplome === 'bac_pro'
-      ? sortie(personnage, diplome)
-      : apresBac(t, personnage, diplome);
+    return diplome === 'cap_bep' ? sortie(personnage, diplome) : apresBac(t, personnage, diplome);
   }
   if (ed.retard < RETARD_MAXIMAL) {
     return avecEducation(personnage, { retard: ed.retard + 1, finPalier: ed.finPalier + 1 });
@@ -253,11 +271,13 @@ function superieur(t: Tirage, personnage: Personnage): Personnage {
   const { tables } = t.donnees;
   const ed = personnage.etats.education;
   const filiere = ed.filiere ?? 'universite';
-  if (tirer(t, 'abandon', valeurDe(tables.abandonSup, { filiere }), [])) {
+  if (
+    tirer(t, 'abandon', valeurDe(tables.abandonSup, { filiere }), [correction(t, 'freinSuperieur')])
+  ) {
     return sortie(personnage, ed.diplome);
   }
   if (ed.finPalier === null || t.suivant < ed.finPalier) return personnage;
-  const succes = reussit(t, filiere);
+  const succes = reussit(t, filiere, true);
   switch (filiere) {
     case 'universite': {
       if (!succes) return sortie(personnage, ed.diplome);
@@ -265,6 +285,7 @@ function superieur(t: Tirage, personnage: Personnage): Personnage {
         pcsParents: personnage.origine.pcsParents,
       });
       const poursuit = tirer(t, 'master', pMaster, [
+        correction(t, 'master'),
         trait(t, 'ambition', 0.7),
         ...tags(t, 'filiere_master'),
       ]);

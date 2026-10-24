@@ -121,6 +121,78 @@ describe('education', () => {
     };
     expect(part(true)).toBeGreaterThan(part(false) + 0.1);
   });
+
+  it('applique la correction calibree de la generation, quelle que soit l annee du palier', () => {
+    const avecRedoublement = (decennie: string): Donnees => {
+      const calibrage = TABLES_IMMORTELS.calibrageEducation;
+      return donneesAvec([], {
+        ...TABLES_IMMORTELS,
+        calibrageEducation: {
+          ...calibrage,
+          lignes: calibrage.lignes.map((l) =>
+            l.conditions.periode === decennie
+              ? { ...l, valeurs: { ...l.valeurs, redoublement: 40 } }
+              : l,
+          ),
+        },
+      });
+    };
+    // Nés en 1970 : 15 ans en 1985. Le primaire (1976-1981) se joue pourtant dans d'autres
+    // décennies : seule la correction de la génération compte.
+    const partEnRetard = (donnees: Donnees): number => {
+      let enRetard = 0;
+      for (let i = 0; i < 200; i++) {
+        const etat = jusqua(12, `generation-${i}`, donnees, 1970);
+        if (etat.personnage.etats.education.retard > 0) enRetard++;
+      }
+      return enRetard / 200;
+    };
+    expect(partEnRetard(avecRedoublement('1980-1989'))).toBeGreaterThan(
+      partEnRetard(avecRedoublement('1970-1979')) + 0.2,
+    );
+  });
+
+  it('ouvre le superieur aux bacheliers professionnels', () => {
+    const tables = {
+      ...TABLES_IMMORTELS,
+      reussiteDiplome: {
+        ...TABLES_IMMORTELS.reussiteDiplome,
+        lignes: [{ conditions: {}, valeur: 1 }],
+      },
+      decrochage: { ...TABLES_IMMORTELS.decrochage, lignes: [{ conditions: {}, valeur: 0 }] },
+      orientationPostBac: {
+        ...TABLES_IMMORTELS.orientationPostBac,
+        lignes: [
+          {
+            conditions: {},
+            distribution: { universite: 0, prepa: 0, ecole: 0, bts_but: 1, emploi_direct: 0 },
+          },
+        ],
+      },
+    };
+    const donnees = donneesAvec([], tables);
+    const etat = jusqua(17, 'bac-pro', donnees, 1995);
+    const auLycee: EtatPartie = {
+      ...etat,
+      personnage: {
+        ...etat.personnage,
+        etats: {
+          ...etat.personnage.etats,
+          scolarite: 'lycee',
+          education: {
+            ...etat.personnage.etats.education,
+            voie: 'professionnelle',
+            filiere: null,
+            diplome: 'aucun',
+            finPalier: etat.personnage.age + 1,
+          },
+        },
+      },
+    };
+    const apres = evoluerEducation(auLycee, donnees);
+    expect(apres.etats.scolarite).toBe('superieur');
+    expect(apres.etats.education).toMatchObject({ diplome: 'bac_pro', filiere: 'bts_but' });
+  });
 });
 
 describe('emploi', () => {

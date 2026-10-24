@@ -211,6 +211,18 @@
       }
     },
     {
+      "conditions": {
+        "diplome": "bac_pro"
+      },
+      "distribution": {
+        "universite": 0.08,
+        "prepa": 0,
+        "ecole": 0.02,
+        "bts_but": 0.3,
+        "emploi_direct": 0.6
+      }
+    },
+    {
       "conditions": {},
       "distribution": {
         "universite": 0.5,

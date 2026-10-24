@@ -860,6 +860,8 @@ export interface Tables {
   correctionMortalite: Table<LigneCourbe>;
   // Éducation
   obligationScolaire: TableValeur;
+  /** Multiplicateurs de cotes par décennie, calibrés sur les diplômes réels. */
+  calibrageEducation: TableValeurs;
   redoublement: TableValeur;
   voieFin3e: TableDistribution;
   decrochage: TableValeur;
